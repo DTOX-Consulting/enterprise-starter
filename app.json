@@ -1,0 +1,10 @@
+{
+  "name": "t3-stack",
+  "options": {
+    "cpu": "1",
+    "port": 3000,
+    "http2": false,
+    "memory": "256Mi",
+    "allow-unauthenticated": true
+  }
+}

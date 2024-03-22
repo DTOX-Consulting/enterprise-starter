@@ -1,0 +1,28 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["github>renovatebot/.github"],
+  "assignees": [],
+  "enabled": true,
+  "prHourlyLimit": 2,
+  "automerge": false,
+  "automergeType": "pr",
+  "prCreation": "immediate",
+  "rebaseWhen": "conflicted",
+  "timezone": "Europe/Paris",
+  "dependencyDashboard": true,
+  "semanticCommits": "disabled",
+  "minimumReleaseAge": "14 days",
+  "additionalBranchPrefix": "{{parentDir}}-",
+  "includePaths": ["*"],
+  "baseBranches": ["main"],
+  "addLabels": ["dependencies"],
+  "enabledManagers": ["npm", "dockerfile", "github-actions"],
+  "constraints": {
+    "pnpm": "8.10.3",
+    "yarn": "1.22.19",
+    "node": "18.18.2"
+  },
+  "dockerfile": {
+    "semanticCommitType": "build"
+  }
+}
