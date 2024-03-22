@@ -1,41 +1,19 @@
 {
-  "projectName": "next-enterprise",
-  "projectOwner": "Blazity",
+  "projectName": "enterprise-starter",
+  "projectOwner": "DTOX-Consulting",
   "repoType": "github",
   "repoHost": "https://github.com",
-  "files": [
-    "README.md"
-  ],
-  "imageSize": 100,
+  "files": ["README.md"],
   "commit": true,
+  "imageSize": 100,
   "commitConvention": "angular",
   "contributors": [
     {
-      "login": "bmstefanski",
-      "name": "Bart Stefanski",
-      "avatar_url": "https://avatars.githubusercontent.com/u/28964599?v=4",
-      "profile": "https://bstefanski.com/",
-      "contributions": [
-        "code"
-      ]
-    },
-    {
-      "login": "jjablonski-it",
-      "name": "Jakub Jabłoński",
-      "avatar_url": "https://avatars.githubusercontent.com/u/51968772?v=4",
-      "profile": "https://github.com/jjablonski-it",
-      "contributions": [
-        "infra"
-      ]
-    },
-    {
-      "login": "neg4n",
-      "name": "Igor Klepacki",
-      "avatar_url": "https://avatars.githubusercontent.com/u/57688858?v=4",
-      "profile": "https://neg4n.dev/",
-      "contributions": [
-        "doc"
-      ]
+      "login": "devotox",
+      "name": "Devonte Emokpae",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2064846?v=4",
+      "profile": "https://www.d2tech-studio.com/about",
+      "contributions": ["code"]
     }
   ],
   "contributorsPerLine": 7,

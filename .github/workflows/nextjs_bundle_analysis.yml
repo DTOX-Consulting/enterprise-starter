@@ -1,4 +1,4 @@
-name: "Next.js Bundle Analysis"
+name: 'Next.js Bundle Analysis'
 
 on:
   push:
@@ -27,10 +27,14 @@ jobs:
       - name: Set up node
         uses: actions/setup-node@v3
         with:
-          node-version: "18.x"
-
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
+          node-version: '18.x'
+      - name: Setup Volta
+        uses: volta-cli/action@v4
+      - name: Install Dependencies
+        uses: pnpm/action-setup@v2.4.0
+        with:
+          run_install: |
+            - args: [--frozen-lockfile, --strict-peer-dependencies]
 
       - name: Restore next build
         uses: actions/cache@v3
@@ -46,7 +50,7 @@ jobs:
         env:
           SKIP_BUILD_PRODUCT_REDIRECTS: 1
         # change this if your site requires a custom build command
-        run: yarn build
+        run: pnpm build
 
       # Here's the first place where next-bundle-analysis' own script is used
       # This step pulls the raw bundle stats for the current bundle
@@ -101,7 +105,7 @@ jobs:
         id: fc
         with:
           issue-number: ${{ github.event.number }}
-          body-includes: "<!-- __NEXTJS_BUNDLE -->"
+          body-includes: '<!-- __NEXTJS_BUNDLE -->'
 
       - name: Create Comment
         uses: peter-evans/create-or-update-comment@v3

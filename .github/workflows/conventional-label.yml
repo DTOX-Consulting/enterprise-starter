@@ -1,0 +1,12 @@
+name: conventional-release-labels
+
+on:
+  pull_request:
+    types: [opened, edited]
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Conventional Release Labels
+        uses: bcoe/conventional-release-labels@v1
