@@ -163,7 +163,7 @@
     "rxjs": "7.8.1",
     "safe-stable-stringify": "2.4.3",
     "serialize-error": "11.0.3",
-    "sharp": "0.31.3",
+    "sharp": "0.32.6",
     "shiki": "0.11.1",
     "stripe": "14.22.0",
     "superjson": "2.2.1",
