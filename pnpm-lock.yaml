@@ -292,7 +292,7 @@ dependencies:
     version: 14.0.3(@babel/core@7.23.3)(@opentelemetry/api@1.7.0)(react-dom@18.2.0)(react@18.2.0)
   next-auth:
     specifier: 4.24.7
-    version: 4.24.7(next@14.0.3)(nodemailer@6.9.1)(react-dom@18.2.0)(react@18.2.0)
+    version: 4.24.7(next@14.0.3)(nodemailer@6.9.9)(react-dom@18.2.0)(react@18.2.0)
   next-compose-plugins:
     specifier: 2.2.1
     version: 2.2.1
@@ -312,8 +312,8 @@ dependencies:
     specifier: 0.2.1
     version: 0.2.1(next@14.0.3)(react-dom@18.2.0)(react@18.2.0)
   nodemailer:
-    specifier: 6.9.1
-    version: 6.9.1
+    specifier: 6.9.9
+    version: 6.9.9
   novel:
     specifier: 0.2.13
     version: 0.2.13(@types/react@18.2.38)(immer@10.0.4)(react-dom@18.2.0)(react@18.2.0)
@@ -4201,7 +4201,7 @@ packages:
       next-auth: ^4
     dependencies:
       '@prisma/client': 4.16.2(prisma@4.16.2)
-      next-auth: 4.24.7(next@14.0.3)(nodemailer@6.9.1)(react-dom@18.2.0)(react@18.2.0)
+      next-auth: 4.24.7(next@14.0.3)(nodemailer@6.9.9)(react-dom@18.2.0)(react@18.2.0)
     dev: false
 
   /@next/bundle-analyzer@14.0.3:
@@ -20725,7 +20725,7 @@ packages:
     engines: {node: '>= 0.4.0'}
     dev: false
 
-  /next-auth@4.24.7(next@14.0.3)(nodemailer@6.9.1)(react-dom@18.2.0)(react@18.2.0):
+  /next-auth@4.24.7(next@14.0.3)(nodemailer@6.9.9)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-iChjE8ov/1K/z98gdKbn2Jw+2vLgJtVV39X+rCP5SGnVQuco7QOr19FRNGMIrD8d3LYhHWV9j9sKLzq1aDWWQQ==}
     peerDependencies:
       next: ^12.2.5 || ^13 || ^14
@@ -20741,7 +20741,7 @@ packages:
       cookie: 0.5.0
       jose: 4.15.5
       next: 14.0.3(@babel/core@7.23.3)(@opentelemetry/api@1.7.0)(react-dom@18.2.0)(react@18.2.0)
-      nodemailer: 6.9.1
+      nodemailer: 6.9.9
       oauth: 0.9.15
       openid-client: 5.6.5
       preact: 10.20.0
@@ -21046,8 +21046,8 @@ packages:
   /node-releases@2.0.14:
     resolution: {integrity: sha512-y10wOWt8yZpqXmOgRo77WaHEmhYQYGNA6y421PKsKYWEK8aW+cqAphborZDhqfyKrbZEN92CN1X2KbafY2s7Yw==}
 
-  /nodemailer@6.9.1:
-    resolution: {integrity: sha512-qHw7dOiU5UKNnQpXktdgQ1d3OFgRAekuvbJLcdG5dnEo/GtcTHRYM7+UfJARdOFU9WUQO8OiIamgWPmiSFHYAA==}
+  /nodemailer@6.9.9:
+    resolution: {integrity: sha512-dexTll8zqQoVJEZPwQAKzxxtFn0qTnjdQTchoU6Re9BUUGBJiOy3YMn/0ShTW6J5M0dfQ1NeDeRTTl4oIWgQMA==}
     engines: {node: '>=6.0.0'}
     dev: false
 
