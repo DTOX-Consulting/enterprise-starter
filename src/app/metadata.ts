@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 
 export const name = 'Your Company Name';
-export const shortName = 'YourShortName';
+export const shortName = 'Your Company';
 export const template = `%s | ${name}`;
 
 export const phone = '555-5555-5555';

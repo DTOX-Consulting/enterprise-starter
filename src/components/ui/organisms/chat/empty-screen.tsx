@@ -46,7 +46,9 @@ export function EmptyScreen({ bot, setBot, showBots, setInput, startChat }: Empt
         <h1 className="mb-2 text-lg font-semibold">
           Welcome to {AI_NAME} - {shortName} AI!
         </h1>
-        <p className="mb-6 leading-normal text-muted-foreground">AI-Boost Your Start-Up Success</p>
+        <p className="mb-6 leading-normal text-muted-foreground">
+          Supercharge Your Start-Up Success with AI
+        </p>
 
         {showBots ? (
           <>
