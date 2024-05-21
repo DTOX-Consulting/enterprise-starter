@@ -1,8 +1,9 @@
-import type { User } from '@prisma/client';
-import type { AvatarProps } from '@radix-ui/react-avatar';
+import { UserIcon } from 'lucide-react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/atoms/avatar';
-import { Icons } from '@/components/ui/molecules/icons';
+
+import type { User } from '@prisma/client';
+import type { AvatarProps } from '@radix-ui/react-avatar';
 
 interface UserAvatarProps extends AvatarProps {
   user: Pick<User, 'image' | 'name'>;
@@ -16,7 +17,7 @@ export function UserAvatar({ user, ...props }: UserAvatarProps) {
       ) : (
         <AvatarFallback>
           <span className="sr-only">{user.name}</span>
-          <Icons.user className="size-4" />
+          <UserIcon className="size-4" />
         </AvatarFallback>
       )}
     </Avatar>

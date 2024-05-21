@@ -14,16 +14,7 @@ const config = {
   parserOptions: {
     project: true
   },
-  plugins: [
-    'n',
-    'import',
-    'promise',
-    'prettier',
-    'deprecation',
-    'tailwindcss',
-    '@typescript-eslint',
-    'oxlint'
-  ],
+  plugins: ['n', 'oxlint', 'import', 'promise', 'deprecation', 'tailwindcss', '@typescript-eslint'],
   extends: [
     'next/core-web-vitals',
     'eslint:recommended',
@@ -31,12 +22,12 @@ const config = {
     'plugin:import/typescript',
     'plugin:import/recommended',
     'plugin:promise/recommended',
-    'plugin:prettier/recommended',
     'plugin:storybook/recommended',
     'plugin:tailwindcss/recommended',
     'plugin:eslint-comments/recommended',
     'plugin:@typescript-eslint/stylistic-type-checked',
     'plugin:@typescript-eslint/recommended-type-checked',
+    'plugin:oxlint/recommended',
     'next'
   ],
   env: {
@@ -100,7 +91,6 @@ const config = {
     ],
 
     // ================================================================================ //
-    'prettier/prettier': 'error',
     'tailwindcss/no-custom-classname': 'off',
 
     'eslint-comments/no-unused-disable': 'error',
@@ -144,7 +134,7 @@ const config = {
     'import/no-namespace': 'off',
     'import/no-unresolved': 'error',
     'import/no-duplicates': 'error',
-    'import/no-deprecated': 'error',
+    'import/no-deprecated': 'off',
     'import/no-self-import': 'error',
     'import/no-unused-modules': 'error',
     'import/no-mutable-exports': 'error',
@@ -203,16 +193,20 @@ const config = {
     ]
   },
   overrides: [
+    // {
+    //   plugins: ['vitest'],
+    //   extends: ['plugin:vitest/all'],
+    //   files: ['*.test.{ts,tsx}']
+    // },
     {
-      plugins: ['vitest'],
-      extends: ['plugin:vitest/all'],
-      files: ['*.test.{ts,tsx}']
-    },
-    {
-      files: ['./src/hooks/useSelector/useSelector.ts'],
+      files: ['./src/lib/hooks/use-selector.ts'],
       rules: {
         'import/no-deprecated': 'off'
       }
+    },
+    {
+      files: ['*.ts', '*.js', '*.tsx', '*.jsx'],
+      extends: ['biome']
     }
   ]
 };

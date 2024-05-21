@@ -1,5 +1,6 @@
 module.exports = {
-  upgrade: true,
+  upgrade: false,
+  target: 'minor',
   removeRange: true,
   reject: []
 };

@@ -1,8 +1,6 @@
 import '@/styles/globals.css';
 
 import { GoogleAnalytics } from '@next/third-parties/google';
-import type { Metadata, Viewport } from 'next';
-import { Toaster } from 'react-hot-toast';
 
 import { staticMetaData, staticViewport } from '@/app/metadata';
 import {
@@ -17,9 +15,11 @@ import {
 import { Providers } from '@/components/providers';
 import { Analytics } from '@/components/tools/analytics';
 import { TailwindIndicator } from '@/components/tools/tailwind-indicator';
-import { WebVitals } from '@/components/tools/web-vitals';
-import ScrollToTop from '@/components/ui/organisms/navigation/scroll-to-top';
+import ScrollToTop from '@/components/ui/molecules/scroll-to-top';
+import { Toaster } from '@/components/ui/organisms/toast/toaster';
 import { cn } from '@/lib/utils';
+
+import type { Metadata, Viewport } from 'next';
 
 export const viewport: Viewport = staticViewport;
 export const metadata: Metadata = staticMetaData;
@@ -40,14 +40,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           fontLora.variable
         )}
       >
-        <Toaster />
-        <WebVitals />
         <Providers attribute="class" defaultTheme="system" enableSystem>
           <div className="flex min-h-screen flex-col">{children}</div>
-          <TailwindIndicator />
+          <Toaster />
         </Providers>
         <Analytics />
         <ScrollToTop />
+        <TailwindIndicator />
       </body>
       <GoogleAnalytics gaId="" />
     </html>

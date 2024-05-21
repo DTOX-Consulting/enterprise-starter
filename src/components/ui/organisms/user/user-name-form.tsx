@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import type { User } from '@prisma/client';
+import { Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { type HTMLAttributes, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -17,11 +17,11 @@ import {
 } from '@/components/ui/atoms/card';
 import { Input } from '@/components/ui/atoms/input';
 import { Label } from '@/components/ui/atoms/label';
-import { toast } from '@/components/ui/atoms/use-toast';
-import { Icons } from '@/components/ui/molecules/icons';
+import { toast } from '@/components/ui/organisms/toast/use-toast';
 import { cn } from '@/lib/utils';
 import { userNameSchema } from '@/lib/validations/user';
 
+import type { User } from '@prisma/client';
 import type * as z from 'zod';
 
 interface UserNameFormProps extends HTMLAttributes<HTMLFormElement> {
@@ -94,7 +94,7 @@ export function UserNameForm({ user, className, ...props }: UserNameFormProps) {
         </CardContent>
         <CardFooter>
           <button type="submit" className={cn(buttonVariants(), className)} disabled={isSaving}>
-            {isSaving && <Icons.spinner className="animate-spin mr-2 size-4" />}
+            {isSaving && <Loader2 className="mr-2 size-4 animate-spin" />}
             <span>Save</span>
           </button>
         </CardFooter>

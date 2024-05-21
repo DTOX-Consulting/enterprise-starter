@@ -34,3 +34,5 @@ export const getEnv = (key: string, defaultValue?: string) => {
 
   return value.split(String.raw`\n`).join('\n');
 };
+
+export const cfRuntime = isProd() ? 'edge' : 'node';

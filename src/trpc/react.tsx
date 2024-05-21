@@ -1,7 +1,13 @@
 'use client';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { loggerLink, unstable_httpBatchStreamLink } from '@trpc/client';
+import {
+  httpLink,
+  splitLink,
+  loggerLink,
+  type Operation,
+  unstable_httpBatchStreamLink
+} from '@trpc/client';
 import { createTRPCReact } from '@trpc/react-query';
 import { useState } from 'react';
 
@@ -13,6 +19,18 @@ import type { AppRouter } from '@/trpc/routers';
 export const api = createTRPCReact<AppRouter>();
 
 export function TRPCReactProvider(props: { children: React.ReactNode; headers: Headers }) {
+  const linkCondition = (op: Operation) => op.context.skipBatch === true;
+
+  const linkSetup = {
+    url: getUrl(),
+    headers() {
+      const heads = new Map<string, string>(props.headers);
+      heads.set('x-trpc-source', 'react');
+      heads.delete('cf-connecting-ip');
+      return Object.fromEntries(heads);
+    }
+  };
+
   const [queryClient] = useState(() => new QueryClient());
 
   const [trpcClient] = useState(() =>
@@ -24,13 +42,14 @@ export function TRPCReactProvider(props: { children: React.ReactNode; headers: H
             getEnv('NEXT_PUBLIC_NODE_ENV') === 'development' ||
             (op.direction === 'down' && op.result instanceof Error)
         }),
-        unstable_httpBatchStreamLink({
-          url: getUrl(),
-          headers() {
-            const heads = new Map(props.headers);
-            heads.set('x-trpc-source', 'react');
-            return Object.fromEntries(heads);
-          }
+
+        splitLink({
+          condition: linkCondition,
+          true: httpLink(linkSetup),
+          false: unstable_httpBatchStreamLink({
+            maxURLLength: 2083,
+            ...linkSetup
+          })
         })
       ]
     })

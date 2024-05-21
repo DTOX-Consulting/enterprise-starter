@@ -15,6 +15,11 @@ module.exports = {
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}'
   ],
+  safelist: [
+    {
+      pattern: /^(bottom-)/
+    }
+  ],
   theme: {
     container: {
       center: true,
@@ -36,9 +41,10 @@ module.exports = {
         85: '.85'
       },
       colors: {
-        border: 'hsl(var(--border))',
-        input: 'hsl(var(--input))',
+        pulse: 'hsl(var(--pulse))',
         ring: 'hsl(var(--ring))',
+        input: 'hsl(var(--input))',
+        border: 'hsl(var(--border))',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         primary: {
@@ -120,6 +126,10 @@ module.exports = {
       }
     },
     animation: {
+      bounce: 'bounce 1s infinite',
+      spin: 'spin 1s linear infinite',
+      ping: 'ping 1s cubic-bezier(0, 0, 0.2, 1) infinite',
+      pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
       // Fade up and down
       'fade-up': 'fade-up 0.5s',
       'fade-down': 'fade-down 0.5s',
@@ -130,6 +140,27 @@ module.exports = {
       'accordion-up': 'accordion-up 0.2s ease-out'
     },
     keyframes: {
+      spin: {
+        from: { transform: 'rotate(0deg)' },
+        to: { transform: 'rotate(360deg)' }
+      },
+      bounce: {
+        '0%, 100%': {
+          transform: 'translateY(-25%)',
+          animationTimingFunction: 'cubic-bezier(0.8,0,1,1)'
+        },
+        '50%': {
+          transform: 'translateY(0)',
+          animationTimingFunction: 'cubic-bezier(0,0,0.2,1)'
+        }
+      },
+      ping: {
+        '75%, 100%': { transform: 'scale(2)', opacity: 0 }
+      },
+      pulse: {
+        '0%, 100%': { opacity: 1 },
+        '50%': { opacity: 0.5 }
+      },
       // Fade up and down
       'fade-up': {
         '0%': {

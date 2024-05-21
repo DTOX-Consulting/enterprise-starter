@@ -13,6 +13,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: anc95/ChatGPT-CodeReview@main
+        # https://github.com/anc95/ChatGPT-CodeReview
         env:
+          MODEL: 'gpt-4o'
+          MAX_TOKENS: 100
+          MAX_PATCH_LENGTH: 100
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
           OPENAI_API_KEY: '${{ secrets.OPENAI_API_KEY }}'
+          # PROMPT: Please review the code and provide feedback.

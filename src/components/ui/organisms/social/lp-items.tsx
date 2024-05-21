@@ -40,7 +40,7 @@ export const LP_GRID_ITEMS = [
     )
   },
   {
-    title: 'ESlint & Prettier',
+    title: 'ESlint, Biome, OXC',
     description: 'For clean, consistent, and error-free code.',
     icon: (
       <svg
@@ -96,7 +96,7 @@ export const LP_GRID_ITEMS = [
     )
   },
   {
-    title: 'Jest & React Testing Library',
+    title: 'Vitest & React Testing Library',
     description: 'For rock-solid unit and integration tests.',
     icon: (
       <svg

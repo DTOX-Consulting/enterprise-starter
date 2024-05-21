@@ -1,11 +1,11 @@
 import { useMDXComponent } from 'next-contentlayer/hooks';
-import type * as React from 'react';
 
 import { Callout } from '@/components/ui/molecules/callout';
 import { MdxCard } from '@/components/ui/molecules/mdx-card';
 import { cn } from '@/lib/utils';
 
 import type { MDXComponents } from 'mdx/types';
+import type * as React from 'react';
 
 const components: MDXComponents = {
   h1: ({ className, ...props }) => (

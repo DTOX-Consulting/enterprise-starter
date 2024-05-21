@@ -5,8 +5,6 @@ const { sharedRules } = require('./shared_eslint_rules');
  * @type {import('eslint').Linter.Config}
  * */
 const extendedRules = {
-  'prettier/prettier': 'error',
-
   'regex/invalid': ['error', [...sharedRules['regex/invalid']]],
 
   'jsdoc/no-types': 'error',
@@ -106,45 +104,7 @@ const extendedRules = {
       warnOnUnassignedImports: true,
       pathGroupsExcludedImportTypes: ['builtin'],
       alphabetize: { order: 'asc', caseInsensitive: true },
-      groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index', 'object', 'type'],
-      pathGroups: [
-        {
-          pattern: '@Common/**',
-          group: 'internal',
-          position: 'before'
-        },
-        {
-          pattern: '@jest/globals',
-          group: 'builtin',
-          position: 'before'
-        },
-        {
-          pattern: '@/les/utils/source_maps',
-          group: 'builtin',
-          position: 'before'
-        },
-        {
-          pattern: '@/les/tracing',
-          group: 'builtin',
-          position: 'before'
-        },
-        {
-          pattern: '@/les/db/setup_pools_from_env',
-          group: 'builtin',
-          position: 'before'
-        },
-        {
-          pattern:
-            '{@/les/utils/infrastructure/server/entrypoint,@/@/lib/utils/infrastructure/module/entrypoint,@/sty@/ripts/build_cache_map/tracing_mock,@Tests/utils/module_mocks}',
-          group: 'builtin',
-          position: 'before'
-        },
-        {
-          pattern: '@sh4res/eslint-common/**',
-          group: 'internal',
-          position: 'before'
-        }
-      ]
+      groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index', 'object', 'type']
     }
   ],
 

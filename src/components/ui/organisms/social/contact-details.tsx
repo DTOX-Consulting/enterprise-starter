@@ -1,10 +1,11 @@
 import Link from 'next/link';
-import type { PropsWithChildren } from 'react';
 
 import { email, phone } from '@/app/metadata';
 import { Border } from '@/components/animations/border';
 import { FadeIn } from '@/components/animations/fade-in';
 import { SocialMedia } from '@/components/ui/organisms/social/social-media';
+
+import type { PropsWithChildren } from 'react';
 
 export function ContactDetails({ children }: PropsWithChildren) {
   return (

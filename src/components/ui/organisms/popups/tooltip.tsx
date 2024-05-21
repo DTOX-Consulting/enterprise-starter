@@ -1,10 +1,11 @@
 'use client';
 
 import * as TooltipPrimitive from '@radix-ui/react-tooltip';
-import type { ReactNode } from 'react';
 import { Drawer } from 'vaul';
 
 import useMediaQuery from '@/lib/hooks/use-media-query';
+
+import type { ReactNode } from 'react';
 
 export default function Tooltip({
   children,

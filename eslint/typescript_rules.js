@@ -1,4 +1,3 @@
-/* eslint-disable n/no-unsupported-features/es-syntax -- we use newer version of node */
 const { tsExtensions } = require('./eslint_helpers');
 
 /**

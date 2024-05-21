@@ -1,6 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Loader2 } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { type HTMLAttributes, useState } from 'react';
@@ -9,8 +10,8 @@ import { useForm } from 'react-hook-form';
 import { buttonVariants } from '@/components/ui/atoms/button';
 import { Input } from '@/components/ui/atoms/input';
 import { Label } from '@/components/ui/atoms/label';
-import { toast } from '@/components/ui/atoms/use-toast';
-import { Icons } from '@/components/ui/molecules/icons';
+import { Github } from '@/components/ui/organisms/icons';
+import { toast } from '@/components/ui/organisms/toast/use-toast';
 import { cn } from '@/lib/utils';
 import { userAuthSchema } from '@/lib/validations/auth';
 
@@ -78,7 +79,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
             {errors?.email && <p className="px-1 text-xs text-red-600">{errors.email.message}</p>}
           </div>
           <button className={cn(buttonVariants())} disabled={isLoading}>
-            {isLoading && <Icons.spinner className="animate-spin mr-2 size-4" />}
+            {isLoading && <Loader2 className="mr-2 size-4 animate-spin" />}
             Sign In with Email
           </button>
         </div>
@@ -101,9 +102,9 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         disabled={isLoading ?? isGitHubLoading}
       >
         {isGitHubLoading ? (
-          <Icons.spinner className="animate-spin mr-2 size-4" />
+          <Loader2 className="mr-2 size-4 animate-spin" />
         ) : (
-          <Icons.gitHub className="mr-2 size-4" />
+          <Github className="mr-2 size-4" />
         )}{' '}
         Github
       </button>

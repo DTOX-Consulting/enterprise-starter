@@ -11,15 +11,17 @@ export function GrayscaleTransitionImage(
 ) {
   const ref = useRef<React.ElementRef<'div'>>(null);
   const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start 65%', 'end 35%']
+    offset: ['start 65%', 'end 35%'],
+    target: ref
   });
+
   const grayscale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0, 1]);
   const filter = useMotionTemplate`grayscale(${grayscale})`;
 
   return (
     <div ref={ref} className="group relative">
-      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment  */}
+      {}
+      {/* biome-ignore lint/suspicious/noExplicitAny: <explanation> */}
       <MotionImage alt="" style={{ filter } as any} {...props} />
       <div
         className="pointer-events-none absolute left-0 top-0 w-full opacity-0 transition duration-300 group-hover:opacity-100"

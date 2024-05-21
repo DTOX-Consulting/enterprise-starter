@@ -1,5 +1,6 @@
-import type { ReactNode } from 'react';
 import ReactMarkdown from 'react-markdown';
+
+import type { ReactNode } from 'react';
 
 export default function Card({
   title,

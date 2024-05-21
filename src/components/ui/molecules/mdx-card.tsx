@@ -2,8 +2,10 @@ import Link from 'next/link';
 
 import { cn } from '@/lib/utils';
 
+import type { Route } from 'next';
+
 interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
-  href?: string;
+  href?: Route<string>;
   disabled?: boolean;
 }
 

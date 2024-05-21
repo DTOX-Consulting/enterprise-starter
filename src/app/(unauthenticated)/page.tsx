@@ -8,7 +8,11 @@ import { Container } from '@/components/ui/atoms/container';
 
 function Arrow() {
   return (
-    <Link href="/#intro" target="_self" className="vertical horizontal center mt-8 flex">
+    <Link
+      href="/#intro"
+      target="_self"
+      className="vertical horizontal center mt-8 flex justify-center"
+    >
       <MoveDown size={80} />
     </Link>
   );
