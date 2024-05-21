@@ -11,7 +11,7 @@ export type SendArgs = {
   from?: string | EmailJSON;
 };
 
-export const sendMail = async ({ body, subject, to, from = config.emails.hal2 }: SendArgs) => {
+export const sendMail = async ({ body, subject, to, from = config.emails.noreply }: SendArgs) => {
   return fromPromise(
     sgMail.send({
       to,

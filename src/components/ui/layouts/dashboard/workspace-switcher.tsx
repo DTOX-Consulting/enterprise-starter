@@ -6,8 +6,6 @@ import { useRouter } from 'next/navigation';
 import { useState, type PropsWithChildren } from 'react';
 import { z } from 'zod';
 
-import { useBusiness } from '@/app/(authenticated)/businesses/data/business';
-import { useOrganization } from '@/app/(authenticated)/businesses/data/organization';
 import { Button } from '@/components/ui/atoms/button';
 import {
   Command,
@@ -38,11 +36,34 @@ import { Input } from '@/components/ui/atoms/input';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/atoms/popover';
 import { routes } from '@/config/navigation';
 import { danglingPromise } from '@/lib/promise';
+import { nanoid } from '@/lib/utils';
+
+let organizations = [] as { id: string; name: string; businesses: [] }[];
+let currentOrganization = null as { id: string; name: string } | null;
+
+const useOrganization = () => {
+  return {
+    organizations,
+    currentOrganization,
+    createOrganization: async (organization: { name: string; businesses: [] }) => {
+      organizations.push({ id: nanoid(), ...organization });
+      Promise.resolve();
+    },
+    deleteOrganization: (organization: { id: string }) => {
+      return () => {
+        organizations = organizations.filter((o) => o.id !== organization.id);
+      };
+    },
+    setCurrentOrganizationByName: (name: string) => {
+      currentOrganization = organizations.find((o) => o.name === name) ?? null;
+    }
+  };
+};
 
 export function WorkspaceSwitcher() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
-  const { setBusinesses } = useBusiness();
+
   const {
     organizations,
     currentOrganization,
@@ -76,8 +97,7 @@ export function WorkspaceSwitcher() {
                     value={organization.name}
                     onSelect={(value) => {
                       setOpen(false);
-                      setBusinesses([]);
-                      router.push(routes.businesses);
+                      router.push(routes.home);
                       setCurrentOrganizationByName(value);
                     }}
                   >
@@ -97,7 +117,7 @@ export function WorkspaceSwitcher() {
           <WorkspaceSwitcherModal
             onSubmit={(value) => {
               setOpen(false);
-              router.push(routes.businesses);
+              router.push(routes.home);
               danglingPromise(createOrganization({ name: value, businesses: [] }));
             }}
           />

@@ -1,6 +1,7 @@
+import { url } from '@/app/metadata';
+
 import type { MetadataRoute } from 'next';
 
-import { url } from '@/app/metadata';
 
 export const runtime = 'nodejs';
 

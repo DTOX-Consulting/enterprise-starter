@@ -54,9 +54,9 @@ export default function About() {
 
       <Container className="my-16">
         <StatList>
-          <StatListItem value="5" label="Years in Business" />
-          <StatListItem value="10M+" label="Miles covered" />
-          <StatListItem value="50+" label="Happy Clients" />
+          <StatListItem value="10" label="Years in Business" />
+          <StatListItem value="10M+" label="Lines of code written" />
+          <StatListItem value="1000+" label="Happy Clients" />
         </StatList>
       </Container>
     </Container>

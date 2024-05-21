@@ -6,7 +6,6 @@ import { useCallback, type MouseEventHandler } from 'react';
 import isEqual from 'react-fast-compare';
 import { merge } from 'ts-deepmerge';
 
-import { useUser } from '@/app/(authenticated)/businesses/data/user';
 import { ToastAction } from '@/components/ui/organisms/toast/toast';
 import { toast } from '@/components/ui/organisms/toast/use-toast';
 import { debounce, useDebounceEffect } from '@/lib/hooks/use-debounce';
@@ -15,6 +14,8 @@ import { nanoid } from '@/lib/utils';
 import { deepClone } from '@/lib/utils/clone';
 
 import type { PartialWithoutKeys } from '@/lib/types';
+
+import { useUser } from '@/lib/hooks/use-user';
 
 type DataProps<T> = {
   retrieveOnMount?: boolean;

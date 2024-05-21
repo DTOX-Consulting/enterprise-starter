@@ -8,9 +8,12 @@ import type { HomeItem, NavigationItem } from 'types';
 const _routes = {
   // Default routes
   home: '/',
+  dashboard: '/',
   login: '/login',
   logout: '/logout',
   comingSoon: '/coming-soon',
+  settings: '/settings/account',
+  account: '/settings/account',
 
   // Your routes here
   intro: '/intro',

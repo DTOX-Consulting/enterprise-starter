@@ -5,8 +5,12 @@ export const shortName = 'Your Company';
 export const template = `%s | ${name}`;
 
 export const phone = '555-5555-5555';
+export const domain = 'example.com';
+export const url = 'https://your-website.example.com';
+
 export const email = 'your.email@example.com';
-export const url = 'https://your-website.com';
+export const devEmail = 'dev.email@example.com';
+export const noReplyEmail = 'no-reply@example.com';
 
 export const shortDescription = 'Your Short Description Here';
 export const title = `${name} - ${shortDescription}`;
