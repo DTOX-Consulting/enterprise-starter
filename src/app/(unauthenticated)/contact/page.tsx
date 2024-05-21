@@ -5,7 +5,7 @@ import { ContactForm } from '@/forms/contact';
 
 export default function Contact() {
   return (
-    <>
+    <Container>
       <PageIntro eyebrow="Contact us" title="How can we help you">
         <p>We can&apos;t wait to hear from you.</p>
       </PageIntro>
@@ -23,6 +23,6 @@ export default function Contact() {
           </div>
         </div>
       </Container>
-    </>
+    </Container>
   );
 }

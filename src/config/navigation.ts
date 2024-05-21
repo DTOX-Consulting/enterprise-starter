@@ -11,10 +11,11 @@ const _routes = {
   login: '/login',
   logout: '/logout',
   comingSoon: '/coming-soon',
-  account: '/settings/account',
-  settings: '/settings/account'
 
   // Your routes here
+  intro: '/intro',
+  contact: '/contact',
+  chat: '/chat'
 } as const;
 
 export const routes: Routes = _routes;
@@ -29,9 +30,12 @@ export const isUnauthenticatedRoute = () => {
 export const home: HomeItem = { name: 'Home', href: routes.home, src: logo };
 
 export const navigation: NavigationItem[] = [
-  { name: 'Settings', href: routes.settings, bottom: true },
-  { name: 'Login', href: routes.login, unauthenticated: true, bottom: true },
-  { name: 'Logout', href: routes.logout, authenticated: true, bottom: true }
+  { name: 'Intro', href: routes.intro, bottom: false },
+  { name: 'AI Chat', href: routes.chat, bottom: false },
+  { name: 'Contact', href: routes.contact, bottom: false },
+  { name: 'Login', href: routes.login, unauthenticated: true, bottom: false },
+  { name: 'Logout', href: routes.logout, authenticated: true, bottom: false },
+  { name: 'Coming Soon', href: routes.comingSoon, bottom: false }
 ];
 
 export const footerNavigation: NavigationItem[] = [{ name: 'Home', href: routes.home }];

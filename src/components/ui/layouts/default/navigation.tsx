@@ -39,14 +39,14 @@ export function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useForceState(false);
 
   return (
-    <nav className="flex flex-1 items-center">
+    <nav className="flex grow items-center">
       <div className="hidden items-center space-x-2 md:flex">
         <HomeLink width={48} height={48} />
         <Links WrapperComponent={'div'} />
       </div>
 
       <DropdownMenu modal open={mobileMenuOpen}>
-        <div className="flex flex-1 items-center md:hidden">
+        <div className="flex grow items-center md:hidden">
           <DropdownMenuTrigger asChild>
             <button
               type="button"
@@ -81,7 +81,7 @@ export function Navigation() {
         <HomeLink width={48} height={48} />
       </div>
 
-      <div className="flex flex-1 items-center justify-end gap-x-6" />
+      <div className="flex grow items-center justify-end gap-x-6" />
     </nav>
   );
 }

@@ -10,7 +10,7 @@ export function DefaultChat({
 }) {
   const id = nanoid();
   return (
-    <div className="h-full">
+    <div className="flex grow">
       <Chat id={id} showBots={showBots} />
     </div>
   );

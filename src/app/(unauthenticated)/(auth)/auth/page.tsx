@@ -9,7 +9,7 @@ export default async function AuthPage() {
 
   if (authCheck) {
     return (
-      <div className="flex h-[calc(100vh-theme(spacing.16))] flex-col items-center justify-center space-y-4 py-10">
+      <div className="flex h-screen flex-col items-center justify-center space-y-4 py-10">
         <Button>
           <LogoutLink>Log out</LogoutLink>
         </Button>
@@ -18,7 +18,7 @@ export default async function AuthPage() {
   }
 
   return (
-    <div className="flex h-[calc(100vh-theme(spacing.16))] flex-col items-center justify-center space-y-4 py-10">
+    <div className="flex h-screen flex-col items-center justify-center space-y-4 py-10">
       <Button>
         <LoginLink>Sign in</LoginLink>
       </Button>

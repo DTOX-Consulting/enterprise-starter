@@ -4,13 +4,13 @@ import { redirect } from 'next/navigation';
 import AutoRedirect from '@/components/ui/molecules/auto-redirect';
 import { routes } from '@/config/navigation';
 
-export default async function LoginPage() {
+export default async function LogoutPage() {
   const { isAuthenticated } = getKindeServerSession();
   const authCheck = await isAuthenticated();
 
-  if (authCheck) {
-    redirect(routes.dashboard);
+  if (!authCheck) {
+    redirect(routes.login);
   }
 
-  return <AutoRedirect />;
+  return <AutoRedirect logout={true} />;
 }
