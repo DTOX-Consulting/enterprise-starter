@@ -11,6 +11,10 @@ on:
       - develop
   workflow_dispatch:
 
+env:
+  NEXT_PUBLIC_NODE_ENV: development
+  NEXT_PUBLIC_TRIGGER_PUBLIC_API_KEY: trg_1234567890
+
 defaults:
   run:
     # change this if your nextjs app does not live at the root of the repo

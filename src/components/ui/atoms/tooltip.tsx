@@ -1,6 +1,7 @@
 'use client';
 
 import * as TooltipPrimitive from '@radix-ui/react-tooltip';
+import { Info } from 'lucide-react';
 import * as React from 'react';
 
 import { cn } from '@/lib/utils';
@@ -27,4 +28,33 @@ const TooltipContent = React.forwardRef<
 ));
 TooltipContent.displayName = TooltipPrimitive.Content.displayName;
 
-export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider };
+const Tip = ({
+  children,
+  content
+}: React.PropsWithChildren<{ content: string | React.ReactNode }>) => (
+  <TooltipProvider>
+    <Tooltip>
+      <TooltipTrigger>{children}</TooltipTrigger>
+      <TooltipContent>
+        <span className="inline-block">{content}</span>
+      </TooltipContent>
+    </Tooltip>
+  </TooltipProvider>
+);
+
+const InverseTip = ({
+  children,
+  content
+}: React.PropsWithChildren<{ content: string | React.ReactNode }>) => (
+  <Tip content={children}>{content}</Tip>
+);
+
+const InfoTip = ({ children, className }: React.PropsWithChildren<{ className?: string }>) => {
+  return (
+    <Tip content={children}>
+      <Info className={cn('ml-2 size-4 text-neutral-400 hover:text-neutral-200', className)} />
+    </Tip>
+  );
+};
+
+export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider, Tip, InverseTip, InfoTip };

@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import type { User } from 'next-auth';
 import { signOut } from 'next-auth/react';
 
 import {
@@ -12,6 +11,9 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/atoms/dropdown-menu';
 import { UserAvatar } from '@/components/ui/organisms/user/user-avatar';
+import { routes } from '@/config/navigation';
+
+import type { User } from 'next-auth';
 
 interface UserAccountNavProps extends React.HTMLAttributes<HTMLDivElement> {
   user: Pick<User, 'name' | 'image' | 'email'>;
@@ -37,13 +39,13 @@ export function UserAccountNav({ user }: UserAccountNavProps) {
         </div>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <Link href="/dashboard">Dashboard</Link>
+          <Link href={routes.dashboard}>Dashboard</Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Link href="/dashboard/billing">Billing</Link>
+          <Link href={routes.account}>Account</Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Link href="/dashboard/settings">Settings</Link>
+          <Link href={routes.settings}>Settings</Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem

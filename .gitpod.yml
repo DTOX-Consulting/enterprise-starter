@@ -27,6 +27,9 @@ tasks:
       cp .env.example .env || true
       gp sync-done install && exit 0
 
+  - name: Setup Git Config
+    command: ./scripts/gitpod/git.sh && exit 0
+
   - name: Website
     before: gp sync-await install && . ~/.bashrc
     command: SKIP_ENV_VALIDATION=true pnpm dev

@@ -50,9 +50,9 @@ yarn-error.log*
 public/workbox-*.js
 public/sw.js
 
-public/images/icons/*
-public/images/logos/*
-public/images/screenshots/*
+# public/images/icons/*
+# public/images/logos/*
+# public/images/screenshots/*
 
 .eslintcache
 .husky

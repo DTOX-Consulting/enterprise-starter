@@ -1,13 +1,13 @@
-import type * as React from 'react';
-
 import { Border } from '@/components/animations/border';
 import { FadeIn, FadeInStagger } from '@/components/animations/fade-in';
+
+import type { ReactNode, ComponentPropsWithoutRef } from 'react';
 
 export function StatList({
   children,
   ...props
-}: Omit<React.ComponentPropsWithoutRef<typeof FadeInStagger>, 'children'> & {
-  children: React.ReactNode;
+}: Omit<ComponentPropsWithoutRef<typeof FadeInStagger>, 'children'> & {
+  children: ReactNode;
 }) {
   return (
     <FadeInStagger {...props}>

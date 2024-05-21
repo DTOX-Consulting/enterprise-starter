@@ -18,9 +18,9 @@
   "addLabels": ["dependencies"],
   "enabledManagers": ["npm", "dockerfile", "github-actions"],
   "constraints": {
-    "pnpm": "8.10.3",
-    "pnpm": "1.22.19",
-    "node": "18.18.2"
+    "pnpm": "9.0.6",
+    "yarn": "1.22.19",
+    "node": "20.12.2"
   },
   "dockerfile": {
     "semanticCommitType": "build"

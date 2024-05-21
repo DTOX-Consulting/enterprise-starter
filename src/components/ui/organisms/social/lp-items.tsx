@@ -40,8 +40,8 @@ export const LP_GRID_ITEMS = [
     )
   },
   {
-    title: 'ESlint & Prettier',
-    description: 'For clean, consistent, and error-free code.',
+    title: 'PWA / Manifest',
+    description: 'For a seamless mobile experience.',
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -51,13 +51,97 @@ export const LP_GRID_ITEMS = [
         stroke="currentColor"
         className="size-6"
       >
-        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M4.5 12a7.5 7.5 0 0015 0m-15 0a7.5 7.5 0 1115 0m-15 0H3m16.5 0H21m-1.5 0H12m-8.457 3.077l1.41-.513m14.095-5.13l1.41-.513M5.106 17.785l1.15-.964m11.49-9.642l1.149-.964M7.501 19.795l.75-1.3m7.5-12.99l.75-1.3m-6.063 16.658l.26-1.477m2.605-14.772l.26-1.477m0 17.726l-.26-1.477M10.698 4.614l-.26-1.477M16.5 19.794l-.75-1.299M7.5 4.205L12 12m6.894 5.785l-1.149-.964M6.256 7.178l-1.15-.964m15.352 8.864l-1.41-.513M4.954 9.435l-1.41-.514M12.002 12l-3.75 6.495"
+        />
       </svg>
     )
   },
   {
     title: 'Extremely strict TypeScript',
     description: 'With `ts-reset` library for ultimate type safety.',
+    icon: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.5}
+        stroke="currentColor"
+        className="size-6"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"
+        />
+      </svg>
+    )
+  },
+  {
+    title: 'React Query & TRPC',
+    description: 'For type-safe and efficient data fetching and server communication.',
+    icon: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.5}
+        stroke="currentColor"
+        className="size-6"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"
+        />
+      </svg>
+    )
+  },
+  {
+    title: 'Jotai',
+    description: 'For simple and scalable state management.',
+    icon: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.5}
+        stroke="currentColor"
+        className="size-6"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"
+        />
+      </svg>
+    )
+  },
+  {
+    title: 'Trigger.dev',
+    description: 'For automated, scheduled, and event-driven tasks.',
+    icon: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.5}
+        stroke="currentColor"
+        className="size-6"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"
+        />
+      </svg>
+    )
+  },
+  {
+    title: 'Formspree',
+    description: 'For easy form submissions.',
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -96,7 +180,23 @@ export const LP_GRID_ITEMS = [
     )
   },
   {
-    title: 'Jest & React Testing Library',
+    title: 'ESlint, Biome, OXC, Knip',
+    description: 'For clean, consistent, and error-free code.',
+    icon: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.5}
+        stroke="currentColor"
+        className="size-6"
+      >
+        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+      </svg>
+    )
+  },
+  {
+    title: 'Vitest & React Testing Library',
     description: 'For rock-solid unit and integration tests.',
     icon: (
       <svg
@@ -217,8 +317,8 @@ export const LP_GRID_ITEMS = [
     )
   },
   {
-    title: 'Absolute imports',
-    description: 'No more spaghetti imports.',
+    title: 'Docker',
+    description: 'For containerized deployments.',
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -231,7 +331,7 @@ export const LP_GRID_ITEMS = [
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
-          d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244"
+          d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
         />
       </svg>
     )
@@ -257,8 +357,28 @@ export const LP_GRID_ITEMS = [
     )
   },
   {
-    title: 'Radix UI',
+    title: 'Radix / ShadCN UI',
     description: 'Headless UI components for endless customization.',
+    icon: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.5}
+        stroke="currentColor"
+        className="size-6"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a.64.64 0 01-.657.643 48.39 48.39 0 01-4.163-.3c.186 1.613.293 3.25.315 4.907a.656.656 0 01-.658.663v0c-.355 0-.676-.186-.959-.401a1.647 1.647 0 00-1.003-.349c-1.036 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401v0c.31 0 .555.26.532.57a48.039 48.039 0 01-.642 5.056c1.518.19 3.058.309 4.616.354a.64.64 0 00.657-.643v0c0-.355-.186-.676-.401-.959a1.647 1.647 0 01-.349-1.003c0-1.035 1.008-1.875 2.25-1.875 1.243 0 2.25.84 2.25 1.875 0 .369-.128.713-.349 1.003-.215.283-.4.604-.4.959v0c0 .333.277.599.61.58a48.1 48.1 0 005.427-.63 48.05 48.05 0 00.582-4.717.532.532 0 00-.533-.57v0c-.355 0-.676.186-.959.401-.29.221-.634.349-1.003.349-1.035 0-1.875-1.007-1.875-2.25s.84-2.25 1.875-2.25c.37 0 .713.128 1.003.349.283.215.604.401.96.401v0a.656.656 0 00.658-.663 48.422 48.422 0 00-.37-5.36c-1.886.342-3.81.574-5.766.689a.578.578 0 01-.61-.58v0z"
+        />
+      </svg>
+    )
+  },
+  {
+    title: 'Animations',
+    description: 'For delightful user interactions.',
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -317,7 +437,7 @@ export const LP_GRID_ITEMS = [
     )
   },
   {
-    title: 'Patch-package',
+    title: 'Patch-package (with PNPM)',
     description: 'Fix external dependencies without losing your mind.',
     icon: (
       <svg
@@ -332,6 +452,31 @@ export const LP_GRID_ITEMS = [
           strokeLinecap="round"
           strokeLinejoin="round"
           d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"
+        />
+      </svg>
+    )
+  },
+  {
+    title: 'TypeDoc',
+    description: 'For generating beautiful documentation.',
+    icon: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.5}
+        stroke="currentColor"
+        className="size-6"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z"
+        />
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z"
         />
       </svg>
     )
@@ -383,6 +528,46 @@ export const LP_GRID_ITEMS = [
     )
   },
   {
+    title: 'Semantic Release',
+    description: 'For automatic changelog generation.',
+    icon: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.5}
+        stroke="currentColor"
+        className="size-6"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M15 11.25l-3-3m0 0l-3 3m3-3v7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
+    )
+  },
+  {
+    title: 'Husky & Lint-staged',
+    description: 'For pre-commit and pre-push hooks.',
+    icon: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.5}
+        stroke="currentColor"
+        className="size-6"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M15 11.25l-3-3m0 0l-3 3m3-3v7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
+    )
+  },
+  {
     title: 'Automated ChatGPT Code Reviews',
     description: 'Stay on the cutting edge with AI-powered code reviews!',
     icon: (
@@ -403,8 +588,9 @@ export const LP_GRID_ITEMS = [
     )
   },
   {
-    title: 'Semantic Release',
-    description: 'For automatic changelog generation.',
+    title: 'Sweep AI',
+    description:
+      'an AI junior developer that transforms bug reports & feature requests into code changes',
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -417,31 +603,29 @@ export const LP_GRID_ITEMS = [
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
-          d="M15 11.25l-3-3m0 0l-3 3m3-3v7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          d="M2.25 12.76c0 1.6 1.123 2.994 2.707 3.227 1.068.157 2.148.279 3.238.364.466.037.893.281 1.153.671L12 21l2.652-3.978c.26-.39.687-.634 1.153-.67 1.09-.086 2.17-.208 3.238-.365 1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"
+        />
+      </svg>
+    )
+  },
+  {
+    title: 'Absolute imports',
+    description: 'No more spaghetti imports.',
+    icon: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.5}
+        stroke="currentColor"
+        className="size-6"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244"
         />
       </svg>
     )
   }
 ];
-
-/*
-  MDX
-  ShadCN UI / Components
-  TRPC
-  Forms
-  Formspree
-  Trigger.dev
-  Jotai
-  React Query
-  PWA
-  Manifest
-  Biome
-  Very Strict ESLint
-  Lint Staged / Prepush
-  Vitest
-  Knip
-  Sweep
-  Docker
-  Animations
-  typedoc
-*/

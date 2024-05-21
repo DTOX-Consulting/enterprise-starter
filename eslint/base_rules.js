@@ -12,7 +12,7 @@ const baseRules = {
   'no-shadow': 'error',
   'no-console': 'error',
   'sort-imports': 'off', // doesn't work well with 'import/order'
-  // 'indent': ['error', 2], // prettier will handle
+  // 'indent': ['error', 2], // other formatter will handle
   // 'no-undefined': 'warn',
   'no-debugger': 'error',
   'no-lonely-if': 'error',
@@ -29,7 +29,7 @@ const baseRules = {
   'space-infix-ops': 'error',
   'prefer-template': 'error',
   'prefer-rest-params': 'error',
-  // 'no-extra-parens': 'error', // conflicts with prettier
+  // 'no-extra-parens': 'error', // conflicts with other formatter
   semi: ['error', 'always'],
   'no-throw-literal': 'error',
   'no-return-await': 'error',
@@ -46,7 +46,7 @@ const baseRules = {
   'no-nested-ternary': 'error',
   'no-useless-concat': 'error',
   'no-useless-rename': 'error',
-  'func-call-spacing': 'off', // conflicts with prettier
+  'func-call-spacing': 'off', // conflicts with other formatter
   'default-param-last': 'error',
   'no-trailing-spaces': 'error',
   '@typescript-eslint/no-restricted-imports': 'error',
@@ -61,7 +61,7 @@ const baseRules = {
   'no-async-promise-executor': 'error',
   'quote-props': ['error', 'as-needed'],
   'block-spacing': ['error', 'always'],
-  'space-in-parens': ['off', 'never'], // conflict with prettier
+  'space-in-parens': ['off', 'never'], // conflict with other formatter
   'spaced-comment': ['error', 'always'],
   'dot-location': ['error', 'property'],
   'no-cond-assign': ['error', 'always'],
@@ -189,7 +189,7 @@ const baseRules = {
     {
       overrides: {
         catch: {
-          after: true // clashes with prettier
+          after: true // clashes with other formatter
         }
       }
     }
@@ -199,7 +199,7 @@ const baseRules = {
     {
       before: false,
       after: true,
-      method: { before: true, after: false } // clashes with prettier
+      method: { before: true, after: false } // clashes with other formatter
     }
   ],
   'no-unused-vars': [
@@ -221,7 +221,7 @@ const baseRules = {
   // 'space-before-function-paren': [
   //   'error',
   //   {
-  //     named: 'never', // clashes with prettier
+  //     named: 'never', // clashes with other formatter
   //     anonymous: 'never',
   //     asyncArrow: 'always'
   //   }

@@ -4,6 +4,7 @@ import nextMDX from '@next/mdx';
 import { next } from 'million/compiler';
 
 import { isDev, isDocker } from './config/env.config.mjs';
+import { rewrites } from './config/rewrites.config.mjs';
 import { headers, images } from './config/security.config.mjs';
 import { env } from './src/lib/env/env.mjs';
 
@@ -11,28 +12,33 @@ import { env } from './src/lib/env/env.mjs';
 const nextConfig = {
   images,
   headers,
+  rewrites,
   swcMinify: true,
+  trailingSlash: false,
   reactStrictMode: true,
   output: isDocker ? 'standalone' : undefined,
-  pageExtensions: ['js', 'jsx', 'ts', 'tsx'],
+  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'mdx'],
   experimental: {
     ppr: false,
+    mdxRs: true,
+    // typedRoutes: true,
     serverSourceMaps: true,
     serverMinification: true,
-    instrumentationHooks: true
-  },
-  rewrites() {
-    return [
-      { source: '/healthz', destination: '/api/health' },
-      { source: '/api/healthz', destination: '/api/health' },
-      { source: '/health', destination: '/api/health' },
-      { source: '/ping', destination: '/api/health' }
-    ];
+    instrumentationHook: false
   },
   eslint: {
     // Warning: This allows production builds to successfully complete even if
     // your project has ESLint errors.
     ignoreDuringBuilds: true
+  },
+
+  webpack: (config) => {
+    config.module.rules.push({
+      use: ['@svgr/webpack'],
+      test: /\.svg$/
+    });
+
+    return config;
   }
 };
 const plugins = [

@@ -1,8 +1,9 @@
 import Link from 'next/link';
-import type { ComponentPropsWithoutRef } from 'react';
 
 import { name, socialMedia } from '@/app/metadata';
 import { cn } from '@/lib/utils';
+
+import type { ComponentPropsWithoutRef } from 'react';
 
 function FacebookIcon(props: ComponentPropsWithoutRef<'svg'>) {
   return (

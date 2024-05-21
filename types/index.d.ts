@@ -1,55 +1,7 @@
+import type { Routes } from '@/config/navigation';
 import type { User } from '@prisma/client';
-
-import type { Icons } from '@/components/ui/molecules/icons';
-
-export type NavItem = {
-  title: string;
-  href: string;
-  disabled?: boolean;
-};
-
-export type MainNavItem = NavItem;
-
-export type SidebarNavItem = {
-  title: string;
-  disabled?: boolean;
-  external?: boolean;
-  icon?: keyof typeof Icons;
-} & (
-  | {
-      href: string;
-      items?: never;
-    }
-  | {
-      href?: string;
-      items: NavLink[];
-    }
-);
-
-export type SiteConfig = {
-  name: string;
-  description: string;
-  url: string;
-  ogImage: string;
-  links: {
-    twitter: string;
-    github: string;
-  };
-};
-
-export type DocsConfig = {
-  mainNav: MainNavItem[];
-  sidebarNav: SidebarNavItem[];
-};
-
-export type MarketingConfig = {
-  mainNav: MainNavItem[];
-};
-
-export type DashboardConfig = {
-  mainNav: MainNavItem[];
-  sidebarNav: SidebarNavItem[];
-};
+import type { LucideIcon } from 'lucide-react';
+import type { StaticImageData } from 'next/image';
 
 export type SubscriptionPlan = {
   name: string;
@@ -62,3 +14,29 @@ export type UserSubscriptionPlan = SubscriptionPlan &
     stripeCurrentPeriodEnd: number;
     isPro: boolean;
   };
+
+export type FeatureFlag<T = unknown> = {
+  value: T;
+  name: string;
+  enabled: boolean;
+};
+
+export interface NavigationItem {
+  name: string;
+  icon?: LucideIcon;
+  active?: boolean;
+  bottom?: boolean;
+  external?: boolean;
+  disabled?: boolean;
+  href: ValueOf<Routes>;
+  isAccordion?: boolean;
+  authenticated?: boolean;
+  unauthenticated?: boolean;
+  items?: NavigationItem[];
+}
+
+export interface HomeItem extends NavigationItem {
+  src: StaticImageData;
+}
+
+type ValueOf<T> = T[keyof T];

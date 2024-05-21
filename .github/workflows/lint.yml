@@ -28,6 +28,9 @@ jobs:
         with:
           run_install: |
             - args: [--frozen-lockfile, --strict-peer-dependencies]
+      - name: Run Typecheck
+        run: pnpm typecheck
+        continue-on-error: true
       - name: Run linters
         uses: samuelmeuli/lint-action@v2
         continue-on-error: true

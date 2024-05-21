@@ -3,6 +3,7 @@ import _nextSafe from 'next-safe';
 import { isDev } from './env.config.mjs';
 import {
   origins,
+  allOrigins,
   fontOrigins,
   frameOrigins,
   imageOrigins,
@@ -29,21 +30,27 @@ const nextSafeConfig = {
   referrerPolicy: 'strict-origin-when-cross-origin',
   permissionsPolicyDirectiveSupport: ['standard', 'proposed'],
   contentSecurityPolicy: {
-    reportOnly: false,
+    reportOnly: true,
     mergeDefaultDirectives: true,
     // @ts-expect-error -- Broken type.
     'prefetch-src': false,
     'base-uri': [special.self],
     'child-src': [special.self],
     'default-src': [special.self],
+    'connect-src': [special.self, special.data, ...allOrigins],
     'style-src': [special.self, special.unsafeInline],
     'font-src': [special.self, special.data, ...fontOrigins],
     'form-action': [special.self, ...origins, ...extraOrigins],
-    'connect-src': [special.self, ...origins, ...extraOrigins],
     'frame-src': [special.self, ...origins, ...frameOrigins],
     'frame-ancestors': [special.self, ...origins, ...frameOrigins],
     'img-src': [special.self, special.data, special.blob, ...imageOrigins],
-    'script-src-elem': [special.self, special.unsafeInline, ...origins, ...extraOrigins]
+    'script-src-elem': [
+      special.self,
+      special.data,
+      special.unsafeInline,
+      ...origins,
+      ...extraOrigins
+    ]
   }
 };
 
@@ -65,6 +72,9 @@ export const hsts = [
 ];
 
 /** @type {Header[]} */
+export const frame = [{ key: 'X-Frame-Options', value: 'SAMEORIGIN' }];
+
+/** @type {Header[]} */
 export const access = [
   { key: 'Access-Control-Max-Age', value: '86400' },
   { key: 'Access-Control-Allow-Credentials', value: 'true' },
@@ -78,7 +88,7 @@ export const access = [
 ];
 
 /** @type {Header[]} */
-export const securityHeaders = [...hsts, ...access, ...nextSafe(nextSafeConfig)];
+export const securityHeaders = [...hsts, ...access, ...nextSafe(nextSafeConfig), ...frame];
 
 export const headers = async () => {
   return Promise.resolve([
@@ -93,6 +103,8 @@ export const headers = async () => {
   ]);
 };
 
+/** @type {import("next").NextConfig['images']} */
 export const images = {
+  unoptimized: true,
   remotePatterns: imageOrigins.map((origin) => ({ hostname: origin }))
 };

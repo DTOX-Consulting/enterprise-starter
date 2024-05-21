@@ -3,7 +3,6 @@ import EmailAuthProvider from 'next-auth/providers/email';
 import GoogleProvider from 'next-auth/providers/google';
 import { Client } from 'postmark';
 
-import { siteConfig } from '@/config/site';
 import { db } from '@/lib/db/prisma';
 import { getEnv } from '@/lib/env';
 
@@ -39,6 +38,9 @@ export const authOptions: NextAuthOptions = {
         const templateId = user?.emailVerified
           ? getEnv('POSTMARK_SIGN_IN_TEMPLATE')
           : getEnv('POSTMARK_ACTIVATION_TEMPLATE');
+        if (!templateId) {
+          throw new Error('Missing template id');
+        }
 
         const result = await postmarkClient.sendEmailWithTemplate({
           TemplateId: Number.parseInt(templateId),
@@ -46,7 +48,7 @@ export const authOptions: NextAuthOptions = {
           From: provider.from,
           TemplateModel: {
             action_url: url,
-            product_name: siteConfig.name
+            product_name: 'Pulse'
           },
           Headers: [
             {

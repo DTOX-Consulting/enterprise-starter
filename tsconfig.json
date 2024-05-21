@@ -4,8 +4,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "module": "esnext",
-    "target": "ES2022",
     "moduleResolution": "Bundler",
+    "target": "es2022",
     "lib": ["dom", "dom.iterable", "esnext"],
     "strict": true,
     "allowJs": true,
@@ -19,7 +19,7 @@
     "jsx": "preserve",
     "incremental": true,
     "strictNullChecks": true,
-    "types": ["node", "jest", "@testing-library/jest-dom"],
+    "types": ["bun-types", "node", "@testing-library/jest-dom"],
     "paths": {
       "contentlayer/generated": ["./.contentlayer/generated"],
       "@/*": ["./src/*"],
@@ -32,11 +32,15 @@
     ]
   },
   "include": [
+    "**/*.js",
     "**/*.ts",
+    "**/*.mts",
+    "**/*.cjs",
     "**/*.tsx",
     "**/*.mjs",
     "next-env.d.ts",
-    "jest.config.js",
+    "vitest.config.mts",
+    "types/**/*.d.ts",
     ".next/types/**/*.ts",
     ".contentlayer/generated"
   ],

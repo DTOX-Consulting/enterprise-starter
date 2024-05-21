@@ -7,6 +7,11 @@ on:
       - develop
   pull_request: null
   workflow_dispatch: null
+
+env:
+  NEXT_PUBLIC_NODE_ENV: development
+  NEXT_PUBLIC_TRIGGER_PUBLIC_API_KEY: trg_1234567890
+
 jobs:
   test:
     timeout-minutes: 60

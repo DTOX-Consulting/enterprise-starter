@@ -2,7 +2,7 @@ export default function LoadingCircle() {
   return (
     <svg
       aria-hidden="true"
-      className="animate-spin size-4 fill-gray-600 text-gray-200"
+      className="size-4 animate-spin fill-gray-600 text-gray-200"
       viewBox="0 0 100 101"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
