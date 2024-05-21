@@ -8,6 +8,7 @@ import type { HomeItem, NavigationItem } from 'types';
 const _routes = {
   // Default routes
   home: '/',
+  docs: '/docs',
   dashboard: '/',
   login: '/login',
   logout: '/logout',
@@ -33,6 +34,7 @@ export const isUnauthenticatedRoute = () => {
 export const home: HomeItem = { name: 'Home', href: routes.home, src: logo };
 
 export const navigation: NavigationItem[] = [
+  { name: 'Docs', href: routes.docs, bottom: false },
   { name: 'Intro', href: routes.intro, bottom: false },
   { name: 'AI Chat', href: routes.chat, bottom: false },
   { name: 'Contact', href: routes.contact, bottom: false },
