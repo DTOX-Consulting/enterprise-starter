@@ -1,7 +1,7 @@
+import { ContainerAnimated } from '@/components/ui/atoms/container';
 import { Main } from '@/components/ui/layouts/dashboard/main';
 import { Sidebar } from '@/components/ui/layouts/docs/sidebar';
 import { cn } from '@/lib/utils';
-import { ContainerAnimated } from '@/components/ui/atoms/container';
 
 interface LayoutProps {
   children: React.ReactNode;

@@ -1,9 +1,9 @@
 import Link from 'next/link';
 
+import { ScrollArea } from '@/components/ui/atoms/scroll-area';
 import { cn } from '@/lib/utils';
 
 import type { FC } from 'react';
-import { ScrollArea } from '@/components/ui/atoms/scroll-area';
 
 // Define types for links and sections
 interface LinkProps {

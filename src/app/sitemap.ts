@@ -2,7 +2,6 @@ import { url } from '@/app/metadata';
 
 import type { MetadataRoute } from 'next';
 
-
 export const runtime = 'nodejs';
 
 const priority = 1;

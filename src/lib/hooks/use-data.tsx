@@ -9,13 +9,12 @@ import { merge } from 'ts-deepmerge';
 import { ToastAction } from '@/components/ui/organisms/toast/toast';
 import { toast } from '@/components/ui/organisms/toast/use-toast';
 import { debounce, useDebounceEffect } from '@/lib/hooks/use-debounce';
+import { useUser } from '@/lib/hooks/use-user';
 import { danglingPromise } from '@/lib/promise';
 import { nanoid } from '@/lib/utils';
 import { deepClone } from '@/lib/utils/clone';
 
 import type { PartialWithoutKeys } from '@/lib/types';
-
-import { useUser } from '@/lib/hooks/use-user';
 
 type DataProps<T> = {
   retrieveOnMount?: boolean;

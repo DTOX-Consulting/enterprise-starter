@@ -55,5 +55,3 @@ public/sw.js
 # public/images/screenshots/*
 
 .eslintcache
-.husky
-_husky

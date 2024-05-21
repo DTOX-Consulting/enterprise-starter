@@ -8,6 +8,11 @@ on:
       - '*'
   pull_request:
 
+env:
+  HUSKY: 0
+  NEXT_PUBLIC_NODE_ENV: development
+  NEXT_PUBLIC_TRIGGER_PUBLIC_API_KEY: trg_1234567890
+
 jobs:
   lint:
     name: Lint

@@ -57,7 +57,7 @@ function Z(j) {
     }
   `;
 }
-var M = {
+const M = {
   sm: { width: '400px', height: '600px' },
   md: { width: '600px', height: '800px' },
   lg: { width: '800px', height: '1000px' },
@@ -67,8 +67,9 @@ var M = {
 };
 function I() {
   if (typeof window === 'undefined') return { width: 0, height: 0 };
-  const j = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
-    k = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+  const j = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+  const k =
+    window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
   return { width: j, height: k };
 }
 function O() {
@@ -85,10 +86,10 @@ function U(j, k) {
   return k ? _[k] : _;
 }
 function D(j, k) {
-  const R = A[j],
-    _ = !q.includes(j),
-    h = k ? document.querySelector(`script[src*="${k}"]`).src : window.location.href,
-    G = U(h, j) ?? R[0];
+  const R = A[j];
+  const _ = !q.includes(j);
+  const h = k ? document.querySelector(`script[src*="${k}"]`).src : window.location.href;
+  const G = U(h, j) ?? R[0];
   return _ ? (R.includes(G) ? G : R[0]) : G;
 }
 function J(j) {
@@ -98,8 +99,8 @@ function J(j) {
   }, {});
 }
 function Q(j) {
-  const k = I(),
-    R = J(j);
+  const k = I();
+  const R = J(j);
   return k.width < 768 && (R.state = 'collapse'), new URLSearchParams(R).toString();
 }
 function v(j, k, R) {
@@ -136,16 +137,16 @@ function w(j) {
   document.addEventListener('click', j);
 }
 async function z(j) {
-  const k = J(j),
-    R = document.createElement('style');
+  const k = J(j);
+  const R = document.createElement('style');
   (R.textContent = Z(k)), document.head.appendChild(R), await W(100);
   const _ = document.createElement('div');
   _.classList.add('iframe__wrapper'), (_.id = 'iframeWrapper'), document.body.appendChild(_);
   const h = document.createElement('div');
   h.classList.add('iframe__container'), (h.id = 'iframeContainer'), _.appendChild(h);
-  const G = O(),
-    K = Q(j),
-    H = document.createElement('iframe');
+  const G = O();
+  const K = Q(j);
+  const H = document.createElement('iframe');
   return (
     H.classList.add('iframe__app'),
     (H.id = 'iframeApp'),
@@ -160,10 +161,10 @@ function x() {
   return new URLSearchParams(k).toString();
 }
 function f() {
-  const j = J(),
-    k = x(),
-    R = j.style === 'popup',
-    _ = document.createElement('div');
+  const j = J();
+  const k = x();
+  const R = j.style === 'popup';
+  const _ = document.createElement('div');
   if (
     ((_.id = R ? 'popupContainer' : 'inlineContainer'),
     (_.className = R ? 'popup-container' : 'inline-container'),
@@ -185,30 +186,30 @@ function f() {
       document.body.appendChild(G);
   return { iframe: h, iframeContainer: _, toggleButton: G };
 }
-var $ = ['https://pulseline-app.vercel.app', 'https://app.pulseline.io'],
-  A = {
-    inlineParentId: [''],
-    style: ['popup', 'inline'],
-    position: ['right', 'left'],
-    state: ['collapse', 'expand'],
-    prompt: ['none', 'social', 'business'],
-    size: ['sm', 'md', 'lg', 'xl', '2xl', 'full'],
-    app: ['chat', 'bot', 'write', 'document', 'image']
-  },
-  q = ['inlineParentId'],
-  X = 'collapse';
-var N = function () {
-    L.classList.add('expanded'), T.classList.add('expanded');
-  },
-  C = function () {
-    L.classList.remove('expanded'), T.classList.remove('expanded');
-  },
-  b = function () {
-    Y(L, 'close'), T.remove(), L.remove();
-  },
-  P = function (j) {
-    if (!T.contains(j.target)) Y(L, 'collapse');
-  },
-  y = J('iframe-widget-js').style === 'popup',
-  { iframe: L, iframeContainer: T } = await z('iframe-widget-js');
+const $ = ['https://pulseline-app.vercel.app', 'https://app.pulseline.io'];
+const A = {
+  inlineParentId: [''],
+  style: ['popup', 'inline'],
+  position: ['right', 'left'],
+  state: ['collapse', 'expand'],
+  prompt: ['none', 'social', 'business'],
+  size: ['sm', 'md', 'lg', 'xl', '2xl', 'full'],
+  app: ['chat', 'bot', 'write', 'document', 'image']
+};
+const q = ['inlineParentId'];
+let X = 'collapse';
+const N = () => {
+  L.classList.add('expanded'), T.classList.add('expanded');
+};
+const C = () => {
+  L.classList.remove('expanded'), T.classList.remove('expanded');
+};
+const b = () => {
+  Y(L, 'close'), T.remove(), L.remove();
+};
+const P = (j) => {
+  if (!T.contains(j.target)) Y(L, 'collapse');
+};
+const y = J('iframe-widget-js').style === 'popup';
+const { iframe: L, iframeContainer: T } = await z('iframe-widget-js');
 if (y) w(P), V(N, C, b);

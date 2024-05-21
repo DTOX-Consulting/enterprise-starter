@@ -98,14 +98,7 @@ To get started with this starter, follow these steps:
     pnpm dev
     ```
 
-4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-5. This project uses a git hook to enforce [conventional commits](https://github.com/qoomon/git-conventional-commits). To install the git hook, run the following command in the root directory of the project:
-
-    ```bash
-    brew install pre-commit
-    pre-commit install -t commit-msg
-    ```
+4. Open [http://localhost:3000](http://localhost:3030) with your browser to see the result.
 
 ## 🚀 Deployment
 
