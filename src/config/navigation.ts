@@ -36,8 +36,8 @@ export const navigation: NavigationItem[] = [
   { name: 'Intro', href: routes.intro, bottom: false },
   { name: 'AI Chat', href: routes.chat, bottom: false },
   { name: 'Contact', href: routes.contact, bottom: false },
-  { name: 'Login', href: routes.login, unauthenticated: true, bottom: false },
-  { name: 'Logout', href: routes.logout, authenticated: true, bottom: false },
+  // { name: 'Login', href: routes.login, unauthenticated: true, bottom: false },
+  // { name: 'Logout', href: routes.logout, authenticated: true, bottom: false },
   { name: 'Coming Soon', href: routes.comingSoon, bottom: false }
 ];
 
