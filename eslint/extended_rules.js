@@ -68,7 +68,6 @@ const extendedRules = {
   'import/no-named-as-default': 'error',
   'import/newline-after-import': 'error',
   'import/no-extraneous-dependencies': 'off',
-  'unused-imports/no-unused-imports': 'error',
   'import/no-named-as-default-member': 'error',
 
   'import/extensions': [
@@ -108,11 +107,14 @@ const extendedRules = {
     }
   ],
 
+  'unused-imports/no-unused-imports': 'error',
   'unused-imports/no-unused-vars': [
     'error',
     {
-      argsIgnorePattern: '^_',
-      varsIgnorePattern: '^_'
+      vars: 'all',
+      varsIgnorePattern: '^_',
+      args: 'after-used',
+      argsIgnorePattern: '^_'
     }
   ],
 

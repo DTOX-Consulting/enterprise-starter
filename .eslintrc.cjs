@@ -14,7 +14,16 @@ const config = {
   parserOptions: {
     project: true
   },
-  plugins: ['n', 'oxlint', 'import', 'promise', 'deprecation', 'tailwindcss', '@typescript-eslint'],
+  plugins: [
+    'n',
+    'oxlint',
+    'import',
+    'promise',
+    'deprecation',
+    'tailwindcss',
+    'unused-imports',
+    '@typescript-eslint'
+  ],
   extends: [
     'next/core-web-vitals',
     'eslint:recommended',
@@ -70,7 +79,7 @@ const config = {
         fixStyle: 'inline-type-imports'
       }
     ],
-    '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+    '@typescript-eslint/no-unused-vars': ['off', { argsIgnorePattern: '^_' }],
     '@typescript-eslint/no-misused-promises': [
       2,
       {
@@ -115,6 +124,16 @@ const config = {
       {
         allowModules: extraneousModules,
         resolvePaths: [__dirname]
+      }
+    ],
+    'unused-imports/no-unused-imports': 'error',
+    'unused-imports/no-unused-vars': [
+      'warn',
+      {
+        vars: 'all',
+        varsIgnorePattern: '^_',
+        args: 'after-used',
+        argsIgnorePattern: '^_'
       }
     ],
 
