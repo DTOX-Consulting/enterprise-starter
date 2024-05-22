@@ -1,7 +1,7 @@
 import { memo, type FC, type ReactElement, type MemoExoticComponent } from 'react';
 import isEqual from 'react-fast-compare';
 
-import type { GenericFunction } from '@/lib/function';
+import type { GenericFunction } from '@/lib/utils/function';
 
 export type MemoFunctionComponent = <P>(
   component: FC<P>,

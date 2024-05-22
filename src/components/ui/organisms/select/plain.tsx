@@ -1,4 +1,4 @@
-import { camelCaseToTitleCase } from '@/lib/string';
+import { camelCaseToTitleCase } from '@/lib/utils/string';
 
 type Props = {
   value?: string;

@@ -1,9 +1,9 @@
 import { map as pMap } from 'already';
 
-import { bufferToStream } from '@/lib/buffer';
 import { fromPromise, unbox } from '@/lib/route/utils';
 import { drive } from '@/lib/sdks/google/auth';
 import { config } from '@/lib/sdks/google/config';
+import { bufferToStream } from '@/lib/utils/buffer';
 
 export const getFile = async (fileId: string) => {
   return fromPromise(

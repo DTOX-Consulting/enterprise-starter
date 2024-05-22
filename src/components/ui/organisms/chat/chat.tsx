@@ -8,8 +8,8 @@ import { ChatPanel } from '@/components/ui/organisms/chat/chat-panel';
 import { ChatScrollAnchor } from '@/components/ui/organisms/chat/chat-scroll-anchor';
 import { EmptyScreen } from '@/components/ui/organisms/chat/empty-screen';
 import { toast } from '@/components/ui/organisms/toast/use-toast';
-import { danglingPromise } from '@/lib/promise';
 import { cn } from '@/lib/utils';
+import { danglingPromise } from '@/lib/utils/promise';
 
 import type { BotType, BotUIType } from '@/lib/sdks/openai';
 import type { ChatRequestBody } from '@/lib/sdks/openai/helpers/prompt';

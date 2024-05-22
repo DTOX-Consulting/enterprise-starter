@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 
 import { useForceRerender } from '@/lib/hooks/use-force-rerender';
-import { danglingPromise } from '@/lib/promise';
-import { nanoid } from '@/lib/utils';
+import { nanoid } from '@/lib/utils/id';
+import { danglingPromise } from '@/lib/utils/promise';
 
 const defaultTimeout = 250;
 const debounceMap = new Map<string, Timer>();

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useLayoutEffect } from 'react';
 
 import { useForceState } from '@/lib/hooks/use-force-rerender';
-import { createUrl } from '@/lib/promise';
+import { createUrl } from '@/lib/utils/promise';
 
 import type { AxiosRequestConfig, AxiosError } from 'axios';
 

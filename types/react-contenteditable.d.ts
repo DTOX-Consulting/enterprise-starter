@@ -1,4 +1,4 @@
-import type { GenericFunction } from '@/lib/function';
+import type { GenericFunction } from '@/lib/utils/function';
 
 declare module 'react-contenteditable' {
   export default class ContentEditable<T> extends React.Component<{

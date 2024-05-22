@@ -1,6 +1,6 @@
 import { kv } from '@vercel/kv';
 
-import { nanoid } from '@/lib/utils';
+import { nanoid } from '@/lib/utils/id';
 
 import type { ChatOptions } from '@/lib/sdks/openai/helpers/prompt';
 import type { CallbackArgs, GenerateCallbackArgs } from '@/lib/sdks/openai/helpers/types';

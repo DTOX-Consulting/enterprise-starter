@@ -2,10 +2,10 @@ import { G } from '@mobily/ts-belt';
 import { unbox } from 'unbox-js';
 import { z } from 'zod';
 
-import { createUrl } from '@/lib/promise';
+import { createUrl } from '@/lib/utils/promise';
 import { publicProcedure } from '@/trpc';
 
-import type { GenericObject } from '@/lib/object';
+import type { GenericObject } from '@/lib/utils/object';
 
 const allowedHeaders = [
   'dnt',

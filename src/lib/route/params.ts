@@ -10,7 +10,6 @@ import {
 } from '@/lib/sdks/openai';
 import { type Template, getTemplate } from '@/lib/sdks/openai/templates';
 
-import type { GenericObject } from '@/lib/object';
 import type {
   ToneType,
   ModelType,
@@ -19,6 +18,7 @@ import type {
   DocumentType,
   ModelValueType
 } from '@/lib/sdks/openai';
+import type { GenericObject } from '@/lib/utils/object';
 import type { NextRequest } from 'next/server';
 
 export type GenerateParams = {

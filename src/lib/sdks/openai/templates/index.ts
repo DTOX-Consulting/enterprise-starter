@@ -1,7 +1,7 @@
 import { G } from '@mobily/ts-belt';
 
 import { generateTemplates } from '@/lib/sdks/openai/templates/utils';
-import { ensureCamelCase } from '@/lib/string';
+import { ensureCamelCase } from '@/lib/utils/string';
 
 import type { GetTemplateResult, TemplateKey } from '@/lib/sdks/openai/templates/types';
 

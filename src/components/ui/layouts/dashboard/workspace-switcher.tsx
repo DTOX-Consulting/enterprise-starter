@@ -35,8 +35,9 @@ import {
 import { Input } from '@/components/ui/atoms/input';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/atoms/popover';
 import { routes } from '@/config/navigation';
-import { danglingPromise } from '@/lib/promise';
-import { nanoid } from '@/lib/utils';
+import { danglingPromise } from '@/lib/utils/promise';
+
+import { nanoid } from '@/lib/utils/id';
 
 let organizations = [] as { id: string; name: string; businesses: [] }[];
 let currentOrganization = null as { id: string; name: string } | null;

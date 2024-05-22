@@ -10,9 +10,9 @@ import { ToastAction } from '@/components/ui/organisms/toast/toast';
 import { toast } from '@/components/ui/organisms/toast/use-toast';
 import { debounce, useDebounceEffect } from '@/lib/hooks/use-debounce';
 import { useUser } from '@/lib/hooks/use-user';
-import { danglingPromise } from '@/lib/promise';
-import { nanoid } from '@/lib/utils';
 import { deepClone } from '@/lib/utils/clone';
+import { nanoid } from '@/lib/utils/id';
+import { danglingPromise } from '@/lib/utils/promise';
 
 import type { PartialWithoutKeys } from '@/lib/types';
 

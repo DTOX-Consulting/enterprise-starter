@@ -1,4 +1,4 @@
-import { dashCaseToTitleCase } from '@/lib/string';
+import { dashCaseToTitleCase } from '@/lib/utils/string';
 
 export type LengthType = 'characters' | 'words' | 'sentences' | 'paragraphs';
 

@@ -2,9 +2,9 @@ import { G } from '@mobily/ts-belt';
 import { NextResponse, type NextRequest } from 'next/server';
 import { unbox } from 'unbox-js';
 
-import { createUrl } from '@/lib/promise';
+import { createUrl } from '@/lib/utils/promise';
 
-import type { GenericObject } from '@/lib/object';
+import type { GenericObject } from '@/lib/utils/object';
 
 export const runtime = 'edge';
 

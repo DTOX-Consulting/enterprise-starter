@@ -1,6 +1,6 @@
 import { type BotType, availableBots } from '@/lib/sdks/openai/bots';
 import { type ModelType, getModel } from '@/lib/sdks/openai/system';
-import { camelCaseToTitleCase } from '@/lib/string';
+import { camelCaseToTitleCase } from '@/lib/utils/string';
 
 export type TierType = 'free' | 'startup' | 'pro' | 'enterprise' | 'superuser';
 

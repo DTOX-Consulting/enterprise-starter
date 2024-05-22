@@ -8,8 +8,8 @@ import { isMobile } from 'react-device-detect';
 
 import { Badge } from '@/components/ui/atoms/badge';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/atoms/popover';
-import { formatCreatedAt } from '@/lib/date';
 import { cn } from '@/lib/utils';
+import { formatCreatedAt } from '@/lib/utils/date';
 
 type Notification = {
   id: string;

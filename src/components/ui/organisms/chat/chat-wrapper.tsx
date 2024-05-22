@@ -1,6 +1,7 @@
 import { Chat } from '@/components/ui/organisms/chat/chat';
 import { type AuthRedirectResponse, authenticationRedirection } from '@/lib/auth/redirect';
-import { nanoid } from '@/lib/utils';
+
+import { nanoid } from '@/lib/utils/id';
 
 export function DefaultChat({
   showBots = false

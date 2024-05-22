@@ -1,6 +1,6 @@
 import { availableDocuments } from '@/lib/sdks/openai';
 import { templateOverrides } from '@/lib/sdks/openai/templates/overrides';
-import { camelCaseToTitleCase } from '@/lib/string';
+import { camelCaseToTitleCase } from '@/lib/utils/string';
 
 import type { Template, TemplateMap } from '@/lib/sdks/openai/templates/types';
 
