@@ -1,5 +1,5 @@
-function F(k) {
-  const _ = `
+function F(L) {
+  const M = `
     .iframe__wrapper {
       right: 0;
       bottom: 0;
@@ -15,7 +15,7 @@ function F(k) {
       bottom: 20px;
       position: fixed;
       background-color: transparent;
-      ${k.position === 'right' ? 'right: 20px;' : 'left: 20px;'}
+      ${L.position === 'right' ? 'right: 20px;' : 'left: 20px;'}
     }
     .iframe__wrapper .iframe__container .iframe__app {
       width: 48px;
@@ -31,15 +31,15 @@ function F(k) {
       bottom: 23px;
       max-height: 808px;
       background-color: transparent;
-      max-width: min(${Q[k.size].width}, 100% - 40px);
+      max-width: min(${Q[L.size].width}, 100% - 40px);
     }
 
     .iframe__wrapper .iframe__container.expanded .iframe__app.expanded {
       max-width: 100%;
     }
   `;
-  return k.style === 'popup'
-    ? _
+  return L.style === 'popup'
+    ? M
     : `
     .iframe__wrapper {
       margin: 0;
@@ -65,129 +65,129 @@ const Q = {
   '2xl': { width: '1200px', height: '1400px' },
   full: { width: '100%', height: '100%' }
 };
-function x() {
+function B() {
   if (typeof window === 'undefined') return { width: 0, height: 0 };
-  const k = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-  const R =
+  const L = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+  const D =
     window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-  return { width: k, height: R };
+  return { width: L, height: D };
 }
-function y() {
-  const k = window.location.href;
-  return ['localhost', ...I].some((R) => k.includes(R)) ? '' : I[0];
+function d() {
+  const L = window.location.href;
+  return ['localhost', ...I].some((D) => L.includes(D)) ? '' : I[0];
 }
-function N(k, R) {
-  const _ = k.split('?')[1];
-  if (!_) return null;
-  const h = _.split('&').reduce((j, G) => {
-    const L = G.split('=');
-    return (j[decodeURIComponent(L[0])] = decodeURIComponent(L[1])), j;
+function x(L, D) {
+  const M = L.split('?')[1];
+  if (!M) return null;
+  const T = M.split('&').reduce((j, A) => {
+    const K = A.split('=');
+    return (j[decodeURIComponent(K[0])] = decodeURIComponent(K[1])), j;
   }, {});
-  return R ? h[R] : h;
+  return D ? T[D] : T;
 }
-function V(k, R) {
-  const _ = T[k];
-  const h = !W.includes(k);
-  const j = R ? document.querySelector(`script[src*="${R}"]`).src : window.location.href;
-  const G = N(j, k) ?? _[0];
-  return h ? (_.includes(G) ? G : _[0]) : G;
+function R(L, D) {
+  const M = O[L];
+  const T = !W.includes(L);
+  const j = D ? document.querySelector(`script[src*="${D}"]`).src : window.location.href;
+  const A = x(j, L) ?? M[0];
+  return T ? (M.includes(A) ? A : M[0]) : A;
 }
-function J(k) {
-  return Object.keys(T).reduce((R, _) => {
-    const h = V(_, k);
-    return h ? { ...R, [_]: h } : R;
+function H(L) {
+  return Object.keys(O).reduce((D, M) => {
+    const T = R(M, L);
+    return T ? { ...D, [M]: T } : D;
   }, {});
 }
-function B(k) {
-  const R = x();
-  const _ = J(k);
-  return R.width < 768 && (_.state = 'collapse'), new URLSearchParams(_).toString();
+function C(L) {
+  const D = B();
+  const M = H(L);
+  return D.width < 768 && (M.state = 'collapse'), new URLSearchParams(M).toString();
 }
-function w(k, R, _) {
-  const h = V('state', _);
-  !b(h) && A(k, R);
+function h(L, D, M) {
+  const T = R('state', M);
+  !y(T) && E(L, D);
 }
-async function $(k) {
-  return new Promise((R) => setTimeout(R, k));
+async function _(L) {
+  return new Promise((D) => setTimeout(D, L));
 }
-function b(k) {
-  return D === k;
+function y(L) {
+  return $ === L;
 }
-function z(k) {
-  return (D = k), k;
+function w(L) {
+  return ($ = L), L;
 }
-function A(k, R) {
-  D === 'expand' ? R() : k();
+function E(L, D) {
+  $ === 'expand' ? D() : L();
 }
-function Y(k) {
-  window.parent !== window && window.parent.postMessage(z(k), '*');
+function Y(L) {
+  window.parent !== window && window.parent.postMessage(w(L), '*');
 }
-function u(k, R) {
-  k?.contentWindow?.postMessage(z(R), '*');
+function v(L, D) {
+  L?.contentWindow?.postMessage(w(D), '*');
 }
-function q(k, R, _) {
-  k.addEventListener('click', () => A(R, _));
+function V(L, D, M) {
+  L.addEventListener('click', () => E(D, M));
 }
-function M(k, R, _) {
-  window.addEventListener('message', (h) => {
-    h.data === 'collapse' && R(), h.data === 'expand' && k(), h.data === 'close' && _();
+function q(L, D, M) {
+  window.addEventListener('message', (T) => {
+    T.data === 'collapse' && D(), T.data === 'expand' && L(), T.data === 'close' && M();
   });
 }
-function O(k) {
-  document.addEventListener('click', k);
+function z(L) {
+  document.addEventListener('click', L);
 }
-async function c(k) {
-  const R = J(k);
-  const _ = document.createElement('style');
-  (_.textContent = F(R)), document.head.appendChild(_), await $(100);
-  const h = document.createElement('div');
-  h.classList.add('iframe__wrapper'), (h.id = 'iframeWrapper'), document.body.appendChild(h);
+async function f(L) {
+  const D = H(L);
+  const M = document.createElement('style');
+  (M.textContent = F(D)), document.head.appendChild(M), await _(100);
+  const T = document.createElement('div');
+  T.classList.add('iframe__wrapper'), (T.id = 'iframeWrapper'), document.body.appendChild(T);
   const j = document.createElement('div');
-  j.classList.add('iframe__container'), (j.id = 'iframeContainer'), h.appendChild(j);
-  const G = y();
-  const L = B(k);
-  const H = document.createElement('iframe');
+  j.classList.add('iframe__container'), (j.id = 'iframeContainer'), T.appendChild(j);
+  const A = d();
+  const K = C(L);
+  const G = document.createElement('iframe');
   return (
-    H.classList.add('iframe__app'),
-    (H.id = 'iframeApp'),
-    (H.allowFullscreen = !0),
-    (H.src = `${G}/iframe-app?${L}`),
-    j.appendChild(H),
-    { iframe: H, iframeContainer: j, iframeWrapper: h }
+    G.classList.add('iframe__app'),
+    (G.id = 'iframeApp'),
+    (G.allowFullscreen = !0),
+    (G.src = `${A}/iframe-app?${K}`),
+    j.appendChild(G),
+    { iframe: G, iframeContainer: j, iframeWrapper: T }
   );
 }
-function C() {
-  const R = { systemPrompt: J().prompt };
-  return new URLSearchParams(R).toString();
+function P() {
+  const D = { systemPrompt: H().prompt };
+  return new URLSearchParams(D).toString();
 }
 function U() {
-  const k = J();
-  const R = C();
-  const _ = k.style === 'popup';
-  const h = document.createElement('div');
+  const L = H();
+  const D = P();
+  const M = L.style === 'popup';
+  const T = document.createElement('div');
   if (
-    ((h.id = _ ? 'popupContainer' : 'inlineContainer'),
-    (h.className = _ ? 'popup-container' : 'inline-container'),
-    _)
+    ((T.id = M ? 'popupContainer' : 'inlineContainer'),
+    (T.className = M ? 'popup-container' : 'inline-container'),
+    M)
   )
-    document.body.appendChild(h);
-  else (document.getElementById(k.inlineParentId) ?? document.body).appendChild(h);
+    document.body.appendChild(T);
+  else (document.getElementById(L.inlineParentId) ?? document.body).appendChild(T);
   const j = document.createElement('iframe');
   (j.allowFullscreen = !0),
-    (j.id = _ ? 'popupIframe' : 'inlineIframe'),
-    (j.className = _ ? 'popup-iframe' : 'inline-iframe'),
-    (j.src = `/external/${k.app}?${R}`),
-    h.appendChild(j);
-  let G = null;
-  if (_)
-    (G = document.createElement('button')),
-      (G.id = 'toggleButton'),
-      (G.className = 'toggle-button'),
-      document.body.appendChild(G);
-  return { iframe: j, iframeContainer: h, toggleButton: G };
+    (j.id = M ? 'popupIframe' : 'inlineIframe'),
+    (j.className = M ? 'popup-iframe' : 'inline-iframe'),
+    (j.src = `/external/${L.app}?${D}`),
+    T.appendChild(j);
+  let A = null;
+  if (M)
+    (A = document.createElement('button')),
+      (A.id = 'toggleButton'),
+      (A.className = 'toggle-button'),
+      document.body.appendChild(A);
+  return { iframe: j, iframeContainer: T, toggleButton: A };
 }
-const I = ['https://pulseline-app.vercel.app', 'https://app.pulseline.io'];
-const T = {
+const I = [];
+const O = {
   inlineParentId: [''],
   style: ['popup', 'inline'],
   position: ['right', 'left'],
@@ -197,25 +197,25 @@ const T = {
   app: ['chat', 'bot', 'write', 'document', 'image']
 };
 const W = ['inlineParentId'];
-let D = 'collapse';
-const E = () => {
+let $ = 'collapse';
+const k = () => {
   Y('expand'),
     X.classList.add('open-popup'),
-    K.classList.add('visible-popup'),
-    K.classList.remove('hidden-popup');
+    J.classList.add('visible-popup'),
+    J.classList.remove('hidden-popup');
 };
 const Z = () => {
   Y('collapse'),
     X.classList.remove('open-popup'),
-    K.classList.add('hidden-popup'),
-    K.classList.remove('visible-popup');
+    J.classList.add('hidden-popup'),
+    J.classList.remove('visible-popup');
 };
-const d = () => {
-  Y('close'), X.remove(), K.remove();
+const u = () => {
+  Y('close'), X.remove(), J.remove();
 };
-const S = (k) => {
-  if (!K.contains(k.target) && !X.contains(k.target)) Z();
+const S = (L) => {
+  if (!J.contains(L.target) && !X.contains(L.target)) Z();
 };
-const P = J().style === 'popup';
-const { toggleButton: X, iframeContainer: K } = U();
-if (P) O(S), M(E, Z, d), q(X, E, Z), await $(1000), w(E, Z);
+const N = H().style === 'popup';
+const { toggleButton: X, iframeContainer: J } = U();
+if (N) z(S), q(k, Z, u), V(X, k, Z), await _(1000), h(k, Z);
