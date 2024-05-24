@@ -5,6 +5,7 @@ const defaultOrigins = [
   'https://*.cloudflareaccess.com'
 ];
 
+/** @type {string[]} */
 const exactOrigins = []; // update this with your domain
 
 export const origins = [...defaultOrigins, ...exactOrigins];
@@ -15,6 +16,7 @@ export const frameOrigins = ['*.google.com', '*.youtube.com'];
 
 export const imageOrigins = [
   'fakeimg.pl',
+  '*.licdn.com',
   '*.imgur.com',
   '*.unsplash.com',
   '*.gravatar.com',
@@ -22,15 +24,16 @@ export const imageOrigins = [
   '*.placeholder.com',
   '*.pollinations.ai',
   '*.brandcrowd.com',
-  '*.licdn.com',
   '*.googleusercontent.com'
 ];
 
 export const extraOrigins = [
+  '*.sentry.io',
   '*.formspree.io',
   '*.vercel-scripts.com',
   '*.vercel-insights.com',
-  '*.googletagmanager.com'
+  '*.googletagmanager.com',
+  '*.cloudflareinsights.com'
 ];
 
 export const allOrigins = [
