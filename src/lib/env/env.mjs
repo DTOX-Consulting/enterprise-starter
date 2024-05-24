@@ -3,6 +3,7 @@ import { z } from 'zod';
 
 export const env = createEnv({
   server: {
+    SENTRY_AUTH_TOKEN: z.string().min(1),
     NODE_ENV: z.enum(['development', 'production', 'test']).optional(),
     ANALYZE: z
       .enum(['true', 'false'])
@@ -11,13 +12,17 @@ export const env = createEnv({
   },
   client: {
     NEXT_PUBLIC_APP_URL: z.string().min(1),
+    NEXT_PUBLIC_SENTRY_DSN: z.string().min(1),
     NEXT_PUBLIC_NODE_ENV: z.enum(['development', 'production', 'test']),
     NEXT_PUBLIC_TRIGGER_PUBLIC_API_KEY: z.string().min(1)
   },
   runtimeEnv: {
     ANALYZE: process.env.ANALYZE,
+    NODE_ENV: process.env.NODE_ENV,
+    SENTRY_AUTH_TOKEN: process.env.SENTRY_AUTH_TOKEN,
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
     NEXT_PUBLIC_NODE_ENV: process.env.NEXT_PUBLIC_NODE_ENV,
+    NEXT_PUBLIC_SENTRY_DSN: process.env.NEXT_PUBLIC_SENTRY_DSN,
     NEXT_PUBLIC_TRIGGER_PUBLIC_API_KEY: process.env.NEXT_PUBLIC_TRIGGER_PUBLIC_API_KEY
   }
 });

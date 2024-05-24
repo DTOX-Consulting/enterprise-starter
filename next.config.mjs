@@ -72,8 +72,8 @@ const plugins = [
     // For all available options, see:
     // https://github.com/getsentry/sentry-webpack-plugin#options
 
-    org: 'pulse-am',
-    project: 'javascript-nextjs',
+    org: env.SENTRY_ORG,
+    project: env.SENTRY_PROJECT,
 
     // An auth token is required for uploading source maps.
     authToken: env.SENTRY_AUTH_TOKEN,
