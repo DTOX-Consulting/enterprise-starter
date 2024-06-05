@@ -4,6 +4,8 @@
 
 import { type ReactNode, useState, useEffect } from 'react';
 
+import { nanoid } from '@/lib/utils/id';
+
 import type { ToastActionElement, ToastProps } from '@/components/ui/organisms/toast/toast';
 
 const TOAST_LIMIT = 1;
@@ -13,6 +15,7 @@ type ToasterToast = ToastProps & {
   id: string;
   title?: ReactNode;
   description?: ReactNode;
+  viewportClassName?: string;
   action?: ToastActionElement;
 };
 
@@ -22,13 +25,6 @@ const actionTypes = {
   DISMISS_TOAST: 'DISMISS_TOAST',
   REMOVE_TOAST: 'REMOVE_TOAST'
 } as const;
-
-let count = 0;
-
-function genId() {
-  count = (count + 1) % Number.MAX_SAFE_INTEGER;
-  return count.toString();
-}
 
 type ActionType = typeof actionTypes;
 
@@ -139,7 +135,7 @@ function dispatch(action: Action) {
 type Toast = Omit<ToasterToast, 'id'>;
 
 function toast({ ...props }: Toast) {
-  const id = genId();
+  const id = nanoid();
 
   const update = (props: ToasterToast) =>
     dispatch({
@@ -178,7 +174,7 @@ function useToast() {
         listeners.splice(index, 1);
       }
     };
-  }, [state]);
+  }, []);
 
   return {
     ...state,

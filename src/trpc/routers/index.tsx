@@ -1,6 +1,7 @@
 import { createTRPCRouter } from '@/trpc';
 import { aiRouter } from '@/trpc/routers/ai';
 import { authRouter } from '@/trpc/routers/auth';
+import { mailRouter } from '@/trpc/routers/mail';
 import { proxyRouter } from '@/trpc/routers/proxy';
 /**
  * This is the primary router for your server.
@@ -9,6 +10,7 @@ import { proxyRouter } from '@/trpc/routers/proxy';
  */
 export const appRouter = createTRPCRouter({
   ...aiRouter,
+  ...mailRouter,
   ...authRouter,
   ...proxyRouter
 });

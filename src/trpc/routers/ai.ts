@@ -1,7 +1,12 @@
 import { z } from 'zod';
 
-import { type GenerateParams, generateParams } from '@/lib/route/params';
-import { createCompletion } from '@/lib/sdks/openai/api';
+import {
+  generateParams,
+  generateImageParams,
+  type GenerateParams,
+  type GenerateImageParams
+} from '@/lib/route/params';
+import { createCompletion, createImageCompletion } from '@/lib/sdks/openai/api';
 import { type DocumentType, availableDocuments } from '@/lib/sdks/openai/prompts';
 import { publicProcedure } from '@/trpc';
 
@@ -22,7 +27,7 @@ export const aiRouter = {
       })
     )
     .mutation(async ({ input }) => {
-      const { topic, tone, persona, format, model, prompt } = await generateParams(
+      const { topic, tone, persona, format, model, prompt } = generateParams(
         input as GenerateParams
       );
 
@@ -48,6 +53,29 @@ export const aiRouter = {
           persona
         });
 
+        return { success: true, data };
+      } catch (e) {
+        const error = e as Error;
+        return { success: false, error: error.message };
+      }
+    }),
+  image: publicProcedure
+    .input(
+      z.object({
+        n: z.string(),
+        size: z.string().optional(),
+        model: z.string().optional(),
+        style: z.string().optional(),
+        prompt: z.string().optional(),
+        quality: z.string().optional(),
+        response_format: z.string().optional()
+      })
+    )
+    .mutation(async ({ input }) => {
+      const imageOptions = generateImageParams(input as GenerateImageParams);
+
+      try {
+        const data = await createImageCompletion(imageOptions);
         return { success: true, data };
       } catch (e) {
         const error = e as Error;

@@ -1,6 +1,6 @@
 import { map as pMap } from 'already';
 
-import { fromPromise, unbox } from '@/lib/route/utils';
+import { fromPromise, unboxR } from '@/lib/route/utils';
 import { drive } from '@/lib/sdks/google/auth';
 import { config } from '@/lib/sdks/google/config';
 import { listFiles, listFolders } from '@/lib/sdks/google/drive';
@@ -50,7 +50,7 @@ export const listPermissions = async (fileId: string) => {
 };
 
 export const hasPermissions = async (fileId: string, emailAddress: string) => {
-  const { data: permissions } = unbox(await listPermissions(fileId));
+  const { data: permissions } = unboxR(await listPermissions(fileId));
 
   return permissions?.permissions?.some((permission) => {
     return permission?.emailAddress === emailAddress;
@@ -68,7 +68,7 @@ export const createPermissionsIfNotExists = async (
 };
 
 export const shareFiles = async (emailAddress: string, role = 'reader') => {
-  const { data } = unbox(await listFiles());
+  const { data } = unboxR(await listFiles());
 
   return pMap(
     data?.files || [],
@@ -77,7 +77,7 @@ export const shareFiles = async (emailAddress: string, role = 'reader') => {
 };
 
 export const shareFolders = async (emailAddress: string, role = 'reader') => {
-  const { data } = unbox(await listFolders());
+  const { data } = unboxR(await listFolders());
 
   return pMap(
     data?.files || [],

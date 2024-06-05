@@ -66,11 +66,12 @@ export function PromptForm({ onSubmit, input, setInput, isLoading }: PromptProps
           rows={1}
           tabIndex={0}
           value={input}
-          spellCheck={false}
+          maxHeight={120}
+          spellCheck={true}
           onKeyDown={onKeyDown}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Send a message."
-          className="min-h-[60px] w-full resize-none border-none bg-transparent px-4 py-[1.3rem] focus-visible:ring-0 focus-visible:ring-offset-0 sm:text-sm"
+          className="w-full resize-none border-none bg-transparent px-4 py-[1.3rem] focus-visible:ring-0 focus-visible:ring-offset-0 sm:text-sm"
         />
         <div className="absolute right-0 top-4 sm:right-4">
           <TooltipProvider>

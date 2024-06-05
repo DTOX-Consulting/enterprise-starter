@@ -1,6 +1,6 @@
-import styles from './loading-dots.module.css';
+import styles from '@/components/ui/organisms/icons/loading-dots.module.css';
 
-const LoadingDots = ({ color = '#000' }: { color?: string }) => {
+const LoadingDots = ({ color = 'hsl(var(--foreground))' }: { color?: string }) => {
   return (
     <span className={styles.loading}>
       <span style={{ backgroundColor: color }} />

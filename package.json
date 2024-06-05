@@ -106,7 +106,6 @@
     "@trigger.dev/react": "2.3.18",
     "@trigger.dev/sdk": "2.3.18",
     "@trpc/client": "10.45.2",
-    "@trpc/next": "10.45.2",
     "@trpc/react-query": "10.45.2",
     "@trpc/server": "10.45.2",
     "@uidotdev/usehooks": "2.4.1",

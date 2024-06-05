@@ -1,6 +1,5 @@
 import { Chat } from '@/components/ui/organisms/chat/chat';
 import { type AuthRedirectResponse, authenticationRedirection } from '@/lib/auth/redirect';
-
 import { nanoid } from '@/lib/utils/id';
 
 export function DefaultChat({
@@ -11,7 +10,7 @@ export function DefaultChat({
 }) {
   const id = nanoid();
   return (
-    <div className="flex grow">
+    <div className="h-full">
       <Chat id={id} showBots={showBots} />
     </div>
   );

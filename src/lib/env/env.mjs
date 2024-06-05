@@ -3,6 +3,8 @@ import { z } from 'zod';
 
 export const env = createEnv({
   server: {
+    SENTRY_ORG: z.string().min(1),
+    SENTRY_PROJECT: z.string().min(1),
     SENTRY_AUTH_TOKEN: z.string().min(1),
     NODE_ENV: z.enum(['development', 'production', 'test']).optional(),
     ANALYZE: z
@@ -19,6 +21,8 @@ export const env = createEnv({
   runtimeEnv: {
     ANALYZE: process.env.ANALYZE,
     NODE_ENV: process.env.NODE_ENV,
+    SENTRY_ORG: process.env.SENTRY_ORG,
+    SENTRY_PROJECT: process.env.SENTRY_PROJECT,
     SENTRY_AUTH_TOKEN: process.env.SENTRY_AUTH_TOKEN,
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
     NEXT_PUBLIC_NODE_ENV: process.env.NEXT_PUBLIC_NODE_ENV,

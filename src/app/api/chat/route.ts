@@ -12,6 +12,7 @@ import type { NextRequest } from 'next/server';
 
 export const runtime = 'edge';
 
+// TRPC Cannot stream responses
 export const POST = routeHandler(async (req: NextRequest): Promise<StreamingTextResponse> => {
   const {
     bot,
@@ -47,7 +48,7 @@ const getArgs = ({
   bot?: ChatRequestBodyWithMessages['bot'];
 }): StreamChatOptions => {
   let isBot = false;
-  const model = getModel('gpt4');
+  const model = getModel('gpt3');
   const tone: ToneType = 'conversational';
   let prompt: ChatOptions['prompt'] = undefined;
   let callback: StreamChatOptions['callback'] = storePayload;

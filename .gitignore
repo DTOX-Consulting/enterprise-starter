@@ -47,11 +47,14 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
-public/workbox-*.js
-public/sw.js
+public/workbox-*
+public/sw.*
 
 # public/images/icons/*
 # public/images/logos/*
 # public/images/screenshots/*
 
 .eslintcache
+.million
+
+analyze

@@ -18,8 +18,14 @@ import type {
   DocumentType,
   ModelValueType
 } from '@/lib/sdks/openai';
+import type { NN } from '@/lib/types';
 import type { GenericObject } from '@/lib/utils/object';
 import type { NextRequest } from 'next/server';
+import type { ImageGenerateParams } from 'openai/resources/images';
+
+export type GenerateImageParams = Omit<NN<ImageGenerateParams>, 'user' | 'n'> & {
+  n: string;
+};
 
 export type GenerateParams = {
   topic?: string;
@@ -131,7 +137,7 @@ export const getGenerateParams = async (request: NextRequest): Promise<GenerateP
   return generateParams(params);
 };
 
-export const generateParams = async (params: GenerateParams): Promise<GenerateParamsResult> => {
+export const generateParams = (params: GenerateParams): GenerateParamsResult => {
   const { template } = getTemplate(params.document);
 
   const persona = ensureParam<PersonaType[]>({
@@ -167,4 +173,24 @@ export const generateParams = async (params: GenerateParams): Promise<GeneratePa
     prompt: template.prompt,
     topic: params.topic ?? params.prompt ?? ''
   };
+};
+
+export const getGenerateImageParams = async (
+  request: NextRequest
+): Promise<GenerateImageParams> => {
+  const params = await getParams<GenerateImageParams>(request, [
+    'n',
+    'size',
+    'model',
+    'style',
+    'prompt',
+    'quality',
+    'response_format'
+  ]);
+
+  return generateImageParams(params);
+};
+
+export const generateImageParams = (params: GenerateImageParams): GenerateImageParams => {
+  return params;
 };

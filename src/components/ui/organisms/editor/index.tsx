@@ -29,8 +29,24 @@ import { slashCommand, suggestionItems } from '@/components/ui/organisms/editor/
 
 const extensions = [...defaultExtensions, slashCommand];
 
-export const Editor = () => {
-  const [initialContent, setInitialContent] = useState<null | JSONContent>(null);
+export const Editor = ({
+  onUpdate,
+  className,
+  storageKey,
+  defaultValue,
+  completionApi,
+  disableLocalStorage
+}: {
+  className?: string;
+  storageKey?: string;
+  defaultValue?: string;
+  completionApi?: string;
+  disableLocalStorage?: boolean;
+  onUpdate?: (editor: EditorInstance) => void;
+}) => {
+  const [initialContent, setInitialContent] = useState<null | JSONContent>(
+    defaultValue ? (JSON.parse(defaultValue) as JSONContent) : null
+  );
   const [saveStatus, setSaveStatus] = useState('Saved');
   const [charsCount, setCharsCount] = useState();
 

@@ -53,7 +53,7 @@ export const errorResponse = (
   code?: number
 ): NextResponse => {
   const status = getStatus({ error: err, code }).error;
-  const error = serializeError(err || new Error('Unknown error'));
+  const error = serializeError(err ?? new Error('Unknown error'));
   return NextResponse.json({ success: false, error }, { status });
 };
 

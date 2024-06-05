@@ -1,6 +1,7 @@
 'use client';
 
 import { G } from '@mobily/ts-belt';
+import { Fragment } from 'react';
 
 import {
   Toast,
@@ -17,17 +18,19 @@ export function Toaster() {
 
   return (
     <ToastProvider>
-      {toasts.map(({ id, title, description, action, ...props }) => (
-        <Toast key={id} {...props}>
-          <div className="grid gap-1">
-            {G.isNotNullable(title) && <ToastTitle>{title}</ToastTitle>}
-            {G.isNotNullable(description) && <ToastDescription>{description}</ToastDescription>}
-          </div>
-          {action}
-          <ToastClose />
-        </Toast>
+      {toasts.map(({ id, title, description, action, viewportClassName, ...props }) => (
+        <Fragment key={id}>
+          <Toast key={id} {...props}>
+            <div className="grid gap-1">
+              {G.isNotNullable(title) && <ToastTitle>{title}</ToastTitle>}
+              {G.isNotNullable(description) && <ToastDescription>{description}</ToastDescription>}
+            </div>
+            {action}
+            <ToastClose />
+          </Toast>
+          <ToastViewport className={viewportClassName} />
+        </Fragment>
       ))}
-      <ToastViewport />
     </ToastProvider>
   );
 }

@@ -4,11 +4,14 @@ import nextBundleAnalyzer from '@next/bundle-analyzer';
 import nextMDX from '@next/mdx';
 import { withSentryConfig } from '@sentry/nextjs';
 import { next as nextMillionCompiler } from 'million/compiler';
+import { $ } from 'zx';
 
-import { isDev, isDocker } from './config/env.config.mjs';
+import { isDev, isVercel, isCloudflare, isDocker } from './config/env.config.mjs';
 import { rewrites } from './config/rewrites.config.mjs';
 import { headers, images } from './config/security.config.mjs';
 import { env } from './src/lib/env/env.mjs';
+
+console.table({ isDev, isDocker, isVercel, isCloudflare });
 
 /** @type {import("next").NextConfig} */
 const nextConfig = {
@@ -27,7 +30,7 @@ const nextConfig = {
     // typedRoutes: true,
     serverSourceMaps: isDev,
     serverMinification: !isDev,
-    instrumentationHook: true
+    instrumentationHook: isVercel && !isCloudflare
   },
   eslint: {
     // Warning: This allows production builds to successfully complete even if
@@ -56,9 +59,10 @@ const nextSentry = (buildOptions) => {
    *
    * @param {import("next").NextConfig} config
    */
-  return (config) => withSentryConfig(config, buildOptions);
+  return (config) => (isVercel && !isCloudflare ? withSentryConfig(config, buildOptions) : config);
 };
 
+/** @type {((config: import('next').NextConfig) => import('next').NextConfig)[]} */
 const plugins = [
   nextBundleAnalyzer({ enabled: env.ANALYZE }),
   nextPWA({
@@ -90,8 +94,16 @@ const plugins = [
     // Automatically tree-shake Sentry logger statements to reduce bundle size
     disableLogger: !isDev,
 
+    debug: !isDev,
+
     // Upload a larger set of source maps for prettier stack traces (increases build time)
     widenClientFileUpload: true,
+
+    telemetry: false,
+
+    autoInstrumentServerFunctions: true,
+    autoInstrumentAppDirectory: true,
+    autoInstrumentMiddleware: true,
 
     // Route browser requests to Sentry through a Next.js rewrite to circumvent ad-blockers.
     // This can increase your server load as well as your hosting bill.
@@ -109,21 +121,43 @@ const plugins = [
 
 const pluginsConfig = plugins.reduce((acc, plugin) => plugin(acc), nextConfig);
 
-const config = async () => {
-  await import('./src/lib/env/env.mjs');
-  // return pluginsConfig;
-
+/**
+ *
+ *
+ * @returns {import("next").NextConfig}
+ */
+const nextMillion = () => {
   const lint = nextMillionLint({
     rsc: true
   });
 
-  return nextMillionCompiler(lint(pluginsConfig), {
+  /** @type {import("next").NextConfig} */
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const config = lint(pluginsConfig);
+
+  /** @type {import("next").NextConfig} */
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+  return nextMillionCompiler(config, {
     rsc: true,
     auto: true,
     filter: {
       exclude: ['**/node_modules/**/*', '**/src/components/ui/organisms/chat/icons.tsx']
     }
   });
+};
+
+const config = async () => {
+  await import('./src/lib/env/env.mjs');
+
+  if (isVercel && !isCloudflare) {
+    await $`bash ./scripts/comment_runtime.sh src/app page.tsx layout.tsx not-found.tsx`;
+  }
+
+  if (1 === 1) {
+    return pluginsConfig;
+  }
+
+  return nextMillion();
 };
 
 export default config;
