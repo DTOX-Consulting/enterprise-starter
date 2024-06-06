@@ -1,35 +1,25 @@
 import { z } from 'zod';
 
 import {
-  generateParams,
-  generateImageParams,
-  type GenerateParams,
-  type GenerateImageParams
-} from '@/lib/route/params';
-import { createCompletion, createImageCompletion } from '@/lib/sdks/openai/api';
-import { type DocumentType, availableDocuments } from '@/lib/sdks/openai/prompts';
+  createCompletion,
+  createImageCompletion,
+  type GenerateImageParams,
+  type GenerateParams
+} from '@/lib/sdks/openai/api';
 import { publicProcedure } from '@/trpc';
 
 import type { ChatCompletionRequestMessage } from 'openai-edge';
-
-const [firstKey, ...rest] = availableDocuments;
 
 export const aiRouter = {
   generator: publicProcedure
     .input(
       z.object({
         topic: z.string(),
-        tone: z.string().optional(),
-        model: z.string().optional(),
-        format: z.string().optional(),
-        persona: z.string().optional(),
-        document: z.enum([firstKey as unknown as DocumentType, ...rest])
+        model: z.string().optional()
       })
     )
     .mutation(async ({ input }) => {
-      const { topic, tone, persona, format, model, prompt } = generateParams(
-        input as GenerateParams
-      );
+      const { topic, model } = input as GenerateParams;
 
       if (!topic) {
         return {
@@ -46,11 +36,7 @@ export const aiRouter = {
         ];
 
         const data = await createCompletion(messages, {
-          tone,
-          model,
-          prompt,
-          format,
-          persona
+          model
         });
 
         return { success: true, data };
@@ -62,7 +48,7 @@ export const aiRouter = {
   image: publicProcedure
     .input(
       z.object({
-        n: z.string(),
+        n: z.number(),
         size: z.string().optional(),
         model: z.string().optional(),
         style: z.string().optional(),
@@ -72,7 +58,7 @@ export const aiRouter = {
       })
     )
     .mutation(async ({ input }) => {
-      const imageOptions = generateImageParams(input as GenerateImageParams);
+      const imageOptions = input as GenerateImageParams;
 
       try {
         const data = await createImageCompletion(imageOptions);

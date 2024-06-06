@@ -1,23 +1,56 @@
 import { OpenAIStream, StreamingTextResponse } from 'ai';
 
-import { getEnv, isDev } from '@/lib/env';
 import { openai, openaiSdk } from '@/lib/sdks/openai/auth';
-import {
-  type ChatOptions,
-  type ImageOptions,
-  getChatOptions,
-  getImageOptions,
-  getSystemPrompts,
-  getSystemPromptArgs
-} from '@/lib/sdks/openai/helpers/prompt';
-import { generateCallbackArgs } from '@/lib/sdks/openai/helpers/utils';
 
-import type { StreamChatOptions } from '@/lib/sdks/openai/helpers/types';
+import type { NN } from '@/lib/types';
+import type { ImageGenerateParams } from 'openai/resources/images';
 import type { ChatCompletionRequestMessage, CreateChatCompletionResponse } from 'openai-edge';
 
+export type ModelType = 'gpt-3.5-turbo' | 'gpt-4-turbo' | 'gpt-4-o';
+
+export type ChatOptions = {
+  stream?: boolean;
+  temperature?: number;
+  model?: ModelType;
+};
+
+export type StreamChatOptions = Omit<ChatOptions, 'stream'> & {
+  callback?: (args: CallbackArgs) => Promise<void>;
+  userId?: string;
+  chatId?: string;
+};
+
+export type CallbackArgs = {
+  completion: string;
+  chatOptions: ChatOptions;
+  messages: ChatCompletionRequestMessage[];
+};
+
+export type ChatRequestBody = {
+  id: string;
+  userId?: string;
+  isUnAuthenticated?: boolean;
+};
+
+export type ChatRequestBodyWithMessages = ChatRequestBody & {
+  messages: ChatCompletionRequestMessage[];
+};
+
+export type ImageOptions = Omit<ImageGenerateParams, 'n' | 'user'> & { n?: number };
+
+export type GenerateImageParams = Omit<NN<ImageGenerateParams>, 'user'>;
+
+export type GenerateParams = {
+  topic?: string;
+  model?: ModelType;
+};
+
+export type GenerateParamsResult = {
+  topic: string;
+};
+
 export const createImageCompletion = async (imageOptions: ImageOptions) => {
-  const options = getImageOptions(imageOptions);
-  const response = await openaiSdk.images.generate(options);
+  const response = await openaiSdk.images.generate(imageOptions);
   return response.data;
 };
 
@@ -25,17 +58,11 @@ export const _createCompletion = async (
   _messages: ChatCompletionRequestMessage[],
   chatOptions: ChatOptions = {}
 ) => {
-  const systemPromptArgs = getSystemPromptArgs(chatOptions);
-  const { stream, temperature, model } = getChatOptions(chatOptions);
-
-  const systemPrompt = await getSystemPrompts(systemPromptArgs, _messages);
-  const messages = [...systemPrompt, ..._messages];
-
   return openai.createChatCompletion({
-    model,
-    stream,
-    messages,
-    temperature
+    messages: _messages,
+    stream: chatOptions.stream,
+    temperature: chatOptions.temperature,
+    model: chatOptions.model ?? 'gpt-3.5-turbo'
   });
 };
 
@@ -59,27 +86,11 @@ export const streamCompletion = async (
 
   const stream = OpenAIStream(completionResponse, {
     async onCompletion(completion) {
-      const { userId, chatId } = chatOptions;
-      const args = generateCallbackArgs({
-        userId,
-        chatId,
-        messages,
-        completion,
-        chatOptions
+      await chatOptions?.callback?.({
+        messages: messages,
+        completion: completion,
+        chatOptions: chatOptions
       });
-
-      await chatOptions?.callback?.(args);
-
-      if (!isDev() || getEnv('STORE_FINE_TUNE_DATA') !== 'true') {
-        return;
-      }
-
-      // const { error } = await storeJsonL([
-      //   ...(await getSystemPrompts(getSystemPromptArgs(chatOptions), messages)),
-      //   ...args.messages
-      // ]);
-
-      // if(error) console.error(error);
     }
   });
 
