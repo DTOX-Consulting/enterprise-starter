@@ -1,5 +1,6 @@
 import { resolve } from 'node:path';
 
+// @ts-expect-error
 import sharp from 'sharp';
 import { $ } from 'zx';
 
