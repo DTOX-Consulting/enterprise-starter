@@ -1,6 +1,6 @@
 import { resolve } from 'node:path';
 
-// @ts-expect-error
+// @ts-expect-error -- installed globally
 import sharp from 'sharp';
 import { $ } from 'zx';
 
