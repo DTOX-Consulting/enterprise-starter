@@ -1,6 +1,6 @@
 import { resolve } from 'node:path';
 
-// import sharp from 'sharp';
+import sharp from 'sharp';
 import { $ } from 'zx';
 
 import { name, shortName, shortDescription, themeColor, backgroundColor } from '@/app/metadata';
@@ -122,29 +122,29 @@ const generateManifestImages = () => {
   };
 };
 
-const sharp = (input?: string) => {
-  const png = () => sharp(input);
+// const sharp = (input?: string) => {
+//   const png = () => sharp(input);
 
-  const resize = (
-    _options:
-      | number
-      | {
-          width: number;
-          height: number;
-          fit: 'contain';
-          background: string;
-        },
-    _other?: number
-  ) => sharp(input);
+//   const resize = (
+//     _options:
+//       | number
+//       | {
+//           width: number;
+//           height: number;
+//           fit: 'contain';
+//           background: string;
+//         },
+//     _other?: number
+//   ) => sharp(input);
 
-  const toFile = (_output: string, _callback: (err?: Error) => void) => sharp(input);
+//   const toFile = (_output: string, _callback: (err?: Error) => void) => sharp(input);
 
-  return {
-    png,
-    resize,
-    toFile
-  };
-};
+//   return {
+//     png,
+//     resize,
+//     toFile
+//   };
+// };
 
 const generateLogos = () => {
   ensureDir(logoRoot);
