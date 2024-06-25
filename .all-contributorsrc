@@ -1,0 +1,22 @@
+{
+  "projectName": "enterprise-starter",
+  "projectOwner": "DTOX-Consulting",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": ["README.md"],
+  "commit": true,
+  "imageSize": 100,
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "devotox",
+      "name": "Devonte Emokpae",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2064846?v=4",
+      "profile": "https://www.d2tech-studio.com/about",
+      "contributions": ["code"]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "linkToUsage": true,
+  "commitType": "docs"
+}

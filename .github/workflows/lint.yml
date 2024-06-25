@@ -1,0 +1,46 @@
+name: Lint
+
+on:
+  push:
+    tags:
+      - '*'
+    branches:
+      - '*'
+  pull_request:
+
+env:
+  HUSKY: 0
+  NEXT_PUBLIC_NODE_ENV: development
+  NEXT_PUBLIC_TRIGGER_PUBLIC_API_KEY: trg_1234567890
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+      - name: Setup SHA
+        uses: rlespinasse/github-slug-action@v4
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with: { node-version: '18.x' }
+      - name: Setup Volta
+        uses: volta-cli/action@v4
+      - name: Install Dependencies
+        uses: pnpm/action-setup@v2.4.0
+        with:
+          run_install: |
+            - args: [--frozen-lockfile, --strict-peer-dependencies]
+      - name: Run Typecheck
+        run: pnpm typecheck
+        continue-on-error: true
+      - name: Run linters
+        uses: samuelmeuli/lint-action@v2
+        continue-on-error: true
+        with:
+          eslint: true
+          auto_fix: false
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          eslint_extensions: ts,tsx,tson,js,jsx,json
