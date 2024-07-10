@@ -24,7 +24,6 @@ import { cn } from '@/lib/utils';
 import type { User } from '@/lib/sdks/kinde/api/session';
 import type { PropsWithChildren } from 'react';
 
-
 export function SidebarDesktop({
   user,
   children,
@@ -86,7 +85,7 @@ export function SidebarContent({
   showUserMenu,
   linksClassName,
   navigationProps,
-  showWorkspaceSwitcher,
+  showWorkspaceSwitcher
 }: {
   user?: User;
   className?: string;

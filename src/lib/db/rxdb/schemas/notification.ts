@@ -11,8 +11,7 @@ export type Notification = {
   };
   readAt?: string;
   removedAt?: string;
-  meta?: {
-  };
+  meta?: {};
 };
 
 export const notificationSchema = createSchema<Notification>({
@@ -52,8 +51,7 @@ export const notificationSchema = createSchema<Notification>({
     },
     meta: {
       type: 'object',
-      properties: {
-      }
+      properties: {}
     }
   }
 });

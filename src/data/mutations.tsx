@@ -23,7 +23,6 @@ import type { DCS, PCS, PNCS, NCSNO } from '@/lib/db/rxdb/utils/schema';
 import type { GenericFunction } from '@/lib/utils/function';
 import type { GenericObject } from '@/lib/utils/object';
 
-
 export function useDBDataMutation() {
   const { userId: ownerId } = useAuth();
   const { currentOrganization } = useDBData();
