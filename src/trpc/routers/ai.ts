@@ -2,10 +2,11 @@ import { z } from 'zod';
 
 import { type GenerateParams, generateParams } from '@/lib/route/params';
 import { createCompletion } from '@/lib/sdks/openai/api';
-import { type DocumentType, availableDocuments } from '@/lib/sdks/openai/prompts';
 import { publicProcedure } from '@/trpc';
 
 import type { ChatCompletionRequestMessage } from 'openai-edge';
+
+import { type DocumentType, availableDocuments } from '@/lib/sdks/openai/prompts';
 
 const [firstKey, ...rest] = availableDocuments;
 

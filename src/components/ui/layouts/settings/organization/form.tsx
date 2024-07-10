@@ -3,7 +3,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 
-import { OrganizationField } from '@/app/(authenticated)/businesses/components/organization-field';
 import { Button } from '@/components/ui/atoms/button';
 import { ContainerAnimated } from '@/components/ui/atoms/container';
 import { Form, useForm } from '@/components/ui/atoms/form';
@@ -15,6 +14,8 @@ import { useNavigation } from '@/config/navigation/use-navigation';
 import { useDBData, useDBDataMutation } from '@/data';
 import { organizationTypes } from '@/data/constants';
 import { NewOrganizationFormSchema, type NewOrganizationFormType } from '@/data/forms';
+
+import { OrganizationField } from '@/app/(authenticated)/businesses/components/organization-field';
 
 export function OrganizationForm() {
   const router = useRouter();

@@ -1,11 +1,12 @@
 import { shortName } from '@/app/metadata';
 import { Button } from '@/components/ui/atoms/button';
 import { IconArrowRight } from '@/components/ui/organisms/chat/icons';
-import { BotUI, type BotType, type BotUIType } from '@/lib/sdks/openai';
 import { AI_NAME } from '@/lib/sdks/openai/constants';
 import { cn } from '@/lib/utils';
 
 import type { UseChatHelpers } from 'ai/react';
+
+import { BotUI, type BotType, type BotUIType } from '@/lib/sdks/openai';
 
 const exampleMessages = [
   {

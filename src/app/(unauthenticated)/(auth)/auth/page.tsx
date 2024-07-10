@@ -1,11 +1,10 @@
 import { RegisterLink, LoginLink, LogoutLink } from '@kinde-oss/kinde-auth-nextjs/components';
-import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 
 import { Button } from '@/components/ui/atoms/button';
+import { isUserAuthenticated } from '@/lib/sdks/kinde/api/session';
 
 export default async function AuthPage() {
-  const { isAuthenticated } = getKindeServerSession();
-  const authCheck = await isAuthenticated();
+  const authCheck = await isUserAuthenticated();
 
   if (authCheck) {
     return (

@@ -1,16 +1,14 @@
-import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import { redirect } from 'next/navigation';
 
-import AutoRedirect from '@/components/ui/molecules/auto-redirect';
-import { routes } from '@/config/navigation';
+import { routes, apiRoutes } from '@/config/navigation/routes';
+import { isUserAuthenticated } from '@/lib/sdks/kinde/api/session';
 
 export default async function LogoutPage() {
-  const { isAuthenticated } = getKindeServerSession();
-  const authCheck = await isAuthenticated();
+  const authCheck = await isUserAuthenticated();
 
   if (!authCheck) {
     redirect(routes.login);
   }
 
-  return <AutoRedirect logout={true} />;
+  redirect(`${apiRoutes.auth.logout}`);
 }

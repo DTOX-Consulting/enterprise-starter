@@ -2,7 +2,6 @@
 
 import { Menu } from 'lucide-react';
 
-import { BusinessLogo } from '@/app/(authenticated)/businesses/components/business-logo';
 import { FadeIn } from '@/components/animations/fade-in';
 import { Button } from '@/components/ui/atoms/button';
 import { Separator } from '@/components/ui/atoms/separator';
@@ -24,6 +23,8 @@ import { cn } from '@/lib/utils';
 
 import type { User } from '@/lib/sdks/kinde/api/session';
 import type { PropsWithChildren } from 'react';
+
+import { BusinessLogo } from '@/app/(authenticated)/businesses/components/business-logo';
 
 export function SidebarDesktop({
   user,

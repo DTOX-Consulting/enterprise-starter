@@ -3,6 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ChevronRightCircle, ChevronsUpDown, type LucideIcon } from 'lucide-react';
 import { type PropsWithChildren, useState } from 'react';
+import { isMobile } from 'react-device-detect';
 import { z } from 'zod';
 
 import { Button } from '@/components/ui/atoms/button';
@@ -35,7 +36,6 @@ import { Input } from '@/components/ui/atoms/input';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/atoms/popover';
 import { Upgrade } from '@/config/permissions/upgrade';
 import { cn } from '@/lib/utils';
-import { isMobile } from 'react-device-detect';
 
 type BasicChoice = { id: string; name: string };
 type SwitcherProps<T extends BasicChoice> = {

@@ -4,7 +4,6 @@ import { ChevronLeftIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import icon from '@/assets/images/icon.png';
 import logo from '@/assets/images/logo.png';
 import { SubscriptionBadge } from '@/components/ui/molecules/subscription-badge';
 import { routes } from '@/config/navigation/routes';
@@ -14,6 +13,8 @@ import { cn } from '@/lib/utils';
 import { ucFirst } from '@/lib/utils/string';
 
 import type { NavigationProps } from '@/config/navigation/use-navigation';
+
+import icon from '@/assets/images/icon.png';
 
 function SidebarMinimizer() {
   const [isMinimized, setMinimized] = useAtom('sidebarMinimizedAtom');

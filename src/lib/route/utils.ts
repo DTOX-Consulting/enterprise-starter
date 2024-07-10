@@ -31,7 +31,7 @@ export const fromPromise = async <T, E extends APIError>(
   }
 };
 
-export const unboxR = <T, E extends APIError>(result: Result<T, E>): { data?: T; error?: E } => {
+export const unbox = <T, E extends APIError>(result: Result<T, E>): { data?: T; error?: E } => {
   return {
     data: R.toUndefined(result),
     error: R.toUndefined(R.flip(result))
@@ -46,5 +46,5 @@ export const unboxPath = <
   result: Result<T, E>,
   path: R = 'result' as R
 ): T[R] | undefined => {
-  return unboxR(result)?.data?.[path];
+  return unbox(result)?.data?.[path];
 };

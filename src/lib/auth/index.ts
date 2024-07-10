@@ -69,7 +69,7 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     session({ token, session }) {
       if (token as typeof token | undefined) {
-        session.user.id = token.id;
+        session.user.id = token.id as unknown as string;
         session.user.name = token.name;
         session.user.email = token.email;
         session.user.image = token.picture;
