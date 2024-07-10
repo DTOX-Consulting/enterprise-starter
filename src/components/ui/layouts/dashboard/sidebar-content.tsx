@@ -24,7 +24,6 @@ import { cn } from '@/lib/utils';
 import type { User } from '@/lib/sdks/kinde/api/session';
 import type { PropsWithChildren } from 'react';
 
-import { BusinessLogo } from '@/app/(authenticated)/businesses/components/business-logo';
 
 export function SidebarDesktop({
   user,
@@ -41,7 +40,6 @@ export function SidebarDesktop({
         noMinimize={false}
         showUserMenu={true}
         showWorkspaceSwitcher={false}
-        showCurrentBusinessLogo={true}
         navigationProps={navigationProps}
       />
       {children}
@@ -72,7 +70,6 @@ export function SidebarMobile({ user, children }: PropsWithChildren & { user?: U
             noMinimize={true}
             showUserMenu={true}
             showWorkspaceSwitcher={false}
-            showCurrentBusinessLogo={false}
             navigationProps={navigationProps}
           />
           {children}
@@ -90,7 +87,6 @@ export function SidebarContent({
   linksClassName,
   navigationProps,
   showWorkspaceSwitcher,
-  showCurrentBusinessLogo
 }: {
   user?: User;
   className?: string;
@@ -98,7 +94,6 @@ export function SidebarContent({
   showUserMenu?: boolean;
   linksClassName?: string;
   showWorkspaceSwitcher?: boolean;
-  showCurrentBusinessLogo?: boolean;
   navigationProps: NavigationProps;
 }) {
   const [isMinimized] = useAtom('sidebarMinimizedAtom');
@@ -109,7 +104,6 @@ export function SidebarContent({
         'md:px-0': isMinimized
       })}
     >
-      {showCurrentBusinessLogo && <BusinessLogo />}
       <ul
         className={cn('flex w-full flex-col', {
           'items-center': isMinimized

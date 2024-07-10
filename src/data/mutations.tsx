@@ -23,7 +23,6 @@ import type { DCS, PCS, PNCS, NCSNO } from '@/lib/db/rxdb/utils/schema';
 import type { GenericFunction } from '@/lib/utils/function';
 import type { GenericObject } from '@/lib/utils/object';
 
-import { companyStatementsToBusiness } from '@/app/(authenticated)/businesses/utils/handlers';
 
 export function useDBDataMutation() {
   const { userId: ownerId } = useAuth();
@@ -115,24 +114,9 @@ export function useDBDataMutation() {
     [createHistory, currentOrganization]
   );
 
-  const insertBusiness = useCallback(
+  const createBusiness = useCallback(
     async (business: NCSNO<Business>) => businessMutations.insert({ ...business, ownerId }),
     [businessMutations, ownerId]
-  );
-
-  const createBusiness = useCallback(
-    async (companyStatements: CompanyStatements, logo?: string) => {
-      if (!currentOrganization) {
-        throw new Error('No Current Organization Found');
-      }
-
-      const business = companyStatementsToBusiness(companyStatements, currentOrganization.id, logo);
-
-      const newBusiness = await insertBusiness(business);
-      await createBusinessHistory(newBusiness.id, newBusiness);
-      return newBusiness;
-    },
-    [currentOrganization, insertBusiness, createBusinessHistory]
   );
 
   const updateBusiness = useCallback(

@@ -6,15 +6,13 @@ import { useCallback } from 'react';
 import { memoize } from '@/components/tools/memoize';
 import { NotificationDrawer } from '@/components/ui/molecules/notification-drawer';
 import { routes } from '@/config/navigation/routes';
-import { useDBData, useDBDataExtras, useDBDataExtrasMutation } from '@/data';
-import { useAIUpdates } from '@/data/components/ai-generator';
+import { useDBDataExtras, useDBDataExtrasMutation } from '@/data';
 import { danglingPromise } from '@/lib/utils/promise';
 
 import type { Notification } from '@/lib/db/rxdb/schemas/notification';
 import type { DCS } from '@/lib/db/rxdb/utils/schema';
 
 function _NotificationToggle() {
-  useAIUpdates();
   const router = useRouter();
   const { notifications } = useDBDataExtras();
   const { setNotificationRead, setNotificationRemoved } = useDBDataExtrasMutation();

@@ -2,19 +2,18 @@
 
 import Script from 'next/script';
 import { useEffect } from 'react';
-import { isMobile } from 'react-device-detect';
 
-export function ChatPopup({ expand }: { expand?: boolean }) {
+export function ChatPopup() {
   useEffect(() => {
-    showChatPopup(isMobile ? false : expand);
+    showChatPopup();
     return hideChatPopup;
-  }, [expand]);
+  }, []);
 
   return (
     <Script
       type="module"
       strategy="lazyOnload"
-      src="/iframe-widget-js?app=chat&style=popup&state=collapse&position=right&size=sm"
+      src="/iframe-widget-js?app=chat&style=popup&state=expand&position=right&size=sm"
     />
   );
 }
@@ -26,9 +25,9 @@ function getElements() {
   return { iframe, iframeWrapper, script };
 }
 
-function showChatPopup(expand = false) {
+function showChatPopup() {
   const { iframe, iframeWrapper } = getElements();
-  expand && iframe?.contentWindow?.postMessage('expand', '*');
+  iframe?.contentWindow?.postMessage('expand', '*');
   iframeWrapper?.classList.remove('hidden');
 }
 

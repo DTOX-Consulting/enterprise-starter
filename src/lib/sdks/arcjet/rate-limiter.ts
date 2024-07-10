@@ -1,7 +1,7 @@
 import { tokenBucket } from '@arcjet/next';
 import { NextResponse } from 'next/server';
 
-import { getIp } from '@/lib/route/params';
+import { getIp } from '@/lib/route/get-ip';
 import { createArcjet, config } from '@/lib/sdks/arcjet/config';
 
 const aj = createArcjet({
