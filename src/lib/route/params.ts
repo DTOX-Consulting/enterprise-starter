@@ -70,3 +70,26 @@ export const getParams = async <T extends GenericObject>(
     return acc;
   }, {} as T);
 };
+
+
+type EnsureParamArgs<T, K> = {
+  params: T;
+  key?: string;
+  fallback: K;
+  throwError?: boolean;
+};
+
+export const ensureParam = <T extends unknown[], K = T[number]>({
+  key,
+  params,
+  fallback,
+  throwError = false
+}: EnsureParamArgs<T, K>): T[number] => {
+  const value = params.includes(key) ? (key as K) : undefined;
+
+  if (G.isNullable(value) && throwError) {
+    throw new Error(`Missing required param: ${key}`);
+  }
+
+  return value ?? fallback;
+};
