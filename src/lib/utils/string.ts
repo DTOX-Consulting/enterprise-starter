@@ -68,3 +68,15 @@ export const truncate = (str: string, length: number) => {
   if (!str || str.length <= length) return str;
   return `${str.slice(0, length)}...`;
 };
+
+export function hash(str: string) {
+  let hash = 0;
+
+  for (let i = 0; i < str.length; i++) {
+    hash = (hash << 5) - hash + str.charCodeAt(i);
+    hash |= 0; // Convert to 32bit integer
+  }
+
+  // Convert to 32bit unsigned integer in base 36 and pad with "0" to ensure length is 7.
+  return (hash >>> 0).toString(36).padStart(7, '0');
+}

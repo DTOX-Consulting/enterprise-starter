@@ -2,7 +2,8 @@ import Link from 'next/link';
 
 import { GridPattern } from '@/components/animations/grid-pattern';
 import { ContainerAnimated } from '@/components/ui/atoms/container';
-import { routes } from '@/config/navigation';
+import { ComingSoonCheckbox } from '@/components/ui/layouts/default/coming-soon-checkbox';
+import { routes } from '@/config/navigation/routes';
 
 export default function ComingSoon() {
   return (
@@ -21,8 +22,9 @@ export default function ComingSoon() {
         <p className="mt-6 text-2xl tracking-tight text-slate-700 dark:text-neutral-100">
           We&apos;re working hard to bring you something amazing! 🚀
         </p>
-        <p className="mt-4 text-xl tracking-tight text-slate-700 dark:text-neutral-100">
-          Stay tuned!
+        <p className="mt-4 flex items-center space-x-2 align-middle text-lg tracking-tight text-slate-700 dark:text-neutral-100">
+          <ComingSoonCheckbox />
+          <span className="inline-block">Sign up to get notified when this will be available.</span>
         </p>
         <Link
           href={routes.home}

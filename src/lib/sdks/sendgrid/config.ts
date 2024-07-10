@@ -8,5 +8,14 @@ export const config = {
   emails: {
     dev: { name: 'Dev', email: devEmail },
     noreply: { name: 'No Reply', email: noReplyEmail }
+  },
+  templates: {
+    welcome: {
+      id: 'd-6f40b4760fdd4ff28cce7b474a16e124',
+      data: {
+        name: 'string',
+        company: 'string'
+      }
+    }
   }
 };

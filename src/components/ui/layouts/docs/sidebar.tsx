@@ -1,6 +1,5 @@
 import Link from 'next/link';
 
-import { ScrollArea } from '@/components/ui/atoms/scroll-area';
 import { cn } from '@/lib/utils';
 
 import type { FC } from 'react';
@@ -122,20 +121,20 @@ const Section: FC<SectionProps> = ({ title, links }) => (
 );
 
 // Sidebar component
-export const Sidebar: FC = () => (
-  <ScrollArea className="rounded-md border h-[calc(100vh-10rem)] p-4">
-    <aside className="w-full md:sticky md:block">
-      <div dir="ltr" className="relative h-full overflow-hidden pr-6">
-        <div className="size-full rounded-[inherit]" style={{ overflow: 'hidden scroll' }}>
-          <div style={{ minWidth: '100%', display: 'table' }}>
-            <div className="w-full">
-              {sections.map((section, index) => (
-                <Section key={index} {...section} />
-              ))}
-            </div>
+const Sidebar: FC = () => (
+  <aside className="fixed top-14 z-30 -ml-2 hidden h-[calc(100vh-3.5rem)] w-full shrink-0 md:sticky md:block">
+    <div dir="ltr" className="relative h-full overflow-hidden py-6 pr-6 lg:py-8">
+      <div className="size-full rounded-[inherit]" style={{ overflow: 'hidden scroll' }}>
+        <div style={{ minWidth: '100%', display: 'table' }}>
+          <div className="w-full">
+            {sections.map((section, index) => (
+              <Section key={index} {...section} />
+            ))}
           </div>
         </div>
       </div>
-    </aside>
-  </ScrollArea>
+    </div>
+  </aside>
 );
+
+export default Sidebar;

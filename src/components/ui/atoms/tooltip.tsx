@@ -29,13 +29,16 @@ const TooltipContent = React.forwardRef<
 TooltipContent.displayName = TooltipPrimitive.Content.displayName;
 
 const Tip = ({
+  content,
   children,
-  content
-}: React.PropsWithChildren<{ content: string | React.ReactNode }>) => (
+  className
+}: React.PropsWithChildren<{ content: string | React.ReactNode; className?: string }>) => (
   <TooltipProvider>
     <Tooltip>
-      <TooltipTrigger>{children}</TooltipTrigger>
-      <TooltipContent>
+      <TooltipTrigger className={className} asChild>
+        {children}
+      </TooltipTrigger>
+      <TooltipContent className={!content ? 'hidden' : ''}>
         <span className="inline-block">{content}</span>
       </TooltipContent>
     </Tooltip>

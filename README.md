@@ -19,6 +19,7 @@ With this template, you get all the awesomeness you need:
 - **[Playwright](https://playwright.dev/)** - Write end-to-end tests like a pro
 - **[Storybook](https://storybook.js.org/)** - Create, test, and showcase your components
 - **Smoke Testing** and **Acceptance Tests** - For confidence in your deployments
+- **[Conventional commits git hook](https://www.conventionalcommits.org/)** - Keep your commit history neat and tidy
 - **[Observability](https://opentelemetry.io/)** - Open Telemetry integration for seamless monitoring
 - **[Absolute imports](https://nextjs.org/docs/advanced-features/module-path-aliases)** - No more spaghetti imports
 - **[Health checks](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)** - Kubernetes-compatible for robust deployments
@@ -41,7 +42,7 @@ With this template, you get all the awesomeness you need:
 - **[Trigger.dev](https://trigger.dev/)** - Automate your workflows with powerful triggers and actions
 - **[SendGrid](https://sendgrid.com/)** - Reliable email delivery for your application
 - **[AI Integration](https://openai.com/chatgpt)** - Enhance your application with cutting-edge AI capabilities
-- **Deploy at Edge** - Ready for Deployment to Vercel or Cloudflare Workers
+- **[Deploy at Edge]()** - Ready for Deployment to Vercel or Cloudflare Workers
 
 
 With this robust stack, you're equipped to build high-performance, maintainable, and scalable applications that leverage the latest in web technologies and best practices. From development to deployment, each tool and framework in this setup is chosen to ensure a smooth, efficient, and enjoyable development experience. Happy coding! 🚀
@@ -87,7 +88,11 @@ To get started with this starter, follow these steps:
 
     ```bash
     brew install gcc
-    brew reinstall vips
+    brew install vips
+    brew install gnupg
+    curl -Ls --tlsv1.2 --proto "=https" --retry 3 https://cli.doppler.com/install.sh | sudo sh
+    brew install stripe/stripe-cli/stripe
+    # brew install dopplerhq/cli/doppler
     pnpm install --frozen-lockfile
     ```
 
@@ -97,7 +102,14 @@ To get started with this starter, follow these steps:
     pnpm dev
     ```
 
-4. Open [http://localhost:3000](http://localhost:3030) with your browser to see the result.
+4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+5. This project uses a git hook to enforce [conventional commits](https://github.com/qoomon/git-conventional-commits). To install the git hook, run the following command in the root directory of the project:
+
+    ```bash
+    brew install pre-commit
+    pre-commit install -t commit-msg
+    ```
 
 ## 🚀 Deployment
 

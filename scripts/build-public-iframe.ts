@@ -5,9 +5,11 @@ import { build as bunBuild, type BuildConfig } from 'bun';
 import { glob } from 'glob';
 import fsWatch from 'node-watch';
 
+import { isDev } from '@Root/config/env.config.mjs';
+
 const options = (): BuildConfig => {
   return {
-    minify: true,
+    minify: !isDev,
     format: 'esm',
     target: 'browser',
     outdir: 'public/iframe/',

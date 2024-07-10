@@ -7,8 +7,8 @@ import { client } from '@/trigger';
 export const example = client.defineJob({
   // This is the unique identifier for your Job, it must be unique across all Jobs in your project.
   id: 'example-job',
-  name: 'Example Job: a joke with a delay',
   version: '0.0.1',
+  name: 'Example Job: a joke with a delay',
   // This is triggered by an event using eventTrigger. You can also trigger Jobs with webhooks, on schedules, and more: https://trigger.dev/docs/documentation/concepts/triggers/introduction
   trigger: eventTrigger({
     name: 'example.event'

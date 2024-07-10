@@ -3,6 +3,7 @@
 
 import Image from 'next/image';
 import remarkGfm from 'remark-gfm';
+import remarkMath from 'remark-math';
 
 import { ChatMessageActions } from '@/components/ui/organisms/chat/chat-message-actions';
 import { CodeBlock } from '@/components/ui/organisms/chat/codeblock';
@@ -37,7 +38,7 @@ export function ChatMessage({ message, mdExtraClasses, ...props }: ChatMessagePr
             'prose max-w-5xl break-words dark:prose-invert prose-p:leading-relaxed prose-pre:p-0',
             mdExtraClasses
           )}
-          remarkPlugins={[remarkGfm]}
+          remarkPlugins={[remarkGfm, remarkMath]}
           components={{
             img: function Img({ className, ...props }: React.ComponentPropsWithoutRef<any>) {
               return (
@@ -92,12 +93,12 @@ export function ChatMessage({ message, mdExtraClasses, ...props }: ChatMessagePr
                 children = children.replace('`▍`', '▍');
               }
 
-              const match = /language-(\w+)/.exec(className || '');
+              const match = /language-(\w+)/.exec(className ?? '');
 
               return match?.length ? (
                 <CodeBlock
                   key={Math.random()}
-                  language={match?.[1] || ''}
+                  language={match?.[1] ?? ''}
                   value={String(children).replace(/\n$/, '')}
                   {...props}
                 />

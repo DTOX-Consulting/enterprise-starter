@@ -66,7 +66,7 @@ export function PromptForm({ onSubmit, input, setInput, isLoading }: PromptProps
           rows={1}
           tabIndex={0}
           value={input}
-          maxHeight={120}
+          maxHeight={60}
           spellCheck={true}
           onKeyDown={onKeyDown}
           onChange={(e) => setInput(e.target.value)}

@@ -1,4 +1,5 @@
 import { G } from '@mobily/ts-belt';
+import { headers } from 'next/headers';
 import { unbox } from 'unbox-js';
 
 import type { ModelType } from '@/lib/sdks/openai/api';
@@ -70,3 +71,14 @@ export const getParams = async <T extends GenericObject>(
     return acc;
   }, {} as T);
 };
+
+export function getIp() {
+  const FALLBACK_IP_ADDRESS = '0.0.0.0';
+  const forwardedFor = headers().get('x-forwarded-for');
+
+  if (forwardedFor) {
+    return forwardedFor.split(',')[0] ?? FALLBACK_IP_ADDRESS;
+  }
+
+  return headers().get('x-real-ip') ?? FALLBACK_IP_ADDRESS;
+}

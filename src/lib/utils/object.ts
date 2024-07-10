@@ -1,5 +1,28 @@
 import { G } from '@mobily/ts-belt';
 
+import { throwError } from '@/lib/utils/error';
+
+import type { GenericFunction } from '@/lib/utils/function';
+// import type { DeepReadonlyArray, DeepReadonlyObject } from 'rxdb';
+
+// export type { DeepReadonly, DeepReadonlyArray, DeepReadonlyObject } from 'rxdb';
+
+export interface DeepReadonlyArray<T> extends ReadonlyArray<DeepReadonly<T>> {}
+
+export type DeepReadonlyObject<T> = {
+  readonly [P in keyof T]: DeepReadonly<T[P]>;
+};
+
+export type MaybeReadonly<T> = T | Readonly<T>;
+
+export type DeepReadonly<T> = T extends (infer R)[]
+  ? DeepReadonlyArray<R>
+  : T extends GenericFunction
+    ? T
+    : T extends object
+      ? DeepReadonlyObject<T>
+      : T;
+
 export type KeyList<T> = (keyof T)[];
 
 export type NonNullableRequiredKeys<T, K extends KeyList<T>> = {
@@ -8,6 +31,11 @@ export type NonNullableRequiredKeys<T, K extends KeyList<T>> = {
 
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export type GenericObject<K extends string = string, T = any> = Record<K, T>;
+
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+export type DeepGenericObject<K extends string = string, T = any> = DeepReadonly<
+  GenericObject<K, T>
+>;
 
 export type Exists<T, K extends KeyList<T>> = NonNullable<T> & NonNullableRequiredKeys<T, K>;
 
@@ -52,97 +80,140 @@ export function chunk<T>(arr: T[], totalLength: number): T[][] {
   }).filter((subarray) => subarray.length > 0);
 }
 
-export function chunkWithListConsideration<T extends string>(arr: T[], totalLength: number): T[][] {
-  if (arr.length <= totalLength) {
-    return arr.map((item) => [item]);
-  }
-
-  // Separate all lists fully
-  let separatedListItems: T[][] = [];
-  let currentList: T[] = [];
-
-  for (let i = 0; i < arr.length; i++) {
-    const currentItem = arr[i];
-
-    if (currentItem?.match(/^\d+\./)) {
-      // Check if the current item starts with a number followed by a period
-      if (currentList.length > 0) {
-        separatedListItems.push(currentList);
-        currentList = [];
-      }
+/**
+ * Lets you filter the fields of a given object.
+ * Includes fields when the predicate revaluate to true
+ * and drops them when it evaluates to false
+ *
+ * @returns Object with fields filtered
+ */
+export function filterProperties<T extends GenericObject>(
+  obj: T,
+  predicate: (value: unknown, key: keyof T) => boolean
+): T {
+  return Object.keys(obj).reduce((acc, key) => {
+    const value = obj[key as keyof T];
+    if (predicate(value, key as keyof T)) {
+      acc[key as keyof T] = value;
     }
-
-    if (currentItem) currentList.push(currentItem);
-  }
-
-  if (currentList.length > 0) {
-    separatedListItems.push(currentList);
-  }
-
-  if (separatedListItems.length === 1) {
-    separatedListItems = separatedListItems[0]?.map((item) => [item]) ?? [];
-  }
-
-  if (separatedListItems.length <= totalLength) {
-    return separatedListItems;
-  }
-
-  // Create chunks based on the desired total chunk size
-  const chunks: T[][] = [];
-  let currentChunk: T[] = [];
-  let currentChunkLength = 0;
-
-  // get chunk size based on the total length and the number of lists
-  const chunkSize = Math.ceil(arr.length / totalLength);
-
-  for (const currentListItem of separatedListItems) {
-    if (currentChunkLength + currentListItem.length > chunkSize) {
-      if (currentChunk.length > 0) {
-        chunks.push(currentChunk);
-      } else {
-        chunks.push(currentListItem);
-      }
-      currentChunk = [];
-      currentChunkLength = 0;
-    }
-
-    currentChunk.push(...currentListItem);
-    currentChunkLength += currentListItem.length;
-  }
-
-  if (currentChunk.length > 0) {
-    chunks.length < totalLength
-      ? chunks.push(currentChunk)
-      : chunks[chunks.length - 1]?.push(...currentChunk);
-  }
-
-  ensureChunkLength(chunks, totalLength);
-
-  return chunks;
+    return acc;
+  }, {} as T);
 }
 
-export const splitChunksEvenly = (chunkedArray: string[][], columns: number): string[][] => {
-  if (chunkedArray.length === 1) {
-    return chunkedArray;
-  }
+export type NonNullableObjectWithFields<
+  T extends object,
+  K extends keyof T = keyof T
+> = NonNullable<T> & NonNullableObject<T, K>;
 
-  if (chunkedArray.length === columns) {
-    chunkedArray[2] = [...(chunkedArray[1] ?? [])];
-    chunkedArray[1] = [''];
-  }
+/**
+ * Allows to check if object keys are nullable and makes sure that the correct type is used.
+ * if no explicit fields are passed, we check all fields via Object.keys
+ *
+ * @returns void
+ */
+export function assertNonNullableFields<T extends object, K extends keyof T = keyof T>(
+  obj: T | null = {} as T,
+  ...fields: ReadonlyArray<K>
+): asserts obj is NonNullableObjectWithFields<T, K> {
+  assertNonNullish(obj, 'Expected object to be defined');
 
-  return chunkedArray;
+  const fieldsToCheck = fields.length === 0 ? (Object.keys(obj) as Array<keyof T>) : fields;
+
+  for (const field of fieldsToCheck) {
+    const fieldValue = obj[field] as T[K];
+    assertNonNullish(fieldValue, `Expected "${field.toString()}" to be defined`, {
+      obj
+    });
+  }
+}
+
+export type NonNullableObject<T extends object, K extends keyof T = keyof T> = T & {
+  [P in K]-?: Exclude<T[P], undefined | null>;
 };
 
-function ensureChunkLength<T>(chunks: T[][], totalLength: number) {
-  if (chunks.length <= totalLength) {
-    return;
+/**
+ * Get a new object with only the specified keys
+ *
+ * @param obj
+ * @param keys
+ */
+export function pick<T extends GenericObject>(obj: T, ...keys: ReadonlyArray<keyof T>) {
+  return filterProperties<T>(obj, (_, key) => keys.includes(key));
+}
+
+/**
+ * Get a new object without the specified keys
+ *
+ * @param obj
+ * @param keys
+ */
+export function omit<T extends GenericObject>(obj: T, ...keys: ReadonlyArray<keyof T>) {
+  return filterProperties<T>(obj, (_, key) => !keys.includes(key));
+}
+
+/**
+ * Assert value is not nullish
+ *
+ * @param value
+ * @param message
+ * @param context
+ */
+export function assertNonNullish<T>(
+  value: T,
+  message?: string,
+  context?: Readonly<Record<string, unknown>>
+): asserts value is NonNullable<T> {
+  if (G.isNullable(value)) {
+    throwError(message ?? 'The value is empty', context);
   }
+}
 
-  const lastChunk = chunks[chunks.length - 1];
-  const secondLastChunk = chunks[chunks.length - 2];
-  secondLastChunk?.push(...(lastChunk ?? []));
-  chunks.pop();
+/**
+ * Assert on provided boolean condition with standardised error message
+ *
+ * @param condition
+ * @param message
+ * @param context
+ */
+export function assertCondition(
+  condition: unknown,
+  message?: string,
+  context?: Readonly<Record<string, unknown>>
+): asserts condition {
+  if (!condition) {
+    throwError(message ?? 'The condition evaluated to false', context);
+  }
+}
 
-  ensureChunkLength(chunks, totalLength);
+/**
+ * note: no deep mapping
+ */
+export function mapValues<T, R>(
+  obj: Readonly<Record<string, T>>,
+  mapper: (value: Readonly<T>) => R
+) {
+  return Object.fromEntries(
+    Object.entries(obj).map(([key, value]: Readonly<[string, Readonly<T>]>) => [key, mapper(value)])
+  );
+}
+
+/**
+ * Get a new object where keys with previously undefined values are removed
+ *
+ * @param obj
+ */
+export function removeUndefinedFromObject<T extends GenericObject>(obj: T) {
+  return Object.fromEntries(
+    Object.entries(obj).filter(([_key, value]: Readonly<[string, unknown]>) => value !== undefined)
+  ) as T;
+}
+
+/**
+ * Check if object is empty
+ *
+ * @param obj
+ * @returns true if object is empty
+ */
+export function isEmptyObject(obj: Readonly<Record<string, unknown>>): boolean {
+  return Object.keys(obj).length === 0 && obj.constructor === Object;
 }

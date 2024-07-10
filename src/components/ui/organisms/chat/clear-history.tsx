@@ -20,11 +20,6 @@ import { useRouter } from '@/lib/hooks/use-router';
 
 import type { ServerActionResult } from '@/lib/types';
 
-export const closeSidebar = () => {
-  const sidebarTrigger = document.getElementById('sheetClose');
-  sidebarTrigger?.click();
-};
-
 interface ClearHistoryProps {
   clearChats: () => ServerActionResult<void>;
 }
@@ -67,7 +62,6 @@ export function ClearHistory({ clearChats }: ClearHistoryProps) {
                 }
 
                 setOpen(false);
-                closeSidebar();
                 router.refresh();
               });
             }}

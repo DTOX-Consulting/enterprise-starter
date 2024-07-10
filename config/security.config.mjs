@@ -37,16 +37,26 @@ const nextSafeConfig = {
     'base-uri': [special.self],
     'child-src': [special.self],
     'default-src': [special.self],
-    'connect-src': [special.self, special.data, ...allOrigins],
+    'worker-src': [special.self, special.blob],
     'style-src': [special.self, special.unsafeInline],
     'font-src': [special.self, special.data, ...fontOrigins],
-    'form-action': [special.self, ...origins, ...extraOrigins],
     'frame-src': [special.self, ...origins, ...frameOrigins],
+    'form-action': [special.self, ...origins, ...extraOrigins],
+    'connect-src': [special.self, special.data, ...allOrigins],
     'frame-ancestors': [special.self, ...origins, ...frameOrigins],
     'img-src': [special.self, special.data, special.blob, ...imageOrigins],
+    'script-src': [
+      special.self,
+      special.data,
+      special.unsafeEval,
+      special.unsafeInline,
+      ...origins,
+      ...extraOrigins
+    ],
     'script-src-elem': [
       special.self,
       special.data,
+      special.unsafeEval,
       special.unsafeInline,
       ...origins,
       ...extraOrigins

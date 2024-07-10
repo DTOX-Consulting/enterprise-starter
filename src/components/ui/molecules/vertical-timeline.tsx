@@ -5,9 +5,9 @@ import { cn } from '@/lib/utils';
 interface TimelineItem {
   id: string;
   date: string;
-  title: string;
   label?: string;
   icon?: JSX.Element;
+  title: string | JSX.Element;
   content: string | JSX.Element;
 }
 

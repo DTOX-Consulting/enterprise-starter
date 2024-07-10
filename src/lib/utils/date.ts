@@ -92,7 +92,7 @@ export const timeAgo = (timestamp?: Date, timeOnly?: boolean): string => {
   return `${ms(Date.now() - new Date(timestamp).getTime())}${timeOnly ? '' : ' ago'}`;
 };
 
-export function formatDateTolocal(input: string | number | Date): string {
+export function formatDateLocal(input: string | number | Date): string {
   const date = new Date(input);
   return date.toLocaleDateString('en-US', {
     month: 'long',
