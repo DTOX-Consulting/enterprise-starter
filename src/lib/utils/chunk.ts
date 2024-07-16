@@ -90,3 +90,112 @@ function ensureChunkLength<T>(chunks: T[][], totalLength: number) {
 
   ensureChunkLength(chunks, totalLength);
 }
+
+export const addPeriod = (str: string) => {
+  const punctuationAtEndRegex = /[.,?!;:()"'[\]{}\-—/\\&*%$#@+<>=|~]+$/;
+  const emojiAtEndRegex =
+    /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F900}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]+$/u;
+
+  if (punctuationAtEndRegex.test(str) || emojiAtEndRegex.test(str) || !str.trim()) {
+    return str;
+  }
+  return `${str}.`;
+};
+
+export const splitLines = (text: string) =>
+  text
+    .split('\n')
+    .map((line) => line.trim())
+    .filter(Boolean);
+
+export const splitSentences = (_text: string) => {
+  const emojiPattern =
+    '[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F900}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]';
+
+  const abbreviations = [
+    'Mr',
+    'Mrs',
+    'Ms',
+    'Dr',
+    'Prof',
+    'Sr',
+    'Jr',
+    'St',
+    'Rev',
+    'Fr',
+    'Sir',
+    'Lady',
+    'Dame',
+    'Mx',
+    'Eng',
+    'Arch',
+    'Cpl',
+    'Sgt',
+    'Lt',
+    'Capt',
+    'Maj',
+    'Col',
+    'Gen',
+    'Adm',
+    'Cmdr',
+    'Hon',
+    'B.A',
+    'M.A',
+    'Ph.D',
+    'D.Sc',
+    'M.D',
+    'D.D.S',
+    'LL.D',
+    'Ed.D',
+    'Esq',
+    'etc',
+    'e.g',
+    'i.e',
+    'a.k.a',
+    'vs',
+    'inc',
+    'co',
+    'corp',
+    'Ltd',
+    'No',
+    'Vol',
+    'pp'
+  ];
+
+  // Create a map for placeholders and abbreviations
+  let text = _text.trim();
+  const abbrevMap = new Map();
+  const placeholder = 'PLACEHOLDER';
+
+  abbreviations.forEach((abbr, index) => {
+    const key = `${placeholder}${index}`;
+    abbrevMap.set(key, `${abbr}.`);
+    text = text.replace(new RegExp(`\\b${abbr}\\.`, 'gm'), key);
+  });
+
+  // Split pattern to handle sentence endings properly
+  const splitPattern = new RegExp(
+    `(?<!\\d\\.\\s)(?<!\\d)(?<!${placeholder}\\d+)\\.(?!\\d|\\s*${emojiPattern}+\\s*$)`,
+    'u'
+  );
+
+  // Split text and restore abbreviations
+  const sentences = text
+    .split(splitPattern)
+    .map((line) => {
+      let restoredLine = line.trim();
+      abbrevMap.forEach((abbr, key) => {
+        restoredLine = restoredLine.replace(new RegExp(key, 'g'), abbr);
+      });
+      return addPeriod(restoredLine);
+    })
+    .filter(Boolean);
+
+  return sentences;
+};
+
+export const splitAll = (text: string) => {
+  const lines = splitLines(text);
+  const sentences = lines.flatMap((line) => splitSentences(line));
+  return sentences;
+};

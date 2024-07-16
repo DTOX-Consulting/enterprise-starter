@@ -3,6 +3,7 @@ import { atom, useAtom as jotaiUseAtom } from 'jotai';
 const availableAtoms = {
   searchAtom: atom<string>(''),
   filterAtom: atom<string>(''),
+  dbInitializedAtom: atom<boolean>(false),
   sidebarMinimizedAtom: atom<boolean>(false)
 } as const;
 

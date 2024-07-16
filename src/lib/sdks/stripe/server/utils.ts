@@ -26,7 +26,7 @@ export const getTierNameFromSubscription = (subscription?: Stripe.Subscription) 
 };
 
 export const findStripeCustomer = async (user?: User) => {
-  const { email } = user ?? (await getUserSession()).user;
+  const { email } = user ?? (await getUserSession(true)).user;
 
   const customers = await stripe.customers.list({
     email

@@ -12,6 +12,14 @@ export function getLocation(): Location | undefined {
   return getWindow()?.location;
 }
 
+export function isLocalHost(): boolean {
+  return (
+    (getLocation()?.hostname.includes('localhost') ||
+      getLocation()?.pathname.includes('external')) ??
+    false
+  );
+}
+
 export async function getElements<T extends keyof HTMLElementTagNameMap>(
   selector: T,
   filter = '',

@@ -3,8 +3,8 @@
 import { useNavigatorOnline } from '@oieduardorabelo/use-navigator-online';
 import { useCallback, useEffect, useState } from 'react';
 import {
-  useRxCollection,
   useRxData,
+  useRxCollection,
   type QueryConstructor,
   type RxQueryResultDoc,
   type UseRxQueryOptions
@@ -15,20 +15,24 @@ import { mergeData } from '@/lib/db/rxdb/utils/schema';
 import { addCommonProperties, type PNCS, type NCS, type PNCSI } from '@/lib/db/rxdb/utils/schema';
 import { isDev } from '@/lib/env/env.mjs';
 import { useAuth } from '@/lib/hooks/use-auth';
+import { useAtom } from '@/lib/state/atoms';
 import { danglingPromise } from '@/lib/utils/promise';
 
 import type { SchemaType, SchemaName } from '@/lib/db/rxdb/schemas';
 
 const devLog = isDev()
-  ? (...args: any[]) => console.info('[RXDB]', ...(args as unknown[]))
+  ? (...args: unknown[]) => console.info('[RXDB]', ...args)
   : () => {
       /* noop */
     };
 
 export const useRxDB = () => {
   const { user } = useAuth();
+  const [, setDbi] = useAtom('dbInitializedAtom');
   const [db, setDb] = useState<InitializedDB['db']>();
   const [replicates, setReplicates] = useState<InitializedDB['replication']>();
+
+  const { isOnline } = useNavigatorOnline({ startOnline: false });
 
   const getDb = useCallback(() => db, [db]);
   const getReplicates = useCallback(() => replicates, [replicates]);
@@ -46,10 +50,12 @@ export const useRxDB = () => {
   }, [getReplicates]);
 
   const resyncDb = useCallback(() => {
-    devLog('Resyncing DB');
+    devLog('Resyncing DB', { isOnline });
+    if (!isOnline) return;
+
     const replicates = getReplicatesOrThrow();
     Object.values(replicates).forEach((replicate) => replicate.reSync());
-  }, [getReplicatesOrThrow]);
+  }, [isOnline, getReplicatesOrThrow]);
 
   const destroyDb = useCallback(async () => {
     const db = getDbOrThrow();
@@ -66,9 +72,10 @@ export const useRxDB = () => {
     const { db, replication } = await initialize(user.id);
 
     setDb(db);
+    setDbi(true);
     setReplicates(replication);
     devLog('DB initialized', db);
-  }, [user, getDb, getReplicates, resyncDb]);
+  }, [user, getDb, setDbi, getReplicates, resyncDb]);
 
   const reinitializeDb = useCallback(async () => {
     if (!user?.id) return;
@@ -76,10 +83,7 @@ export const useRxDB = () => {
     await initializeDb();
   }, [user, destroyDb, initializeDb]);
 
-  const { isOnline } = useNavigatorOnline({ startOnline: false });
-  devLog('App is Online:', isOnline);
-
-  useEffect(() => danglingPromise(initializeDb()), [user, isOnline, initializeDb]);
+  useEffect(() => danglingPromise(initializeDb()), [initializeDb]);
   return { getDb, getDbOrThrow, destroyDb, reinitializeDb, resyncDb };
 };
 
@@ -112,13 +116,13 @@ export const useRxDBCollection = <T extends SchemaName, U extends SchemaType<T> 
   );
 
   const upsert = useCallback(
-    async (data: PNCSI<U>) => getCollectionOrThrow().upsert(addCommonProperties(data)),
+    async (data: PNCSI<U>) => getCollectionOrThrow().upsert(addCommonProperties(data, data.id)),
     [getCollectionOrThrow]
   );
 
   const patch = useCallback(
     async (id: string, data: PNCS<U>) =>
-      getCollectionOrThrow().findOne(id).patch(addCommonProperties(data)),
+      getCollectionOrThrow().findOne(id).patch(addCommonProperties(data, id)),
     [getCollectionOrThrow]
   );
 
@@ -128,7 +132,7 @@ export const useRxDBCollection = <T extends SchemaName, U extends SchemaType<T> 
         .findOne(id)
         .update({
           $set: {
-            ...addCommonProperties(data)
+            ...addCommonProperties(data, id)
           }
         }),
     [getCollectionOrThrow]

@@ -1,4 +1,4 @@
-/* eslint-disable eslint-comments/disable-enable-pair, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
 import { RxReplicationState } from 'rxdb/plugins/replication';
 import { Subject } from 'rxjs';
 
@@ -356,3 +356,4 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
     };
   }
 }
+/* eslint-enable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */

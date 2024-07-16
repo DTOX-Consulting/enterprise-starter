@@ -16,6 +16,13 @@ export const config = {
         name: 'string',
         company: 'string'
       }
+    },
+    emailVerification: {
+      id: 'd-6f40b4760fdd4ff28cce7b474a16e124',
+      data: {
+        name: 'string',
+        company: 'string'
+      }
     }
   }
 };

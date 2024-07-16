@@ -20,7 +20,7 @@ const defaultARArgs = {
   replace: false,
   redirectWhenAuthenticated: false,
   redirectPaths: {
-    authenticated: routes.dashboard,
+    authenticated: routes.businesses, // routes.dashboard
     unauthenticated: routes.login
   }
 };

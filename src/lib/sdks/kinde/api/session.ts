@@ -1,21 +1,30 @@
 'use server';
 
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
+import { redirect } from 'next/navigation';
 
+import { routes } from '@/config/navigation/routes';
 import {
   convertPermissionsToArray,
   getTierNameFromPermissionsKey,
   getSubscriptionPermissionsKeyFromPermissions
 } from '@/config/permissions/features';
+import { logger } from '@/lib/logger';
 import { getPermissions } from '@/lib/sdks/kinde/api/permissions';
 import { props } from '@/lib/utils/promise';
 
-export const getUserSession = async () => {
+export const getUserSession = async (throwError?: boolean) => {
   const { getUser, isAuthenticated, getOrganization, getAccessToken } = getKindeServerSession();
   const user = await getUser();
 
   if (!user?.id || !user?.email) {
-    throw new Error('User not found');
+    logger.error('User not found', { user, throwError });
+
+    if (throwError) {
+      throw new Error('User not found');
+    }
+
+    return redirect(routes.logout);
   }
 
   const { token, permissions, organization, authenticated } = await props({

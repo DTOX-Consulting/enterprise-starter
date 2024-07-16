@@ -1,3 +1,6 @@
+/** @type {string[]} */
+const exactOrigins = []; // update this with your domain
+
 const defaultOrigins = [
   'http://localhost:*',
   'https://*.pages.dev',
@@ -5,14 +8,13 @@ const defaultOrigins = [
   'https://*.cloudflareaccess.com'
 ];
 
-/** @type {string[]} */
-const exactOrigins = []; // update this with your domain
-
 export const origins = [...defaultOrigins, ...exactOrigins];
 
 export const fontOrigins = ['*.googleapis.com', '*.gstatic.com', '*.hotjar.com'];
 
 export const frameOrigins = ['*.google.com', '*.youtube.com', '*.stripe.com', 'rxdb.info'];
+
+export const connectOrigins = ['wss://*.hotjar.com', 'wss://*.supabase.co'];
 
 export const imageOrigins = [
   '*.hotjar.io',
@@ -60,8 +62,6 @@ export const extraOrigins = [
   '*.google-analytics.com',
   '*.cloudflareinsights.com'
 ];
-
-export const connectOrigins = ['wss://*.supabase.co'];
 
 export const allOrigins = [
   ...new Set([

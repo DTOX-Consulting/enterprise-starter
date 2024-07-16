@@ -21,16 +21,19 @@ const nextConfig = {
   swcMinify: true,
   trailingSlash: false,
   reactStrictMode: true,
-  productionBrowserSourceMaps: isDev,
+  productionBrowserSourceMaps: true,
   output: isDocker ? 'standalone' : undefined,
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'mdx'],
   experimental: {
     ppr: false,
     mdxRs: true,
+    esmExternals: true,
     // typedRoutes: true,
+    nextScriptWorkers: true,
     serverSourceMaps: isDev,
     serverMinification: !isDev,
-    instrumentationHook: isVercel && !isCloudflare,
+    instrumentationHook: !isDev,
+    // esmExternals: isDev ? true : 'loose',
     serverComponentsExternalPackages: ['@highlight-run/node']
   },
   typescript: {
@@ -44,6 +47,7 @@ const nextConfig = {
     ignoreDuringBuilds: true
   },
 
+  /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
   webpack: (config, { isServer, nextRuntime, webpack }) => {
     const createPlugins = (modules) => {
       return modules.map(
@@ -87,6 +91,7 @@ const nextConfig = {
     }
 
     if (isServer) {
+      config.devtool = 'source-map';
       config.ignoreWarnings = config.ignoreWarnings || [];
       config.ignoreWarnings.push({ module: /highlight-(run\/)?node/ });
     }
@@ -99,15 +104,20 @@ const nextConfig = {
 
     return config;
   }
+  /* eslint-enable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
 };
 
-const nextHighlight = () => {
+/**
+ *
+ * @param {import('./types/highlight-run').HighlightConfigOptions | undefined} highlightConfig
+ */
+const nextHighlight = (highlightConfig) => {
   /**
    *
    *
    * @param {import("next").NextConfig} config
    */
-  return async (config) => withHighlightConfig(config);
+  return async (config) => withHighlightConfig(config, highlightConfig);
 };
 
 /** @type {((config: import('next').NextConfig) => import('next').NextConfig)[]} */
@@ -120,7 +130,10 @@ const plugins = [
   nextMDX({
     extension: /\.(md|mdx)$/
   }),
-  nextHighlight()
+  nextHighlight({
+    uploadSourceMaps: !isDev,
+    apiKey: process.env.HIGHLIGHT_SOURCEMAP_API_KEY
+  })
 ];
 
 const pluginsConfig = plugins.reduce((acc, plugin) => plugin(acc), nextConfig);
@@ -135,12 +148,11 @@ const nextMillion = () => {
     rsc: true
   });
 
+  /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-return */
   /** @type {import("next").NextConfig} */
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const config = lint(pluginsConfig);
 
   /** @type {import("next").NextConfig} */
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return nextMillionCompiler(config, {
     rsc: true,
     auto: true,
@@ -148,6 +160,7 @@ const nextMillion = () => {
       exclude: ['**/node_modules/**/*', '**/src/components/ui/organisms/chat/icons.tsx']
     }
   });
+  /* eslint-enable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-return */
 };
 
 const config = async () => {

@@ -86,9 +86,10 @@ export const addCommonProperties = <
   U = T extends NCS<T> ? NCS<T> : PNCS<T>,
   R = U extends NCS<T> ? CS<T> : PCS<T> & CommonProperties
 >(
-  data: U
+  data: U,
+  _id?: string
 ): R => {
-  const id = nanoid();
+  const id = _id ?? nanoid();
   const now = new Date().toISOString();
 
   return {
@@ -101,9 +102,14 @@ export const addCommonProperties = <
 
 export function mergeData<T extends GenericObject, U extends DCS<T> = DCS<T>>(
   currentData: U,
-  newData: Partial<U>
+  newData: Partial<U>,
+  id: string = currentData.id
 ): U {
-  return merge.withOptions({ mergeArrays: false }, currentData, addCommonProperties(newData)) as U;
+  return merge.withOptions(
+    { mergeArrays: false },
+    currentData,
+    addCommonProperties(newData, id)
+  ) as U;
 }
 
 export type CollectionSchema<T extends GenericObject> = T & CommonProperties;

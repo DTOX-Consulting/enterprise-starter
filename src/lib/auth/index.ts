@@ -1,14 +1,13 @@
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import EmailAuthProvider from 'next-auth/providers/email';
 import GoogleProvider from 'next-auth/providers/google';
-import { Client } from 'postmark';
 
 import { db } from '@/lib/db/prisma';
 import { getEnv } from '@/lib/env';
+import { config } from '@/lib/sdks/sendgrid/config';
+import { send } from '@/lib/sdks/sendgrid/send';
 
 import type { NextAuthOptions } from 'next-auth';
-
-const postmarkClient = new Client(getEnv('POSTMARK_API_TOKEN'));
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(db),
@@ -24,8 +23,8 @@ export const authOptions: NextAuthOptions = {
       clientSecret: getEnv('GOOGLE_CLIENT_SECRET', '')
     }),
     EmailAuthProvider({
-      from: getEnv('POSTMARK_FROM_EMAIL'),
-      sendVerificationRequest: async ({ identifier, url, provider }) => {
+      from: config.emails.noreply.email,
+      sendVerificationRequest: async ({ identifier }) => {
         const user = await db.user.findUnique({
           where: {
             email: identifier
@@ -35,34 +34,27 @@ export const authOptions: NextAuthOptions = {
           }
         });
 
-        const templateId = user?.emailVerified
-          ? getEnv('POSTMARK_SIGN_IN_TEMPLATE')
-          : getEnv('POSTMARK_ACTIVATION_TEMPLATE');
-        if (!templateId) {
-          throw new Error('Missing template id');
-        }
-
-        const result = await postmarkClient.sendEmailWithTemplate({
-          TemplateId: Number.parseInt(templateId),
-          To: identifier,
-          From: provider.from,
-          TemplateModel: {
-            action_url: url,
-            product_name: 'Pulse'
-          },
-          Headers: [
-            {
-              // Set this to prevent Gmail from threading emails.
-              // See https://stackoverflow.com/questions/23434110/force-emails-not-to-be-grouped-into-conversations/25435722.
-              Name: 'X-Entity-Ref-ID',
-              Value: `${new Date().getTime()}`
+        if (!user?.emailVerified) {
+          await send({
+            email: identifier,
+            templateKey: 'emailVerification',
+            dynamicTemplateData: {
+              name: 'User',
+              company: 'Pulse'
             }
-          ]
-        });
+          });
 
-        if (result.ErrorCode) {
-          throw new Error(result.Message);
+          return;
         }
+
+        await send({
+          email: identifier,
+          templateKey: 'welcome',
+          dynamicTemplateData: {
+            name: 'User',
+            company: 'Pulse'
+          }
+        });
       }
     })
   ],
