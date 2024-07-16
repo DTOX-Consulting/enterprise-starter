@@ -2,7 +2,7 @@ import { type NextRequest, userAgent } from 'next/server';
 import { serializeError } from 'serialize-error';
 
 import { getEnv, isProd } from '@/lib/env';
-import { logger } from '@/lib/logger';
+import { logger } from '@/lib/logger/console';
 import { getRequestDetails } from '@/lib/route/params';
 
 const LOG_API_REQUESTS = getEnv('LOG_API_REQUESTS', 'false') === 'true';
@@ -75,6 +75,6 @@ export const finishLogger = <T extends Response>({
   }
 
   console.log('========================================================');
-  logger[error ? 'error' : 'info'](log as unknown as Record<string, string>, 'API Request');
+  logger[error ? 'error' : 'info']('API Request', log);
   console.log('========================================================');
 };

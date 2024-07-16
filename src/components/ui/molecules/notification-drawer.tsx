@@ -1,9 +1,9 @@
 'use client';
 
-import { X, Bell, type LucideIcon } from 'lucide-react';
+import { X, Bell, type LucideIcon, icons } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import { isMobile } from 'react-device-detect';
 
 import { Badge } from '@/components/ui/atoms/badge';
@@ -11,21 +11,11 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/atoms/p
 import { cn } from '@/lib/utils';
 import { formatCreatedAt } from '@/lib/utils/date';
 
-type Notification = {
-  id: string;
-  image?: string;
-  icon?: LucideIcon;
-  content: {
-    actor?: string;
-    action?: string;
-    actorImage?: string;
-  };
-  createdAt: string;
-  lastUpdated: string;
-  read?: boolean;
-  readAt?: string;
-  deleted?: boolean;
-  deletedAt?: string;
+import type { Notification } from '@/lib/db/rxdb/schemas/notification';
+import type { DCS } from '@/lib/db/rxdb/utils/schema';
+
+export type Icons = {
+  Sparkles: LucideIcon;
 };
 
 const NotificationBadge = ({ count }: { count: number }) => {
@@ -37,7 +27,7 @@ const NotificationBadge = ({ count }: { count: number }) => {
 };
 
 const NotificationIcon = ({ Icon }: { Icon: LucideIcon }) => {
-  return <Icon className=" size-7" />;
+  return <Icon className="size-7 text-gray-400 hover:text-gray-500" />;
 };
 
 export const NotificationTrigger = ({
@@ -52,26 +42,34 @@ export const NotificationTrigger = ({
   );
 };
 
-const noop = () => {};
+export const NotificationItemIcon = ({
+  icon,
+  className
+}: { icon: keyof Icons; className: string }) => {
+  const Icon = icons[icon];
+  return <Icon className={className} />;
+};
 
-export const NotificationContent = ({
+export const NotificationContent = <T,>({
   onClick,
   seeAllRoute,
   notifications
 }: {
   seeAllRoute: string;
-  notifications: Notification[];
-  onClick: (notification: Notification, isDelete?: boolean) => void;
+  notifications: DCS<Notification>[];
+  onClick: (notification: DCS<Notification>, isRemoved?: boolean) => void;
 }) => {
   return (
-    <div className="z-20 w-full overflow-hidden rounded-md shadow-lg">
+    <div className="z-20 w-full overflow-hidden rounded-md">
       <div className="py-2">
         {notifications.slice(0, 10).map((notification) => (
           <div
             key={notification.id}
-            onKeyDown={noop}
+            onKeyDown={() => {
+              /* do nothing */
+            }}
             onClick={() => onClick(notification)}
-            className="group relative -mx-2 flex flex-col border-b px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-500"
+            className="group relative -mx-2 flex cursor-pointer flex-col border-b px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-500"
           >
             <X
               onClick={(e) => {
@@ -86,6 +84,12 @@ export const NotificationContent = ({
               )}
             />
             <div className="flex items-center">
+              {notification.icon && (
+                <NotificationItemIcon
+                  icon={notification.icon}
+                  className="mx-1 size-6 text-gray-500"
+                />
+              )}
               {(notification.image ?? notification.content.actorImage) && (
                 <Image
                   src={notification.image ?? notification.content.actorImage ?? ''}
@@ -93,14 +97,15 @@ export const NotificationContent = ({
                   alt="avatar"
                   height={32}
                   width={32}
+                  unoptimized
                 />
               )}
               <div className="flex flex-col">
-                <p className="mx-2 text-sm">
+                <p className="mx-2 w-[90%] text-sm">
                   {notification.content.actor && (
                     <span className="font-bold">{notification.content.actor}&nbsp;</span>
                   )}
-                  <span>{notification.content.action}</span>
+                  <span className="text-sm">{notification.content.action}</span>
                 </p>
               </div>
             </div>
@@ -109,10 +114,19 @@ export const NotificationContent = ({
             </p>
           </div>
         ))}
+
+        {notifications.length === 0 && (
+          <p className="text-center font-mont text-gray-600 dark:text-gray-400">No notifications</p>
+        )}
       </div>
-      <Link href={seeAllRoute} className="block bg-gray-800 py-2 text-center font-bold text-white">
-        See all notifications
-      </Link>
+      {notifications.length !== 0 && (
+        <Link
+          href={seeAllRoute}
+          className="block bg-gray-800 py-2 text-center font-bold text-white shadow-lg"
+        >
+          See all notifications
+        </Link>
+      )}
     </div>
   );
 };
@@ -120,35 +134,30 @@ export const NotificationContent = ({
 export const NotificationDrawer = ({
   icon = Bell,
   seeAllRoute = '',
-  notifications = test,
+  notifications = [],
   onNotificationClick
 }: {
   icon?: LucideIcon;
   seeAllRoute?: string;
-  notifications?: Notification[];
-  onNotificationClick?: (notification: Notification, isDelete?: boolean) => void;
+  notifications?: DCS<Notification>[];
+  onNotificationClick?: (notification: DCS<Notification>, isRemoved?: boolean) => void;
 }) => {
-  const [state, setState] = useState(notifications);
+  const unreadNotifications = notifications
+    .filter(({ removedAt, readAt }) => !removedAt && !readAt)
+    .reverse();
 
-  const unreadNotifications = state.filter(({ deleted, read }) => !deleted && !read);
   const count = unreadNotifications.length;
 
   const onClick = useCallback(
-    (notification: Notification, isDelete = false) => {
-      if (onNotificationClick) {
-        onNotificationClick(notification, isDelete);
-      }
-      if (isDelete) {
-        notification.deleted = true;
-        notification.deletedAt = new Date().toISOString();
-      } else {
-        notification.read = true;
-        notification.readAt = new Date().toISOString();
-      }
+    (notification: DCS<Notification>, isRemoved = false) => {
+      const newNotification = {
+        ...notification,
+        [isRemoved ? 'removedAt' : 'readAt']: new Date().toDateString()
+      };
 
-      setState([...state]);
+      onNotificationClick?.(newNotification, isRemoved);
     },
-    [onNotificationClick, state]
+    [onNotificationClick]
   );
 
   return (
@@ -166,58 +175,3 @@ export const NotificationDrawer = ({
     </Popover>
   );
 };
-
-const test: Notification[] = [
-  {
-    id: '1',
-    image:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80',
-    content: {
-      actor: 'Sara Salah',
-      action: 'replied on the Upload Image article.',
-      actorImage:
-        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80'
-    },
-    createdAt: new Date().toISOString(),
-    lastUpdated: new Date().toISOString()
-  },
-  {
-    id: '2',
-    image:
-      'https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80',
-    content: {
-      actor: 'Slick Net',
-      action: 'started following you.',
-      actorImage:
-        'https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80'
-    },
-    createdAt: new Date().toISOString(),
-    lastUpdated: new Date().toISOString()
-  },
-  {
-    id: '3',
-    image:
-      'https://images.unsplash.com/photo-1450297350677-623de575f31c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80',
-    content: {
-      actor: 'Jane Doe',
-      action: 'liked your reply on Test with TDD article.',
-      actorImage:
-        'https://images.unsplash.com/photo-1450297350677-623de575f31c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80'
-    },
-    createdAt: new Date().toISOString(),
-    lastUpdated: new Date().toISOString()
-  },
-  {
-    id: '4',
-    image:
-      'https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=398&q=80',
-    content: {
-      actor: 'Abigail Bennett',
-      action: 'started following you.',
-      actorImage:
-        'https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=398&q=80'
-    },
-    createdAt: new Date().toISOString(),
-    lastUpdated: new Date().toISOString()
-  }
-];

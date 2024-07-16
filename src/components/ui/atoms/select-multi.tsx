@@ -8,6 +8,7 @@ import { useEffect, forwardRef } from 'react';
 import { Badge } from '@/components/ui/atoms/badge';
 import { Command, CommandGroup, CommandItem, CommandList } from '@/components/ui/atoms/command';
 import { cn } from '@/lib/utils';
+import { danglingPromise } from '@/lib/utils/promise';
 
 export interface Option {
   value: string;
@@ -18,6 +19,7 @@ export interface Option {
   /** Group the options by providing key. */
   [key: string]: string | boolean | undefined;
 }
+
 type GroupOption = Record<string, Option[]>;
 
 interface SelectMultiProps {
@@ -257,7 +259,7 @@ const SelectMulti = React.forwardRef<SelectMultiRef, SelectMultiProps>(
         }
       };
 
-      void exec();
+      danglingPromise(exec());
     }, [debouncedSearchTerm, groupBy, onSearch, open, triggerSearchOnFocus]);
 
     const CreatableItem = () => {

@@ -20,14 +20,22 @@
         right: 0;
         height: min(704px, 100% - 104px);
         min-height: 80px;
-        width: 100%;
+        width: calc(100% - 2px);
         max-height: 704px;
-        box-shadow: rgba(0, 0, 0, 0.16) 0px 5px 40px;
+        border: solid 1px rgb(229, 229, 229);
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 5px 20px;
         border-radius: 16px;
         overflow: hidden;
         opacity: 1;
         transform-origin: right bottom;
         background-color: transparent;
+      }
+      [data-theme='dark'] .popup-container {
+        border: solid 1px rgb(38, 38, 38);
+      }
+
+      [data-theme='system'] .popup-container {
+        border: solid 1px rgb(38, 38, 38);
       }
       .hidden-popup {
         transition:

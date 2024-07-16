@@ -8,5 +8,8 @@ export function simpleId() {
 
 export const nanoid = customAlphabet(
   '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
-  7
+  12
 );
+
+export const isNanoId = (id: string, length = 12) =>
+  new RegExp(`^[0-9A-Za-z]{${length}}$`).test(id);

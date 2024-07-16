@@ -8,7 +8,7 @@ import type { PropsWithChildren } from 'react';
 
 export const Footer = ({ children }: PropsWithChildren) => {
   return (
-    <footer className="flex flex-col">
+    <footer className="flex grow flex-col">
       {children}
       <div className="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8">
         <div className="my-10 flex justify-center">

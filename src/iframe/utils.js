@@ -1,6 +1,6 @@
 import { getWidgetStyle } from './utils.css';
 
-const domains = [];
+const domains = ['https://pulseline-app.vercel.app', 'https://app.pulseline.io'];
 
 const available = {
   inlineParentId: [''],

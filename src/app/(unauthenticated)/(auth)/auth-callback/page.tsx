@@ -3,31 +3,21 @@
 import { Loader2 } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
+import { routes } from '@/config/navigation/routes';
 import { api } from '@/trpc/react';
-
-import type { Route } from 'next';
 
 export default function Callback() {
   const router = useRouter();
 
   const searchParams = useSearchParams();
-  const origin = searchParams.get('origin');
-  const successRoute = (origin ? `/${origin}` : '/product') as Route<string>;
+  const redirectPath = searchParams.get('next');
+  const successRoute = redirectPath ?? routes.dashboard;
 
-  api.authCallback.useQuery(undefined, {
-    onSuccess: ({ success }) => {
-      if (success) {
-        // user is synced to db
-        router.push(successRoute);
-      }
-    },
-    onError: (err) => {
-      if (err.data?.code === 'UNAUTHORIZED') {
-        router.push('/kinde');
-      }
-    },
+  api.auth.callback.useQuery(undefined, {
     retry: 3,
-    retryDelay: 500
+    retryDelay: 500,
+    onSuccess: ({ success }) => success && router.push(successRoute),
+    onError: (err) => err.data?.code === 'UNAUTHORIZED' && router.push(routes.login)
   });
 
   return (

@@ -104,9 +104,7 @@ export function useSelector<
       // if its not then we're updating state and flag
       emitAsyncValue.current = isEqual(v, state);
       if (!emitAsyncValue.current) {
-        setImmediate(() => {
-          setState(v);
-        });
+        setTimeout(() => setState(v));
       }
     }
   });
