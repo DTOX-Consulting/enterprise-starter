@@ -85,9 +85,11 @@ To get started with this starter, follow these steps:
 
 2. Install the dependencies:
 
-    ```bash
-    brew install gcc
-    brew reinstall vips
+    ```bash    brew install gcc
+    brew install vips
+    brew install gnupg
+    brew install stripe/stripe-cli/stripe
+    brew install dopplerhq/cli/doppler
     pnpm install --frozen-lockfile
     ```
 

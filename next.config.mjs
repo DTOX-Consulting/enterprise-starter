@@ -1,8 +1,8 @@
 import nextPWA from '@ducanh2912/next-pwa';
+import { withHighlightConfig } from '@highlight-run/next/config';
 import { next as nextMillionLint } from '@million/lint';
 import nextBundleAnalyzer from '@next/bundle-analyzer';
 import nextMDX from '@next/mdx';
-import { withSentryConfig } from '@sentry/nextjs';
 import { next as nextMillionCompiler } from 'million/compiler';
 import { $ } from 'zx';
 
@@ -21,16 +21,25 @@ const nextConfig = {
   swcMinify: true,
   trailingSlash: false,
   reactStrictMode: true,
-  productionBrowserSourceMaps: isDev,
+  productionBrowserSourceMaps: true,
   output: isDocker ? 'standalone' : undefined,
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'mdx'],
   experimental: {
     ppr: false,
     mdxRs: true,
+    esmExternals: true,
     // typedRoutes: true,
+    nextScriptWorkers: true,
     serverSourceMaps: isDev,
     serverMinification: !isDev,
-    instrumentationHook: isVercel && !isCloudflare
+    instrumentationHook: !isDev,
+    // esmExternals: isDev ? true : 'loose',
+    serverComponentsExternalPackages: ['@highlight-run/node']
+  },
+  typescript: {
+    // Warning: This allows production builds to successfully complete even if
+    // your project has TypeScript errors.
+    ignoreBuildErrors: true
   },
   eslint: {
     // Warning: This allows production builds to successfully complete even if
@@ -38,7 +47,55 @@ const nextConfig = {
     ignoreDuringBuilds: true
   },
 
-  webpack: (config) => {
+  /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
+  webpack: (config, { isServer, nextRuntime, webpack }) => {
+    const createPlugins = (modules) => {
+      return modules.map(
+        (module) =>
+          new webpack.NormalModuleReplacementPlugin(new RegExp(`^node:${module}`), (resource) => {
+            resource.request = resource.request.replace(/^node:/, '');
+          })
+      );
+    };
+
+    if (isCloudflare && (!isServer || nextRuntime === 'edge')) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        stream: true,
+        crypto: true
+      };
+
+      config.plugins.push(
+        new webpack.IgnorePlugin({
+          resourceRegExp: /^crypto/
+        })
+        // new webpack.ProvidePlugin({
+        //   process: 'process/browser'
+        // })
+      );
+
+      config.plugins.push(
+        ...createPlugins([
+          'fs',
+          'path',
+          'os',
+          'crypto',
+          'process',
+          'stream',
+          'buffer',
+          'util',
+          'assert',
+          'tty'
+        ])
+      );
+    }
+
+    if (isServer) {
+      config.devtool = 'source-map';
+      config.ignoreWarnings = config.ignoreWarnings || [];
+      config.ignoreWarnings.push({ module: /highlight-(run\/)?node/ });
+    }
+
     config.optimization.minimize = !isDev;
     config.module.rules.push({
       use: ['@svgr/webpack'],
@@ -47,19 +104,20 @@ const nextConfig = {
 
     return config;
   }
+  /* eslint-enable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
 };
+
 /**
  *
- *
- * @param {Parameters<typeof withSentryConfig>[1]} buildOptions
+ * @param {import('./types/highlight-run').HighlightConfigOptions | undefined} highlightConfig
  */
-const nextSentry = (buildOptions) => {
+const nextHighlight = (highlightConfig) => {
   /**
    *
    *
    * @param {import("next").NextConfig} config
    */
-  return (config) => (isVercel && !isCloudflare ? withSentryConfig(config, buildOptions) : config);
+  return async (config) => withHighlightConfig(config, highlightConfig);
 };
 
 /** @type {((config: import('next').NextConfig) => import('next').NextConfig)[]} */
@@ -72,50 +130,9 @@ const plugins = [
   nextMDX({
     extension: /\.(md|mdx)$/
   }),
-  nextSentry({
-    // For all available options, see:
-    // https://github.com/getsentry/sentry-webpack-plugin#options
-
-    org: env.SENTRY_ORG,
-    project: env.SENTRY_PROJECT,
-
-    // An auth token is required for uploading source maps.
-    authToken: env.SENTRY_AUTH_TOKEN,
-
-    // Only print logs for uploading source maps in CI
-    silent: !process.env.CI,
-
-    // For all available options, see:
-    // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
-
-    // Hides source maps from generated client bundles
-    hideSourceMaps: !isDev,
-
-    // Automatically tree-shake Sentry logger statements to reduce bundle size
-    disableLogger: !isDev,
-
-    debug: !isDev,
-
-    // Upload a larger set of source maps for prettier stack traces (increases build time)
-    widenClientFileUpload: true,
-
-    telemetry: false,
-
-    autoInstrumentServerFunctions: true,
-    autoInstrumentAppDirectory: true,
-    autoInstrumentMiddleware: true,
-
-    // Route browser requests to Sentry through a Next.js rewrite to circumvent ad-blockers.
-    // This can increase your server load as well as your hosting bill.
-    // Note: Check that the configured route will not match with your Next.js middleware, otherwise reporting of client-
-    // side errors will fail.
-    // tunnelRoute: '/monitoring',
-
-    // Enables automatic instrumentation of Vercel Cron Monitors. (Does not yet work with App Router route handlers.)
-    // See the following for more information:
-    // https://docs.sentry.io/product/crons/
-    // https://vercel.com/docs/cron-jobs
-    automaticVercelMonitors: true
+  nextHighlight({
+    uploadSourceMaps: !isDev,
+    apiKey: process.env.HIGHLIGHT_SOURCEMAP_API_KEY
   })
 ];
 
@@ -131,12 +148,11 @@ const nextMillion = () => {
     rsc: true
   });
 
+  /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-return */
   /** @type {import("next").NextConfig} */
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const config = lint(pluginsConfig);
 
   /** @type {import("next").NextConfig} */
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return nextMillionCompiler(config, {
     rsc: true,
     auto: true,
@@ -144,20 +160,22 @@ const nextMillion = () => {
       exclude: ['**/node_modules/**/*', '**/src/components/ui/organisms/chat/icons.tsx']
     }
   });
+  /* eslint-enable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-return */
 };
 
 const config = async () => {
   await import('./src/lib/env/env.mjs');
 
   if (isVercel && !isCloudflare) {
-    await $`bash ./scripts/comment_runtime.sh src/app page.tsx layout.tsx not-found.tsx`;
+    await $`echo "\n\n*" >> .eslintignore`;
+    await $`bash ./scripts/comment_runtime.sh src/app page.tsx layout.tsx not-found.tsx sitemap.ts`;
+  } else if (isCloudflare) {
+    await $`bash ./scripts/change_runtime.sh edge src/app route.ts page.tsx layout.tsx not-found.tsx sitemap.ts`;
   }
 
-  if (1 === 1) {
-    return pluginsConfig;
-  }
+  return pluginsConfig;
 
-  return nextMillion();
+  // return nextMillion();
 };
 
 export default config;

@@ -4,8 +4,10 @@ import { serializeError } from 'serialize-error';
 import { unbox } from 'unbox-js';
 
 import { startLogger, finishLogger } from '@/lib/route/logger';
+import { withEdgeHighlight } from '@/lib/sdks/highlight/edge-route-handler';
 
 import type { APIResult, APIError, ErrorWithCode } from '@/lib/route/types';
+import type { GenericObject } from '@/lib/utils/object';
 
 export const sendResponse = ({
   data,
@@ -68,11 +70,16 @@ export const apiResponse = async <T, E extends APIError>(
   );
 };
 
-export const routeHandler = <T extends Response>(fn: (request: NextRequest) => Promise<T>) => {
-  return async (request: NextRequest) => {
+export const routeHandler = <T extends Response>(
+  fn: (request: NextRequest, data: GenericObject) => Promise<T>,
+  edge = true
+) => {
+  const wrapped = async (request: NextRequest, data: GenericObject) => {
     const { log, startTime } = await startLogger(request);
-    const { data: response, error } = await unbox(fn(request));
+    const { data: response, error } = await unbox(fn(request, data));
     finishLogger<T>({ log, startTime, response, error });
     return response ? response : errorResponse(error);
   };
+
+  return edge ? withEdgeHighlight(wrapped) : wrapped;
 };

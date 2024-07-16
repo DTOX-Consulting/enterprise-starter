@@ -6,14 +6,17 @@
       "(?:twMerge|twJoin)\\(([^\\);]*)[\\);]"
     ]
   ],
+  "formatFiles.runOrganizeImports": true,
   "cSpell.words": ["Formspree"],
   "typescript.tsc.autoDetect": "off",
   "trailing-spaces.trimOnSave": true,
   "redhat.telemetry.enabled": false,
   "githubPullRequests.ignoredPullRequestBranches": ["main"],
+  "typescript.suggest.autoImports": true,
   "editor.codeActionsOnSave": {
     "quickfix.biome": "always",
-    "source.fixAll.eslint": "always",
+    "source.fixAll.eslint": "explicit",
+    "source.fixAll.tailwindCSS": "always",
     "source.organizeImports.biome": "never",
     "source.organizeImports.eslint": "always"
   },
@@ -109,7 +112,6 @@
   "files.watcherExclude": {
     "**.log": true,
     "**/tmp": true,
-    "**/lib": true,
     "**.lock": true,
     "**/Pods": true,
     "**/dist": true,
@@ -127,7 +129,6 @@
   "search.exclude": {
     "**.log": true,
     "**/tmp": true,
-    "**/lib": true,
     "**.lock": true,
     "**/Pods": true,
     "**/dist": true,
@@ -159,5 +160,6 @@
   "javascript.autoClosingTags": false,
   "typescript.autoClosingTags": false,
   "typescriptreact.autoClosingTags": false,
-  "tabnine.experimentalAutoImports": true
+  "tabnine.experimentalAutoImports": true,
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

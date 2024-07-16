@@ -12,13 +12,20 @@ export function AnimatedButton<T extends UseFormReturn<any>>({
   label,
   children,
   className,
-  Icon = Sparkles
-}: PropsWithChildren<{ form: T; label: string; className?: string; Icon?: LucideIcon }>) {
+  Icon = Sparkles,
+  shouldDisable = true
+}: PropsWithChildren<{
+  form: T;
+  label: string;
+  Icon?: LucideIcon;
+  className?: string;
+  shouldDisable?: boolean;
+}>) {
   return (
     <Button
       type="submit"
       className={cn('bg-pulse disabled:bg-gray-500', className)}
-      disabled={form.formState.isSubmitting || !form.formState.isValid}
+      disabled={shouldDisable && (form.formState.isSubmitting || !form.formState.isValid)}
     >
       <Icon className={cn('size-5', form.formState.isSubmitting ? 'animate-spin' : '')} />
       <span className="mx-2 inline-flex">{label}</span>

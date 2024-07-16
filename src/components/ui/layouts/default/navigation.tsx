@@ -9,7 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger
 } from '@/components/ui/atoms/dropdown-menu';
-import { footerNavigation, home, navigation } from '@/config/navigation';
+import { footerNavigation, home, navigation } from '@/config/navigation/routes';
 import { useForceState } from '@/lib/hooks/use-force-rerender';
 
 function HomeLink({ width, height }: { width: number; height: number }) {

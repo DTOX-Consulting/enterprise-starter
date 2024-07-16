@@ -6,6 +6,7 @@ export const downloadResponse = async (response: Response, prompt: string, ext =
   const a = document.createElement('a');
 
   a.href = url;
+  a.rel = 'noopener';
   a.download = fileName;
   document.body.appendChild(a);
 
@@ -14,8 +15,9 @@ export const downloadResponse = async (response: Response, prompt: string, ext =
   URL.revokeObjectURL(url);
 };
 
-export const downloadUrl = async (url: string, prompt: string, ext = 'png') => {
-  const response = await fetch(url);
+export const downloadUrl = async (url: string, prompt: string, ext = 'png', cors = false) => {
+  const _url = cors ? `https://corsproxy.io/?${encodeURIComponent(url)}` : url;
+  const response = await fetch(_url);
   return downloadResponse(response, prompt, ext);
 };
 

@@ -6,6 +6,8 @@ import * as React from 'react';
 
 import { cn } from '@/lib/utils';
 
+import type { Option } from '@/data/option';
+
 const Select = SelectPrimitive.Root;
 
 const SelectGroup = SelectPrimitive.Group;
@@ -117,4 +119,33 @@ export {
   SelectLabel,
   SelectItem,
   SelectSeparator
+};
+
+export const SelectSingle = ({
+  value,
+  options,
+  onChange,
+  placeholder,
+  defaultValue
+}: {
+  value?: string;
+  options?: Option[];
+  placeholder?: string;
+  defaultValue?: string;
+  onChange: (value: string) => void;
+}) => {
+  return (
+    <Select value={value} defaultValue={defaultValue} onValueChange={onChange}>
+      <SelectTrigger>
+        <SelectValue className="text-sm" placeholder={placeholder} />
+      </SelectTrigger>
+      <SelectContent>
+        {options?.map((option) => (
+          <SelectItem key={option.value} value={option.value}>
+            {option.label}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
+  );
 };

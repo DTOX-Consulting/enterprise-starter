@@ -8,8 +8,8 @@ import { merge } from 'ts-deepmerge';
 
 import { ToastAction } from '@/components/ui/organisms/toast/toast';
 import { toast } from '@/components/ui/organisms/toast/use-toast';
+import { useAuth } from '@/lib/hooks/use-auth';
 import { debounce, useDebounceEffect } from '@/lib/hooks/use-debounce';
-import { useUser } from '@/lib/hooks/use-user';
 import { deepClone } from '@/lib/utils/clone';
 import { nanoid } from '@/lib/utils/id';
 import { danglingPromise } from '@/lib/utils/promise';
@@ -33,7 +33,7 @@ interface MinimalData {
 }
 
 export function useLocalData<T extends MinimalData>(storageKeyPrefix?: string) {
-  const { getStorageKey } = useUser();
+  const { getStorageKey } = useAuth();
 
   const storageKey = storageKeyPrefix ? getStorageKey(storageKeyPrefix) : null;
 
@@ -46,7 +46,7 @@ export function useLocalData<T extends MinimalData>(storageKeyPrefix?: string) {
     async (items: T[]) => (storageKey ? localForage.setItem(storageKey, items) : null),
     [storageKey]
   );
-  return { getLocalItems, setLocalItems };
+  return { getLocalItems, setLocalItems, storageKey };
 }
 
 export function useData<T extends MinimalData>({
@@ -93,14 +93,14 @@ export function useData<T extends MinimalData>({
       const updatedData = (await getItems()) ?? getDefaultData(defaultData);
       if (isEqual(data, updatedData)) return;
 
-      debounce('retrieve-data', async () => {
+      debounce(`retrieve-data-${storageKeyPrefix}`, async () => {
         await runCBData(updatedData, cbdata, true);
 
         setData(updatedData);
-        updatedData[0] && setCurrentData(updatedData[0]);
+        // updatedData[0] && setCurrentData(updatedData[0]);
       });
     },
-    [data, setData, setCurrentData, getItems, getDefaultData, runCBData]
+    [data, setData, getItems, getDefaultData, runCBData, storageKeyPrefix]
   );
 
   const createData = useCallback(
@@ -138,8 +138,13 @@ export function useData<T extends MinimalData>({
   );
 
   const updateData = useCallback(
-    async (id: string, newData: Partial<T>, cbdata?: (data: T[]) => Promise<void>) => {
-      const currentData = data.find((d) => d.id === id);
+    async (
+      id: string,
+      newData: Partial<T>,
+      cbdata?: (data: T[]) => Promise<void>,
+      currData?: T
+    ) => {
+      const currentData = currData ?? data.find((d) => d.id === id);
 
       if (!currentData) {
         toast({
@@ -184,6 +189,7 @@ export function useData<T extends MinimalData>({
         e.preventDefault();
 
         toast({
+          variant: 'destructive',
           title: `Deleting ${dataToDelete.name}`,
           description: 'Are you sure you want to delete?',
           action: (
@@ -206,7 +212,7 @@ export function useData<T extends MinimalData>({
   );
 
   useDebounceEffect(
-    'retrieve-data-on-mount',
+    `retrieve-data-on-mount-${storageKeyPrefix}`,
     () => (retrieveOnMount ? danglingPromise(retrieveData()) : undefined),
     [retrieveData, retrieveOnMount]
   );

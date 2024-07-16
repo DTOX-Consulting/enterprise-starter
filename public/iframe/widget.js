@@ -103,7 +103,7 @@ function h(L) {
   const D = I(L);
   return j.width < 768 && (D.state = 'collapse'), new URLSearchParams(D).toString();
 }
-function f(L, j, D) {
+async function f(L, j, D) {
   const M = k('state', D);
   !W(M) && F(L, j);
 }
