@@ -1,8 +1,18 @@
-import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import { TRPCError } from '@trpc/server';
+import { unbox } from 'unbox-js';
 
 import { db } from '@/lib/db/prisma';
+import { logger } from '@/lib/logger/console';
+import { getOrUpsertContact, upsertContact } from '@/lib/sdks/hubspot';
+import { setPermission } from '@/lib/sdks/kinde/api/permissions';
+import { getUserSession } from '@/lib/sdks/kinde/api/session';
+import { getStripeDetailsNoCreate } from '@/lib/sdks/stripe/server/utils';
+import { isDeepEqual } from '@/lib/utils/deep-equal';
 import { publicProcedure } from '@/trpc';
+
+const addToKinde = true;
+const addToHubspot = true;
+const addToDatabase = false;
 
 export const authRouter = {
   ping: publicProcedure.query(() => {
@@ -11,40 +21,63 @@ export const authRouter = {
   pingError: publicProcedure.query(() => {
     throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR', message: 'This is a test error' });
   }),
-  authCallback: publicProcedure.query(async () => {
-    const { getUser } = getKindeServerSession();
-    const user = await getUser();
+  callback: publicProcedure.query(async () => {
+    const { user, subscription } = await getUserSession();
+    const { data: stripeDetails } = await unbox(getStripeDetailsNoCreate(user));
 
-    if (!user?.id || !user?.email) throw new TRPCError({ code: 'UNAUTHORIZED' });
+    const subscriptionKey = stripeDetails?.key ?? subscription.key;
 
-    // check if the user is in the database
-    const dbUser = await db.user.findFirst({
-      where: {
-        id: user.id
+    if (addToKinde) {
+      logger.info('Setting Permissions', {
+        email: user.email,
+        subscriptionKey,
+        stripeDetails,
+        subscription
+      });
+      await setPermission(user.email, subscriptionKey);
+    }
+
+    if (addToHubspot) {
+      const data = await getOrUpsertContact({
+        notifyMe: false,
+        email: user.email,
+        lastname: user.lastName,
+        firstname: user.firstName,
+        subscriptionPlan: subscriptionKey
+      });
+
+      const newData = {
+        email: user.email,
+        lastname: user.lastName,
+        firstname: user.firstName,
+        notifyMe: data?.notifyMe ?? false,
+        subscriptionPlan: subscriptionKey
+      };
+
+      if (!isDeepEqual(data, newData)) {
+        await upsertContact(newData);
       }
-    });
+    }
 
-    if (!dbUser) {
-      // create user in db
-      await db.user.create({
-        data: {
-          id: user.id,
-          name: user.given_name,
-          email: user.email,
-          image: user.picture
+    if (addToDatabase) {
+      // check if the user is in the database
+      const dbUser = await db.user.findFirst({
+        where: {
+          id: user.id
         }
       });
+
+      if (!dbUser) {
+        // create user in db
+        await db.user.create({
+          data: user
+        });
+      }
     }
 
     return { success: true };
   }),
   user: publicProcedure.query(async () => {
-    const { getUser, isAuthenticated, getPermissions, getOrganization } = getKindeServerSession();
-    const user = await getUser();
-    const permissions = await getPermissions();
-    const organization = await getOrganization();
-    const authenticated = await isAuthenticated();
-
-    return { user, authenticated, permissions, organization };
+    return getUserSession();
   })
 };

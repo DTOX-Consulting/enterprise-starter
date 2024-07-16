@@ -1,10 +1,7 @@
 'use client';
 
-import { ChevronDownIcon, ChevronRightIcon, Menu } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
+import { Menu } from 'lucide-react';
 
-import icon from '@/assets/images/logo.png';
 import { FadeIn } from '@/components/animations/fade-in';
 import { Button } from '@/components/ui/atoms/button';
 import { Separator } from '@/components/ui/atoms/separator';
@@ -15,34 +12,41 @@ import {
   SheetTitle,
   SheetTrigger
 } from '@/components/ui/atoms/sheet';
+import { Logo, LogoWithMinimizer } from '@/components/ui/layouts/dashboard/logo';
 import { SidebarDesktopWrapper } from '@/components/ui/layouts/dashboard/sidebar-desktop-wrapper';
-import { WorkspaceSwitcher } from '@/components/ui/layouts/dashboard/workspace-switcher';
-import { SubscriptionBadge } from '@/components/ui/molecules/subscription-badge';
-import { routes } from '@/config/navigation';
-import { useForceState } from '@/lib/hooks/use-force-rerender';
-import { useNavigation, type NavigationProps } from '@/lib/hooks/use-navigation';
+import { SidebarLinks } from '@/components/ui/layouts/dashboard/sidebar-links';
+import { OrganizationSwitcher as WorkspaceSwitcher } from '@/components/ui/layouts/dashboard/switcher-navigation';
+import { UserMenu } from '@/components/ui/organisms/user/menu';
+import { useNavigation, type NavigationProps } from '@/config/navigation/use-navigation';
+import { useAtom } from '@/lib/state/atoms';
 import { cn } from '@/lib/utils';
 
-import type { KindeUser } from '@kinde-oss/kinde-auth-nextjs/types';
+import type { User } from '@/lib/sdks/kinde/api/session';
 import type { PropsWithChildren } from 'react';
 
 export function SidebarDesktop({
   user,
   children,
   sidebarWidth
-}: PropsWithChildren & { sidebarWidth?: number; user?: KindeUser }) {
+}: PropsWithChildren & { sidebarWidth?: number; user?: User }) {
   const navigationProps = useNavigation();
 
   return (
     <SidebarDesktopWrapper sidebarWidth={sidebarWidth}>
-      <Logo />
-      <SidebarContent user={user} showWorkspaceSwitcher={true} navigationProps={navigationProps} />
+      <LogoWithMinimizer navigationProps={navigationProps} />
+      <SidebarContent
+        user={user}
+        noMinimize={false}
+        showUserMenu={true}
+        showWorkspaceSwitcher={false}
+        navigationProps={navigationProps}
+      />
       {children}
     </SidebarDesktopWrapper>
   );
 }
 
-export function SidebarMobile({ user, children }: PropsWithChildren & { user?: KindeUser }) {
+export function SidebarMobile({ user, children }: PropsWithChildren & { user?: User }) {
   const navigationProps = useNavigation();
 
   return (
@@ -52,17 +56,19 @@ export function SidebarMobile({ user, children }: PropsWithChildren & { user?: K
           <Menu />
         </Button>
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent className="flex h-full flex-col">
         <SheetHeader>
           <SheetTitle>
-            <Logo className="pt-0" />
+            <Logo className="pt-0" navigationProps={navigationProps} />
             <Separator className="mb-4" />
           </SheetTitle>
         </SheetHeader>
-        <FadeIn className="h-full">
+        <FadeIn className="flex h-full flex-col">
           <SidebarContent
             user={user}
-            showWorkspaceSwitcher={true}
+            noMinimize={true}
+            showUserMenu={true}
+            showWorkspaceSwitcher={false}
             navigationProps={navigationProps}
           />
           {children}
@@ -75,147 +81,52 @@ export function SidebarMobile({ user, children }: PropsWithChildren & { user?: K
 export function SidebarContent({
   user,
   className,
+  noMinimize,
+  showUserMenu,
   linksClassName,
   navigationProps,
   showWorkspaceSwitcher
 }: {
-  user?: KindeUser;
+  user?: User;
   className?: string;
+  noMinimize?: boolean;
+  showUserMenu?: boolean;
   linksClassName?: string;
   showWorkspaceSwitcher?: boolean;
   navigationProps: NavigationProps;
 }) {
+  const [isMinimized] = useAtom('sidebarMinimizedAtom');
+
   return (
-    <div className={cn('h-full p-0 md:px-4 md:py-6', className)}>
-      <ul className="flex w-full flex-col">
+    <div
+      className={cn('flex h-full flex-col p-0 md:px-4 md:pb-4', className, {
+        'md:px-0': isMinimized
+      })}
+    >
+      <ul
+        className={cn('flex w-full flex-col', {
+          'items-center': isMinimized
+        })}
+      >
         {showWorkspaceSwitcher && (
-          <li className="my-px mb-8">
+          <li className="mb-4">
             <WorkspaceSwitcher />
           </li>
         )}
-        <Links
+        <SidebarLinks
           user={user}
           className={linksClassName}
           contentClassName={className}
           navigationProps={navigationProps}
         />
       </ul>
-    </div>
-  );
-}
 
-function Logo({ className }: { className?: string }) {
-  return (
-    <div className={cn('flex items-center py-4', className)}>
-      <div className="inline-flex">
-        <Link href={routes.dashboard} className="ml-4 inline-flex flex-row">
-          <Image src={icon} alt="logo" width={140} height={40} className="mr-4" />
-          <SubscriptionBadge>Free</SubscriptionBadge>
-        </Link>
-      </div>
-    </div>
-  );
-}
-
-function Links({
-  user,
-  className,
-  navigationProps,
-  contentClassName
-}: {
-  user?: KindeUser;
-  className?: string;
-  contentClassName?: string;
-  navigationProps: NavigationProps;
-}) {
-  let bottomValue = 0;
-
-  return navigationProps.items.map((item, idx) => {
-    if (item.authenticated && !user) return null;
-    if (item.unauthenticated && user) return null;
-
-    if (item.bottom) bottomValue = bottomValue === 0 ? 4 : bottomValue + 10;
-    const bottomClass = `bottom-${bottomValue}`;
-
-    return (
-      <LinkOfLinks
-        key={item.name}
-        {...{ idx, item, bottomClass, user, className, contentClassName, navigationProps }}
-      />
-    );
-  });
-}
-
-function LinkOfLinks({
-  idx,
-  item,
-  bottomClass,
-  user,
-  className,
-  navigationProps,
-  contentClassName
-}: {
-  idx: number;
-  bottomClass: string;
-  item: NavigationProps['items'][0];
-  user?: KindeUser;
-  className?: string;
-  contentClassName?: string;
-  navigationProps: NavigationProps;
-}) {
-  const [isOpen, setIsOpen] = useForceState(item.items && idx === 0);
-
-  return (
-    <li
-      key={item.name}
-      className={cn('my-px', item.bottom ? `${bottomClass} absolute w-full pr-12 md:pr-8` : '')}
-    >
-      <Link
-        href={item.href}
-        onClick={(e) => {
-          (item.disabled ?? item.isAccordion) && e.preventDefault();
-          item.items && setIsOpen(!isOpen, true);
-          navigationProps.setActive();
-          closeSidebar();
-        }}
-        className={cn(
-          'flex h-16 flex-row items-center rounded-r-md border-l-2 border-transparent px-3 text-gray-500 hover:border-l-pulse hover:bg-gray-100 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-700',
-          className,
-          {
-            'h-10': item.bottom,
-            'mx-0 -mr-8 h-10': navigationProps.isSublink,
-            'border-l-pulse': navigationProps.isActive(item),
-            'bg-gray-100 text-gray-700 dark:text-gray-700': navigationProps.isActive(item)
-          }
-        )}
-      >
-        {item.icon ? <item.icon className="size-5" /> : null}
-        <span className="ml-6">{item.name}</span>
-        {!item.items ? null : isOpen ? (
-          <ChevronDownIcon className="ml-auto size-5" />
-        ) : (
-          <ChevronRightIcon className="ml-auto size-5" />
-        )}
-      </Link>
-
-      {item.items && isOpen && (
-        <SidebarContent
-          user={user}
-          linksClassName={className}
-          className={contentClassName}
-          showWorkspaceSwitcher={false}
-          navigationProps={{
-            ...navigationProps,
-            items: item.items,
-            isSublink: true
-          }}
-        />
+      {showUserMenu && (
+        <>
+          <div className="flex grow" />
+          <UserMenu user={user} noMinimize={noMinimize} />
+        </>
       )}
-    </li>
+    </div>
   );
 }
-
-const closeSidebar = () => {
-  const sidebarTrigger = document.getElementById('sheetClose');
-  sidebarTrigger?.click();
-};

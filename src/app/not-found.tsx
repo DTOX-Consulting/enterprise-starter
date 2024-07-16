@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import { ContainerAnimated } from '@/components/ui/atoms/container';
 import { SimpleGridPattern } from '@/components/ui/molecules/simple-grid-pattern';
-import { routes } from '@/config/navigation';
+import { routes } from '@/config/navigation/routes';
 
 export const runtime = 'edge';
 

@@ -4,7 +4,7 @@ import { ExternalLink } from '@/components/ui/atoms/external-link';
 import { ButtonScrollToBottom } from '@/components/ui/organisms/chat/button-scroll-to-bottom';
 import { IconRefresh, IconStop } from '@/components/ui/organisms/chat/icons';
 import { PromptForm } from '@/components/ui/organisms/chat/prompt-form';
-import { routes } from '@/config/navigation';
+import { routes } from '@/config/navigation/routes';
 import { AI_NAME } from '@/lib/sdks/openai/constants';
 import { cn } from '@/lib/utils';
 

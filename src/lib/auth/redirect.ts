@@ -1,11 +1,11 @@
-import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
-import { props } from 'already';
-import { redirect, RedirectType } from 'next/navigation';
+'use server';
 
-import { getFFValue } from '@/config/feature-flags';
-import { routes } from '@/config/navigation';
+import { RedirectType } from 'next/navigation';
 
-import type { KindeAccessToken, KindeUser } from '@kinde-oss/kinde-auth-nextjs/types';
+import { routes } from '@/config/navigation/routes';
+import { getFFValue } from '@/config/permissions/feature-flags';
+import { generateRoutes, redirect } from '@/lib/auth/utils';
+import { isUserAuthenticated } from '@/lib/sdks/kinde/api/session';
 
 interface AuthenticationRedirection {
   replace?: boolean;
@@ -20,7 +20,7 @@ const defaultARArgs = {
   replace: false,
   redirectWhenAuthenticated: false,
   redirectPaths: {
-    authenticated: routes.dashboard,
+    authenticated: routes.businesses, // routes.dashboard
     unauthenticated: routes.login
   }
 };
@@ -28,34 +28,29 @@ const defaultARArgs = {
 export async function authenticationRedirection(
   authArgs: AuthenticationRedirection = defaultARArgs
 ) {
+  const currentPath = generateRoutes().current.path;
+
   const args = Object.assign({}, defaultARArgs, authArgs);
 
-  const { isAuthenticated, getUser, getAccessToken } = getKindeServerSession();
-  const authCheck = await isAuthenticated();
+  const authCheck = await isUserAuthenticated();
 
   const redirectType = args.replace ? RedirectType.replace : RedirectType.push;
 
+  let pathOrUrl = '';
+
   if (!authCheck && getFFValue('NEEDS_AUTH')) {
-    redirect(args.redirectPaths.unauthenticated, redirectType);
+    pathOrUrl = `${args.redirectPaths.unauthenticated}?next=${currentPath}`;
   }
 
   if (!authCheck && !getFFValue('NEEDS_AUTH') && args.redirectWhenAuthenticated) {
-    redirect(args.redirectPaths.authenticated, redirectType);
+    pathOrUrl = args.redirectPaths.unauthenticated;
   }
 
   if (authCheck && args.redirectWhenAuthenticated) {
-    redirect(args.redirectPaths.authenticated, redirectType);
+    pathOrUrl = args.redirectPaths.authenticated;
   }
 
-  return authCheck
-    ? ((await props({
-        user: getUser(),
-        token: getAccessToken()
-      })) as {
-        user: KindeUser;
-        token: KindeAccessToken;
-      })
-    : null;
+  if (pathOrUrl) {
+    redirect({ pathOrUrl, redirectType });
+  }
 }
-
-export type AuthRedirectResponse = Awaited<ReturnType<typeof authenticationRedirection>>;

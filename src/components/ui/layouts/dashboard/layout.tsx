@@ -1,6 +1,6 @@
 import { G } from '@mobily/ts-belt';
 
-import { Header } from '@/components/ui/layouts/dashboard/header';
+import { Header, type HeaderProps } from '@/components/ui/layouts/dashboard/header';
 import { Main } from '@/components/ui/layouts/dashboard/main';
 import { Sidebar } from '@/components/ui/layouts/dashboard/sidebar';
 import { cn } from '@/lib/utils';
@@ -9,14 +9,16 @@ interface LayoutProps {
   className?: string;
   sidebarWidth?: number;
   children: React.ReactNode;
-  sidebarChildren?: React.ReactNode;
   headerChildren?: React.ReactNode;
+  sidebarChildren?: React.ReactNode;
+  headerProps?: HeaderProps;
 }
 
 export default function Layout({
   className,
   children,
   sidebarWidth,
+  headerProps,
   headerChildren,
   sidebarChildren
 }: LayoutProps) {
@@ -31,7 +33,7 @@ export default function Layout({
           className
         )}
       >
-        <Header>{headerChildren}</Header>
+        <Header {...headerProps}>{headerChildren}</Header>
         <Main>{children}</Main>
       </section>
     </div>

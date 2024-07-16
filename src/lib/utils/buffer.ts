@@ -1,10 +1,8 @@
 import { type ReadStream, createReadStream } from 'node:fs';
-import { readFile, writeFile } from 'node:fs/promises';
+import { writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { PassThrough } from 'node:stream';
-
-import { ensureFileExtension } from '@/lib/utils/string';
 
 export const bufferToString = (buffer: Buffer): string => {
   return buffer.toString('utf-8');
@@ -47,6 +45,7 @@ export const bufferToTmpDir = async (buffer: Buffer, _fileName: string, extensio
   return filePath;
 };
 
-export const fileToBuffer = async (filePath: string): Promise<Buffer> => {
-  return readFile(filePath);
+export const ensureFileExtension = (_fileName: string, ext: string): string => {
+  const [fileName] = _fileName.split('.');
+  return `${fileName}.${ext}`;
 };

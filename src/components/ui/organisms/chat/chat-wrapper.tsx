@@ -1,16 +1,14 @@
 import { Chat } from '@/components/ui/organisms/chat/chat';
-import { type AuthRedirectResponse, authenticationRedirection } from '@/lib/auth/redirect';
 import { nanoid } from '@/lib/utils/id';
 
 export function DefaultChat({
   showBots = false
 }: {
   showBots: boolean;
-  auth: AuthRedirectResponse;
 }) {
   const id = nanoid();
   return (
-    <div className="flex grow">
+    <div className="h-full">
       <Chat id={id} showBots={showBots} />
     </div>
   );
@@ -25,9 +23,8 @@ export function ChatWrapper({
   showBots: boolean;
   element?: ChatElement;
 }) {
-  return async function ChatPage() {
-    const auth = await authenticationRedirection();
+  return function ChatPage() {
     const Element = element ? element : DefaultChat;
-    return <Element auth={auth} showBots={showBots} />;
+    return <Element showBots={showBots} />;
   };
 }

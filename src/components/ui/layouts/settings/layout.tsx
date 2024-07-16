@@ -1,16 +1,25 @@
-import { Container } from '@/components/ui/atoms/container';
-import { Header } from '@/components/ui/layouts/settings/header';
+import { SettingsHeader } from '@/components/ui/layouts/settings/components/header';
+import { SettingsSidebar } from '@/components/ui/layouts/settings/components/sidebar';
 
-interface LayoutProps {
+const sidebarNavItems = [
+  {
+    title: 'General',
+    href: ''
+  }
+];
+
+interface SettingsLayoutProps {
   children: React.ReactNode;
 }
 
-export default function Layout({ children }: LayoutProps) {
+export default function SettingsLayout({ children }: SettingsLayoutProps) {
   return (
-    <Container className="mt-8 flex size-full flex-col">
-      <Header />
-
-      {children}
-    </Container>
+    <div className="space-y-6 p-10 pb-16">
+      <SettingsHeader />
+      <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
+        <SettingsSidebar items={sidebarNavItems} />
+        <div className="flex-1 lg:max-w-2xl">{children}</div>
+      </div>
+    </div>
   );
 }

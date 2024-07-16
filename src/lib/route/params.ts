@@ -1,7 +1,7 @@
 import { G } from '@mobily/ts-belt';
 import { unbox } from 'unbox-js';
 
-import type { ModelType } from '@/lib/sdks/openai/api';
+import type { ModelType } from '@/lib/sdks/openai';
 import type { NN } from '@/lib/types';
 import type { GenericObject } from '@/lib/utils/object';
 import type { NextRequest } from 'next/server';
@@ -69,4 +69,26 @@ export const getParams = async <T extends GenericObject>(
     G.isNotNullable(value) && Reflect.set(acc, key, value);
     return acc;
   }, {} as T);
+};
+
+type EnsureParamArgs<T, K> = {
+  params: T;
+  key?: string;
+  fallback: K;
+  throwError?: boolean;
+};
+
+export const ensureParam = <T extends unknown[], K = T[number]>({
+  key,
+  params,
+  fallback,
+  throwError = false
+}: EnsureParamArgs<T, K>): T[number] => {
+  const value = params.includes(key) ? (key as K) : undefined;
+
+  if (G.isNullable(value) && throwError) {
+    throw new Error(`Missing required param: ${key}`);
+  }
+
+  return value ?? fallback;
 };
