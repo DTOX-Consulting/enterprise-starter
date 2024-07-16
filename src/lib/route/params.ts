@@ -71,7 +71,6 @@ export const getParams = async <T extends GenericObject>(
   }, {} as T);
 };
 
-
 type EnsureParamArgs<T, K> = {
   params: T;
   key?: string;
