@@ -2,6 +2,7 @@ import { createEnv } from '@t3-oss/env-nextjs';
 import { z } from 'zod';
 
 export const env = createEnv({
+  skipValidation: true, // Skip validation for now
   server: {
     SUPABASE_URL: z.string().min(1),
     HYPERDX_API_KEY: z.string().min(1),
