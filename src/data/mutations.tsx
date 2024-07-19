@@ -15,7 +15,7 @@ import type {
   BusinessChangeFLKeys,
   BusinessChangeSLKeys
 } from '@/data/guards';
-import type { Business, CompanyStatements } from '@/lib/db/rxdb/schemas/business';
+import type { Business } from '@/lib/db/rxdb/schemas/business';
 import type { History } from '@/lib/db/rxdb/schemas/history';
 import type { Notification } from '@/lib/db/rxdb/schemas/notification';
 import type { Organization } from '@/lib/db/rxdb/schemas/organization';
