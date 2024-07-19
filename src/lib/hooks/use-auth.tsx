@@ -7,6 +7,7 @@ export function useAuth() {
   const { data } = api.auth.user.useQuery(undefined, {
     placeholderData: defaultUserSession(),
     staleTime: 1000 * 60 * 10,
+    enabled: false,
     suspense: true
   });
 
