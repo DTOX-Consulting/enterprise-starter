@@ -79,12 +79,12 @@ export class HttpClient<SecurityDataType = unknown> {
   }
 
   protected addArrayQueryParam(query: QueryParamsType, key: string) {
-    const value = query[key];
+    const value: any[] = query[key] as any[];
     return value.map((v: any) => this.encodeQueryParam(key, v)).join('&');
   }
 
   protected toQueryString(rawQuery?: QueryParamsType): string {
-    const query = rawQuery || {};
+    const query = rawQuery ?? {};
     const keys = Object.keys(query).filter((key) => 'undefined' !== typeof query[key]);
     return keys
       .map((key) =>
@@ -173,9 +173,9 @@ export class HttpClient<SecurityDataType = unknown> {
     const secureParams =
       ((typeof secure === 'boolean' ? secure : this.baseApiParams.secure) &&
         this.securityWorker &&
-        (await this.securityWorker(this.securityData))) ||
+        (await this.securityWorker(this.securityData))) ??
       {};
-    const requestParams = this.mergeRequestParams(params, secureParams);
+    const requestParams = this.mergeRequestParams(params, secureParams as RequestParams);
     const queryString = query && this.toQueryString(query);
     const payloadFormatter =
       this.contentFormatters[type != null ? ContentType.Json : ContentType.Text];

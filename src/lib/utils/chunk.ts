@@ -180,11 +180,11 @@ export const splitSentences = (_text: string) => {
   );
 
   // Split text and restore abbreviations
-  const sentences = text
+  const sentences: string[] = text
     .split(splitPattern)
-    .map((line) => {
-      let restoredLine = line.trim();
-      abbrevMap.forEach((abbr, key) => {
+    .map((line: string) => {
+      let restoredLine: string = line.trim();
+      abbrevMap.forEach((abbr: string, key: string) => {
         restoredLine = restoredLine.replace(new RegExp(key, 'g'), abbr);
       });
       return addPeriod(restoredLine);

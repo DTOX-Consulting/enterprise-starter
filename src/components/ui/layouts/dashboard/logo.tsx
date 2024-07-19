@@ -15,7 +15,6 @@ import { cn } from '@/lib/utils';
 
 import type { NavigationProps } from '@/config/navigation/use-navigation';
 
-
 function SidebarMinimizer() {
   const [isMinimized, setMinimized] = useAtom('sidebarMinimizedAtom');
 
