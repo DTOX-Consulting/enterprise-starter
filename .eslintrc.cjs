@@ -248,6 +248,13 @@ const config = {
     {
       files: ['*.ts', '*.js', '*.tsx', '*.jsx'],
       extends: ['biome']
+    },
+    {
+      files: ['src/iframe/**'],
+      env: {
+        es6: true,
+        browser: true
+      }
     }
   ]
 };
