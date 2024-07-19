@@ -10,6 +10,7 @@ import {
   getSubscriptionPermissionsKeyFromPermissions
 } from '@/config/permissions/features';
 import { logger } from '@/lib/logger';
+import { isAdminUser } from '@/lib/sdks/kinde/admin';
 import { getPermissions } from '@/lib/sdks/kinde/api/permissions';
 import { props } from '@/lib/utils/promise';
 
@@ -27,6 +28,8 @@ export const getUserSession = async (throwError?: boolean) => {
     return redirect(routes.logout);
   }
 
+  const isAdmin = await isAdminUser(user.email);
+
   const { token, permissions, organization, authenticated } = await props({
     token: getAccessToken(),
     organization: getOrganization(),
@@ -39,6 +42,7 @@ export const getUserSession = async (throwError?: boolean) => {
   const tier = getTierNameFromPermissionsKey(convertedRoles);
 
   return {
+    isAdmin,
     organization,
     user: {
       id: user.id,

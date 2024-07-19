@@ -1,5 +1,7 @@
 'use client';
 
+import '@/styles/prosemirror.css';
+
 import { G } from '@mobily/ts-belt';
 import hljs from 'highlight.js';
 import {
@@ -9,17 +11,16 @@ import {
   EditorCommandEmpty,
   EditorCommandItem,
   EditorCommandList,
-  type JSONContent,
-  type EditorInstance
+  type JSONContent
 } from 'novel';
 import { ImageResizer, handleCommandNavigation } from 'novel/extensions';
 import { handleImageDrop, handleImagePaste } from 'novel/plugins';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 
 import { Separator } from '@/components/ui/atoms/separator';
 import { defaultExtensions } from '@/components/ui/organisms/editor/extensions';
-import GenerativeMenuSwitch from '@/components/ui/organisms/editor/generative/generative-menu-switch';
+import { GenerativeMenuSwitch } from '@/components/ui/organisms/editor/generative/generative-menu-switch';
 import { uploadFn } from '@/components/ui/organisms/editor/image-upload';
 import { ColorSelector } from '@/components/ui/organisms/editor/selectors/color-selector';
 import { LinkSelector } from '@/components/ui/organisms/editor/selectors/link-selector';
@@ -27,59 +28,53 @@ import { NodeSelector } from '@/components/ui/organisms/editor/selectors/node-se
 import { TextButtons } from '@/components/ui/organisms/editor/selectors/text-buttons';
 import { slashCommand, suggestionItems } from '@/components/ui/organisms/editor/slash-command';
 
+import type { Editor as EditorType, UpdateContent } from '@/components/ui/organisms/editor/types';
+
 const extensions = [...defaultExtensions, slashCommand];
+
+//Apply Codeblock Highlighting on the HTML from editor.getHTML()
+const highlightCodeblocks = (content: string) => {
+  const doc = new DOMParser().parseFromString(content, 'text/html');
+  doc.querySelectorAll('pre code').forEach((el) => hljs.highlightElement(el as HTMLElement));
+  return new XMLSerializer().serializeToString(doc);
+};
 
 export const Editor = ({
   onUpdate,
-  className,
-  storageKey,
-  defaultValue,
-  completionApi,
-  disableLocalStorage
+  // defaultValue,
+  completionApi
 }: {
-  className?: string;
-  storageKey?: string;
   defaultValue?: string;
   completionApi?: string;
-  disableLocalStorage?: boolean;
-  onUpdate?: (editor: EditorInstance) => void;
+  onUpdate?: (
+    content: UpdateContent,
+    editor: EditorType,
+    setInitialContent: (content: JSONContent) => void
+  ) => void;
 }) => {
-  const [initialContent, setInitialContent] = useState<null | JSONContent>(
-    defaultValue ? (JSON.parse(defaultValue) as JSONContent) : null
-  );
+  const [charsCount, setCharsCount] = useState(0);
   const [saveStatus, setSaveStatus] = useState('Saved');
-  const [charsCount, setCharsCount] = useState();
 
+  const [openAI, setOpenAI] = useState(false);
+  const [openLink, setOpenLink] = useState(false);
   const [openNode, setOpenNode] = useState(false);
   const [openColor, setOpenColor] = useState(false);
-  const [openLink, setOpenLink] = useState(false);
-  const [openAI, setOpenAI] = useState(false);
 
-  //Apply Codeblock Highlighting on the HTML from editor.getHTML()
-  const highlightCodeblocks = (content: string) => {
-    const doc = new DOMParser().parseFromString(content, 'text/html');
-    doc.querySelectorAll('pre code').forEach((el) => {
-      hljs.highlightElement(el as HTMLElement);
-    });
-    return new XMLSerializer().serializeToString(doc);
-  };
+  const defaultValue = '{}';
+  const [initialContent, setInitialContent] = useState<JSONContent>(
+    defaultValue ? (JSON.parse(defaultValue) as JSONContent) : {}
+  );
 
-  const debouncedUpdates = useDebouncedCallback((editor: EditorInstance) => {
+  const debouncedUpdates = useDebouncedCallback((editor: EditorType) => {
     const json = editor.getJSON();
+    const text = editor.getText();
+    const html = highlightCodeblocks(editor.getHTML());
+    const markdown = editor.storage.markdown.getMarkdown();
+
+    onUpdate?.({ text, json, html, markdown }, editor, setInitialContent);
     setCharsCount(editor.storage.characterCount.words());
-    window.localStorage.setItem('html-content', highlightCodeblocks(editor.getHTML()));
-    window.localStorage.setItem('novel-content', JSON.stringify(json));
-    window.localStorage.setItem('markdown', editor.storage.markdown.getMarkdown());
     setSaveStatus('Saved');
   }, 500);
-
-  useEffect(() => {
-    const content = window.localStorage.getItem('novel-content');
-    if (content) setInitialContent(JSON.parse(content) as JSONContent);
-    else setInitialContent({});
-  }, []);
-
-  if (!initialContent) return null;
 
   return (
     <div className="relative w-full">
@@ -100,8 +95,9 @@ export const Editor = ({
       <EditorRoot>
         <EditorContent
           extensions={extensions}
+          slotAfter={<ImageResizer />}
           initialContent={initialContent}
-          className="relative size-full min-h-[500px] border-muted bg-background sm:mb-[calc(20vh)] sm:rounded-lg sm:border sm:shadow-lg"
+          className="relative min-h-[500px] border-muted bg-background sm:mb-[calc(20vh)] sm:rounded-lg sm:border sm:shadow-lg"
           editorProps={{
             handleDOMEvents: {
               keydown: (_view, event) => handleCommandNavigation(event)
@@ -115,10 +111,9 @@ export const Editor = ({
             }
           }}
           onUpdate={({ editor }) => {
-            void debouncedUpdates(editor);
+            debouncedUpdates(editor as EditorType);
             setSaveStatus('Unsaved');
           }}
-          slotAfter={<ImageResizer />}
         >
           <EditorCommand className="z-50 h-auto max-h-[330px] overflow-y-auto rounded-md border border-muted bg-background px-1 py-2 shadow-md transition-all">
             <EditorCommandEmpty className="px-2 text-muted-foreground">
@@ -144,7 +139,11 @@ export const Editor = ({
             </EditorCommandList>
           </EditorCommand>
 
-          <GenerativeMenuSwitch open={openAI} onOpenChange={setOpenAI}>
+          <GenerativeMenuSwitch
+            open={openAI}
+            onOpenChange={setOpenAI}
+            completionApi={completionApi}
+          >
             <Separator orientation="vertical" />
             <NodeSelector open={openNode} onOpenChange={setOpenNode} />
             <Separator orientation="vertical" />

@@ -12,7 +12,7 @@ async function PersonalInformationForm() {
   const { user } = await getUserSession();
 
   return (
-    <div className="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
+    <div className="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 py-16 pt-8 md:grid-cols-3 lg:pt-0">
       <div>
         <h2 className="text-base font-semibold leading-7">Personal Information</h2>
         <p className="mt-1 text-sm leading-6 text-gray-400">
@@ -84,7 +84,7 @@ async function PersonalInformationForm() {
 
 function ChangePasswordForm() {
   return (
-    <div className="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
+    <div className="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 py-16 pt-8 md:grid-cols-3">
       <div>
         <h2 className="text-base font-semibold leading-7">Change password</h2>
         <p className="mt-1 text-sm leading-6 text-gray-400">
@@ -146,7 +146,7 @@ function ChangePasswordForm() {
 
 function LogoutOtherSessionsForm() {
   return (
-    <div className="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
+    <div className="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 py-16 pt-8 md:grid-cols-3">
       <div>
         <h2 className="text-base font-semibold leading-7">Log out other sessions</h2>
         <p className="mt-1 text-sm leading-6 text-gray-400">
@@ -181,7 +181,7 @@ function LogoutOtherSessionsForm() {
 
 function DeleteAccountForm() {
   return (
-    <div className="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
+    <div className="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 py-16 pt-8 md:grid-cols-3">
       <div>
         <h2 className="text-base font-semibold leading-7">Delete account</h2>
         <p className="mt-1 text-sm leading-6 text-gray-400">
@@ -202,7 +202,7 @@ async function CurrentSubscriptionInformation() {
   const { subscription } = await getUserSession();
 
   return (
-    <div className="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
+    <div className="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 py-16 pt-8 md:grid-cols-3">
       <div>
         <h2 className="text-base font-semibold leading-7">Subscription Tier</h2>
         <p className="mt-1 text-sm leading-6 text-gray-400">

@@ -115,7 +115,7 @@ describe('User abilities', () => {
       testUser4
     } = setupTest();
 
-    expect(abilities1.can('share', subjects.shareIdea(testUser1, 'oneTimePasscode'))).toBe(false);
+    expect(abilities1.can('share', subjects.shareIdea(testUser1, 'oneTimePassCode'))).toBe(false);
     expect(abilities2.can('share', subjects.shareIdea(testUser2, 'passwordProtection'))).toBe(true);
     expect(abilities3.can('share', subjects.shareIdea(testUser3, 'simple'))).toBe(true);
     expect(abilities4.can('share', subjects.shareIdea(testUser4, 'emailRestrictions'))).toBe(true);

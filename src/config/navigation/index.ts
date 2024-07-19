@@ -1,13 +1,17 @@
 import { businessNavigationItems } from '@/config/navigation/items/business';
 import { organizationNavigationItems } from '@/config/navigation/items/organization';
+import { rootNavigationItems } from '@/config/navigation/items/root';
 
 import type { NavigationItem } from '@/config/navigation/types';
 
 const config = {
+  none: () => [] as NavigationItem[],
+  root: rootNavigationItems,
   business: businessNavigationItems,
-  organization: organizationNavigationItems,
-  none: () => [] as NavigationItem[]
+  organization: organizationNavigationItems
 } as const;
+
+type Base = (typeof bases)[number];
 
 type Path = {
   base: Base;
@@ -16,8 +20,28 @@ type Path = {
   businessId?: string;
 };
 
-type Base = (typeof bases)[number];
-const bases = ['', 'businesses', 'pricing', 'settings', 'dashboard'] as const;
+const businessBases = ['businesses'] as const;
+const nonBusinessBases = [
+  'chat',
+  'pricing',
+  'settings',
+  'profile',
+  'external',
+  'dashboard',
+  'document',
+  'feature-previews'
+] as const;
+
+const bases = ['', ...businessBases, ...nonBusinessBases] as const;
+const pages = ['new', 'edit', 'view', 'profile', 'settings'] as const;
+
+function isPage(value?: string) {
+  return !value || pages.includes(value);
+}
+
+export function isNonBusinessBase(base: string): base is Base {
+  return nonBusinessBases.includes(base as Base);
+}
 
 export function initialize(path: string) {
   const { base, orgId, businessId } = parsePath(path);
@@ -28,6 +52,10 @@ export function initialize(path: string) {
 
   if (base === 'businesses' && orgId) {
     return config.organization(`/${base}/${orgId}`);
+  }
+
+  if (base === '' || isNonBusinessBase(base)) {
+    return config.root('/businesses');
   }
 
   return config.none();
@@ -52,8 +80,4 @@ export function parsePath(path: string): Path {
   }
 
   return { base, orgId, businessId, page } as Path;
-}
-
-function isPage(value?: string) {
-  return !value || ['new', 'edit', 'view', 'settings'].includes(value);
 }

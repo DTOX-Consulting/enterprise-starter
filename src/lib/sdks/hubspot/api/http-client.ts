@@ -1,13 +1,4 @@
-/* eslint-disable */
-/* tslint:disable */
-/*
- * ---------------------------------------------------------------
- * ## THIS FILE WAS GENERATED VIA SWAGGER-TYPESCRIPT-API        ##
- * ##                                                           ##
- * ## AUTHOR: acacode                                           ##
- * ## SOURCE: https://github.com/acacode/swagger-typescript-api ##
- * ---------------------------------------------------------------
- */
+/* eslint-disable promise/prefer-await-to-then, @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-return -- SDK */
 
 export type QueryParamsType = Record<string | number, any>;
 export type ResponseFormat = keyof Omit<Body, 'body' | 'bodyUsed'>;
@@ -61,7 +52,7 @@ export class HttpClient<SecurityDataType = unknown> {
   private securityData: SecurityDataType | null = null;
   private securityWorker?: ApiConfig<SecurityDataType>['securityWorker'];
   private abortControllers = new Map<CancelToken, AbortController>();
-  private customFetch = (...fetchParams: Parameters<typeof fetch>) => fetch(...fetchParams);
+  private customFetch = async (...fetchParams: Parameters<typeof fetch>) => fetch(...fetchParams);
 
   private baseApiParams: RequestParams = {
     credentials: 'same-origin',
@@ -136,11 +127,11 @@ export class HttpClient<SecurityDataType = unknown> {
     return {
       ...this.baseApiParams,
       ...params1,
-      ...(params2 || {}),
+      ...params2,
       headers: {
-        ...(this.baseApiParams.headers || {}),
-        ...(params1.headers || {}),
-        ...(params2?.headers || {})
+        ...this.baseApiParams.headers,
+        ...params1.headers,
+        ...params2?.headers
       }
     };
   }
@@ -186,18 +177,19 @@ export class HttpClient<SecurityDataType = unknown> {
       {};
     const requestParams = this.mergeRequestParams(params, secureParams);
     const queryString = query && this.toQueryString(query);
-    const payloadFormatter = this.contentFormatters[type || ContentType.Json];
-    const responseFormat = format || requestParams.format;
+    const payloadFormatter =
+      this.contentFormatters[type != null ? ContentType.Json : ContentType.Text];
+    const responseFormat = format ?? requestParams.format;
 
     return this.customFetch(
-      `${baseUrl || this.baseUrl || ''}${path}${queryString ? `?${queryString}` : ''}`,
+      `${baseUrl ?? (this.baseUrl || '')}${path}${queryString ? `?${queryString}` : ''}`,
       {
         ...requestParams,
         headers: {
-          ...(requestParams.headers || {}),
-          ...(type && type !== ContentType.FormData ? { 'Content-Type': type } : {})
+          ...requestParams.headers,
+          ...(type != null && type !== ContentType.FormData ? { 'Content-Type': type } : {})
         },
-        signal: (cancelToken ? this.createAbortSignal(cancelToken) : requestParams.signal) || null,
+        signal: (cancelToken ? this.createAbortSignal(cancelToken) : requestParams.signal) ?? null,
         body: typeof body === 'undefined' || body === null ? null : payloadFormatter(body)
       }
     ).then(async (response) => {
@@ -230,3 +222,4 @@ export class HttpClient<SecurityDataType = unknown> {
     });
   };
 }
+/* eslint-enable promise/prefer-await-to-then, @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-return -- SDK */

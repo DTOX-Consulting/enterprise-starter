@@ -25,8 +25,9 @@ import type { GenericObject } from '@/lib/utils/object';
 
 export function useDBDataMutation() {
   const { userId: ownerId } = useAuth();
-  const { currentOrganization } = useDBData();
   const { createHistory } = useDBDataExtrasMutation();
+  const { currentOrganization, businesses } = useDBData();
+
   const businessMutations = useRxDBCollection('business');
   const organizationMutations = useRxDBCollection('organization');
 
@@ -139,6 +140,17 @@ export function useDBDataMutation() {
     [organizationMutations]
   );
 
+  const deleteOrganizationBusinesses = useCallback(
+    async (organization: DCS<Organization>) => {
+      await each(businesses, async (business) => {
+        if (business.organizationId === organization.id) {
+          await businessMutations.remove(business.id);
+        }
+      });
+    },
+    [businessMutations, businesses]
+  );
+
   const deleteOrganization = useCallback(
     (organization: DCS<Organization>, fn?: GenericFunction) => {
       toast({
@@ -150,6 +162,7 @@ export function useDBDataMutation() {
             altText="Delete"
             onClick={() => {
               void organizationMutations.remove(organization.id);
+              void deleteOrganizationBusinesses(organization);
               fn?.();
             }}
           >
@@ -158,7 +171,7 @@ export function useDBDataMutation() {
         )
       });
     },
-    [organizationMutations]
+    [organizationMutations, deleteOrganizationBusinesses]
   );
 
   return {

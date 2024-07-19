@@ -23,6 +23,7 @@ import type {
 } from '@/data/migration/types';
 
 export function DataMigration() {
+  const { isAdmin } = useAuth();
   const { reinitializeDb } = useRxDB();
   const migrateExtras = useExtrasMigration();
   const migrateOrganization = useOrganizationMigration();
@@ -32,13 +33,17 @@ export function DataMigration() {
     migrateExtras();
   };
 
+  if (!isAdmin) {
+    return null;
+  }
+
   return (
-    <div className="flex grow flex-col space-y-4">
-      <Button onClick={migrate} className="w-48 bg-pulse">
+    <div className="flex grow flex-col items-center justify-center space-y-4">
+      <Button variant="pulse" onClick={migrate} className="w-48">
         Migrate Old Data
       </Button>
 
-      <Button onClick={reinitializeDb} className="w-48 bg-pulse">
+      <Button variant="pulse" onClick={reinitializeDb} className="w-48">
         Reinitialize DB
       </Button>
     </div>

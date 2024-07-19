@@ -7,11 +7,17 @@ import { AISelector } from '@/components/ui/organisms/editor/generative/ai-selec
 import Magic from '@/components/ui/organisms/editor/icons/magic';
 
 interface GenerativeMenuSwitchProps {
-  children: ReactNode;
   open: boolean;
+  children: ReactNode;
+  completionApi?: string;
   onOpenChange: (open: boolean) => void;
 }
-const GenerativeMenuSwitch = ({ children, open, onOpenChange }: GenerativeMenuSwitchProps) => {
+export const GenerativeMenuSwitch = ({
+  children,
+  open,
+  onOpenChange,
+  completionApi
+}: GenerativeMenuSwitchProps) => {
   const { editor } = useEditor();
 
   useEffect(() => {
@@ -31,17 +37,17 @@ const GenerativeMenuSwitch = ({ children, open, onOpenChange }: GenerativeMenuSw
       }}
       className="flex w-fit max-w-[90vw] overflow-hidden rounded-md border border-muted bg-background shadow-xl"
     >
-      {open && <AISelector open={open} onOpenChange={onOpenChange} />}
+      {open && <AISelector open={open} onOpenChange={onOpenChange} completionApi={completionApi} />}
       {!open && (
         <Fragment>
           <Button
             size="sm"
             variant="ghost"
             onClick={() => onOpenChange(true)}
-            className="gap-1 rounded-none text-purple-500"
+            className="w-24 gap-1 rounded-none text-purple-500"
           >
             <Magic className="size-5" />
-            Ask AI
+            <span>Ask AI</span>
           </Button>
           {children}
         </Fragment>
@@ -49,5 +55,3 @@ const GenerativeMenuSwitch = ({ children, open, onOpenChange }: GenerativeMenuSw
     </EditorBubble>
   );
 };
-
-export default GenerativeMenuSwitch;

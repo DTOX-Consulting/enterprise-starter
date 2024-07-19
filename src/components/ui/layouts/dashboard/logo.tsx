@@ -1,6 +1,6 @@
 'use client';
 
-import { ChevronLeftIcon } from 'lucide-react';
+import { PanelRightOpen } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -8,10 +8,10 @@ import icon from '@/assets/images/icon.png';
 import logo from '@/assets/images/logo.png';
 import { SubscriptionBadge } from '@/components/ui/molecules/subscription-badge';
 import { routes } from '@/config/navigation/routes';
+import { getTierLabel } from '@/config/permissions/features';
 import { useAbilities } from '@/config/permissions/use-abilities';
 import { useAtom } from '@/lib/state/atoms';
 import { cn } from '@/lib/utils';
-import { ucFirst } from '@/lib/utils/string';
 
 import type { NavigationProps } from '@/config/navigation/use-navigation';
 
@@ -26,7 +26,7 @@ function SidebarMinimizer() {
   return (
     <>
       <div className="flex grow" />
-      <ChevronLeftIcon
+      <PanelRightOpen
         onClick={() => setMinimized(!isMinimized)}
         className={cn('mr-4 size-5 cursor-pointer hover:text-gray-500', { hidden: isMinimized })}
       />
@@ -50,7 +50,7 @@ export function Logo({
         >
           <Image src={logo} alt="logo" width={140} height={40} className="mr-4" />
         </Link>
-        {abilitiesReady && <SubscriptionBadge>{ucFirst(tier)}</SubscriptionBadge>}
+        {abilitiesReady && <SubscriptionBadge>{getTierLabel(tier)}</SubscriptionBadge>}
       </div>
     </div>
   );
@@ -88,7 +88,9 @@ export function LogoWithMinimizer({
             className="translate-all mr-4 duration-300 ease-in-out"
           />
         </Link>
-        {abilitiesReady && !isMinimized && <SubscriptionBadge>{ucFirst(tier)}</SubscriptionBadge>}
+        {abilitiesReady && !isMinimized && (
+          <SubscriptionBadge>{getTierLabel(tier)}</SubscriptionBadge>
+        )}
       </div>
       <SidebarMinimizer />
     </div>

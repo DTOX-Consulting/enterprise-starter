@@ -9,12 +9,12 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
   return (
-    <ContainerAnimated className="size-full flex mt-8 gap-8">
+    <ContainerAnimated className="mt-8 flex size-full gap-8">
       <Sidebar />
 
       <section
         className={cn(
-          '-ml-96 flex max-h-screen w-full grow flex-col transition-all duration-150 ease-in md:ml-0'
+          '-ml-96 flex max-h-dvh w-full grow flex-col transition-all duration-150 ease-in md:ml-0'
         )}
       >
         <Main>{children}</Main>

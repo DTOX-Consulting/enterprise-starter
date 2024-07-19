@@ -123,7 +123,7 @@ const Section: FC<SectionProps> = ({ title, links }) => (
 
 // Sidebar component
 export const Sidebar: FC = () => (
-  <ScrollArea className="rounded-md border h-[calc(100vh-10rem)] p-4">
+  <ScrollArea className="h-[calc(100vh-10rem)] rounded-md border p-4">
     <aside className="w-full md:sticky md:block">
       <div dir="ltr" className="relative h-full overflow-hidden pr-6">
         <div className="size-full rounded-[inherit]" style={{ overflow: 'hidden scroll' }}>

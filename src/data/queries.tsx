@@ -6,6 +6,7 @@ import { useCallback, useMemo } from 'react';
 import { useNavigation } from '@/config/navigation/use-navigation';
 import { useRxDBData } from '@/lib/db/rxdb/hooks';
 import { useAuth } from '@/lib/hooks/use-auth';
+import { useAtom } from '@/lib/state/atoms';
 
 import type { HistoryFilters } from '@/lib/db/rxdb/schemas/history';
 
@@ -14,6 +15,7 @@ const defaultNames = ['Default', 'Personal'];
 export function useDBData() {
   const { userId } = useAuth();
   const { path } = useNavigation();
+  const [isReady] = useAtom('dbInitializedAtom');
 
   const { result: bizResult } = useRxDBData('business', (collection) => {
     return collection.find().where('ownerId').equals(userId);
@@ -82,10 +84,19 @@ export function useDBData() {
     [businesses]
   );
 
+  const getOrganization = useCallback(
+    (organizationId: string) => {
+      return organizations.find(({ id }) => id === organizationId);
+    },
+    [organizations]
+  );
+
   return {
+    isReady,
     businesses,
     getBusiness,
     organizations,
+    getOrganization,
     currentBusiness,
     filterBusinesses,
     currentBusinesses,

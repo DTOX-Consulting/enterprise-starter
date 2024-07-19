@@ -1,10 +1,13 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useMemo, type FC } from 'react';
 
 import LoadingDots from '@/components/ui/organisms/icons/loading-dots';
+import { createPath } from '@/config/navigation';
 import { useNavigation } from '@/config/navigation/use-navigation';
 import { useDBDataMutation, useDBData } from '@/data';
+import { useDebounceEffect } from '@/lib/hooks/use-debounce';
 
 import type { PartialBusinessWithIds } from '@/data/guards';
 import type { SchemaDocument } from '@/lib/db/rxdb/schemas';
@@ -78,5 +81,28 @@ export function useBusinessLoader() {
     <div className="mx-auto flex h-1/3 w-full items-center justify-center">
       <LoadingDots />
     </div>
+  );
+}
+
+export function useBusinessRouteValidator() {
+  const router = useRouter();
+  const { path } = useNavigation();
+  const { isReady, getBusiness, getOrganization } = useDBData();
+
+  useDebounceEffect(
+    'set-current-organization',
+    () => {
+      if (!isReady) return;
+      const { orgId, businessId } = path;
+      if (!orgId || !businessId) return;
+
+      const business = getBusiness(businessId);
+      const organization = getOrganization(orgId);
+
+      if (business && organization) return;
+
+      router.push(createPath({ base: 'businesses' }));
+    },
+    [router, isReady, getBusiness, getOrganization]
   );
 }

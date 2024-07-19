@@ -11,7 +11,9 @@ export const routes = {
   login: '/login',
   logout: '/logout',
   pricing: '/pricing',
-  settings: '/settings',
+  profile: '/profile',
+  settings: '/profile',
+  // settings: '/settings',
   comingSoon: '/coming-soon',
   authCallback: '/auth-callback',
 
@@ -19,13 +21,15 @@ export const routes = {
   team: '/team',
   learn: '/learn',
   dashboard: '/dashboard',
-  businesses: '/businesses'
+  businesses: '/businesses',
+  featurePreviews: '/feature-previews'
 } as const;
 
 export const apiRoutes = {
   auth: {
     login: '/api/auth/login',
-    logout: '/api/auth/logout'
+    logout: '/api/auth/logout',
+    register: '/api/auth/register'
   }
 } as const;
 
