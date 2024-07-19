@@ -23,12 +23,12 @@ export default function Layout({
   sidebarChildren
 }: LayoutProps) {
   return (
-    <div className="flex min-h-screen flex-row">
+    <div className="flex min-h-dvh flex-row">
       <Sidebar sidebarWidth={sidebarWidth}>{sidebarChildren}</Sidebar>
 
       <section
         className={cn(
-          '-ml-96 flex max-h-screen w-full grow flex-col transition-all duration-150 ease-in md:ml-0',
+          '-ml-96 flex max-h-dvh w-full grow flex-col transition-all duration-150 ease-in md:ml-0',
           G.isNotNullable(sidebarWidth) && `-ml-${sidebarWidth}`,
           className
         )}

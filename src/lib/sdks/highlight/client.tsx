@@ -26,6 +26,7 @@ export const useHighlightIdentify = () => {
 
 export const identify = (user: SessionUser) =>
   H.identify(user.email, {
+    email: user.email,
     name: user.name,
     id: user.id
   });

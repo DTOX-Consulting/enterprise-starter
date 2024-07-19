@@ -86,16 +86,23 @@ const config = {
         checksVoidReturn: { attributes: false }
       }
     ],
+
+    '@typescript-eslint/prefer-nullish-coalescing': [
+      'error',
+      {
+        ignoreConditionalTests: false
+      }
+    ],
     '@typescript-eslint/strict-boolean-expressions': [
       'error',
       {
+        allowAny: true,
         allowNumber: true,
         allowString: true,
         allowNullableObject: true,
         allowNullableBoolean: true,
         allowNullableString: true,
-        allowNullableNumber: false,
-        allowAny: true
+        allowNullableNumber: false
       }
     ],
 
@@ -107,6 +114,21 @@ const config = {
 
     'n/no-process-env': 'off',
     'n/no-missing-import': 'off',
+    'n/no-unsupported-features/node-builtins': [
+      'error',
+      {
+        ignores: [
+          'URL',
+          'fetch',
+          'Response',
+          'Headers',
+          'FormData',
+          'URLSearchParams',
+          'URL.revokeObjectURL',
+          'URL.createObjectURL'
+        ]
+      }
+    ],
     'n/no-unsupported-features/es-syntax': [
       'error',
       {

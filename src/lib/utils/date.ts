@@ -66,11 +66,10 @@ export function getDifference(date: string | Date) {
 export function formatDate(date: string | Date, short?: boolean): string {
   const difference = getDifference(date);
 
-  for (let i = 0; i < units.length; i++) {
-    const unit = units[i];
+  for (const unit of units) {
     const format = unit && formats[unit];
 
-    if (format && difference < format.ms * format.max) {
+    if (difference < format.ms * format.max) {
       return formatter(difference, unit, short);
     }
   }

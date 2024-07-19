@@ -1,67 +1,215 @@
 import type { BusinessChangeKeys } from '@/data/guards';
 import type { Option } from '@/data/option';
 
-export const industries: Option[] = [
+export const industries: (Option & { description: string })[] = [
   {
     label: 'Aerospace',
-    value: 'aerospace'
+    value: 'aerospace',
+    description:
+      'Involves the design, development, and production of aircraft, spacecraft, and related systems.'
+  },
+  {
+    label: 'Agriculture',
+    value: 'agriculture',
+    description:
+      'Covers the production of food, fiber, and other goods through farming and cultivation practices.'
+  },
+  {
+    label: 'Artificial Intelligence',
+    value: 'artificial intelligence',
+    description:
+      'Involves the development of AI technologies and applications across various industries to enhance decision-making.'
+  },
+  {
+    label: 'Automotive',
+    value: 'automotive',
+    description:
+      'Covers the design, manufacturing, and sale of motor vehicles and automotive components.'
+  },
+  {
+    label: 'Biotechnology',
+    value: 'biotechnology',
+    description:
+      'Focuses on the application of biological systems and organisms to develop products and technologies.'
+  },
+  {
+    label: 'Blockchain',
+    value: 'blockchain',
+    description:
+      'Involves the development and application of blockchain technologies and cryptocurrencies.'
   },
   {
     label: 'Chemical',
-    value: 'chemical'
-  },
-  {
-    label: 'Computer',
-    value: 'computer'
+    value: 'chemical',
+    description:
+      'Focuses on the production of chemicals and materials through chemical processes, including pharmaceuticals and petrochemicals.'
   },
   {
     label: 'Construction',
-    value: 'construction'
+    value: 'construction',
+    description:
+      'Covers the building and engineering industries, including residential, commercial, and infrastructure projects.'
   },
   {
-    label: 'Food & Drinks',
-    value: 'food & drinks'
+    label: 'Consulting',
+    value: 'consulting',
+    description:
+      'Involves providing expert advice and guidance to businesses and organizations in various industries.'
+  },
+  {
+    label: 'Cybersecurity',
+    value: 'cybersecurity',
+    description: 'Focuses on protecting systems, networks, and data from cyber threats and attacks.'
+  },
+  {
+    label: 'Digital Marketing',
+    value: 'digital marketing',
+    description:
+      'Focuses on promoting products and services through digital channels and platforms, including social media and online advertising.'
+  },
+  {
+    label: 'E-commerce',
+    value: 'e-commerce',
+    description:
+      'Involves the buying and selling of goods and services online, encompassing various digital platforms and marketplaces.'
   },
   {
     label: 'Education',
-    value: 'education'
+    value: 'education',
+    description:
+      'Includes schools, universities, and educational services, focusing on learning and development.'
   },
   {
     label: 'Energy',
-    value: 'energy'
+    value: 'energy',
+    description:
+      'Centers on the production and distribution of energy, including renewable and non-renewable sources.'
   },
   {
     label: 'Environment',
-    value: 'environment'
+    value: 'environment',
+    description:
+      'Focuses on environmental conservation, sustainability initiatives, and eco-friendly practices.'
   },
   {
-    label: 'Healthcare',
-    value: 'healthcare'
+    label: 'Fashion',
+    value: 'fashion',
+    description:
+      'Involves the design, production, and sale of clothing, accessories, and fashion products.'
   },
   {
     label: 'Finance',
-    value: 'finance'
+    value: 'finance',
+    description:
+      'Encompasses banking, investment, insurance, and financial services that manage money and assets.'
+  },
+  {
+    label: 'Food & Beverage',
+    value: 'food & beverage',
+    description:
+      'Involves the production, processing, and distribution of food products and beverages for consumption.'
+  },
+  {
+    label: 'Gaming',
+    value: 'gaming',
+    description:
+      'Focuses on the development and distribution of video games and interactive entertainment.'
+  },
+  {
+    label: 'Healthcare',
+    value: 'healthcare',
+    description:
+      'Involves medical services, pharmaceuticals, biotechnology, and health insurance, aimed at improving health outcomes.'
+  },
+  {
+    label: 'Hospitality',
+    value: 'hospitality',
+    description:
+      'Covers hotels, restaurants, and tourism services, focusing on customer service and guest experience.'
+  },
+  {
+    label: 'Insurance',
+    value: 'insurance',
+    description:
+      'Focuses on risk management and protection through various types of insurance policies and services.'
+  },
+  {
+    label: 'Information Technology',
+    value: 'information technology',
+    description:
+      'Covers software development, IT services, and emerging technologies driving digital transformation.'
+  },
+  {
+    label: 'Internet of Things (IoT)',
+    value: 'iot',
+    description:
+      'Encompasses interconnected devices and systems that communicate and exchange data over the internet.'
+  },
+  {
+    label: 'Legal',
+    value: 'legal',
+    description:
+      'Focuses on legal services, advice, and representation for individuals and businesses.'
   },
   {
     label: 'Logistics',
-    value: 'logistics'
+    value: 'logistics',
+    description:
+      'Covers the management of supply chains, transportation, warehousing, and distribution of goods.'
   },
   {
     label: 'Manufacturing',
-    value: 'manufacturing'
+    value: 'manufacturing',
+    description:
+      'Involves the production of goods through the transformation of raw materials into finished products.'
   },
   {
-    label: 'Media',
-    value: 'media'
+    label: 'Media & Entertainment',
+    value: 'media & entertainment',
+    description:
+      'Includes the creation and distribution of content across various platforms, encompassing television, radio, film, and digital media.'
   },
-  { label: 'Telecommunications', value: 'telecommunications' },
+  {
+    label: 'Pharmaceuticals',
+    value: 'pharmaceuticals',
+    description:
+      'Specializes in the development and production of drugs and medications to improve health outcomes.'
+  },
+  {
+    label: 'Real Estate',
+    value: 'real estate',
+    description:
+      'Encompasses property management, development, and investment in residential and commercial real estate.'
+  },
+  {
+    label: 'Retail',
+    value: 'retail',
+    description:
+      'Includes the sale of goods and services directly to consumers through various channels.'
+  },
+  {
+    label: 'Sports',
+    value: 'sports',
+    description:
+      'Focuses on sports management, events, and the sports industry, including broadcasting and promotion.'
+  },
+  {
+    label: 'Telecommunications',
+    value: 'telecommunications',
+    description:
+      'Encompasses the transmission of information over distances, including phone services, internet, and broadcasting.'
+  },
   {
     label: 'Transportation',
-    value: 'transportation'
+    value: 'transportation',
+    description:
+      'Involves the movement of goods and people, covering various modes like road, rail, air, and sea.'
   },
   {
     label: 'Travel',
-    value: 'travel'
+    value: 'travel',
+    description:
+      'Focuses on the industry surrounding travel and tourism, including hospitality, services, and experiences.'
   }
 ];
 

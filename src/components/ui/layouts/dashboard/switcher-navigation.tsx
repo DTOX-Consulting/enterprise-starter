@@ -57,6 +57,7 @@ export function BusinessSwitcher({
       onSelect={onsSelect}
       canCreate={canCreate}
       newAction={newAction}
+      disabled={!currentOrgId}
       choices={currentBusinesses}
       namePlaceholder="Select a business"
     />
@@ -106,14 +107,14 @@ export function OrganizationSwitcher({
       canCreate={canCreate}
       newAction={newAction}
       choices={organizations}
-      namePlaceholder="Select an organization"
+      namePlaceholder="Select a workspace"
     />
   );
 }
 
 export function SwitcherNavigation() {
   return (
-    <div className="flex grow-0 items-center whitespace-nowrap">
+    <div className="flex max-w-72 grow-0 items-center whitespace-nowrap sm:max-w-none">
       <OrganizationSwitcher />
       <span>/</span>
       <BusinessSwitcher />

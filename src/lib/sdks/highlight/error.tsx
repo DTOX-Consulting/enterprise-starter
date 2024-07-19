@@ -16,16 +16,14 @@ export default appRouterSsrErrorHandler(({ error, reset }: AppRouterErrorProps) 
           Oops, something went wrong!
         </h1>
         <p className="mt-4 text-muted-foreground">
-          We're sorry, but an unexpected error has occurred. Please try again later or contact
+          We&apos;re sorry, but an unexpected error has occurred. Please try again later or contact
           support if the issue persists.
         </p>
         <div className="mt-6">
           <Button
             type="reset"
-            className="bg-pulse"
-            onClick={
-              () => reset() // Attempt to recover by trying to re-render the segment
-            }
+            variant="pulse"
+            onClick={() => reset()} // Attempt to recover by trying to re-render the segment
           >
             Try again
           </Button>

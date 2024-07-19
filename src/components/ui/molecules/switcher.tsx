@@ -43,6 +43,7 @@ type SwitcherProps<T extends BasicChoice> = {
   selected?: T;
   icon?: LucideIcon;
   toCreate?: string;
+  disabled?: boolean;
   canCreate?: boolean;
   namePlaceholder?: string;
   onSelect?: (choice: T) => void;
@@ -58,6 +59,7 @@ export function Switcher<T extends BasicChoice>({
   onSelect,
   canCreate,
   toCreate,
+  disabled,
   newAction,
   namePlaceholder
 }: SwitcherProps<T>) {
@@ -71,7 +73,11 @@ export function Switcher<T extends BasicChoice>({
     <SwitcherWrapper icon={icon}>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
-          <Button variant="ghost" className="flex w-full items-center text-sm hover:bg-inherit">
+          <Button
+            variant="ghost"
+            className="flex w-full items-center text-sm hover:bg-inherit"
+            disabled={disabled}
+          >
             <span>{selected?.name ?? namePlaceholder ?? '---'}</span>
             <ChevronsUpDown className="ml-1 size-4 text-gray-700 dark:text-gray-200" />
           </Button>
@@ -150,7 +156,7 @@ function SwitcherNewButton({
 function SwitcherWrapper({ children, icon }: PropsWithChildren<{ icon?: LucideIcon }>) {
   const Icon = icon;
   return (
-    <div className="flex h-10 flex-row items-center rounded-lg px-3 text-gray-700 dark:text-gray-200">
+    <div className="flex h-10 flex-row items-center truncate rounded-lg px-3 text-gray-700 dark:text-gray-200">
       <span className="text-md flex items-center justify-center text-gray-400 dark:text-gray-200">
         {Icon ? <Icon className="size-6" /> : null}
       </span>
@@ -215,7 +221,8 @@ function SwitcherModal({
               <form onSubmit={form.handleSubmit((data) => onSubmit?.(data.name))}>
                 <Button
                   type="submit"
-                  className="w-full bg-pulse disabled:bg-gray-500"
+                  variant="pulse"
+                  className="w-full"
                   disabled={form.formState.isSubmitting || !form.formState.isValid}
                 >
                   Create

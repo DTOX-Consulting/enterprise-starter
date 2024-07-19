@@ -101,8 +101,9 @@ export function TransferBusinessModal({ business }: { business: DCS<Business> })
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <Button
                 type="submit"
+                variant="pulse"
+                className="w-full"
                 onClick={() => onSubmit(form.getValues())}
-                className="w-full bg-pulse disabled:bg-gray-500"
                 disabled={form.formState.isSubmitting || !form.formState.isValid}
               >
                 Transfer

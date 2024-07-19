@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils';
 type ButtonVariantsConfig = {
   variants: {
     variant: {
+      pulse: string;
       link: string;
       ghost: string;
       default: string;
@@ -15,6 +16,7 @@ type ButtonVariantsConfig = {
       destructive: string;
     };
     size: {
+      xs: string;
       sm: string;
       lg: string;
       icon: string;
@@ -30,18 +32,21 @@ type ButtonVariantsConfig = {
 const buttonVariantsConfig: ButtonVariantsConfig = {
   variants: {
     variant: {
-      default: 'bg-primary text-primary-foreground hover:bg-primary/90',
-      destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
-      outline: 'border border-input hover:bg-accent hover:text-accent-foreground',
-      secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
       ghost: 'hover:bg-accent hover:text-accent-foreground',
-      link: 'underline-offset-4 hover:underline text-primary'
+      link: 'underline-offset-4 hover:underline text-primary',
+      default: 'bg-primary text-primary-foreground hover:bg-primary/90',
+      secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
+      outline: 'border border-input hover:bg-accent hover:text-accent-foreground',
+      destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
+      pulse:
+        'bg-pulse hover:bg-pulse/70 text-primary-foreground dark:text-accent-foreground disabled:bg-neutral-600'
     },
     size: {
+      icon: 'h-8 w-8 p-0',
       default: 'h-10 py-2 px-4',
       sm: 'h-9 px-3 rounded-md',
       lg: 'h-11 px-8 rounded-md',
-      icon: 'h-8 w-8 p-0'
+      xs: 'h-6 py-1 px-2 rounded-sm'
     }
   },
   defaultVariants: {

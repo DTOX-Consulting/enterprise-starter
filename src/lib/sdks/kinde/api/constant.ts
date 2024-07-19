@@ -4,6 +4,8 @@ import type { UserSession } from '@/lib/sdks/kinde/api/session';
 
 export const defaultUserSession = () =>
   ({
+    isAdmin: false,
+    organization: null,
     user: {
       id: '',
       name: '',
@@ -12,7 +14,6 @@ export const defaultUserSession = () =>
       lastName: '',
       firstName: ''
     },
-    organization: null,
     subscription: {
       tier: defaultTier,
       key: defaultSubscriptionPermissionsKey

@@ -13,7 +13,7 @@ import type { PropsWithChildren } from 'react';
 
 function Logo() {
   return (
-    <div className="absolute left-16 flex py-4 sm:left-0 sm:w-full md:hidden">
+    <div className="ml-10 flex py-4 sm:ml-0 sm:w-full md:hidden">
       <Link href={routes.dashboard} className="flex w-full items-center justify-center">
         <Image src={icon} alt="logo" width={140} height={40} className="mr-4" />
       </Link>
@@ -23,7 +23,7 @@ function Logo() {
 
 function Switcher() {
   return (
-    <div className="absolute left-16 flex py-4 md:relative md:left-0">
+    <div className="ml-10 flex py-4 md:relative md:ml-0">
       <SwitcherNavigation />
     </div>
   );

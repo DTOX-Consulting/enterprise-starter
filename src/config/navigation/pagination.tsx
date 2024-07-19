@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 
 import { Button } from '@/components/ui/atoms/button';
+import { Separator } from '@/components/ui/atoms/separator';
 import { useNavigation } from '@/config/navigation/use-navigation';
 import { useForceState } from '@/lib/hooks/use-force-rerender';
 
@@ -100,27 +101,30 @@ export function NavigationPagination() {
   }
 
   return (
-    <div className="flex w-full flex-row justify-between pb-8">
-      {previousRoute && (
-        <div className="flex grow items-start justify-start">
-          <Button asChild className="bg-pulse">
-            <Link href={previousRoute.href}>
-              <ChevronLeft className="-ml-2 mr-2" />
-              <span>{previousRoute.name}</span>
-            </Link>
-          </Button>
-        </div>
-      )}
-      {nextRoute && (
-        <div className="flex grow items-end justify-end">
-          <Button asChild className="bg-pulse">
-            <Link href={nextRoute.href}>
-              <span>{nextRoute.name}</span>
-              <ChevronRight className="-mr-2 ml-2" />
-            </Link>
-          </Button>
-        </div>
-      )}
-    </div>
+    <>
+      <Separator />
+      <div className="!mt-6 flex w-full flex-row justify-between pb-8">
+        {previousRoute && (
+          <div className="flex grow items-start justify-start">
+            <Button asChild variant="pulse">
+              <Link href={previousRoute.href}>
+                <ChevronLeft className="-ml-2 mr-2" />
+                <span>{previousRoute.name}</span>
+              </Link>
+            </Button>
+          </div>
+        )}
+        {nextRoute && (
+          <div className="flex grow items-end justify-end">
+            <Button asChild variant="pulse">
+              <Link href={nextRoute.href}>
+                <span>{nextRoute.name}</span>
+                <ChevronRight className="-mr-2 ml-2" />
+              </Link>
+            </Button>
+          </div>
+        )}
+      </div>
+    </>
   );
 }

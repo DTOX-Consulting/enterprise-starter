@@ -1,3 +1,5 @@
+import { ucFirst } from '@/lib/utils/string';
+
 export type FeatureUser<
   TierNames extends string = string,
   Meta extends Record<string, unknown> = Record<string, unknown>
@@ -45,7 +47,7 @@ export type Features = {
   sharingMethods: {
     simple?: boolean;
     passwordProtection?: boolean;
-    oneTimePasscode?: boolean;
+    oneTimePassCode?: boolean;
     emailRestrictions?: boolean;
   };
 };
@@ -55,7 +57,7 @@ export type TierName = 'none' | 'starter' | 'pro' | 'team';
 export const tiers: TiersConfig<TierName, Features> = {
   none: {
     price: 'N/A',
-    label: 'None',
+    label: 'Free',
     description: 'No tier',
     kinde: {
       subscriptionPermissionsKey: 'subscriptions-none'
@@ -68,8 +70,8 @@ export const tiers: TiersConfig<TierName, Features> = {
       },
       live: {
         amount: 0,
-        priceId: 'price_1PTWQURt7fGl6tlNTCvzeipp',
-        productId: 'prod_QKAmVBlD9IhudD'
+        priceId: 'price_1PbhCMRt7fGl6tlNy1Cxxy0u',
+        productId: 'prod_QScRO9bpGgl2S5'
       }
     },
     pricingFeatures: [],
@@ -80,10 +82,10 @@ export const tiers: TiersConfig<TierName, Features> = {
       aiSuggestions: false,
       iterationType: 'simplified',
       sharingType: 'simplified',
-      ideaRefinement: false,
-      historyLimit: 0,
+      ideaRefinement: true,
+      historyLimit: 1,
       sharingMethods: {
-        simple: false
+        simple: true
       }
     }
   },
@@ -102,8 +104,8 @@ export const tiers: TiersConfig<TierName, Features> = {
       },
       live: {
         amount: 0,
-        priceId: 'price_1PTWQURt7fGl6tlNTCvzeipp',
-        productId: 'prod_QKAmVBlD9IhudD'
+        priceId: 'price_1PbhCMRt7fGl6tlNy1Cxxy0u',
+        productId: 'prod_QScRO9bpGgl2S5'
       }
     },
     pricingFeatures: [
@@ -141,8 +143,8 @@ export const tiers: TiersConfig<TierName, Features> = {
       },
       live: {
         amount: 999,
-        priceId: 'price_1PTWH6Rt7fGl6tlNIsAHGMJe',
-        productId: 'prod_QKAcAp3lxNKGFc'
+        priceId: 'price_1PbhCTRt7fGl6tlNq2SUBSvB',
+        productId: 'prod_QScRMU9UOeclY5'
       }
     },
     pricingFeatures: [
@@ -165,7 +167,7 @@ export const tiers: TiersConfig<TierName, Features> = {
       historyLimit: 5,
       sharingMethods: {
         simple: true,
-        oneTimePasscode: false,
+        oneTimePassCode: false,
         emailRestrictions: true,
         passwordProtection: false
       }
@@ -186,8 +188,8 @@ export const tiers: TiersConfig<TierName, Features> = {
       },
       live: {
         amount: 1999,
-        priceId: 'price_1PTWHsRt7fGl6tlNz6kVOvl0',
-        productId: 'prod_QKAd11DF5qH3Xq'
+        priceId: 'price_1PbhCRRt7fGl6tlNpqBqizpN',
+        productId: 'prod_QScREUXTtjOnaK'
       }
     },
     pricingFeatures: [
@@ -211,7 +213,7 @@ export const tiers: TiersConfig<TierName, Features> = {
       sharingMethods: {
         simple: true,
         passwordProtection: true,
-        oneTimePasscode: true,
+        oneTimePassCode: true,
         emailRestrictions: true
       }
     }
@@ -219,6 +221,8 @@ export const tiers: TiersConfig<TierName, Features> = {
 };
 
 export const getTier = (key: TierName) => tiers[key];
+
+export const getTierLabel = (key: TierName) => ucFirst(tiers[key].label);
 
 export const isNoneTier = (key: TierName) => key === 'none';
 

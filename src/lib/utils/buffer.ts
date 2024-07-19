@@ -25,6 +25,7 @@ export const bufferToStreamFromTmp = async (buffer: Buffer): Promise<ReadStream>
 };
 
 export const bufferToStreamPassThrough = async (buffer: Buffer): Promise<PassThrough> => {
+  await Promise.resolve();
   const stream = new PassThrough();
   stream.end(buffer);
   return stream;
