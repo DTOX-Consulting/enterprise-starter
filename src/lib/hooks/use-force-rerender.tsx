@@ -1,3 +1,4 @@
+import { G } from '@mobily/ts-belt';
 import { useState, useCallback, useRef } from 'react';
 
 export function useForceRerender() {
@@ -14,13 +15,15 @@ export function useForceState<T>(initialValue: T) {
   const stateRef = useRef<T>(initialValue);
   const forceRerender = useForceRerender();
 
+  const getState = useCallback(() => stateRef.current, []);
+
   const setState = useCallback(
-    (value: T, rerender?: boolean) => {
-      stateRef.current = value;
+    (value: T | ((prev: T) => T), rerender?: boolean) => {
+      stateRef.current = G.isFunction(value) ? value(stateRef.current) : value;
       rerender && forceRerender();
     },
     [forceRerender]
   );
 
-  return [stateRef.current, setState] as const;
+  return [stateRef.current, setState, getState, stateRef] as const;
 }
