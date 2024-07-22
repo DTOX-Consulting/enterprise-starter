@@ -29,7 +29,7 @@ export const SelectGenerator = <Params extends Record<keyof Params, any>>({
             options={options.map((i) => `${i}`)}
             placeholder={placeholder ?? 'Select...'}
             onChange={(e) =>
-              (onItemChange || onChange)(param, e.target.value as Params[keyof Params])
+              (onItemChange ?? onChange)(param, e.target.value as Params[keyof Params])
             }
           />
         ))}

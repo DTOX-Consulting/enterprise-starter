@@ -92,12 +92,12 @@ export function ChatMessage({ message, mdExtraClasses, ...props }: ChatMessagePr
                 children = children.replace('`▍`', '▍');
               }
 
-              const match = /language-(\w+)/.exec(className || '');
+              const match = /language-(\w+)/.exec(className ?? '');
 
               return match?.length ? (
                 <CodeBlock
                   key={Math.random()}
-                  language={match?.[1] || ''}
+                  language={match?.[1] ?? ''}
                   value={String(children).replace(/\n$/, '')}
                   {...props}
                 />

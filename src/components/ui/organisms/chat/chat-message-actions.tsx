@@ -14,9 +14,13 @@ interface ChatMessageActionsProps extends React.ComponentProps<'div'> {
 export function ChatMessageActions({ message, className, ...props }: ChatMessageActionsProps) {
   const { isCopied, copyToClipboard } = useCopyToClipboard({ timeout: 2000 });
 
-  const onCopy = () => {
+  const onCopy = async () => {
     if (isCopied) return;
-    copyToClipboard(message.content);
+    try {
+      await copyToClipboard(message.content);
+    } catch (error) {
+      console.error('Failed to copy to clipboard', error);
+    }
   };
 
   return (

@@ -300,7 +300,7 @@ const SelectMulti = React.forwardRef<SelectMultiRef, SelectMultiProps>(
     };
 
     const EmptyItem = React.useCallback(() => {
-      if (!emptyIndicator) return undefined;
+      if (emptyIndicator === undefined ?? emptyIndicator === null) return undefined;
 
       // For async search that showing emptyIndicator
       if (onSearch && !creatable && Object.keys(options).length === 0) {
@@ -371,7 +371,7 @@ const SelectMulti = React.forwardRef<SelectMultiRef, SelectMultiProps>(
                     type="button"
                     className={cn(
                       'ml-1 rounded-full outline-none ring-offset-background focus:ring-2 focus:ring-ring focus:ring-offset-2',
-                      (disabled || option.fixed) && 'hidden'
+                      (disabled ?? option.fixed) && 'hidden'
                     )}
                     onKeyDown={(e) => {
                       if (e.key === 'Enter') {

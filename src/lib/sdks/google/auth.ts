@@ -7,8 +7,14 @@ export const drive = google.drive({ version: 'v3' });
 export const email = google.gmail({ version: 'v1' });
 export const sheets = google.sheets({ version: 'v4' });
 
+interface AuthConfig {
+  email: string;
+  key: string;
+  scopes: string[];
+}
+
 export const createAuth = async () => {
-  const jwtAuth = new google.auth.JWT(config.auth as any);
+  const jwtAuth = new google.auth.JWT(config.auth as AuthConfig);
   const googleAuth = new google.auth.GoogleAuth(config.auth);
   return { jwtAuth, googleAuth };
 };

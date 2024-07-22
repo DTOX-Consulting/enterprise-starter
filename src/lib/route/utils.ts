@@ -2,12 +2,13 @@ import { R, type Result } from '@mobily/ts-belt';
 
 import type { APIError } from '@/lib/route/types';
 
-export const defaultErrorMapper = <E extends APIError>(_error: any): E => {
-  const error = _error.error || _error;
+export const defaultErrorMapper = <E extends APIError>(_error: unknown): E => {
+  const error = (_error as { error?: unknown }).error || _error;
 
-  const status = error.status;
-  const errors = error.errors || [{ error }];
-  const code = typeof error.code === 'number' ? error.code : 500;
+  const status = (error as { status?: unknown }).status;
+  const errors = (error as { errors?: unknown }).errors || [{ error }];
+  const code =
+    typeof (error as { code?: unknown }).code === 'number' ? (error as { code: number }).code : 500;
   const message = (error as Error).message || 'Internal Server Error';
 
   return {
@@ -39,7 +40,7 @@ export const unboxR = <T, E extends APIError>(result: Result<T, E>): { data?: T;
 };
 
 export const unboxPath = <
-  T extends Record<string, any>,
+  T extends Record<string, unknown>,
   E extends APIError,
   R extends keyof T = 'result'
 >(
