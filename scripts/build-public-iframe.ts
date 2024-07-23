@@ -72,7 +72,7 @@ const watch = async () => {
 
 const args = process.argv.slice(2);
 if (args.includes('--watch')) {
-  watch();
+  await watch();
 } else {
-  build();
+  await build();
 }

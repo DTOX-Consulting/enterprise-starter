@@ -108,8 +108,8 @@ export class HttpClient<SecurityDataType = unknown> {
     [ContentType.Text]: (input: any) =>
       input !== null && typeof input !== 'string' ? JSON.stringify(input) : input,
     [ContentType.FormData]: (input: any) =>
-      Object.keys(input || {}).reduce((formData, key) => {
-        const property = input[key];
+      Object.keys((input as {}) || {}).reduce((formData, key) => {
+        const property = (input as Record<string, any>)[key];
         formData.append(
           key,
           property instanceof Blob
@@ -120,7 +120,7 @@ export class HttpClient<SecurityDataType = unknown> {
         );
         return formData;
       }, new FormData()),
-    [ContentType.UrlEncoded]: (input: any) => this.toQueryString(input)
+    [ContentType.UrlEncoded]: (input: QueryParamsType | undefined) => this.toQueryString(input)
   };
 
   protected mergeRequestParams(params1: RequestParams, params2?: RequestParams): RequestParams {

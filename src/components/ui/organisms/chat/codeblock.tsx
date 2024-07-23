@@ -82,9 +82,9 @@ const CodeBlock: FC<Props> = memo(({ language, value }) => {
     URL.revokeObjectURL(url);
   };
 
-  const onCopy = () => {
+  const onCopy = async () => {
     if (isCopied) return;
-    copyToClipboard(value);
+    await copyToClipboard(value);
   };
 
   return (
