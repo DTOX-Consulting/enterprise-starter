@@ -69,3 +69,7 @@ pids
 .netlify/
 .firebase/
 .serverless/
+
+src/iframe/
+public/iframe/
+eslint/
