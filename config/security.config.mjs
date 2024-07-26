@@ -11,7 +11,7 @@ import {
 } from './origins.config.mjs';
 
 // because of type bug.
-const nextSafe = _nextSafe.nextSafe || _nextSafe;
+const nextSafe = _nextSafe.nextSafe ?? _nextSafe;
 
 const special = {
   data: 'data:',
