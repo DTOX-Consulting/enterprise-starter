@@ -74,5 +74,3 @@ src/iframe/
 public/iframe/
 eslint/
 .eslintrc.cjs
-
-report-bundle-size.js
