@@ -22,7 +22,7 @@ export function UpgradeModal({ children }: PropsWithChildren) {
         <span className="group relative block">
           <Button
             variant="outline"
-            className="absolute z-5 size-full min-h-8 opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-60"
+            className="z-5 absolute size-full min-h-8 opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-60"
           >
             <Lock className="mr-2 size-5" />
             <span>Upgrade to Access</span>

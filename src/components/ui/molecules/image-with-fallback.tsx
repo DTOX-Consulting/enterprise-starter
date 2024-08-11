@@ -14,5 +14,5 @@ export const ImageWithFallback = (props: ImageWithFallbackProps) => {
   const { imgKey, src, fallbackSrc = fallback, ...rest } = props;
   const [imgSrc, setImgSrc] = useState(src);
 
-  return <Image {...rest} key={imgKey} src={imgSrc} onError={() => setImgSrc(fallbackSrc)} />;
+  return <Image key={imgKey} {...rest} src={imgSrc} onError={() => setImgSrc(fallbackSrc)} />;
 };

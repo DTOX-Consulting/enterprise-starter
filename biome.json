@@ -3,6 +3,9 @@
   "organizeImports": {
     "enabled": false
   },
+  "files": {
+    "ignore": ["public/iframe/*"]
+  },
   "linter": {
     "enabled": true,
     "rules": {

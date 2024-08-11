@@ -30,7 +30,7 @@ export const sendMail = async ({ body, subject, to, from = config.auth.subject }
 
     return fromPromise(Promise.resolve(response.data));
   } catch (error) {
-    // Handle or throw the error as needed
+    console.error('Error sending email:', error);
     throw error;
   }
 };

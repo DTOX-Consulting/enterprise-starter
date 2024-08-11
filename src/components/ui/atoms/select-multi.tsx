@@ -300,7 +300,7 @@ const SelectMulti = React.forwardRef<SelectMultiRef, SelectMultiProps>(
     };
 
     const EmptyItem = React.useCallback(() => {
-      if (emptyIndicator === undefined ?? emptyIndicator === null) return undefined;
+      if (emptyIndicator === undefined || emptyIndicator === null) return undefined;
 
       // For async search that showing emptyIndicator
       if (onSearch && !creatable && Object.keys(options).length === 0) {
