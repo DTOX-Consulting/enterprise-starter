@@ -71,6 +71,7 @@ pids
 .serverless/
 
 src/iframe/
-public/iframe/
+public/
 eslint/
 .eslintrc.cjs
+report-bundle-size.js
