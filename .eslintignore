@@ -69,3 +69,9 @@ pids
 .netlify/
 .firebase/
 .serverless/
+
+src/iframe/
+public/
+eslint/
+.eslintrc.cjs
+report-bundle-size.js

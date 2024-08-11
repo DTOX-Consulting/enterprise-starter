@@ -173,7 +173,7 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
     if (
       this.live &&
       this.options.pull &&
-      (this.options.pull.realtimePostgresChanges ||
+      (this.options.pull.realtimePostgresChanges ??
         typeof this.options.pull.realtimePostgresChanges === 'undefined')
     ) {
       this.watchPostgresChanges();
@@ -309,7 +309,7 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
     this.realtimeChannel = this.options.supabaseClient
       .channel(`rxdb-supabase-${this.replicationIdentifierHash}`)
       .on('postgres_changes', { event: '*', schema: 'public', table: this.table }, (payload) => {
-        if (payload.eventType === 'DELETE' || !payload.new) return; // Should have set _deleted field already
+        if (payload.eventType === 'DELETE') return; // Should have set _deleted field already
         //console.debug('Realtime event received:', payload)
         this.realtimeChanges.next({
           checkpoint: this.rowToCheckpoint(payload.new),

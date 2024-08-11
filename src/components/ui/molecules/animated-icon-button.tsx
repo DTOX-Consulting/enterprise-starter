@@ -29,7 +29,7 @@ export function AnimatedButton<T extends UseFormReturn<any>>({
       variant="pulse"
       className={className}
       disabled={
-        (allowDisabled && disabled) ||
+        (allowDisabled && disabled) ??
         (allowDisabled && (form.formState.isSubmitting || !form.formState.isValid))
       }
     >

@@ -61,7 +61,7 @@ const CodeBlock: FC<Props> = memo(({ language, value }) => {
     if (typeof window === 'undefined') {
       return;
     }
-    const fileExtension = programmingLanguages[language] || '.file';
+    const fileExtension = programmingLanguages[language] ?? '.file';
     const suggestedFileName = `file-${generateRandomString(3, true)}${fileExtension}`;
     const fileName = window.prompt('Enter file name', suggestedFileName);
 
@@ -82,9 +82,9 @@ const CodeBlock: FC<Props> = memo(({ language, value }) => {
     URL.revokeObjectURL(url);
   };
 
-  const onCopy = () => {
+  const onCopy = async () => {
     if (isCopied) return;
-    copyToClipboard(value);
+    await copyToClipboard(value);
   };
 
   return (

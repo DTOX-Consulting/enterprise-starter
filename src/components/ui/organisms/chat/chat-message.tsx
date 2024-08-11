@@ -44,7 +44,7 @@ export function ChatMessage({ message, mdExtraClasses, ...props }: ChatMessagePr
                 <span
                   className={cn(
                     'group isolate flex justify-center overflow-hidden rounded-xl max-sm:-mx-6',
-                    className
+                    className as Node | null
                   )}
                 >
                   <Image
@@ -52,8 +52,8 @@ export function ChatMessage({ message, mdExtraClasses, ...props }: ChatMessagePr
                     width={200}
                     height={200}
                     {...props}
-                    alt={props.alt}
-                    src={cleanUrl(props.src)}
+                    alt={props.alt as string}
+                    src={cleanUrl(props.src as string)}
                     className="w-full rounded-xl object-contain"
                   />
                 </span>
@@ -92,12 +92,12 @@ export function ChatMessage({ message, mdExtraClasses, ...props }: ChatMessagePr
                 children = children.replace('`▍`', '▍');
               }
 
-              const match = /language-(\w+)/.exec(className || '');
+              const match = /language-(\w+)/.exec(className ?? '');
 
-              return match?.length ? (
+              return match && match.length > 0 ? (
                 <CodeBlock
                   key={Math.random()}
-                  language={match?.[1] || ''}
+                  language={match?.[1] ?? ''}
                   value={String(children).replace(/\n$/, '')}
                   {...props}
                 />

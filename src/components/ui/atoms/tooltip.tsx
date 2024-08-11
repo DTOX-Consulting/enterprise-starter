@@ -38,7 +38,7 @@ const Tip = ({
       <TooltipTrigger className={className} asChild>
         {children}
       </TooltipTrigger>
-      <TooltipContent className={!content ? 'hidden' : ''}>
+      <TooltipContent className={typeof content === 'string' && !content ? 'hidden' : ''}>
         <span className="inline-block">{content}</span>
       </TooltipContent>
     </Tooltip>

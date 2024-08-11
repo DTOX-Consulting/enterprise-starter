@@ -7,14 +7,20 @@ export const drive = google.drive({ version: 'v3' });
 export const email = google.gmail({ version: 'v1' });
 export const sheets = google.sheets({ version: 'v4' });
 
-export const createAuth = async () => {
-  const jwtAuth = new google.auth.JWT(config.auth as any);
+interface AuthConfig {
+  email: string;
+  key: string;
+  scopes: string[];
+}
+
+export const createAuth = () => {
+  const jwtAuth = new google.auth.JWT(config.auth as AuthConfig);
   const googleAuth = new google.auth.GoogleAuth(config.auth);
   return { jwtAuth, googleAuth };
 };
 
-export const changeAuth = async (type: 'subject' | 'service') => {
-  const { jwtAuth, googleAuth } = await createAuth();
+export const changeAuth = (type: 'subject' | 'service') => {
+  const { jwtAuth, googleAuth } = createAuth();
   const auth = type === 'subject' ? jwtAuth : googleAuth;
 
   google.options({

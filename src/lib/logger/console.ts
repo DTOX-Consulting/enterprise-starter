@@ -27,10 +27,10 @@ const log = (type: LogType, message: string, ...args: any[]) => {
 export const logger: Logger = logType.reduce((acc, type) => {
   return {
     ...acc,
-    [type]: (message: string, ...args: any[]) => log(type, message, ...args)
+    [type]: (message: string, ...args: unknown[]) => log(type, message, ...args)
   };
 }, {} as Logger);
 
-logger.marker = (message: string, ...args: any[]) => {
+logger.marker = (message: string, ...args: unknown[]) => {
   log('info', `>>>>>>>>>>>>>>>>>>>>>>>> ${message} <<<<<<<<<<<<<<<<<<<<<<<<`, ...args);
 };

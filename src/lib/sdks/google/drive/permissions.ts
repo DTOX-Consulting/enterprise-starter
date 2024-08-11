@@ -6,47 +6,38 @@ import { config } from '@/lib/sdks/google/config';
 import { listFiles, listFolders } from '@/lib/sdks/google/drive';
 
 export const createPermissions = async (fileId: string, emailAddress: string, role: string) => {
-  return fromPromise(
-    drive.permissions
-      .create({
-        fileId,
-        sendNotificationEmail: true,
-        transferOwnership: role === 'owner',
-        fields: config.drive.fields.permission,
-        requestBody: {
-          role,
-          emailAddress,
-          type: 'user'
-        }
-      })
-      .then(({ data }) => data)
-  );
+  const response = await drive.permissions.create({
+    fileId,
+    sendNotificationEmail: true,
+    transferOwnership: role === 'owner',
+    fields: config.drive.fields.permission,
+    requestBody: {
+      role,
+      emailAddress,
+      type: 'user'
+    }
+  });
+  return fromPromise(Promise.resolve(response.data));
 };
 
 export const updatePermissions = async (fileId: string, permissionId: string, role = 'reader') => {
-  return fromPromise(
-    drive.permissions
-      .update({
-        fileId,
-        permissionId,
-        fields: config.drive.fields.permission,
-        requestBody: {
-          role
-        }
-      })
-      .then(({ data }) => data)
-  );
+  const response = await drive.permissions.update({
+    fileId,
+    permissionId,
+    fields: config.drive.fields.permission,
+    requestBody: {
+      role
+    }
+  });
+  return fromPromise(Promise.resolve(response.data));
 };
 
 export const listPermissions = async (fileId: string) => {
-  return fromPromise(
-    drive.permissions
-      .list({
-        fileId,
-        fields: config.drive.fields.permissions
-      })
-      .then(({ data }) => data)
-  );
+  const response = await drive.permissions.list({
+    fileId,
+    fields: config.drive.fields.permissions
+  });
+  return fromPromise(Promise.resolve(response.data));
 };
 
 export const hasPermissions = async (fileId: string, emailAddress: string) => {
@@ -71,7 +62,7 @@ export const shareFiles = async (emailAddress: string, role = 'reader') => {
   const { data } = unboxR(await listFiles());
 
   return pMap(
-    data?.files || [],
+    data?.files ?? [],
     async (file) => file?.id && createPermissions(file.id, emailAddress, role)
   );
 };
@@ -80,7 +71,7 @@ export const shareFolders = async (emailAddress: string, role = 'reader') => {
   const { data } = unboxR(await listFolders());
 
   return pMap(
-    data?.files || [],
+    data?.files ?? [],
     async (file) => file?.id && createPermissions(file.id, emailAddress, role)
   );
 };

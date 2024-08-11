@@ -35,9 +35,9 @@ const sizes = [/*16, 32, */ 36, 48, 64, 70, 72, 96, 128, 144, 150, 152, 192, 310
 
 const ROOT_DIR = resolve(__dirname, '../..');
 
-const ensureDir = (dir: string) => {
+const ensureDir = async (dir: string) => {
   const pDir = resolve(ROOT_DIR, `${dir}`);
-  $`mkdir -p ${pDir}`;
+  await $`mkdir -p ${pDir}`;
 };
 
 export default function manifest(): Manifest {
@@ -146,9 +146,9 @@ const sharp = (input?: string) => {
   };
 };
 
-const generateLogos = () => {
-  ensureDir(logoRoot);
-  ensureDir(iconRoot);
+const generateLogos = async () => {
+  await ensureDir(logoRoot);
+  await ensureDir(iconRoot);
 
   sizes.forEach((size) => {
     const input = resolve(ROOT_DIR, `${inputRoot}/logo.svg`);
@@ -181,8 +181,8 @@ const generateLogos = () => {
   });
 };
 
-const generateScreenshots = () => {
-  ensureDir(screenshotRoot);
+const generateScreenshots = async () => {
+  await ensureDir(screenshotRoot);
 
   const screenshots = ['narrow', 'narrow', 'wide', 'wide'].map((formFactor, index) => {
     const isN = formFactor === 'narrow';
@@ -206,14 +206,14 @@ const logError = (err?: Error) => {
   if (err) console.error(err);
 };
 
-const generateImages = () => {
-  generateLogos();
-  generateScreenshots();
+const generateImages = async () => {
+  await generateLogos();
+  await generateScreenshots();
 };
 
 export { generateManifestImages, generateImages };
 
 if (require.main === module) {
-  generateImages();
+  await generateImages();
   console.log('Manifest and images generated');
 }
