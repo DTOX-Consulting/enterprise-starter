@@ -78,14 +78,19 @@ export function getStarting(variable, scriptName) {
 export function getQueryParams(scriptName) {
   return Object.keys(available).reduce((acc, variable) => {
     const value = getStarting(variable, scriptName);
-    return value ? { ...acc, [variable]: value } : acc;
+    if (value) {
+      acc[variable] = value;
+    }
+    return acc;
   }, {});
 }
 
 export function getUrlSearchParams(scriptName) {
   const screenSize = getScreenSize();
   const params = getQueryParams(scriptName);
-  screenSize.width < 768 && (params.state = 'collapse');
+  if (screenSize.width < 768) {
+    params.state = 'collapse';
+  }
   return new URLSearchParams(params).toString();
 }
 

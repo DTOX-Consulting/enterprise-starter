@@ -79,7 +79,7 @@ export class HttpClient<SecurityDataType = unknown> {
   }
 
   protected addArrayQueryParam(query: QueryParamsType, key: string) {
-    const value: any[] = query[key] as any[];
+    const value: any[] = query[key] ?? [];
     return value.map((v: any) => this.encodeQueryParam(key, v)).join('&');
   }
 

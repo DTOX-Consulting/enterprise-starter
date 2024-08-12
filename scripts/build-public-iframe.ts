@@ -28,8 +28,10 @@ const clean = async () => {
 
 const copy = async () => {
   const opts = options();
-  const outDir = opts.outdir!;
+  const outDir = opts.outdir;
   const files = await glob(['src/iframe/*.html', 'src/iframe/*.css']);
+
+  if (!outDir) return;
 
   await fsMkdir(outDir, { recursive: true });
 

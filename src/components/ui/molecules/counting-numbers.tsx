@@ -35,6 +35,6 @@ export default function CountingNumbers({
   return <p className={className}>{Intl.NumberFormat().format(count)}</p>;
 }
 const easeOutQuad = (t: number, b: number, c: number, d: number) => {
-  t = t > d ? d : t / d;
-  return Math.round(-c * t * (t - 2) + b);
+  const time = t > d ? d : t / d;
+  return Math.round(-c * time * (time - 2) + b);
 };
