@@ -14,7 +14,7 @@ export type SelectGeneratorProps<Params> = {
   onChange: <K extends keyof Params>(param: K, value: Params[K]) => void;
 };
 
-export const SelectGenerator = <Params extends Record<keyof Params, any>>({
+export const SelectGenerator = <Params extends Record<keyof Params, unknown>>({
   config,
   onChange
 }: SelectGeneratorProps<Params>) => {

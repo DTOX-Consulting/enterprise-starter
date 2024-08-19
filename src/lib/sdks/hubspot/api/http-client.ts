@@ -69,7 +69,7 @@ export class HttpClient<SecurityDataType = unknown> {
     this.securityData = data;
   };
 
-  protected encodeQueryParam(key: string, value: any) {
+  protected encodeQueryParam(key: string, value: string | number | boolean) {
     const encodedKey = encodeURIComponent(key);
     return `${encodedKey}=${encodeURIComponent(typeof value === 'number' ? value : `${value}`)}`;
   }
@@ -101,15 +101,15 @@ export class HttpClient<SecurityDataType = unknown> {
   }
 
   private contentFormatters: Record<ContentType, (input: any) => any> = {
-    [ContentType.Json]: (input: any) =>
+    [ContentType.Json]: (input: unknown) =>
       input !== null && (typeof input === 'object' || typeof input === 'string')
         ? JSON.stringify(input)
         : input,
-    [ContentType.Text]: (input: any) =>
+    [ContentType.Text]: (input: unknown) =>
       input !== null && typeof input !== 'string' ? JSON.stringify(input) : input,
-    [ContentType.FormData]: (input: any) =>
+    [ContentType.FormData]: (input: unknown) =>
       Object.keys((input as {}) || {}).reduce((formData, key) => {
-        const property = (input as Record<string, any>)[key];
+        const property = (input as Record<string, unknown>)[key];
         formData.append(
           key,
           property instanceof Blob
@@ -159,7 +159,7 @@ export class HttpClient<SecurityDataType = unknown> {
     }
   };
 
-  public request = async <T = any, E = any>({
+  public request = async <T = unknown, E = Error>({
     body,
     secure,
     path,

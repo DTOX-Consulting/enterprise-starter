@@ -11,7 +11,7 @@ export type Notification = {
   };
   readAt?: string;
   removedAt?: string;
-  meta?: {};
+  meta?: Record<string, unknown>;
 };
 
 export const notificationSchema = createSchema<Notification>({

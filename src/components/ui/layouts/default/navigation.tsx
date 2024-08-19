@@ -20,7 +20,7 @@ function HomeLink({ width, height }: { width: number; height: number }) {
   );
 }
 
-function Links({ WrapperComponent }: { WrapperComponent: any }) {
+function Links({ WrapperComponent }: { WrapperComponent: React.ElementType }) {
   return navigation.map((item) => (
     <WrapperComponent key={item.name}>
       <Link

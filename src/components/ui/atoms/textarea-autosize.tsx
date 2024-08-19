@@ -87,7 +87,7 @@ export const TextareaAutosize = forwardRef<TextareaAutosizeRef, TextareaAutosize
     });
 
     useImperativeHandle(ref, () => ({
-      textArea: textAreaRef.current!,
+      textArea: textAreaRef.current ?? ({} as HTMLTextAreaElement),
       maxHeight,
       minHeight
     }));

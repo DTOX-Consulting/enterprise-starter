@@ -114,8 +114,8 @@ const Section: FC<SectionProps> = ({ title, links }) => (
   <div className="pb-4">
     <h4 className="mb-1 rounded-md px-2 py-1 text-sm font-semibold">{title}</h4>
     <div className="grid grid-flow-row auto-rows-max text-sm">
-      {links.map((link, index) => (
-        <CustomLink key={index} {...link} />
+      {links.map((link) => (
+        <CustomLink key={link.href} {...link} />
       ))}
     </div>
   </div>
@@ -129,8 +129,8 @@ export const Sidebar: FC = () => (
         <div className="size-full rounded-[inherit]" style={{ overflow: 'hidden scroll' }}>
           <div style={{ minWidth: '100%', display: 'table' }}>
             <div className="w-full">
-              {sections.map((section, index) => (
-                <Section key={index} {...section} />
+              {sections.map((section) => (
+                <Section key={section.title} {...section} />
               ))}
             </div>
           </div>

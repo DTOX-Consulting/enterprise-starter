@@ -22,6 +22,10 @@ const DEFAULT_LAST_MODIFIED_FIELD = '_modified';
 const DEFAULT_DELETED_FIELD = '_deleted';
 const POSTGRES_DUPLICATE_KEY_ERROR_CODE = '23505';
 
+interface SupabaseRow {
+  [key: string]: string | number | boolean | null | object; // Adjust as needed
+}
+
 export type SupabaseReplicationOptions<RxDocType> = {
   /**
    * The SupabaseClient to replicate with.
@@ -88,7 +92,7 @@ export type SupabaseReplicationOptions<RxDocType> = {
   };
 } & Omit<
   // We don't support waitForLeadership. You should just run in a SharedWorker anyways, no?
-  ReplicationOptions<RxDocType, any>,
+  ReplicationOptions<RxDocType, unknown>,
   'pull' | 'push' | 'waitForLeadership' | 'collection'
 > & {
     collection: RxCollection<RxDocType>;
@@ -182,7 +186,7 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
     return super.start();
   }
 
-  public override async cancel(): Promise<any> {
+  public override async cancel(): Promise<undefined[]> {
     if (this.realtimeChannel) {
       return Promise.all([super.cancel(), this.realtimeChannel.unsubscribe()]);
     }
@@ -288,7 +292,11 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
       .from(this.table)
       .update(this.updateRowKeys(row.newDocumentState), { count: 'exact' });
 
-    Object.entries(this.updateRowKeys(row.assumedMasterState!)).forEach(([field, value]) => {
+    if (!row.assumedMasterState) {
+      throw new Error('assumedMasterState is null or undefined.');
+    }
+
+    Object.entries(this.updateRowKeys(row.assumedMasterState)).forEach(([field, value]) => {
       const type = typeof value;
       if (type === 'string' || type === 'number') {
         query = query.eq(field, value);
@@ -319,7 +327,7 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
       .subscribe();
   }
 
-  private async fetchByPrimaryKey(primaryKeyValue: any): Promise<WithDeleted<RxDocType>> {
+  private async fetchByPrimaryKey(primaryKeyValue: unknown): Promise<WithDeleted<RxDocType>> {
     const { data, error } = await this.options.supabaseClient
       .from(this.table)
       .select()
@@ -331,7 +339,7 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
     return this.rowToRxDoc(data[0]);
   }
 
-  private rowToRxDoc(row: any): WithDeleted<RxDocType> {
+  private rowToRxDoc(row: SupabaseRow): WithDeleted<RxDocType> {
     // TODO: Don't delete the field if it is actually part of the collection
     delete row[this.lastModifiedFieldName];
     return this.updateRowKeys(row as WithDeleted<RxDocType>, true);
@@ -349,7 +357,7 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
     return doc;
   }
 
-  private rowToCheckpoint(row: any): SupabaseReplicationCheckpoint {
+  private rowToCheckpoint(row: SupabaseRow): SupabaseReplicationCheckpoint {
     return {
       modified: row[this.lastModifiedFieldName],
       primaryKeyValue: row[this.primaryKey]

@@ -39,12 +39,12 @@ export function ChatMessage({ message, mdExtraClasses, ...props }: ChatMessagePr
           )}
           remarkPlugins={[remarkGfm]}
           components={{
-            img: function Img({ className, ...props }: React.ComponentPropsWithoutRef<any>) {
+            img: function Img({ className, ...props }: React.ComponentPropsWithoutRef<'img'>) {
               return (
                 <span
                   className={cn(
                     'group isolate flex justify-center overflow-hidden rounded-xl max-sm:-mx-6',
-                    className as Node | null
+                    className as string | undefined
                   )}
                 >
                   <Image

@@ -13,7 +13,7 @@ import type { Notification } from '@/lib/db/rxdb/schemas/notification';
 import type { DCS } from '@/lib/db/rxdb/utils/schema';
 
 function _NotificationToggle() {
-  const router = useRouter();
+  const router = useRouter(); // This is declared but not used in the callback
   const { notifications } = useDBDataExtras();
   const { setNotificationRead, setNotificationRemoved } = useDBDataExtrasMutation();
 
@@ -25,7 +25,7 @@ function _NotificationToggle() {
 
       danglingPromise(setNotificationRead(notification.id));
     },
-    [router, setNotificationRead, setNotificationRemoved]
+    [setNotificationRead, setNotificationRemoved]
   );
 
   return (

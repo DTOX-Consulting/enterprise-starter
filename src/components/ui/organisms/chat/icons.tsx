@@ -452,8 +452,11 @@ function IconUsers({ className, ...props }: ComponentProps<'svg'>) {
       fill="currentColor"
       className={cn('size-4', className)}
       viewBox="0 0 256 256"
+      role="img"
+      aria-labelledby="UsersIconTitle"
       {...props}
     >
+      <title id="icon-users-title">Users</title>
       <path d="M117.25 157.92a60 60 0 1 0-66.5 0 95.83 95.83 0 0 0-47.22 37.71 8 8 0 1 0 13.4 8.74 80 80 0 0 1 134.14 0 8 8 0 0 0 13.4-8.74 95.83 95.83 0 0 0-47.22-37.71ZM40 108a44 44 0 1 1 44 44 44.05 44.05 0 0 1-44-44Zm210.14 98.7a8 8 0 0 1-11.07-2.33A79.83 79.83 0 0 0 172 168a8 8 0 0 1 0-16 44 44 0 1 0-16.34-84.87 8 8 0 1 1-5.94-14.85 60 60 0 0 1 55.53 105.64 95.83 95.83 0 0 1 47.22 37.71 8 8 0 0 1-2.33 11.07Z" />
     </svg>
   );
@@ -466,8 +469,11 @@ function IconExternalLink({ className, ...props }: ComponentProps<'svg'>) {
       fill="currentColor"
       className={cn('size-4', className)}
       viewBox="0 0 256 256"
+      role="img"
+      aria-labelledby="ExternalLinkIconTitle"
       {...props}
     >
+      <title id="icon-external-link-title">External Link</title>
       <path d="M224 104a8 8 0 0 1-16 0V59.32l-66.33 66.34a8 8 0 0 1-11.32-11.32L196.68 48H152a8 8 0 0 1 0-16h64a8 8 0 0 1 8 8Zm-40 24a8 8 0 0 0-8 8v72H48V80h72a8 8 0 0 0 0-16H48a16 16 0 0 0-16 16v128a16 16 0 0 0 16 16h128a16 16 0 0 0 16-16v-72a8 8 0 0 0-8-8Z" />
     </svg>
   );
