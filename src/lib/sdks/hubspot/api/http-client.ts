@@ -1,6 +1,6 @@
 /* eslint-disable promise/prefer-await-to-then, @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-return -- SDK */
 
-export type QueryParamsType = Record<string | number, any>;
+export type QueryParamsType = Record<string | number, unknown>;
 export type ResponseFormat = keyof Omit<Body, 'body' | 'bodyUsed'>;
 
 export interface FullRequestParams extends Omit<RequestInit, 'body'> {
@@ -75,12 +75,12 @@ export class HttpClient<SecurityDataType = unknown> {
   }
 
   protected addQueryParam(query: QueryParamsType, key: string) {
-    return this.encodeQueryParam(key, query[key]);
+    return this.encodeQueryParam(key, query[key] as string | number | boolean);
   }
 
   protected addArrayQueryParam(query: QueryParamsType, key: string) {
-    const value: any[] = query[key] ?? [];
-    return value.map((v: any) => this.encodeQueryParam(key, v)).join('&');
+    const value: string[] = (query[key] as string[]) ?? [];
+    return value.map((v: string | number | boolean) => this.encodeQueryParam(key, v)).join('&');
   }
 
   protected toQueryString(rawQuery?: QueryParamsType): string {
@@ -100,28 +100,29 @@ export class HttpClient<SecurityDataType = unknown> {
     return queryString ? `?${queryString}` : '';
   }
 
-  private contentFormatters: Record<ContentType, (input: any) => any> = {
-    [ContentType.Json]: (input: unknown) =>
-      input !== null && (typeof input === 'object' || typeof input === 'string')
-        ? JSON.stringify(input)
-        : input,
-    [ContentType.Text]: (input: unknown) =>
-      input !== null && typeof input !== 'string' ? JSON.stringify(input) : input,
-    [ContentType.FormData]: (input: unknown) =>
-      Object.keys((input as {}) || {}).reduce((formData, key) => {
-        const property = (input as Record<string, unknown>)[key];
-        formData.append(
-          key,
-          property instanceof Blob
-            ? property
-            : typeof property === 'object' && property !== null
-              ? JSON.stringify(property)
-              : `${property}`
-        );
-        return formData;
-      }, new FormData()),
-    [ContentType.UrlEncoded]: (input: QueryParamsType | undefined) => this.toQueryString(input)
-  };
+  private contentFormatters: Record<ContentType, (input: QueryParamsType | undefined) => unknown> =
+    {
+      [ContentType.Json]: (input: unknown) =>
+        input !== null && (typeof input === 'object' || typeof input === 'string')
+          ? JSON.stringify(input)
+          : input,
+      [ContentType.Text]: (input: unknown) =>
+        input !== null && typeof input !== 'string' ? JSON.stringify(input) : input,
+      [ContentType.FormData]: (input: unknown) =>
+        Object.keys((input as object) || {}).reduce((formData, key) => {
+          const property = (input as Record<string, unknown>)[key];
+          formData.append(
+            key,
+            property instanceof Blob
+              ? property
+              : typeof property === 'object' && property !== null
+                ? JSON.stringify(property)
+                : `${property}`
+          );
+          return formData;
+        }, new FormData()),
+      [ContentType.UrlEncoded]: (input: QueryParamsType | undefined) => this.toQueryString(input)
+    };
 
   protected mergeRequestParams(params1: RequestParams, params2?: RequestParams): RequestParams {
     return {
@@ -190,7 +191,10 @@ export class HttpClient<SecurityDataType = unknown> {
           ...(type != null && type !== ContentType.FormData ? { 'Content-Type': type } : {})
         },
         signal: (cancelToken ? this.createAbortSignal(cancelToken) : requestParams.signal) ?? null,
-        body: typeof body === 'undefined' || body === null ? null : payloadFormatter(body)
+        body:
+          typeof body === 'undefined' || body === null
+            ? null
+            : (payloadFormatter(body as QueryParamsType) as BodyInit | null | undefined)
       }
     ).then(async (response) => {
       const r = response.clone() as HttpResponse<T, E>;

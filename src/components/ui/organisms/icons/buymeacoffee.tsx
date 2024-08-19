@@ -8,6 +8,7 @@ export default function BuyMeACoffee({ className }: { className?: string }) {
       xmlns="http://www.w3.org/2000/svg"
       className={className}
     >
+      <title>BuyMeACoffee</title>
       <path
         d="M791.109 297.518L790.231 297.002L788.201 296.383C789.018 297.072 790.04 297.472 791.109 297.518Z"
         fill="#0D0C22"

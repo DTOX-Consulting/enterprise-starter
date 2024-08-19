@@ -273,7 +273,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     fromObjectId: string,
     toObjectType: string,
     toObjectId: string,
-    data: any,
+    data: object,
     params: RequestParams = {}
   ) =>
     this.request<object, string>({
@@ -1802,7 +1802,11 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * @request POST:/crm/v3/objects/{objectType}/batch/update
    * @secure
    */
-  v3ObjectsBatchUpdateCreate = async (objectType: string, data: any, params: RequestParams = {}) =>
+  v3ObjectsBatchUpdateCreate = async (
+    objectType: string,
+    data: object,
+    params: RequestParams = {}
+  ) =>
     this.request<object, string>({
       path: `/crm/v3/objects/${objectType}/batch/update`,
       method: 'POST',
@@ -3350,7 +3354,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * @request POST:/crm/v3/imports/{importId}/cancel
    * @secure
    */
-  v3ImportsCancelCreate = async (importId: string, data: any, params: RequestParams = {}) =>
+  v3ImportsCancelCreate = async (importId: string, data: object, params: RequestParams = {}) =>
     this.request<object, string>({
       path: `/crm/v3/imports/${importId}/cancel`,
       method: 'POST',
@@ -4053,7 +4057,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
   v3ListsMembershipsAddFromUpdate = async (
     listId: string,
     sourceListId: string,
-    data: any,
+    data: object,
     params: RequestParams = {}
   ) =>
     this.request<string, string>({
@@ -4174,7 +4178,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    */
   v3ListsUpdateListNameUpdate = async (
     listId: string,
-    data: any,
+    data: object,
     query?: {
       /**
        * The name to update the list to.
@@ -4356,7 +4360,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * @request PUT:/crm/v3/lists/{listId}/restore
    * @secure
    */
-  v3ListsRestoreUpdate = async (listId: string, data: any, params: RequestParams = {}) =>
+  v3ListsRestoreUpdate = async (listId: string, data: object, params: RequestParams = {}) =>
     this.request<string, string>({
       path: `/crm/v3/lists/${listId}/restore`,
       method: 'PUT',
@@ -4394,7 +4398,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
   v3ListsFoldersMoveUpdate = async (
     folderId: string,
     newParentFolderId: string,
-    data: any,
+    data: object,
     params: RequestParams = {}
   ) =>
     this.request<object, string>({
@@ -4416,7 +4420,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    */
   v3ListsFoldersRenameUpdate = async (
     folderId: string,
-    data: any,
+    data: object,
     query?: {
       /** @example "<string>" */
       newFolderName?: string;

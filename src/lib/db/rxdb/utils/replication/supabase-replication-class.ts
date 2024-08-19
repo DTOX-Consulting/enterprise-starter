@@ -359,8 +359,8 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
 
   private rowToCheckpoint(row: SupabaseRow): SupabaseReplicationCheckpoint {
     return {
-      modified: row[this.lastModifiedFieldName],
-      primaryKeyValue: row[this.primaryKey]
+      modified: row[this.lastModifiedFieldName] as string,
+      primaryKeyValue: row[this.primaryKey] as string | number
     };
   }
 }

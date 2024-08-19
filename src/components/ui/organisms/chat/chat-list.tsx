@@ -17,10 +17,12 @@ export function ChatList({ messages, children }: PropsWithChildren<ChatList>) {
     <div className="relative mx-auto h-full max-w-5xl items-center overflow-y-auto overflow-x-hidden px-4 pt-4 md:pl-20 md:pr-8">
       {messages
         .filter(({ role }) => role !== 'system')
-        .map((message, index) => (
-          <div key={index}>
+        .map((message) => (
+          <div key={message.id}>
             <ChatMessage message={message} />
-            {index < messages.length - 1 && <Separator className="my-4 md:my-8" />}
+            {(message.id as unknown as number) < messages.length - 1 && (
+              <Separator className="my-4 md:my-8" />
+            )}
           </div>
         ))}
       {children}

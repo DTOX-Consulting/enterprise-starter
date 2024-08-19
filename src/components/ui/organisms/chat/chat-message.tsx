@@ -49,8 +49,8 @@ export function ChatMessage({ message, mdExtraClasses, ...props }: ChatMessagePr
                 >
                   <Image
                     unoptimized
-                    width={200}
-                    height={200}
+                    width={200 as number}
+                    height={200 as number}
                     {...props}
                     alt={props.alt as string}
                     src={cleanUrl(props.src as string)}

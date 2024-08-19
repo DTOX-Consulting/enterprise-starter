@@ -1,6 +1,6 @@
 import type { Message } from 'ai';
 
-export interface Chat extends Record<string, any> {
+export interface Chat extends Record<string, unknown> {
   id: string;
   title: string;
   createdAt: Date;
