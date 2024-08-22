@@ -117,7 +117,7 @@ export class HttpClient<SecurityDataType = unknown> {
               ? property
               : typeof property === 'object' && property !== null
                 ? JSON.stringify(property)
-                : `${property}`
+                : `${property as string}`
           );
           return formData;
         }, new FormData()),

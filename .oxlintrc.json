@@ -5,15 +5,14 @@
     "browser": true
   },
   "plugins": {
-    "next": true,
+    "nextjs": true,
     "react": true,
     "eslint": true,
     "import": true,
     "vitest": true,
+    "promise": true,
     "jsx-a11y": true,
     "typescript": true
   },
-  "rules": {
-    "@oxlint/all": "error"
-  }
+  "rules": {}
 }

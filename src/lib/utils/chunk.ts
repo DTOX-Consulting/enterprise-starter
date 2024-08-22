@@ -8,7 +8,7 @@ export function chunkWithListConsideration<T extends string>(arr: T[], totalLeng
   let currentList: T[] = [];
 
   for (const currentItem of arr) {
-    if (currentItem?.match(/^\d+\./)) {
+    if (/^\d+\./.exec(currentItem)) {
       // Check if the current item starts with a number followed by a period
       if (currentList.length > 0) {
         separatedListItems.push(currentList);

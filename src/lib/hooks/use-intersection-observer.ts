@@ -28,10 +28,7 @@ function useIntersectionObserver(
     const observerParams = { threshold, root, rootMargin };
     const observer = new IntersectionObserver(updateEntry, observerParams);
 
-    if (node) {
-      observer.observe(node);
-    }
-
+    observer.observe(node);
     return () => observer.disconnect();
   }, [elementRef, threshold, root, rootMargin, frozen, updateEntry]);
 
