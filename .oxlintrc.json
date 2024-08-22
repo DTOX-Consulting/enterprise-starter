@@ -1,0 +1,19 @@
+{
+  "env": {
+    "es6": true,
+    "node": true,
+    "browser": true
+  },
+  "plugins": {
+    "next": true,
+    "react": true,
+    "eslint": true,
+    "import": true,
+    "vitest": true,
+    "jsx-a11y": true,
+    "typescript": true
+  },
+  "rules": {
+    "@oxlint/all": "error"
+  }
+}

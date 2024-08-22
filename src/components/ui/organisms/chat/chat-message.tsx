@@ -3,7 +3,9 @@
 
 import Image from 'next/image';
 import remarkGfm from 'remark-gfm';
+import remarkMath from 'remark-math';
 
+import fallbackImage from '@/assets/images/fallback.png';
 import { ChatMessageActions } from '@/components/ui/organisms/chat/chat-message-actions';
 import { CodeBlock } from '@/components/ui/organisms/chat/codeblock';
 import { IconOpenAI, IconUser } from '@/components/ui/organisms/chat/icons';
@@ -37,24 +39,24 @@ export function ChatMessage({ message, mdExtraClasses, ...props }: ChatMessagePr
             'prose max-w-5xl break-words dark:prose-invert prose-p:leading-relaxed prose-pre:p-0',
             mdExtraClasses
           )}
-          remarkPlugins={[remarkGfm]}
+          remarkPlugins={[remarkGfm, remarkMath]}
           components={{
             img: function Img({ className, ...props }: React.ComponentPropsWithoutRef<'img'>) {
               return (
                 <span
                   className={cn(
                     'group isolate flex justify-center overflow-hidden rounded-xl max-sm:-mx-6',
-                    className as string | undefined
+                    className
                   )}
                 >
                   <Image
                     unoptimized
-                    width={200 as number}
-                    height={200 as number}
                     {...props}
-                    alt={props.alt as string}
-                    src={cleanUrl(props.src as string)}
+                    width={200}
+                    height={160}
+                    alt={props.alt ?? ''}
                     className="w-full rounded-xl object-contain"
+                    src={props.src ? cleanUrl(props.src) : fallbackImage}
                   />
                 </span>
               );
@@ -83,7 +85,7 @@ export function ChatMessage({ message, mdExtraClasses, ...props }: ChatMessagePr
                 </td>
               );
             },
-            code({ node, className, children, ...props }) {
+            code({ className, children, ...props }) {
               if (typeof children === 'string') {
                 if (children === '▍') {
                   return <span className="mt-1 animate-pulse cursor-default">▍</span>;
@@ -116,3 +118,4 @@ export function ChatMessage({ message, mdExtraClasses, ...props }: ChatMessagePr
     </div>
   );
 }
+Z;

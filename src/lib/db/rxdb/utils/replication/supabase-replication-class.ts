@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { RxReplicationState } from 'rxdb/plugins/replication';
 import { Subject } from 'rxjs';
 
@@ -22,9 +22,7 @@ const DEFAULT_LAST_MODIFIED_FIELD = '_modified';
 const DEFAULT_DELETED_FIELD = '_deleted';
 const POSTGRES_DUPLICATE_KEY_ERROR_CODE = '23505';
 
-interface SupabaseRow {
-  [key: string]: string | number | boolean | null | object; // Adjust as needed
-}
+type SupabaseRow = Record<string, string | number | boolean | null | object>;
 
 export type SupabaseReplicationOptions<RxDocType> = {
   /**
@@ -364,4 +362,4 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
     };
   }
 }
-/* eslint-enable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
+/* eslint-enable @typescript-eslint/no-unsafe-assignment */
