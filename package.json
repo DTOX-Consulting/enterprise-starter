@@ -30,7 +30,7 @@
     "lint:biome": "biome check --unsafe --write .",
     "lint:eslint": "eslint --quiet --cache --fix .",
     "lint": "pnpm lint:oxlint; pnpm lint:biome; pnpm lint:eslint",
-    "lint:oxlint": "oxlint -c .oxlintrc.json",
+    "lint:oxlint": "oxlint -c .oxlintrc.json --fix --import-plugin --jest-plugin --jsx-a11y-plugin --nextjs-plugin --react-perf-plugin",
     "check": "pnpm typecheck; pnpm lint:package; pnpm lint:oxlint; pnpm lint:biome; pnpm lint:eslint",
     "analyze": "cross-env ANALYZE=true pnpm build",
     "storybook": "cross-env FORCE_COLOR=1 storybook dev -p 6006",
