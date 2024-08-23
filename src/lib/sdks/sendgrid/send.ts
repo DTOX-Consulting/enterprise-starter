@@ -39,7 +39,11 @@ export const send = async ({
     dynamicTemplateData
   });
 
-  emailResponse ? logger.info('Email sent') : logger.error('Email failed to send', { error });
+  if (emailResponse) {
+    logger.info('Email sent');
+  } else {
+    logger.error('Email failed to send', { error });
+  }
 
   return emailResponse;
 };

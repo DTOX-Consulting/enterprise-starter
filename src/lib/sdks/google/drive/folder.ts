@@ -58,7 +58,7 @@ export const createOrOverwriteFolder = async (
   const { data: maybeFolder } = unboxR(await findFolderByName(name, parent));
   const folderId = maybeFolder?.files?.[0]?.id;
 
-  folderId && unboxR(await deleteFolder(folderId));
+  if (folderId) unboxR(await deleteFolder(folderId));
   return unboxR(await createFolder(name, parent))?.data;
 };
 

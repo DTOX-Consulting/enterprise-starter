@@ -53,7 +53,10 @@ export function TransferBusinessModal({ business }: { business: DCS<Business> })
   const onSubmit = useCallback(
     (formData: FormType) => {
       const organization = organizations?.find((org) => org.id === formData.organizationId);
-      organization && transferBusiness(business, organization);
+
+      if (organization) {
+        void transferBusiness(business, organization);
+      }
     },
     [business, organizations, transferBusiness]
   );

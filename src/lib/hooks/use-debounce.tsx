@@ -9,7 +9,7 @@ const debounceMap = new Map<string, Timer>();
 
 export function debounce(id: string, fn: () => void | Promise<void>, timeout = defaultTimeout) {
   const existingTimer = debounceMap.get(id);
-  existingTimer && clearTimeout(existingTimer);
+  if (existingTimer) clearTimeout(existingTimer);
 
   const timer = setTimeout(() => {
     danglingPromise(Promise.resolve(fn()));

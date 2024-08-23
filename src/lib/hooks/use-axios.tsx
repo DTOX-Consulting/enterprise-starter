@@ -80,8 +80,11 @@ export function useAxios<T, D = unknown>({
       requestMap.set(url, debounceTimer);
     };
 
-    // biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
-    existingTimer ? (debounceTimer = existingTimer) : debouncedFetchData();
+    if (existingTimer) {
+      debounceTimer = existingTimer;
+    } else {
+      debouncedFetchData();
+    }
 
     return () => {
       clearTimeout(debounceTimer);
