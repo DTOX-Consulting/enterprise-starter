@@ -17,9 +17,10 @@ export function createUrl(
   const urlWithParams = new URL(url);
 
   Object.entries(params).forEach(([key, value]) => {
-    G.isNotNullable(value) &&
-      value !== 'undefined' &&
-      urlWithParams.searchParams.append(key, G.isArray(value) ? value.join(',') : value);
+    if (G.isNotNullable(value) && value !== 'undefined') {
+      const paramValue = G.isArray(value) ? value.join(',') : value;
+      urlWithParams.searchParams.append(key, paramValue);
+    }
   });
 
   return urlWithParams.toString();
@@ -84,7 +85,7 @@ export async function retry<T>(times: number, fn: () => Promise<T>): Promise<T> 
     }
   }
 
-  throw error;
+  throw new Error('Failed after retrying');
 }
 
 export const retryWithTimeout = async <T>(

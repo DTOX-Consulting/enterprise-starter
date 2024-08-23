@@ -17,7 +17,7 @@ export const highlightHandler = (request: NextRequest, error?: Error) => {
   try {
     console.log('highlightHandler', request.headers);
     const parsed = H.parseHeaders(request.headers);
-    error && H.consumeError(error, parsed.secureSessionId, parsed.requestId);
+    if (error) H.consumeError(error, parsed.secureSessionId, parsed.requestId);
   } catch (e) {
     console.error('highlightHandler error', e);
   }

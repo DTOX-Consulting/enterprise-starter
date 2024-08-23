@@ -66,7 +66,7 @@ export const getParams = async <T extends GenericObject>(
 
   return keys.reduce((acc, key) => {
     const value = Reflect.get(body, key) ?? params.get(key);
-    G.isNotNullable(value) && Reflect.set(acc, key, value);
+    if (G.isNotNullable(value)) Reflect.set(acc, key, value);
     return acc;
   }, {} as T);
 };

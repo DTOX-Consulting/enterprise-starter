@@ -403,9 +403,11 @@ const SelectMulti = React.forwardRef<SelectMultiRef, SelectMultiProps>(
                 setOpen(false);
                 inputProps?.onBlur?.(event);
               }}
-              onFocus={(event) => {
+              onFocus={async (event) => {
                 setOpen(true);
-                triggerSearchOnFocus && onSearch?.(debouncedSearchTerm);
+                if (triggerSearchOnFocus && onSearch) {
+                  await onSearch(debouncedSearchTerm);
+                }
                 inputProps?.onFocus?.(event);
               }}
               placeholder={hidePlaceholderWhenSelected && selected.length !== 0 ? '' : placeholder}

@@ -226,7 +226,7 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
 
     const { data, error } = await query;
 
-    if (error) throw error;
+    if (error) throw error instanceof Error ? error : new Error(String(error));
 
     if (data.length === 0) {
       return {
@@ -271,7 +271,7 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
       const value = doc[this.primaryKey as keyof typeof doc];
       return [await this.fetchByPrimaryKey(value)];
     }
-    throw error;
+    throw error instanceof Error ? error : new Error(String(error));
   }
 
   /**
@@ -335,7 +335,7 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
     const { error, count } = await query;
     console.log('[SUPABASE REPLICATION] Update result', { success: count === 1, error });
 
-    if (error) throw error;
+    if (error) throw error instanceof Error ? error : new Error(String(error));
     return count === 1;
   }
 
@@ -363,7 +363,7 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
       .eq(this.primaryKey, primaryKeyValue)
       .limit(1);
 
-    if (error) throw error;
+    if (error) throw error instanceof Error ? error : new Error(String(error));
     if (data.length !== 1) throw new Error('No row with given primary key');
     return this.rowToRxDoc(data[0] as GenericObject);
   }

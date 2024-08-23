@@ -76,3 +76,4 @@ eslint/
 .eslintrc.cjs
 report-bundle-size.js
 src/components/ui/organisms/chat/chat-message.tsx
+tailwind.config.ts

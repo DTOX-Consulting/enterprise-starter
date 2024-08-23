@@ -21,11 +21,15 @@ export const isInPages = (path: string, navigationItems: NavigationItem[]) => {
 
 export const getPages = (navigationItems: NavigationItem[]) => {
   return navigationItems.reduce((acc, item) => {
-    !item.disabled && acc.push(item);
+    if (!item.disabled) {
+      acc.push(item);
+    }
 
     if (item.isAccordion && item.items) {
       item.items.forEach((subItem) => {
-        !subItem.disabled && acc.push(subItem);
+        if (!subItem.disabled) {
+          acc.push(subItem);
+        }
       });
       return acc;
     }

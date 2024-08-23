@@ -55,9 +55,11 @@ export function chunkWithListConsideration<T extends string>(arr: T[], totalLeng
   }
 
   if (currentChunk.length > 0) {
-    chunks.length < totalLength
-      ? chunks.push(currentChunk)
-      : chunks[chunks.length - 1]?.push(...currentChunk);
+    if (chunks.length < totalLength) {
+      chunks.push(currentChunk);
+    } else {
+      chunks[chunks.length - 1]?.push(...currentChunk);
+    }
   }
 
   ensureChunkLength(chunks, totalLength);

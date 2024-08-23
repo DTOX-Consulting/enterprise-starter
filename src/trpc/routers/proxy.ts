@@ -77,7 +77,7 @@ const doProxy = async (input: {
 
   const realHeaders = allowedHeaders.reduce((acc, key) => {
     // biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
-    G.isNotNullable(_realHeaders[key]) && (acc[key] = _realHeaders[key]);
+    if (G.isNotNullable(_realHeaders[key])) acc[key] = _realHeaders[key];
     return acc;
   }, {} as GenericObject);
 

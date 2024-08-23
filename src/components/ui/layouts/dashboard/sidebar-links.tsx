@@ -79,10 +79,14 @@ function SidebarLink({
           href={item.href}
           onClick={(e) => {
             navigationProps.setActive(item.name);
-            (item.disabled ?? item.isAccordion) && e.preventDefault();
-            item.items
-              ? setIsOpen(!isOpen, true)
-              : danglingPromise(triggerElementAction('click', 'button', '.absolute.right-4.top-4'));
+            if (item.disabled ?? item.isAccordion) {
+              e.preventDefault();
+            }
+            if (item.items) {
+              setIsOpen(!isOpen, true);
+            } else {
+              danglingPromise(triggerElementAction('click', 'button', '.absolute.right-4.top-4'));
+            }
           }}
           className={cn(
             'flex	h-16 flex-row items-center whitespace-nowrap rounded-r-md border-l-2 border-transparent px-3 text-gray-500 hover:border-pulse hover:bg-gray-100 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-700',
