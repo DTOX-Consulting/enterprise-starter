@@ -14,7 +14,7 @@ export default function ScrollToTop() {
       left: 0,
       behavior: 'instant'
     });
-  }, [pathname]);
+  }, []);
 
   return (
     <ReactScrollToTop

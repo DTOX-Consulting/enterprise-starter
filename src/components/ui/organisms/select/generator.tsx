@@ -14,7 +14,7 @@ export type SelectGeneratorProps<Params> = {
   onChange: <K extends keyof Params>(param: K, value: Params[K]) => void;
 };
 
-export const SelectGenerator = <Params extends Record<keyof Params, any>>({
+export const SelectGenerator = <Params extends Record<keyof Params, unknown>>({
   config,
   onChange
 }: SelectGeneratorProps<Params>) => {
@@ -24,10 +24,10 @@ export const SelectGenerator = <Params extends Record<keyof Params, any>>({
         .filter(({ condition }) => condition !== false)
         .map(({ value, options, placeholder, param, onItemChange }, index) => (
           <Select
-            value={`${value}`}
+            value={`${value as string}`}
             key={`${index}-${String(param)}`}
-            options={options.map((i) => `${i}`)}
             placeholder={placeholder ?? 'Select...'}
+            options={options.map((i) => `${i as string}`)}
             onChange={(e) =>
               (onItemChange ?? onChange)(param, e.target.value as Params[keyof Params])
             }

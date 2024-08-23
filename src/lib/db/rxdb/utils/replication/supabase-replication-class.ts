@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { RxReplicationState } from 'rxdb/plugins/replication';
 import { Subject } from 'rxjs';
 
@@ -18,8 +18,9 @@ import type {
   RxReplicationWriteToMasterRow
 } from 'rxdb';
 
-const DEFAULT_LAST_MODIFIED_FIELD = '_modified';
+// const DEFAULT_REV_FIELD = '_rev';
 const DEFAULT_DELETED_FIELD = '_deleted';
+const DEFAULT_LAST_MODIFIED_FIELD = '_modified';
 const POSTGRES_DUPLICATE_KEY_ERROR_CODE = '23505';
 
 export type SupabaseReplicationOptions<RxDocType> = {
@@ -41,7 +42,20 @@ export type SupabaseReplicationOptions<RxDocType> = {
   // TODO: Support composite primary keys.
   primaryKey?: string;
 
+  /**
+   * This allows you to map the keys of the RxDB collection to the column names of the supabase table.
+   */
   keyMapping?: Record<string, string>;
+
+  /**
+   * This allows you to limit the replication to a subset of the data. The key is the field to filter on,
+   * and the value is the value to filter for.
+   * i.e. { key: 'ownerid', value: '123' } would only replicate data where the ownerid field is '123'.
+   */
+  filter?: {
+    key: string;
+    value: string;
+  };
 
   /**
    * Options for pulling data from supabase. Set to {} to pull with the default
@@ -88,7 +102,7 @@ export type SupabaseReplicationOptions<RxDocType> = {
   };
 } & Omit<
   // We don't support waitForLeadership. You should just run in a SharedWorker anyways, no?
-  ReplicationOptions<RxDocType, any>,
+  ReplicationOptions<RxDocType, unknown>,
   'pull' | 'push' | 'waitForLeadership' | 'collection'
 > & {
     collection: RxCollection<RxDocType>;
@@ -170,19 +184,14 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
   }
 
   public override async start(): Promise<void> {
-    if (
-      this.live &&
-      this.options.pull &&
-      (this.options.pull.realtimePostgresChanges ??
-        typeof this.options.pull.realtimePostgresChanges === 'undefined')
-    ) {
+    if (this.live && this.options.pull && this.options.pull?.realtimePostgresChanges !== false) {
       this.watchPostgresChanges();
     }
 
     return super.start();
   }
 
-  public override async cancel(): Promise<any> {
+  public override async cancel(): Promise<unknown> {
     if (this.realtimeChannel) {
       return Promise.all([super.cancel(), this.realtimeChannel.unsubscribe()]);
     }
@@ -209,10 +218,15 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
       query = query.or(`${isNewer},and(${isSameAge},${this.primaryKey}.gt.${lastPrimaryKey})`);
     }
 
+    query = this.options.filter
+      ? query.eq(this.options.filter.key, this.options.filter.value)
+      : query;
+
     query = query.order(this.lastModifiedFieldName).order(this.primaryKey).limit(batchSize);
+
     const { data, error } = await query;
 
-    if (error) throw error;
+    if (error) throw error instanceof Error ? error : new Error(String(error));
 
     if (data.length === 0) {
       return {
@@ -221,7 +235,7 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
       };
     }
     return {
-      checkpoint: this.rowToCheckpoint(data[data.length - 1]),
+      checkpoint: this.rowToCheckpoint(data[data.length - 1] as GenericObject),
       documents: data.map(this.rowToRxDoc.bind(this))
     };
   }
@@ -235,8 +249,6 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
     if (rows.length !== 1) throw new Error('Invalid batch size');
     const row = rows[0];
     if (!row) throw new Error('No row to push');
-
-    //console.debug("Pushing changes...", row.newDocumentState)
 
     return row.assumedMasterState
       ? this.handleUpdate(row)
@@ -259,7 +271,7 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
       const value = doc[this.primaryKey as keyof typeof doc];
       return [await this.fetchByPrimaryKey(value)];
     }
-    throw error;
+    throw error instanceof Error ? error : new Error(String(error));
   }
 
   /**
@@ -288,20 +300,42 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
       .from(this.table)
       .update(this.updateRowKeys(row.newDocumentState), { count: 'exact' });
 
-    Object.entries(this.updateRowKeys(row.assumedMasterState!)).forEach(([field, value]) => {
+    const state = (row.assumedMasterState ?? row.newDocumentState) as GenericObject;
+
+    const toTest = {
+      id: state?.id,
+      ownerId: state?.ownerId ?? state?.ownerid,
+      createdAt: state?.createdAt ?? state?.createdat,
+      updatedAt: state?.updatedAt ?? state?.updatedat
+    };
+
+    console.log('[SUPABASE REPLICATION] Updating row:', { state, toTest });
+
+    Object.entries(this.updateRowKeys(toTest ?? state)).forEach(([field, value]) => {
       const type = typeof value;
-      if (type === 'string' || type === 'number') {
+
+      if (type === 'undefined' || value === null) {
+        query = query.is(field, null);
+      } else if (type === 'string' || type === 'number') {
         query = query.eq(field, value);
       } else if (type === 'boolean' || value === null) {
         query = query.is(field, value);
       } else if (type === 'object') {
         query = query.eq(field, stringifyDeterministic(value));
       } else {
+        console.error(
+          '[SUPABASE REPLICATION] Error updating row',
+          { row, state, toTest },
+          { field, value, type }
+        );
         throw new Error(`replicateSupabase: Unsupported field of type ${type}`);
       }
     });
+
     const { error, count } = await query;
-    if (error) throw error;
+    console.log('[SUPABASE REPLICATION] Update result', { success: count === 1, error });
+
+    if (error) throw error instanceof Error ? error : new Error(String(error));
     return count === 1;
   }
 
@@ -309,29 +343,32 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
     this.realtimeChannel = this.options.supabaseClient
       .channel(`rxdb-supabase-${this.replicationIdentifierHash}`)
       .on('postgres_changes', { event: '*', schema: 'public', table: this.table }, (payload) => {
-        if (payload.eventType === 'DELETE') return; // Should have set _deleted field already
-        //console.debug('Realtime event received:', payload)
-        this.realtimeChanges.next({
-          checkpoint: this.rowToCheckpoint(payload.new),
-          documents: [this.rowToRxDoc(payload.new)]
-        });
+        if (payload.eventType === 'DELETE' || !(payload.new as unknown)) return; // Should have set _deleted field already
+        try {
+          this.realtimeChanges.next({
+            documents: [this.rowToRxDoc(payload.new)],
+            checkpoint: this.rowToCheckpoint(payload.new)
+          });
+        } catch (e) {
+          console.error('Error processing realtime event:', e);
+        }
       })
       .subscribe();
   }
 
-  private async fetchByPrimaryKey(primaryKeyValue: any): Promise<WithDeleted<RxDocType>> {
+  private async fetchByPrimaryKey(primaryKeyValue: unknown): Promise<WithDeleted<RxDocType>> {
     const { data, error } = await this.options.supabaseClient
       .from(this.table)
       .select()
       .eq(this.primaryKey, primaryKeyValue)
       .limit(1);
 
-    if (error) throw error;
+    if (error) throw error instanceof Error ? error : new Error(String(error));
     if (data.length !== 1) throw new Error('No row with given primary key');
-    return this.rowToRxDoc(data[0]);
+    return this.rowToRxDoc(data[0] as GenericObject);
   }
 
-  private rowToRxDoc(row: any): WithDeleted<RxDocType> {
+  private rowToRxDoc(row: GenericObject): WithDeleted<RxDocType> {
     // TODO: Don't delete the field if it is actually part of the collection
     delete row[this.lastModifiedFieldName];
     return this.updateRowKeys(row as WithDeleted<RxDocType>, true);
@@ -349,11 +386,11 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
     return doc;
   }
 
-  private rowToCheckpoint(row: any): SupabaseReplicationCheckpoint {
+  private rowToCheckpoint(row: GenericObject): SupabaseReplicationCheckpoint {
     return {
       modified: row[this.lastModifiedFieldName],
       primaryKeyValue: row[this.primaryKey]
     };
   }
 }
-/* eslint-enable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
+/* eslint-enable @typescript-eslint/no-unsafe-assignment */

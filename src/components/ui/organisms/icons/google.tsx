@@ -1,6 +1,7 @@
 export default function Google({ className }: { className: string }) {
   return (
     <svg viewBox="0 0 100 100" className={className}>
+      <title>Google</title>
       <linearGradient
         id="b"
         x1="55.41"

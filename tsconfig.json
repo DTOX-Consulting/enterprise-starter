@@ -19,9 +19,8 @@
     "jsx": "preserve",
     "incremental": true,
     "strictNullChecks": true,
-    "types": ["bun-types", "node", "@testing-library/jest-dom"],
+    "types": ["node", "@testing-library/jest-dom"],
     "paths": {
-      "contentlayer/generated": ["./.contentlayer/generated"],
       "@/*": ["./src/*"],
       "@Root/*": ["./*"]
     },

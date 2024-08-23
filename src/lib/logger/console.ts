@@ -6,10 +6,10 @@ type LogType = 'info' | 'warn' | 'error' | 'success' | 'log' | 'marker';
 const logType = ['info', 'warn', 'error', 'success', 'log'] as LogType[];
 
 type Logger = {
-  [key in LogType]: (message: string, ...args: any[]) => void;
+  [key in LogType]: (message: string, ...args: unknown[]) => void;
 };
 
-const log = (type: LogType, message: string, ...args: any[]) => {
+const log = (type: LogType, message: string, ...args: unknown[]) => {
   console.info(
     stringify(
       {
@@ -25,10 +25,8 @@ const log = (type: LogType, message: string, ...args: any[]) => {
 };
 
 export const logger: Logger = logType.reduce((acc, type) => {
-  return {
-    ...acc,
-    [type]: (message: string, ...args: unknown[]) => log(type, message, ...args)
-  };
+  acc[type] = (message: string, ...args: unknown[]) => log(type, message, ...args);
+  return acc;
 }, {} as Logger);
 
 logger.marker = (message: string, ...args: unknown[]) => {

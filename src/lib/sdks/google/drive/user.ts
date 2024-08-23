@@ -8,6 +8,7 @@ export const getUser = async () => {
     });
     return fromPromise(Promise.resolve(response.data));
   } catch (error) {
+    console.error('Error getting user:', error);
     throw error; // Rethrow or handle the error appropriately
   }
 };

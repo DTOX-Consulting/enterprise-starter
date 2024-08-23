@@ -67,7 +67,9 @@ export function useData<T extends MinimalData>({
   const setCurrentDataByName = useCallback(
     (dataName: string) => {
       const foundData = data.find((d) => d.name === dataName);
-      foundData && setCurrentData(foundData);
+      if (foundData) {
+        setCurrentData(foundData);
+      }
     },
     [data, setCurrentData]
   );

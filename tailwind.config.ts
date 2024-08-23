@@ -1,5 +1,10 @@
+import aspectRatio from '@tailwindcss/aspect-ratio';
+import containerQueries from '@tailwindcss/container-queries';
+import forms from '@tailwindcss/forms';
+import typography from '@tailwindcss/typography';
 import { fontFamily, height, width } from 'tailwindcss/defaultTheme';
 import plugin from 'tailwindcss/plugin';
+import animate from 'tailwindcss-animate';
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -208,14 +213,14 @@ module.exports = {
     }
   },
   plugins: [
-    require('@tailwindcss/forms'),
-    require('tailwindcss-animate'),
-    require('@tailwindcss/typography'),
-    require('@tailwindcss/aspect-ratio'),
-    require('@tailwindcss/container-queries'),
-    plugin(({ addVariant }) => {
-      addVariant('radix-side-top', '&[data-side="top"]');
-      addVariant('radix-side-bottom', '&[data-side="bottom"]');
+    forms,
+    animate,
+    typography,
+    aspectRatio,
+    containerQueries,
+    plugin((plugin) => {
+      plugin.addVariant('radix-side-top', '&[data-side="top"]');
+      plugin.addVariant('radix-side-bottom', '&[data-side="bottom"]');
     })
   ]
 };

@@ -11,6 +11,7 @@ export const LP_GRID_ITEMS = [
         stroke="currentColor"
         className="size-6"
       >
+        <title>NextJS</title>
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -31,6 +32,7 @@ export const LP_GRID_ITEMS = [
         stroke="currentColor"
         className="size-6"
       >
+        <title>Tailwindcss</title>
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -51,6 +53,7 @@ export const LP_GRID_ITEMS = [
         stroke="currentColor"
         className="size-6"
       >
+        <title>Lints</title>
         <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
       </svg>
     )
@@ -67,6 +70,7 @@ export const LP_GRID_ITEMS = [
         stroke="currentColor"
         className="size-6"
       >
+        <title>TS</title>
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -87,6 +91,7 @@ export const LP_GRID_ITEMS = [
         stroke="currentColor"
         className="size-6"
       >
+        <title>BundleAnalyzer</title>
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -107,6 +112,7 @@ export const LP_GRID_ITEMS = [
         stroke="currentColor"
         className="size-6"
       >
+        <title>Vitest</title>
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -127,6 +133,7 @@ export const LP_GRID_ITEMS = [
         stroke="currentColor"
         className="size-6"
       >
+        <title>Playwright</title>
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -147,6 +154,7 @@ export const LP_GRID_ITEMS = [
         stroke="currentColor"
         className="size-6"
       >
+        <title>Storybook</title>
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -167,6 +175,7 @@ export const LP_GRID_ITEMS = [
         stroke="currentColor"
         className="size-6"
       >
+        <title>SmokeTest</title>
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -187,6 +196,7 @@ export const LP_GRID_ITEMS = [
         stroke="currentColor"
         className="size-6"
       >
+        <title>ConventionalGit</title>
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -207,6 +217,7 @@ export const LP_GRID_ITEMS = [
         stroke="currentColor"
         className="size-6"
       >
+        <title>Observability</title>
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -228,6 +239,7 @@ export const LP_GRID_ITEMS = [
         stroke="currentColor"
         className="size-6"
       >
+        <title>Absolute Imports</title>
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -248,6 +260,7 @@ export const LP_GRID_ITEMS = [
         stroke="currentColor"
         className="size-6"
       >
+        <title>Health Checks</title>
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -268,6 +281,7 @@ export const LP_GRID_ITEMS = [
         stroke="currentColor"
         className="size-6"
       >
+        <title>RadixUI</title>
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -288,6 +302,7 @@ export const LP_GRID_ITEMS = [
         stroke="currentColor"
         className="size-6"
       >
+        <title>CVA</title>
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -308,6 +323,7 @@ export const LP_GRID_ITEMS = [
         stroke="currentColor"
         className="size-6"
       >
+        <title>RevonateBOT</title>
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -328,6 +344,7 @@ export const LP_GRID_ITEMS = [
         stroke="currentColor"
         className="size-6"
       >
+        <title>Patch-Package</title>
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -348,6 +365,7 @@ export const LP_GRID_ITEMS = [
         stroke="currentColor"
         className="size-6"
       >
+        <title>Components</title>
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -374,6 +392,7 @@ export const LP_GRID_ITEMS = [
         stroke="currentColor"
         className="size-6"
       >
+        <title>GithubActions</title>
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -394,6 +413,7 @@ export const LP_GRID_ITEMS = [
         stroke="currentColor"
         className="size-6"
       >
+        <title>AutomatedGPTReviews</title>
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -414,6 +434,7 @@ export const LP_GRID_ITEMS = [
         stroke="currentColor"
         className="size-6"
       >
+        <title>SemanticRelease</title>
         <path
           strokeLinecap="round"
           strokeLinejoin="round"

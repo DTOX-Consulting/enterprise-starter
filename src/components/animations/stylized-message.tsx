@@ -34,6 +34,7 @@ export function StylizedImage({
   return (
     <div className={cn(className, 'relative flex aspect-[719/680] w-full grayscale')}>
       <svg viewBox={`0 0 ${width} ${height}`} fill="none" className="h-full">
+        <title>Stylized</title>
         <g clipPath={`url(#${id}-clip)`} className="group">
           <g className="origin-center scale-100 transition duration-500 motion-safe:group-hover:scale-105">
             <foreignObject width={width} height={height}>

@@ -237,7 +237,7 @@ const SelectMulti = React.forwardRef<SelectMultiRef, SelectMultiProps>(
       if (JSON.stringify(newOption) !== JSON.stringify(options)) {
         setOptions(newOption);
       }
-    }, [arrayDefaultOptions, arrayOptions, groupBy, onSearch, options]);
+    }, [arrayOptions, groupBy, onSearch, options]);
 
     useEffect(() => {
       const doSearch = async () => {
@@ -300,7 +300,7 @@ const SelectMulti = React.forwardRef<SelectMultiRef, SelectMultiProps>(
     };
 
     const EmptyItem = React.useCallback(() => {
-      if (emptyIndicator === undefined ?? emptyIndicator === null) return undefined;
+      if (emptyIndicator === undefined || emptyIndicator === null) return undefined;
 
       // For async search that showing emptyIndicator
       if (onSearch && !creatable && Object.keys(options).length === 0) {
@@ -403,9 +403,11 @@ const SelectMulti = React.forwardRef<SelectMultiRef, SelectMultiProps>(
                 setOpen(false);
                 inputProps?.onBlur?.(event);
               }}
-              onFocus={(event) => {
+              onFocus={async (event) => {
                 setOpen(true);
-                triggerSearchOnFocus && onSearch?.(debouncedSearchTerm);
+                if (triggerSearchOnFocus && onSearch) {
+                  await onSearch(debouncedSearchTerm);
+                }
                 inputProps?.onFocus?.(event);
               }}
               placeholder={hidePlaceholderWhenSelected && selected.length !== 0 ? '' : placeholder}

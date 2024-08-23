@@ -1,15 +1,15 @@
 import type { Result } from '@mobily/ts-belt';
 
-export type APIResult<T = any, E extends APIError = APIError> = Promise<Result<T, E>>;
+export type APIResult<T = unknown, E extends APIError = APIError> = Promise<Result<T, E>>;
 
 export type APIError = {
   code: number;
-  status?: any;
-  errors?: any[];
+  status?: string;
+  errors?: string[];
   message: string;
   request?: {
     url?: string;
-    headers?: any;
+    headers?: Record<string, unknown>;
   };
 };
 

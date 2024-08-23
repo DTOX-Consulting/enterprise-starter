@@ -28,11 +28,7 @@ export function useOrganization() {
 
   const getBusinessOrgId = useCallback(
     (id: string): string | undefined => {
-      return hooks.data.filter((org) => {
-        const business = org.businesses?.find((b) => b.id === id);
-        const orgId = business ? org.id : undefined;
-        return orgId;
-      })[0]?.id;
+      return hooks.data.find((org) => org.businesses?.some((b) => b.id === id))?.id;
     },
     [hooks.data]
   );

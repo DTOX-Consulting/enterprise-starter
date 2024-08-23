@@ -21,7 +21,6 @@ export function GrayscaleTransitionImage(
   return (
     <div ref={ref} className="group relative">
       {}
-      {/* biome-ignore lint/suspicious/noExplicitAny: <explanation> */}
       <MotionImage alt="" style={{ filter: filter as unknown } as React.CSSProperties} {...props} />
       <div
         className="pointer-events-none absolute left-0 top-0 w-full opacity-0 transition duration-300 group-hover:opacity-100"

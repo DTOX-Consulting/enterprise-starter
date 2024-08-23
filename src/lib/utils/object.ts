@@ -7,7 +7,7 @@ import type { GenericFunction } from '@/lib/utils/function';
 
 // export type { DeepReadonly, DeepReadonlyArray, DeepReadonlyObject } from 'rxdb';
 
-export interface DeepReadonlyArray<T> extends ReadonlyArray<DeepReadonly<T>> {}
+export type DeepReadonlyArray<T> = ReadonlyArray<DeepReadonly<T>>;
 
 export type DeepReadonlyObject<T> = {
   readonly [P in keyof T]: DeepReadonly<T[P]>;

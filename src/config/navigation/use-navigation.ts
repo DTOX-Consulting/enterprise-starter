@@ -55,8 +55,12 @@ export function useNavigation() {
     (name?: string, rerender?: boolean) => {
       const set = (items: NavigationItem[]) => {
         items.forEach((item) => {
-          item.name === name && setCurrentActive(name, rerender);
-          item.items && set(item.items);
+          if (item.name === name) {
+            setCurrentActive(name, rerender);
+          }
+          if (item.items) {
+            set(item.items);
+          }
         });
       };
 

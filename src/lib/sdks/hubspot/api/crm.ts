@@ -273,7 +273,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     fromObjectId: string,
     toObjectType: string,
     toObjectId: string,
-    data: any,
+    data: object,
     params: RequestParams = {}
   ) =>
     this.request<object, string>({
@@ -1137,7 +1137,10 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * @request POST:/crm/v3/objects/companies/batch/update
    * @secure
    */
-  v3ObjectsCompaniesBatchUpdateCreate = async (data: any, params: RequestParams = {}) =>
+  v3ObjectsCompaniesBatchUpdateCreate = async (
+    data: Record<string, unknown>,
+    params: RequestParams = {}
+  ) =>
     this.request<object, string>({
       path: '/crm/v3/objects/companies/batch/update',
       method: 'POST',
@@ -1339,7 +1342,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * @request POST:/crm/v3/objects/companies/search
    * @secure
    */
-  v3ObjectsCompaniesSearchCreate = async (data: any, params: RequestParams = {}) =>
+  v3ObjectsCompaniesSearchCreate = async (data: object, params: RequestParams = {}) =>
     this.request<object, string>({
       path: '/crm/v3/objects/companies/search',
       method: 'POST',
@@ -1375,7 +1378,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * @request POST:/crm/v3/objects/contacts/batch/update
    * @secure
    */
-  v3ObjectsContactsBatchUpdateCreate = async (data: any, params: RequestParams = {}) =>
+  v3ObjectsContactsBatchUpdateCreate = async (data: object, params: RequestParams = {}) =>
     this.request<object, string>({
       path: '/crm/v3/objects/contacts/batch/update',
       method: 'POST',
@@ -1595,7 +1598,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * @request POST:/crm/v3/objects/contacts/search
    * @secure
    */
-  v3ObjectsContactsSearchCreate = async (data: any, params: RequestParams = {}) =>
+  v3ObjectsContactsSearchCreate = async (data: object, params: RequestParams = {}) =>
     this.request<object, string>({
       path: '/crm/v3/objects/contacts/search',
       method: 'POST',
@@ -1799,7 +1802,11 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * @request POST:/crm/v3/objects/{objectType}/batch/update
    * @secure
    */
-  v3ObjectsBatchUpdateCreate = async (objectType: string, data: any, params: RequestParams = {}) =>
+  v3ObjectsBatchUpdateCreate = async (
+    objectType: string,
+    data: object,
+    params: RequestParams = {}
+  ) =>
     this.request<object, string>({
       path: `/crm/v3/objects/${objectType}/batch/update`,
       method: 'POST',
@@ -2007,7 +2014,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * @request POST:/crm/v3/objects/deals/batch/update
    * @secure
    */
-  v3ObjectsDealsBatchUpdateCreate = async (data: any, params: RequestParams = {}) =>
+  v3ObjectsDealsBatchUpdateCreate = async (data: object, params: RequestParams = {}) =>
     this.request<object, string>({
       path: '/crm/v3/objects/deals/batch/update',
       method: 'POST',
@@ -2258,7 +2265,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * @request POST:/crm/v3/objects/deals/search
    * @secure
    */
-  v3ObjectsDealsSearchCreate = async (data: any, params: RequestParams = {}) =>
+  v3ObjectsDealsSearchCreate = async (data: object, params: RequestParams = {}) =>
     this.request<object, string>({
       path: '/crm/v3/objects/deals/search',
       method: 'POST',
@@ -2620,7 +2627,10 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * @summary Update a batch of feedback submissions by internal ID, or unique property values
    * @request POST:/crm/v3/objects/feedback_submissions/batch/update
    */
-  v3ObjectsFeedbackSubmissionsBatchUpdateCreate = async (data: any, params: RequestParams = {}) =>
+  v3ObjectsFeedbackSubmissionsBatchUpdateCreate = async (
+    data: object,
+    params: RequestParams = {}
+  ) =>
     this.request<object, string>({
       path: '/crm/v3/objects/feedback_submissions/batch/update',
       method: 'POST',
@@ -2862,7 +2872,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * @summary post-/crm/v3/objects/feedback submissions/search do Search
    * @request POST:/crm/v3/objects/feedback_submissions/search
    */
-  v3ObjectsFeedbackSubmissionsSearchCreate = async (data: any, params: RequestParams = {}) =>
+  v3ObjectsFeedbackSubmissionsSearchCreate = async (data: object, params: RequestParams = {}) =>
     this.request<object, string>({
       path: '/crm/v3/objects/feedback_submissions/search',
       method: 'POST',
@@ -3310,7 +3320,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * @summary post-/crm/v3/objects/goal targets/search do Search
    * @request POST:/crm/v3/objects/goal_targets/search
    */
-  v3ObjectsGoalTargetsSearchCreate = async (data: any, params: RequestParams = {}) =>
+  v3ObjectsGoalTargetsSearchCreate = async (data: object, params: RequestParams = {}) =>
     this.request<object, string>({
       path: '/crm/v3/objects/goal_targets/search',
       method: 'POST',
@@ -3344,7 +3354,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * @request POST:/crm/v3/imports/{importId}/cancel
    * @secure
    */
-  v3ImportsCancelCreate = async (importId: string, data: any, params: RequestParams = {}) =>
+  v3ImportsCancelCreate = async (importId: string, data: object, params: RequestParams = {}) =>
     this.request<object, string>({
       path: `/crm/v3/imports/${importId}/cancel`,
       method: 'POST',
@@ -3752,7 +3762,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * @request POST:/crm/v3/objects/line_items/batch/update
    * @secure
    */
-  v3ObjectsLineItemsBatchUpdateCreate = async (data: any, params: RequestParams = {}) =>
+  v3ObjectsLineItemsBatchUpdateCreate = async (data: object, params: RequestParams = {}) =>
     this.request<object, string>({
       path: '/crm/v3/objects/line_items/batch/update',
       method: 'POST',
@@ -3984,7 +3994,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * @request POST:/crm/v3/objects/line_items/search
    * @secure
    */
-  v3ObjectsLineItemsSearchCreate = async (data: any, params: RequestParams = {}) =>
+  v3ObjectsLineItemsSearchCreate = async (data: object, params: RequestParams = {}) =>
     this.request<object, string>({
       path: '/crm/v3/objects/line_items/search',
       method: 'POST',
@@ -4047,7 +4057,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
   v3ListsMembershipsAddFromUpdate = async (
     listId: string,
     sourceListId: string,
-    data: any,
+    data: object,
     params: RequestParams = {}
   ) =>
     this.request<string, string>({
@@ -4168,7 +4178,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    */
   v3ListsUpdateListNameUpdate = async (
     listId: string,
-    data: any,
+    data: object,
     query?: {
       /**
        * The name to update the list to.
@@ -4350,7 +4360,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * @request PUT:/crm/v3/lists/{listId}/restore
    * @secure
    */
-  v3ListsRestoreUpdate = async (listId: string, data: any, params: RequestParams = {}) =>
+  v3ListsRestoreUpdate = async (listId: string, data: object, params: RequestParams = {}) =>
     this.request<string, string>({
       path: `/crm/v3/lists/${listId}/restore`,
       method: 'PUT',
@@ -4388,7 +4398,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
   v3ListsFoldersMoveUpdate = async (
     folderId: string,
     newParentFolderId: string,
-    data: any,
+    data: object,
     params: RequestParams = {}
   ) =>
     this.request<object, string>({
@@ -4410,7 +4420,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    */
   v3ListsFoldersRenameUpdate = async (
     folderId: string,
-    data: any,
+    data: object,
     query?: {
       /** @example "<string>" */
       newFolderName?: string;
@@ -5408,7 +5418,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * @summary Update a batch of products by internal ID, or unique property values
    * @request POST:/crm/v3/objects/products/batch/update
    */
-  v3ObjectsProductsBatchUpdateCreate = async (data: any, params: RequestParams = {}) =>
+  v3ObjectsProductsBatchUpdateCreate = async (data: object, params: RequestParams = {}) =>
     this.request<object, string>({
       path: '/crm/v3/objects/products/batch/update',
       method: 'POST',
@@ -5580,7 +5590,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * @summary post-/crm/v3/objects/products/search do Search
    * @request POST:/crm/v3/objects/products/search
    */
-  v3ObjectsProductsSearchCreate = async (data: any, params: RequestParams = {}) =>
+  v3ObjectsProductsSearchCreate = async (data: object, params: RequestParams = {}) =>
     this.request<object, string>({
       path: '/crm/v3/objects/products/search',
       method: 'POST',
@@ -5615,7 +5625,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * @request POST:/crm/v3/objects/quotes/batch/update
    * @secure
    */
-  v3ObjectsQuotesBatchUpdateCreate = async (data: any, params: RequestParams = {}) =>
+  v3ObjectsQuotesBatchUpdateCreate = async (data: object, params: RequestParams = {}) =>
     this.request<object, string>({
       path: '/crm/v3/objects/quotes/batch/update',
       method: 'POST',
@@ -5848,7 +5858,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * @request POST:/crm/v3/objects/quotes/search
    * @secure
    */
-  v3ObjectsQuotesSearchCreate = async (data: any, params: RequestParams = {}) =>
+  v3ObjectsQuotesSearchCreate = async (data: object, params: RequestParams = {}) =>
     this.request<object, string>({
       path: '/crm/v3/objects/quotes/search',
       method: 'POST',
@@ -6234,7 +6244,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * @summary Update a batch of tickets by internal ID, or unique property values
    * @request POST:/crm/v3/objects/tickets/batch/update
    */
-  v3ObjectsTicketsBatchUpdateCreate = async (data: any, params: RequestParams = {}) =>
+  v3ObjectsTicketsBatchUpdateCreate = async (data: object, params: RequestParams = {}) =>
     this.request<object, string>({
       path: '/crm/v3/objects/tickets/batch/update',
       method: 'POST',
@@ -6406,7 +6416,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * @summary post-/crm/v3/objects/tickets/search do Search
    * @request POST:/crm/v3/objects/tickets/search
    */
-  v3ObjectsTicketsSearchCreate = async (data: any, params: RequestParams = {}) =>
+  v3ObjectsTicketsSearchCreate = async (data: object, params: RequestParams = {}) =>
     this.request<object, string>({
       path: '/crm/v3/objects/tickets/search',
       method: 'POST',

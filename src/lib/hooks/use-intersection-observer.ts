@@ -1,4 +1,4 @@
-import { useEffect, useState, type RefObject } from 'react';
+import { useCallback, useEffect, useState, type RefObject } from 'react';
 
 interface Args extends IntersectionObserverInit {
   freezeOnceVisible?: boolean;
@@ -12,9 +12,10 @@ function useIntersectionObserver(
 
   const frozen = entry?.isIntersecting && freezeOnceVisible;
 
-  const updateEntry = ([entry]: IntersectionObserverEntry[]): void => {
+  // Use useCallback to memoize updateEntry
+  const updateEntry = useCallback(([entry]: IntersectionObserverEntry[]): void => {
     setEntry(entry);
-  };
+  }, []);
 
   useEffect(() => {
     const node = elementRef?.current; // DOM Ref
@@ -28,9 +29,8 @@ function useIntersectionObserver(
     const observer = new IntersectionObserver(updateEntry, observerParams);
 
     observer.observe(node);
-
     return () => observer.disconnect();
-  }, [threshold, root, rootMargin, frozen]);
+  }, [elementRef, threshold, root, rootMargin, frozen, updateEntry]);
 
   return entry;
 }
