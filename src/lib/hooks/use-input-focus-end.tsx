@@ -1,12 +1,12 @@
 import { useState, useRef, useEffect } from 'react';
-import { useDebounce } from 'use-debounce';
+import { useDebounceValue } from 'usehooks-ts';
 
 export function useInputFocusEnd<T extends HTMLInputElement | HTMLTextAreaElement>(
   initialValue = '',
   debounceTime = 250
 ) {
   const inputRef = useRef<T | null>(null);
-  const [debouncedValue] = useDebounce(initialValue, debounceTime);
+  const [debouncedValue] = useDebounceValue(initialValue, debounceTime);
   const [inputValue, setInputValue] = useState<string>(initialValue);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: need to run every time inputValue changes

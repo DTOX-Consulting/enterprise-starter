@@ -156,7 +156,7 @@ export const ColorSelector = ({ open, onOpenChange }: ColorSelectorProps) => {
             <EditorBubbleItem
               key={name}
               onSelect={() => {
-                editor.commands.unsetHighlight();
+                editor.commands.unsetHighlight?.();
                 if (name !== 'Default') {
                   editor.commands.setHighlight({ color });
                 }

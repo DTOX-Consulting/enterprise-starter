@@ -16,7 +16,7 @@ import {
 import { ImageResizer, handleCommandNavigation } from 'novel/extensions';
 import { handleImageDrop, handleImagePaste } from 'novel/plugins';
 import { useState } from 'react';
-import { useDebouncedCallback } from 'use-debounce';
+import { useDebounceCallback } from 'usehooks-ts';
 
 import { Separator } from '@/components/ui/atoms/separator';
 import { defaultExtensions } from '@/components/ui/organisms/editor/extensions';
@@ -65,11 +65,11 @@ export const Editor = ({
     defaultValue ? (JSON.parse(defaultValue) as JSONContent) : {}
   );
 
-  const debouncedUpdates = useDebouncedCallback((editor: EditorType) => {
+  const debouncedUpdates = useDebounceCallback((editor: EditorType) => {
     const json = editor.getJSON();
     const text = editor.getText();
     const html = highlightCodeblocks(editor.getHTML());
-    const markdown = editor.storage.markdown.getMarkdown();
+    const markdown = editor.storage.markdown?.getMarkdown();
 
     onUpdate?.({ text, json, html, markdown }, editor, setInitialContent);
     setCharsCount(editor.storage.characterCount.words());

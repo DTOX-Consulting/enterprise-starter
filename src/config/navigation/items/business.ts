@@ -3,6 +3,7 @@
 import {
   Bot,
   Building,
+  Cog,
   Cpu,
   FilePieChart,
   Filter,
@@ -145,6 +146,14 @@ export const businessNavigationItems = (basePath: string): NavigationItem[] => [
     bottom: false,
     href: `${basePath}/find-co-founder`,
     icon: Search,
+    isAccordion: false
+  },
+  {
+    name: 'Business Settings',
+    disabled: false,
+    bottom: true,
+    href: `${basePath}/settings`,
+    icon: Cog,
     isAccordion: false
   }
 ];

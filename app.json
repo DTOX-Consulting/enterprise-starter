@@ -1,8 +1,8 @@
 {
-  "name": "t3-stack",
+  "name": "enterprise-starter",
   "options": {
     "cpu": "1",
-    "port": 3000,
+    "port": 3030,
     "http2": false,
     "memory": "256Mi",
     "allow-unauthenticated": true
