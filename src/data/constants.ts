@@ -244,23 +244,19 @@ export const organizationTypes: Option[] = [
   }
 ];
 
-export const FeatureInformation: Record<BusinessChangeKeys, (value?: string) => string[]> = {
+export const defaultCreateOrganizationValues = {
+  organizationName: 'Personal',
+  organizationType: 'personal'
+} as const;
+
+export const FeatureInformation: Record<
+  BusinessChangeKeys,
+  (value?: string | Option[]) => string[]
+> = {
   name: () => [
     "The name of your business is crucial for establishing brand recognition and recall. It's the first impression customers get of your brand, shaping their perception of your products or services.",
     "A strong business name should be memorable, unique, and reflective of your brand's values and identity. It sets the tone for your marketing efforts and helps you stand out in a crowded marketplace.",
     "Consider the emotional response you want to evoke in your target audience when choosing a name. Whether it's aspirational, descriptive, or whimsical, your business name should resonate with your target demographic and leave a lasting impression."
-  ],
-
-  image: () => [
-    "Your business image plays a key role in shaping how customers perceive your brand. It's a visual representation of your identity and values, conveying your brand personality and positioning in the market.",
-    'A compelling business image should be eye-catching, professional, and aligned with your brand identity. It should capture the essence of your business and resonate with your target audience, creating a strong first impression that draws customers in.',
-    "When selecting an image for your business, consider the emotions and associations you want to evoke in your customers. Whether it's trust, excitement, or sophistication, your image should reflect the values and qualities that set your brand apart from competitors."
-  ],
-
-  description: () => [
-    'A compelling business description is essential for articulating what sets your brand apart and why customers should choose you over competitors.',
-    'Use your description to highlight your unique selling points, such as the quality of your products or services, your commitment to customer satisfaction, or your innovative approach to solving common problems.',
-    'Think of your description as a sales pitch that communicates the value proposition of your business in a concise and engaging manner. Focus on the benefits customers will receive from choosing your brand, rather than just listing features.'
   ],
 
   vision: () => [
@@ -291,5 +287,29 @@ export const FeatureInformation: Record<BusinessChangeKeys, (value?: string) => 
     'Understanding your industry landscape is essential for positioning your business for success. By staying informed about industry trends, competitive dynamics, and regulatory changes, you can make informed decisions and seize opportunities for growth.',
     'Your industry knowledge gives you a strategic advantage in identifying emerging market trends and adapting your business model accordingly. It allows you to anticipate customer needs, stay ahead of competitors, and innovate proactively.',
     'When analyzing your industry, pay attention to key drivers of change, such as technological advancements, shifting consumer preferences, and macroeconomic factors. By staying ahead of the curve, you can position your business as a leader in your field and stay resilient in the face of uncertainty.'
+  ],
+
+  description: () => [
+    'A compelling business description is essential for articulating what sets your brand apart and why customers should choose you over competitors.',
+    'Use your description to highlight your unique selling points, such as the quality of your products or services, your commitment to customer satisfaction, or your innovative approach to solving common problems.',
+    'Think of your description as a sales pitch that communicates the value proposition of your business in a concise and engaging manner. Focus on the benefits customers will receive from choosing your brand, rather than just listing features.'
+  ],
+
+  logo: () => [
+    "Your business image plays a key role in shaping how customers perceive your brand. It's a visual representation of your identity and values, conveying your brand personality and positioning in the market.",
+    'A compelling business image should be eye-catching, professional, and aligned with your brand identity. It should capture the essence of your business and resonate with your target audience, creating a strong first impression that draws customers in.',
+    "When selecting an image for your business, consider the emotions and associations you want to evoke in your customers. Whether it's trust, excitement, or sophistication, your image should reflect the values and qualities that set your brand apart from competitors."
+  ],
+
+  cover: () => [
+    "Your business cover image is an opportunity to showcase your brand's personality and values in a visually engaging way. It's a powerful tool for creating a memorable first impression and setting the tone for your brand experience.",
+    'A compelling cover image should be high-quality, relevant, and aligned with your brand identity. It should capture the essence of your business and communicate your unique selling points to customers, drawing them in and encouraging further exploration.',
+    "When selecting a cover image for your business, consider the emotions and messages you want to convey. Whether it's professionalism, creativity, or warmth, your cover image should reflect the values and qualities that define your brand and resonate with your target audience."
+  ],
+
+  favicon: () => [
+    "Your business favicon is a small but significant element of your brand identity. It's the tiny icon that appears in the browser tab when visitors access your website, helping them recognize and remember your brand.",
+    'A well-designed favicon should be simple, distinctive, and reflective of your brand personality. It should be instantly recognizable and easy to distinguish from other icons, enhancing your brand visibility and recall.',
+    "When creating a favicon for your business, focus on key elements of your brand identity, such as colors, shapes, or symbols. Keep it clean and uncluttered to ensure it's visible and legible even at small sizes, making it easy for users to identify your brand online."
   ]
 };

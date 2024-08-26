@@ -28,24 +28,51 @@ export function useDBData() {
   const businesses = useMemo(() => bizResult.map((biz) => biz.toJSON()), [bizResult]);
   const organizations = useMemo(() => orgResult.map((org) => org.toJSON()), [orgResult]);
 
+  const getBusiness = useCallback(
+    (businessId: string) => businesses.find(({ id }) => id === businessId),
+    [businesses]
+  );
+
+  const getOrganization = useCallback(
+    (organizationId: string) => organizations.find(({ id }) => id === organizationId),
+    [organizations]
+  );
+
+  const getBusinessBySlug = useCallback(
+    (businessSlug: string) => businesses.find(({ slug }) => slug === businessSlug),
+    [businesses]
+  );
+
+  const current = useMemo(() => {
+    if (path.slug) {
+      const business = getBusinessBySlug(path.slug);
+      const organization = business ? getOrganization(business.organizationId) : undefined;
+      return { business, organization };
+    }
+
+    const business = path.businessId ? getBusiness(path.businessId) : undefined;
+    const organization = path.orgId ? getOrganization(path.orgId) : undefined;
+    return { business, organization };
+  }, [path.slug, path.orgId, path.businessId, getBusiness, getOrganization, getBusinessBySlug]);
+
+  const currentBusinesses = useMemo(
+    () => businesses.filter(({ organizationId }) => organizationId === current.organization?.id),
+    [businesses, current.organization?.id]
+  );
+
+  const currentBusiness = useMemo(
+    () => currentBusinesses.find(({ id }) => id === current.business?.id),
+    [currentBusinesses, current.business?.id]
+  );
+
   const currentOrganization = useMemo(
-    () => organizations.find(({ id }) => id === path.orgId),
-    [organizations, path.orgId]
+    () => organizations.find(({ id }) => id === current.organization?.id),
+    [organizations, current.organization?.id]
   );
 
   const defaultOrganization = useMemo(
     () => organizations.find((org) => defaultNames.includes(org.name)) ?? organizations[0],
     [organizations]
-  );
-
-  const currentBusinesses = useMemo(
-    () => businesses.filter(({ organizationId }) => organizationId === path.orgId),
-    [businesses, path.orgId]
-  );
-
-  const currentBusiness = useMemo(
-    () => currentBusinesses.find(({ id }) => id === path.businessId),
-    [currentBusinesses, path.businessId]
   );
 
   const filterBusinesses = useCallback(
@@ -77,20 +104,6 @@ export function useDBData() {
     [currentBusinesses]
   );
 
-  const getBusiness = useCallback(
-    (businessId: string) => {
-      return businesses.find(({ id }) => id === businessId);
-    },
-    [businesses]
-  );
-
-  const getOrganization = useCallback(
-    (organizationId: string) => {
-      return organizations.find(({ id }) => id === organizationId);
-    },
-    [organizations]
-  );
-
   return {
     isReady,
     businesses,
@@ -99,6 +112,7 @@ export function useDBData() {
     getOrganization,
     currentBusiness,
     filterBusinesses,
+    getBusinessBySlug,
     currentBusinesses,
     currentOrganization,
     defaultOrganization
@@ -112,11 +126,17 @@ export function useDBDataExtras() {
     return collection.find().where('ownerId').equals(userId);
   });
 
+  const { result: userMetaResult } = useRxDBData('user_meta', (collection) => {
+    return collection.find().where('ownerId').equals(userId);
+  });
+
   const { result: notificationResult } = useRxDBData('notification', (collection) => {
     return collection.find().where('ownerId').equals(userId);
   });
 
   const history = useMemo(() => historyResult.map((history) => history.toJSON()), [historyResult]);
+
+  const userMeta = useMemo(() => userMetaResult.map((meta) => meta.toJSON()), [userMetaResult]);
 
   const notifications = useMemo(
     () => notificationResult.map((notification) => notification.toJSON()),
@@ -151,6 +171,7 @@ export function useDBDataExtras() {
   return {
     history,
     getHistory,
-    notifications
+    notifications,
+    userMeta: userMeta.at(0)
   };
 }

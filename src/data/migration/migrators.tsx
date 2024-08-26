@@ -5,7 +5,6 @@ import type {
   HistoryCollection,
   NotificationCollection,
   OrganizationCollection,
-  OrganizationBusinessCollection,
   PreviousDataBusiness,
   PreviousDataHistory,
   PreviousDataNotification,
@@ -51,28 +50,6 @@ export const businessMigration = (
       name: business.name,
       data: business.data,
       meta: business.meta,
-      image: business.image,
-      createdAt: business.createdAt,
-      updatedAt: business.lastUpdated,
-      description: business.description
-    });
-  });
-};
-
-export const organizationBusinessMigration = (
-  collection?: OrganizationBusinessCollection | null,
-  organization: PreviousDataOrganization | null = null,
-  businesses: PreviousDataBusiness[] = []
-) => {
-  if (!collection || !organization) {
-    return;
-  }
-
-  businesses.forEach((business) => {
-    void collection.upsert({
-      id: `${organization.id}-${business.id}`,
-      businessId: business.id,
-      organizationId: organization.id,
       createdAt: business.createdAt,
       updatedAt: business.lastUpdated
     });

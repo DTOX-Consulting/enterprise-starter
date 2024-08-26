@@ -20,6 +20,7 @@ export type Tier<Features extends Record<string, unknown>> = {
   label: string;
   description: string;
   features: Features;
+  buttonLabel: string;
   pricingFeatures: string[];
   kinde: {
     subscriptionPermissionsKey: string;
@@ -59,6 +60,7 @@ export const tiers: TiersConfig<TierName, Features> = {
     price: 'N/A',
     label: 'Free',
     description: 'No tier',
+    buttonLabel: 'Get Started for Free',
     kinde: {
       subscriptionPermissionsKey: 'subscriptions-none'
     },
@@ -92,6 +94,7 @@ export const tiers: TiersConfig<TierName, Features> = {
   starter: {
     price: 'Free',
     label: 'Starter',
+    buttonLabel: 'Get Started for Free',
     description: 'Perfect for individuals in the research phase of their idea.',
     kinde: {
       subscriptionPermissionsKey: 'subscriptions-starter'
@@ -131,6 +134,7 @@ export const tiers: TiersConfig<TierName, Features> = {
   pro: {
     price: '£9.99',
     label: 'Pro',
+    buttonLabel: 'Be an Early Adopter',
     description: 'Perfect for individuals looking to do more with their business idea.',
     kinde: {
       subscriptionPermissionsKey: 'subscriptions-pro'
@@ -176,6 +180,7 @@ export const tiers: TiersConfig<TierName, Features> = {
   team: {
     price: '£19.99',
     label: 'Team',
+    buttonLabel: 'Be an Early Adopter',
     description: 'Perfect for teams looking to collaborate and grow their business.',
     kinde: {
       subscriptionPermissionsKey: 'subscriptions-team'
@@ -224,7 +229,17 @@ export const getTier = (key: TierName) => tiers[key];
 
 export const getTierLabel = (key: TierName) => ucFirst(tiers[key].label);
 
-export const isNoneTier = (key: TierName) => key === 'none';
+export const isProTier = (key?: TierName) => key === 'pro';
+
+export const isTeamTier = (key?: TierName) => key === 'team';
+
+export const isNoneTier = (key?: TierName) => key === 'none';
+
+export const isStarterTier = (key?: TierName) => key === 'starter';
+
+export const isPaidTier = (key?: TierName) => isProTier(key) || isTeamTier(key);
+
+export const isFreeTier = (key?: TierName) => isNoneTier(key) || isStarterTier(key);
 
 export const isValidTier = (key?: string): key is TierName => (key ? key in tiers : false);
 

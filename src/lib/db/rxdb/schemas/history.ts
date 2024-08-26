@@ -4,12 +4,12 @@ import type { Option } from '@/components/ui/atoms/select-multi';
 import type { BusinessChangeKeys } from '@/data/guards';
 
 export interface History {
-  ownerId: string;
   businessId: string;
   organizationId: string;
   description?: string;
   key: BusinessChangeKeys;
   value: {
+    score?: number;
     data: string | Option[];
   };
 }
@@ -20,14 +20,12 @@ export type HistoryFilters = {
 };
 
 export const historySchema = createSchema<History>({
+  version: 1,
   title: 'history schema',
   description: 'describes a history item',
-  indexes: ['ownerId', 'businessId', 'organizationId'],
-  required: ['ownerId', 'businessId', 'organizationId', 'key', 'value'],
+  indexes: ['businessId', 'organizationId'],
+  required: ['businessId', 'organizationId', 'key', 'value'],
   properties: {
-    ownerId: {
-      type: 'string'
-    },
     businessId: {
       type: 'string'
     },
@@ -43,6 +41,9 @@ export const historySchema = createSchema<History>({
     value: {
       type: 'object',
       properties: {
+        score: {
+          type: 'number'
+        },
         data: {
           type: ['string', 'array'],
           items: {

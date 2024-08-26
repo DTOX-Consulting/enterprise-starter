@@ -1,6 +1,6 @@
 'use client';
 
-import { useNavigatorOnline } from '@oieduardorabelo/use-navigator-online';
+import { delay } from 'already';
 import { useCallback, useEffect, useState } from 'react';
 import {
   useRxData,
@@ -10,11 +10,19 @@ import {
   type UseRxQueryOptions
 } from 'rxdb-hooks';
 
+import { clearDbs } from '@/lib/db/indexeddb/utils';
 import { initialize, type InitializedDB } from '@/lib/db/rxdb/setup';
-import { mergeData } from '@/lib/db/rxdb/utils/schema';
-import { addCommonProperties, type PNCS, type NCS, type PNCSI } from '@/lib/db/rxdb/utils/schema';
+import {
+  type NCS,
+  type PNCS,
+  type PDCSI,
+  mergeData,
+  addCommonProperties
+} from '@/lib/db/rxdb/utils/schema';
 import { isDev } from '@/lib/env/env.mjs';
 import { useAuth } from '@/lib/hooks/use-auth';
+import { useDebounceCallback } from '@/lib/hooks/use-debounce';
+import { useNavigatorOnline } from '@/lib/hooks/use-navigator-online';
 import { useAtom } from '@/lib/state/atoms';
 import { danglingPromise } from '@/lib/utils/promise';
 
@@ -27,12 +35,11 @@ const devLog = isDev()
     };
 
 export const useRxDB = () => {
-  const { user } = useAuth();
+  const { session } = useAuth();
   const [, setDbi] = useAtom('dbInitializedAtom');
+  const { previous, isOnline } = useNavigatorOnline();
   const [db, setDb] = useState<InitializedDB['db']>();
   const [replicates, setReplicates] = useState<InitializedDB['replication']>();
-
-  const { isOnline } = useNavigatorOnline({ startOnline: false });
 
   const getDb = useCallback(() => db, [db]);
   const getReplicates = useCallback(() => replicates, [replicates]);
@@ -49,13 +56,23 @@ export const useRxDB = () => {
     throw new Error('Replicates not initialized');
   }, [getReplicates]);
 
-  const resyncDb = useCallback(() => {
-    devLog('Resyncing DB', { isOnline });
-    if (!isOnline) return;
+  const resyncDb = useCallback(
+    (forceResync = false) => {
+      if (!isOnline) {
+        devLog('Stopping resync', { isOnline });
+        const replicates = getReplicatesOrThrow();
+        Object.values(replicates).forEach((replicate) => void replicate.cancel());
+        return;
+      }
 
-    const replicates = getReplicatesOrThrow();
-    Object.values(replicates).forEach((replicate) => replicate.reSync());
-  }, [isOnline, getReplicatesOrThrow]);
+      if (forceResync || (previous && previous !== isOnline && isOnline)) {
+        devLog('Resyncing DB', { isOnline });
+        const replicates = getReplicatesOrThrow();
+        Object.values(replicates).forEach((replicate) => replicate.reSync());
+      }
+    },
+    [previous, isOnline, getReplicatesOrThrow]
+  );
 
   const destroyDb = useCallback(async () => {
     const db = getDbOrThrow();
@@ -66,31 +83,51 @@ export const useRxDB = () => {
     setReplicates(undefined);
   }, [getDbOrThrow]);
 
-  const initializeDb = useCallback(async () => {
-    if (getDb() && getReplicates()) return resyncDb();
-    if (!user?.id || (getDb() ?? getReplicates())) return;
-    const { db, replication } = await initialize(user.id);
+  const initializeDb = useDebounceCallback<boolean>(
+    'initialize-db',
+    async (forceResync = false) => {
+      if (!session?.user.id) return;
+      if (getDb() && getReplicates()) return resyncDb(forceResync);
+      if (!session?.user.id || (getDb() ?? getReplicates())) {
+        devLog('DB already initialized', getDb());
+        return;
+      }
 
-    setDb(db);
-    setDbi(true);
-    setReplicates(replication);
-    devLog('DB initialized', db);
-  }, [user, getDb, setDbi, getReplicates, resyncDb]);
+      const { db, replication } = await initialize(session);
+
+      setDb(db);
+      setReplicates(replication);
+      devLog('DB initialized', db);
+
+      danglingPromise(
+        (async () => {
+          await delay(250);
+          setDbi(true);
+        })()
+      );
+    },
+    [session, getDb, setDbi, getReplicates, resyncDb],
+    0
+  );
 
   const reinitializeDb = useCallback(async () => {
-    if (!user?.id) return;
+    if (!session?.user.id) return;
+    await clearDbs();
     await destroyDb();
-    await initializeDb();
-  }, [user, destroyDb, initializeDb]);
+    initializeDb(true);
+  }, [session, destroyDb, initializeDb]);
 
-  useEffect(() => danglingPromise(initializeDb()), [initializeDb]);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Only want this to change when session changes
+  useEffect(() => initializeDb(), [session]);
   return { getDb, getDbOrThrow, destroyDb, reinitializeDb, resyncDb };
 };
 
 export const useRxDBCollection = <T extends SchemaName, U extends SchemaType<T> = SchemaType<T>>(
   collectionName: T
 ) => {
+  const { user } = useAuth();
   const collection = useRxCollection<U>(collectionName);
+  const ownerId = user?.id;
 
   const getCollection = useCallback(() => collection, [collection]);
 
@@ -106,24 +143,29 @@ export const useRxDBCollection = <T extends SchemaName, U extends SchemaType<T> 
   );
 
   const remove = useCallback(
-    async (id: string) => getCollectionOrThrow().findOne(id).remove(),
+    async (id: string) => getCollectionOrThrow().findOne(id).incrementalRemove(),
     [getCollectionOrThrow]
   );
 
   const insert = useCallback(
-    async (data: NCS<U>) => getCollectionOrThrow().insert(addCommonProperties(data)),
-    [getCollectionOrThrow]
+    async (data: NCS<U>) => getCollectionOrThrow().insert(addCommonProperties({ ownerId, data })),
+    [getCollectionOrThrow, ownerId]
   );
 
   const upsert = useCallback(
-    async (data: PNCSI<U>) => getCollectionOrThrow().upsert(addCommonProperties(data, data.id)),
-    [getCollectionOrThrow]
+    async (data: PNCS<U> | PDCSI<U>) =>
+      getCollectionOrThrow().upsert(
+        addCommonProperties({ id: data.id as string | undefined, ownerId, data })
+      ),
+    [getCollectionOrThrow, ownerId]
   );
 
   const patch = useCallback(
     async (id: string, data: PNCS<U>) =>
-      getCollectionOrThrow().findOne(id).patch(addCommonProperties(data, id)),
-    [getCollectionOrThrow]
+      getCollectionOrThrow()
+        .findOne(id)
+        .incrementalPatch(addCommonProperties({ id, ownerId, data })),
+    [getCollectionOrThrow, ownerId]
   );
 
   const update = useCallback(
@@ -132,17 +174,17 @@ export const useRxDBCollection = <T extends SchemaName, U extends SchemaType<T> 
         .findOne(id)
         .update({
           $set: {
-            ...addCommonProperties(data, id)
+            ...addCommonProperties({ id, ownerId, data })
           }
         }),
-    [getCollectionOrThrow]
+    [getCollectionOrThrow, ownerId]
   );
 
   const modify = useCallback(
     async (id: string, data: PNCS<U>) =>
       getCollectionOrThrow()
         .findOne(id)
-        .modify((oldData) => mergeData(oldData, data) as U),
+        .incrementalModify((oldData) => mergeData(oldData, data) as U),
     [getCollectionOrThrow]
   );
 

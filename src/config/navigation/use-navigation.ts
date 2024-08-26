@@ -1,38 +1,47 @@
 import { usePathname } from 'next/navigation';
 import { useMemo, useCallback } from 'react';
 
-import { initialize, isNonBusinessBase, parsePath } from '@/config/navigation';
+import { initialize, isNonBusinessBase, isSlugBase, parsePath } from '@/config/navigation';
 import { getCurrent, getCurrentParent, isInPages } from '@/config/navigation/pagination';
-import { useLocalData } from '@/lib/hooks/use-data';
+import { useDBDataExtras, useDBDataExtrasMutation } from '@/data';
 import { useDebounceCallback, useDebounceEffect } from '@/lib/hooks/use-debounce';
 import { useForceState } from '@/lib/hooks/use-force-rerender';
+import { isDeepEqual } from '@/lib/utils/deep-equal';
 
 import type { NavigationItem } from '@/config/navigation/types';
-
-type LastPageData = {
-  id: string;
-  orgId?: string;
-  businessId?: string;
-};
+import type { UserMeta } from '@/lib/db/rxdb/schemas/user-meta';
 
 export function useLastPage() {
   const id = 'last-page';
-  const { getLocalItems, setLocalItems } = useLocalData<LastPageData>(id);
+  const { userMeta } = useDBDataExtras();
+  const { upsertUserMeta } = useDBDataExtrasMutation();
 
-  const getLastPage = useDebounceCallback<(arg: LastPageData) => void | Promise<void>>(
+  const getLastPage = useDebounceCallback<
+    (arg: NonNullable<UserMeta['lastVisited']>) => void | Promise<void>
+  >(
     `get-${id}-callback`,
     async (fn) => {
-      const items = await getLocalItems();
-      await fn(items?.[0] ?? { id });
+      const items = userMeta?.lastVisited ?? {};
+      await fn(items);
     },
-    [getLocalItems]
+    [userMeta]
   );
 
-  const setLastPage = useDebounceCallback<Omit<LastPageData, 'id'>>(
+  const setLastPage = useDebounceCallback<NonNullable<UserMeta['lastVisited']>>(
     `set-${id}-callback`,
-    (data) => void setLocalItems([{ id, ...data }]),
-    [setLocalItems],
-    2000
+    (lastVisitedData) => {
+      if (!userMeta || isDeepEqual(lastVisitedData, userMeta?.lastVisited)) return;
+
+      void upsertUserMeta({
+        id: userMeta?.id,
+        lastVisited: lastVisitedData,
+        editingState: userMeta?.editingState,
+        journeyState: userMeta?.journeyState ?? {},
+        hasAcceptedTerms: userMeta?.hasAcceptedTerms ?? false
+      });
+    },
+    [userMeta, upsertUserMeta],
+    1000
   );
 
   return {
@@ -75,9 +84,8 @@ export function useNavigation() {
     'set-last-page-effect',
     () => {
       const { base, orgId, businessId } = path;
-      if (isNonBusinessBase(base)) return;
-
-      void setLastPage({ orgId, businessId });
+      if (isNonBusinessBase(base) || isSlugBase(base)) return;
+      void setLastPage({ businessId, organizationId: orgId });
     },
     [path, setLastPage]
   );

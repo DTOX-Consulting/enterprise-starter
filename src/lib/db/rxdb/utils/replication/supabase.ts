@@ -4,17 +4,16 @@ import { SupabaseReplication } from '@/lib/db/rxdb/utils/replication/supabase-re
 import { supabase } from '@/lib/sdks/supabase/client';
 import { config } from '@/lib/sdks/supabase/config';
 
-import type { RxCollection, RxDatabase } from 'rxdb';
+import type { UserSession } from '@/lib/sdks/kinde/api/session';
+import type { RxCollection } from 'rxdb';
 
 export const addReplication = (
-  userId: string,
-  _db: RxDatabase,
+  userSession: UserSession,
   collections: Record<string, RxCollection>
 ) => {
   return Object.entries(collections).reduce(
     (acc, [name, collection]) => {
-      if (collection.name === 'organization_business') return acc;
-      const replication = createReplication(collection, userId);
+      const replication = createReplication(userSession, collection);
       acc[name] = replication;
       return acc;
     },
@@ -22,12 +21,12 @@ export const addReplication = (
   );
 };
 
-const createReplication = <T>(collection: RxCollection<T>, userId: string) => {
+const createReplication = <T>(userSession: UserSession, collection: RxCollection<T>) => {
   const replication = new SupabaseReplication<T>({
     live: true,
     autoStart: true,
     collection: collection,
-    supabaseClient: supabase,
+    supabaseClient: supabase(userSession),
     /**
      * An ID for the replication, so that RxDB is able to resume the replication
      * on app reload. It is recommended to add the supabase URL to make sure you're
@@ -38,7 +37,7 @@ const createReplication = <T>(collection: RxCollection<T>, userId: string) => {
      * might want to re-create the entire RxDB from scratch in that case or have one
      * RxDB per user ID (you could add the user ID to the RxDB name).
      */
-    replicationIdentifier: `${userId}_${config.auth.url}`,
+    replicationIdentifier: `${userSession.user.id}_${config.auth.url}`,
     push: {}, // If absent, no changes are pushed to Supabase
     pull: {}, // If absent, no data is pulled from Supabase
     keyMapping: {
@@ -46,7 +45,18 @@ const createReplication = <T>(collection: RxCollection<T>, userId: string) => {
       businessId: 'businessid',
       organizationId: 'organizationid',
       createdAt: 'createdat',
-      updatedAt: 'updatedat'
+      updatedAt: 'updatedat',
+      readAt: 'readat',
+      removedAt: 'removedat',
+      userMeta: 'usermeta',
+      editingState: 'editingstate',
+      lastVisited: 'lastvisited',
+      journeyState: 'journeystate',
+      hasAcceptedTerms: 'hasacceptedterms'
+    },
+    filter: {
+      key: 'ownerid',
+      value: userSession.user.id
     }
   });
 
@@ -69,11 +79,12 @@ export const resyncReplication = async (
   replication: Record<string, SupabaseReplication<unknown>>,
   delayTime = minDelayTime
 ) => {
-  await delay(delayTime);
-
-  Object.values(replication).forEach((replication) => {
-    replication.reSync();
-  });
-
-  await resyncReplication(replication, delayTime > maxDelayTime ? minDelayTime : delayTime * 2);
+  try {
+    await delay(delayTime);
+    Object.values(replication).forEach((replication) => replication.reSync());
+  } catch (e) {
+    console.error(e, replication);
+  } finally {
+    await resyncReplication(replication, delayTime > maxDelayTime ? minDelayTime : delayTime * 2);
+  }
 };

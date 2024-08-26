@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 
-import { isProd } from '@/lib/env';
+import { isProd } from '@/lib/env/env.mjs';
 
 declare global {
   var prisma: PrismaClient | undefined;

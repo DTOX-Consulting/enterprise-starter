@@ -12,27 +12,33 @@ const config = {
 } as const;
 
 type Base = (typeof bases)[number];
+type SlugBase = (typeof slugBases)[number];
 
 type Path = {
   base: Base;
+  slug?: string;
   page?: string;
   orgId?: string;
   businessId?: string;
 };
 
-const businessBases = ['businesses'] as const;
+const slugBases = ['p'] as const;
+const businessBases = ['businesses', 'p'] as const;
 const nonBusinessBases = [
+  '',
   'chat',
+  'guide',
   'pricing',
   'settings',
   'profile',
   'external',
   'dashboard',
   'document',
+  'notifications',
   'feature-previews'
 ] as const;
 
-const bases = ['', ...businessBases, ...nonBusinessBases] as const;
+const bases = [...businessBases, ...nonBusinessBases] as const;
 const pages = ['new', 'edit', 'view', 'profile', 'settings'] as const;
 
 function isPage(value?: string) {
@@ -43,41 +49,73 @@ export function isNonBusinessBase(base: string): base is Base {
   return nonBusinessBases.includes(base as Base);
 }
 
-export function initialize(path: string) {
-  const { base, orgId, businessId } = parsePath(path);
+export function isBusinessBase(base: string): base is Base {
+  return businessBases.includes(base as Base);
+}
 
-  if (base === 'businesses' && orgId && businessId) {
+export function isSlugBase(base: string): base is SlugBase {
+  return slugBases.includes(base as SlugBase);
+}
+
+export function initialize(path: string) {
+  const { base, slug, orgId, businessId } = parsePath(path);
+
+  if (isBusinessBase(base) && orgId && businessId) {
     return config.business(`/${base}/${orgId}/${businessId}`);
   }
 
-  if (base === 'businesses' && orgId) {
+  if (isBusinessBase(base) && orgId) {
     return config.organization(`/${base}/${orgId}`);
   }
 
-  if (base === '' || isNonBusinessBase(base)) {
+  if (isBusinessBase(base) && slug) {
+    return config.business(`/${base}/${slug}`);
+  }
+
+  if (isNonBusinessBase(base)) {
     return config.root('/businesses');
   }
 
   return config.none();
 }
 
-export function createPath({ page, base, orgId, businessId }: Path) {
-  const path = [base, orgId, businessId, page].filter(Boolean).join('/');
+export function createPath({ page, slug, base, orgId, businessId }: Path) {
+  if (slug) {
+    base = slugBases[0];
+    orgId = undefined;
+    businessId = undefined;
+  }
+
+  const path = [base, slug, orgId, businessId, page].filter(Boolean).join('/');
   return `/${path}`;
 }
 
 export function parsePath(path: string): Path {
   let [, base = '', orgId, businessId, page] = path.split('/');
+  let slug: string | undefined = undefined;
 
-  if (isPage(businessId)) {
+  if (isSlugBase(base)) {
+    slug = orgId;
+    page = businessId;
+    orgId = undefined;
+    businessId = undefined;
+  }
+
+  if (!isSlugBase(base) && isPage(businessId)) {
     page = businessId;
     businessId = undefined;
   }
 
-  if (isPage(orgId)) {
+  if (!isSlugBase(base) && isPage(orgId)) {
     page = orgId;
     orgId = undefined;
   }
 
-  return { base, orgId, businessId, page } as Path;
+  if (isNonBusinessBase(base)) {
+    orgId = undefined;
+    businessId = undefined;
+    page = undefined;
+  }
+
+  return { base, slug, orgId, businessId, page } as Path;
 }

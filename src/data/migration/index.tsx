@@ -8,9 +8,9 @@ import {
   historyMigration,
   notificationMigration,
   businessMigration,
-  organizationMigration,
-  organizationBusinessMigration
+  organizationMigration
 } from '@/data/migration/migrators';
+import { clearDbs, deleteDbs } from '@/lib/db/indexeddb/utils';
 import { useRxDB } from '@/lib/db/rxdb/hooks';
 import { useAuth } from '@/lib/hooks/use-auth';
 
@@ -18,8 +18,7 @@ import type {
   BusinessSchema,
   HistorySchema,
   NotificationSchema,
-  OrganizationSchema,
-  OrganizationBusinessSchema
+  OrganizationSchema
 } from '@/data/migration/types';
 
 export function DataMigration() {
@@ -46,6 +45,14 @@ export function DataMigration() {
       <Button variant="pulse" onClick={reinitializeDb} className="w-48">
         Reinitialize DB
       </Button>
+
+      <Button variant="pulse" onClick={deleteDbs} className="w-48">
+        Delete All DBs
+      </Button>
+
+      <Button variant="pulse" onClick={clearDbs} className="w-48">
+        Clear All DBs
+      </Button>
     </div>
   );
 }
@@ -56,15 +63,12 @@ function useOrganizationMigration() {
 
   const businessCollection = useRxCollection<BusinessSchema>('business');
   const organizationCollection = useRxCollection<OrganizationSchema>('organization');
-  const organizationBusinessCollection =
-    useRxCollection<OrganizationBusinessSchema>('organization_business');
 
   const migrateOrganization = () => {
     organizationMigration(organizationCollection, organizations, user);
     organizations.forEach((organization) => {
       const businesses = organization.businesses ?? [];
       businessMigration(businessCollection, businesses, user, organization.id);
-      organizationBusinessMigration(organizationBusinessCollection, organization, businesses);
     });
   };
 

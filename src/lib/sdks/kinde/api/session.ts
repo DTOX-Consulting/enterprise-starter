@@ -15,7 +15,14 @@ import { getPermissions } from '@/lib/sdks/kinde/api/permissions';
 import { props } from '@/lib/utils/promise';
 
 export const getUserSession = async (throwError?: boolean) => {
-  const { getUser, isAuthenticated, getOrganization, getAccessToken } = getKindeServerSession();
+  const {
+    getUser,
+    getIdTokenRaw,
+    refreshTokens,
+    getAccessToken,
+    getOrganization,
+    isAuthenticated
+  } = getKindeServerSession();
   const user = await getUser();
 
   if (!user?.id || !user?.email) {
@@ -30,11 +37,13 @@ export const getUserSession = async (throwError?: boolean) => {
 
   const isAdmin = await isAdminUser(user.email);
 
-  const { token, permissions, organization, authenticated } = await props({
+  const { token, idToken, refreshToken, permissions, organization, authenticated } = await props({
     token: getAccessToken(),
+    idToken: getIdTokenRaw(),
     organization: getOrganization(),
     authenticated: isAuthenticated(),
-    permissions: getPermissions(user.email)
+    permissions: getPermissions(user.email),
+    refreshToken: refreshTokens() as Promise<string | undefined>
   });
 
   const convertedRoles = convertPermissionsToArray(permissions.permissions);
@@ -58,7 +67,9 @@ export const getUserSession = async (throwError?: boolean) => {
     },
     auth: {
       token,
-      authenticated
+      refreshToken,
+      authenticated,
+      idToken: idToken as typeof idToken | undefined
     }
   };
 };

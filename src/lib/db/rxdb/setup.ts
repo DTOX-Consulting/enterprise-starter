@@ -1,10 +1,12 @@
-import { createRxDatabase } from 'rxdb';
+import { createRxDatabase, type RxCollection } from 'rxdb';
 
+import { clearDbs } from '@/lib/db/indexeddb/utils';
 import { DB_NAME } from '@/lib/db/rxdb/constants';
-import { addCollections } from '@/lib/db/rxdb/utils/collection';
+import { setupStorage } from '@/lib/db/rxdb/storage';
+import { addCollections, migrateCollections } from '@/lib/db/rxdb/utils/collection';
 import { setupPlugins } from '@/lib/db/rxdb/utils/plugins';
-import { addReplication, resyncReplication } from '@/lib/db/rxdb/utils/replication/supabase';
-import { setupStorage } from '@/lib/db/rxdb/utils/storage';
+
+import type { UserSession } from '@/lib/sdks/kinde/api/session';
 
 export async function create(name = 'app') {
   await setupPlugins();
@@ -20,22 +22,38 @@ export async function create(name = 'app') {
   return db;
 }
 
-export const initialize = async (userId?: string) => {
-  if (!userId) throw new Error('User ID is required to initialize RXDB');
+export const initialize = async (userSession: UserSession, clearFirst = true) => {
+  if (!userSession.user.id) throw new Error('An authenticated user is required to initialize RXDB');
+  const isExternal = window.location.pathname.includes('external');
+  console.log('Initializing RXDB', window.location.pathname);
 
+  if (clearFirst && !isExternal) {
+    await clearDbs();
+  }
   const db = await create(DB_NAME);
   // await db.waitForLeadership();
 
   try {
     const collections = await addCollections(db);
-    const replication = addReplication(userId, db, collections);
-    void resyncReplication(replication);
+    await migrateCollections(collections);
+
+    const replication = await replicate(userSession, collections);
     return { db, collections, replication };
   } catch (e) {
     console.error(e);
   }
 
   return { db };
+};
+
+const replicate = async (userSession: UserSession, collections: Record<string, RxCollection>) => {
+  const { addReplication, resyncReplication } = await import(
+    '@/lib/db/rxdb/utils/replication/supabase'
+  );
+
+  const replication = addReplication(userSession, collections);
+  void resyncReplication(replication);
+  return replication;
 };
 
 export type InitializedDB = Awaited<ReturnType<typeof initialize>>;

@@ -2,7 +2,7 @@ import { businessSchema } from '@/lib/db/rxdb/schemas/business';
 import { historySchema } from '@/lib/db/rxdb/schemas/history';
 import { notificationSchema } from '@/lib/db/rxdb/schemas/notification';
 import { organizationSchema } from '@/lib/db/rxdb/schemas/organization';
-import { organizationBusinessSchema } from '@/lib/db/rxdb/schemas/organization_business';
+import { userMetaSchema } from '@/lib/db/rxdb/schemas/user-meta';
 
 import type { GenericObject } from '@/lib/utils/object';
 import type { RxDocument, RxJsonSchema } from 'rxdb';
@@ -10,9 +10,9 @@ import type { RxDocument, RxJsonSchema } from 'rxdb';
 export const schemas = {
   history: historySchema,
   business: businessSchema,
+  user_meta: userMetaSchema,
   notification: notificationSchema,
-  organization: organizationSchema,
-  organization_business: organizationBusinessSchema
+  organization: organizationSchema
 } as const;
 
 export type Schema = typeof schemas;

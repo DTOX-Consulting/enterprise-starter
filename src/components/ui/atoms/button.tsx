@@ -29,6 +29,8 @@ type ButtonVariantsConfig = {
   };
 };
 
+export type ButtonVariants = keyof ButtonVariantsConfig['variants']['variant'];
+
 const buttonVariantsConfig: ButtonVariantsConfig = {
   variants: {
     variant: {

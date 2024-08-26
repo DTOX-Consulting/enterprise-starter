@@ -2,10 +2,10 @@ CREATE EXTENSION IF NOT EXISTS moddatetime
 SCHEMA "extensions";
 
 CREATE TABLE notification (
-  id VARCHAR(24) PRIMARY KEY,
-  ownerId VARCHAR(255) NOT NULL,
-  image VARCHAR(255),
-  icon VARCHAR(255),
+  id TEXT PRIMARY KEY,
+  ownerId TEXT NOT NULL,
+  image TEXT,
+  icon TEXT,
   content JSONB NOT NULL,
   readAt TIMESTAMP,
   removedAt TIMESTAMP,

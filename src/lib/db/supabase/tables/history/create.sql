@@ -2,11 +2,11 @@ CREATE EXTENSION IF NOT EXISTS moddatetime
 SCHEMA "extensions";
 
 CREATE TABLE history (
-  id VARCHAR(24) PRIMARY KEY,
-  ownerId VARCHAR(255) NOT NULL,
-  businessId VARCHAR(255) NOT NULL,
-  organizationId VARCHAR(255) NOT NULL,
-  key VARCHAR(255) NOT NULL,
+  id TEXT PRIMARY KEY,
+  ownerId TEXT NOT NULL,
+  businessId TEXT NOT NULL,
+  organizationId TEXT NOT NULL,
+  key TEXT NOT NULL,
   description TEXT,
   value JSONB NOT NULL,
   createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

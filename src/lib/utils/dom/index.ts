@@ -13,10 +13,15 @@ export function getLocation(): Location | undefined {
 }
 
 export function isLocalHost(): boolean {
-  const isLocalHost = getLocation()?.hostname.includes('localhost');
-  const isExternal = getLocation()?.pathname.includes('external');
-  // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing -- We want to return a boolean
-  return Boolean(isLocalHost || isExternal);
+  return getLocation()?.hostname.includes('localhost') ?? false;
+}
+
+export function isExternal(): boolean {
+  return getLocation()?.pathname.includes('external') ?? false;
+}
+
+export function isLocalOrExternal(): boolean {
+  return isLocalHost() || isExternal();
 }
 
 export async function getElements<T extends keyof HTMLElementTagNameMap>(
@@ -81,4 +86,14 @@ export async function triggerElementAction<
 >(action: A, selector: T, filter = '', maxTimes = 5) {
   const element = await getFirstElement(selector, filter, maxTimes);
   element?.dispatchEvent(new Event(action, { bubbles: true }));
+}
+
+export async function setElementValue<T extends keyof HTMLElementTagNameMap>(
+  value: string,
+  selector: T,
+  filter = '',
+  maxTimes = 5
+) {
+  const element = await getFirstElement(selector, filter, maxTimes);
+  element?.setAttribute('value', value);
 }
