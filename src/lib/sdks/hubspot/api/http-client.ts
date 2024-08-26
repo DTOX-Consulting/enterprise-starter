@@ -213,7 +213,7 @@ export class HttpClient<SecurityDataType = unknown> {
               return r;
             })
             .catch((e) => {
-              r.error = e;
+              r.error = e as E;
               return r;
             });
 

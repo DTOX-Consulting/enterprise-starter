@@ -166,7 +166,7 @@ export const splitSentences = (_text: string) => {
 
   // Create a map for placeholders and abbreviations
   let text = _text.trim();
-  const abbrevMap = new Map();
+  const abbrevMap = new Map<string, string>();
   const placeholder = 'PLACEHOLDER';
 
   abbreviations.forEach((abbr, index) => {
