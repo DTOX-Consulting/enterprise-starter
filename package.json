@@ -144,7 +144,7 @@
     "@yornaath/batshit": "0.10.1",
     "ai": "3.2.22",
     "already": "3.4.1",
-    "axios": "1.7.2",
+    "axios": "1.7.4",
     "class-variance-authority": "0.7.0",
     "classnames": "2.5.1",
     "clsx": "2.1.1",
