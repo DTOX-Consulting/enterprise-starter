@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Next.js",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "module": "esnext",
+    "moduleResolution": "Bundler",
+    "target": "es2022",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "strict": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "noUncheckedIndexedAccess": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "strictNullChecks": true,
+    "types": ["node", "@testing-library/jest-dom"],
+    "paths": {
+      "@/*": ["./src/*"],
+      "@Root/*": ["./*"]
+    },
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
+  "include": [
+    "**/*.js",
+    "**/*.ts",
+    "**/*.mts",
+    "**/*.cjs",
+    "**/*.tsx",
+    "**/*.mjs",
+    "next-env.d.ts",
+    "vitest.config.mts",
+    "types/**/*.d.ts",
+    ".next/types/**/*.ts",
+    ".contentlayer/generated"
+  ],
+  "exclude": ["node_modules", "dist"]
+}

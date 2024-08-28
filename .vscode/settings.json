@@ -1,0 +1,165 @@
+{
+  "tailwindCSS.experimental.classRegex": [
+    [
+      "cva(?:<[^>]*>)?(([^)]*))",
+      "[\"'`]([^\"'`]*).*?[\"'`]",
+      "(?:twMerge|twJoin)\\(([^\\);]*)[\\);]"
+    ]
+  ],
+  "formatFiles.runOrganizeImports": true,
+  "cSpell.words": ["Formspree"],
+  "typescript.tsc.autoDetect": "off",
+  "trailing-spaces.trimOnSave": true,
+  "redhat.telemetry.enabled": false,
+  "githubPullRequests.ignoredPullRequestBranches": ["main"],
+  "typescript.suggest.autoImports": true,
+  "editor.codeActionsOnSave": {
+    "quickfix.biome": "always",
+    "source.fixAll.eslint": "explicit",
+    "source.fixAll.tailwindCSS": "always",
+    "source.organizeImports.biome": "never",
+    "source.organizeImports.eslint": "always"
+  },
+  "eslint.codeAction.disableRuleComment": {
+    "enable": true
+  },
+  "eslint.run": "onSave",
+  "eslint.format.enable": true,
+  "eslint.lintTask.enable": true,
+  "eslint.useESLintClass": true,
+  "eslint.workingDirectories": [{ "mode": "auto", "changeProcessCWD": true }],
+  "eslint.codeActionsOnSave.mode": "all",
+  "eslint.codeActionsOnSave.rules": [
+    "!import/namespace",
+    "!import/no-deprecated",
+    "!import/no-cycle",
+    "*"
+  ],
+  "eslint.probe": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+  "eslint.rules.customizations": [
+    {
+      "rule": "*",
+      "severity": "warn"
+    }
+  ],
+  "[json]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+
+  "editor.stickyScroll.enabled": true,
+  "editor.defaultFormatter": "biomejs.biome",
+  "editor.formatOnPaste": false,
+  "editor.formatOnSave": true,
+  "editor.formatOnType": false,
+  "editor.formatOnSaveMode": "file",
+  "editor.guides.bracketPairs": true,
+  "editor.guides.indentation": false,
+  "editor.inlayHints.enabled": "on",
+  "editor.inlineSuggest.enabled": true,
+  "editor.insertSpaces": false,
+  "editor.largeFileOptimizations": false,
+  "editor.matchBrackets": "always",
+  "editor.minimap.enabled": false,
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.renderWhitespace": "boundary",
+  "editor.snippetSuggestions": "top",
+  "editor.suggest.preview": true,
+  "editor.suggest.showMethods": true,
+  "editor.suggestSelection": "first",
+
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": ["comment", "punctuation.definition.comment"],
+        "settings": {
+          "fontStyle": "italic",
+          "foreground": "#229977"
+        }
+      }
+    ]
+  },
+
+  "editor.wordWrap": "bounded",
+  "editor.wordWrapColumn": 200,
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+  "explorer.incrementalNaming": "smart",
+
+  "files.associations": {
+    "*.ts": "typescript",
+    ".slsignore": "gitignore",
+    ".nowignore": "gitignore",
+    ".vercelignore": "gitignore"
+  },
+  "files.autoSave": "onFocusChange",
+
+  "files.trimTrailingWhitespace": true,
+  "files.watcherExclude": {
+    "**.log": true,
+    "**/tmp": true,
+    "**.lock": true,
+    "**/Pods": true,
+    "**/dist": true,
+    "**/build": true,
+    "**/vendor": true,
+    "**/*-lock.*": true,
+    "**/.project": true,
+    "**/.history": true,
+    "**/.classpath": true,
+    "**/.factorypath": true,
+    "**/node_modules*": true,
+    "**/schema_artifacts": true,
+    "**/bower_components*": true
+  },
+  "search.exclude": {
+    "**.log": true,
+    "**/tmp": true,
+    "**.lock": true,
+    "**/Pods": true,
+    "**/dist": true,
+    "**/build": true,
+    "**/vendor": true,
+    "**/*-lock.*": true,
+    "**/.project": true,
+    "**/.history": true,
+    "**/.classpath": true,
+    "**/.factorypath": true,
+    "**/node_modules*": true,
+    "**/schema_artifacts": true,
+    "**/bower_components*": true
+  },
+
+  "formatContextMenu.closeAfterSave": true,
+  "merge-conflict.autoNavigateNextConflict.enabled": true,
+  "terminal.integrated.scrollback": 10000,
+  "typescript.suggest.paths": true,
+  "typescript.disableAutomaticTypeAcquisition": true,
+  "typescript.tsserver.enableTracing": true,
+  "typescript.tsserver.maxTsServerMemory": 8192,
+  "typescript.format.insertSpaceAfterConstructor": true,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "javascript.preferences.importModuleSpecifier": "shortest",
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+
+  "html.autoClosingTags": false,
+  "javascript.autoClosingTags": false,
+  "typescript.autoClosingTags": false,
+  "typescriptreact.autoClosingTags": false,
+  "tabnine.experimentalAutoImports": true,
+  "typescript.tsdk": "node_modules/typescript/lib"
+}
