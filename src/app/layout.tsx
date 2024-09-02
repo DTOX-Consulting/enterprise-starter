@@ -15,7 +15,7 @@ import {
 import { Providers } from '@/components/providers';
 import { Analytics } from '@/components/tools/analytics';
 import { TailwindIndicator } from '@/components/tools/tailwind-indicator';
-import ScrollToTop from '@/components/ui/molecules/scroll-to-top';
+import { ScrollToTop } from '@/components/ui/molecules/scroll-to-top';
 import { Toaster } from '@/components/ui/organisms/toast/toaster';
 import { cn } from '@/lib/utils';
 
