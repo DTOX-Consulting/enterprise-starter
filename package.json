@@ -1,5 +1,5 @@
 {
-  "name": "enterprise-starter",
+  "name": "disc-pa",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -145,6 +145,8 @@
     "@vercel/postgres": "0.9.0",
     "@vercel/postgres-kysely": "0.9.0",
     "@vercel/speed-insights": "1.0.12",
+    "@wix/crm": "1.0.125",
+    "@wix/sdk": "1.12.12",
     "@yornaath/batshit": "0.10.1",
     "ai": "3.3.18",
     "already": "3.4.1",
