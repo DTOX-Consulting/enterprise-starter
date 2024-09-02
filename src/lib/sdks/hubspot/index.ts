@@ -8,8 +8,8 @@ type SimplePublicObject = {
   id: string;
   properties: {
     email: string;
-    lastname: string;
-    firstname: string;
+    lastName: string;
+    firstName: string;
     notify_me: string;
     subscription_plan: string;
   };
@@ -24,13 +24,13 @@ type SimplePublicObjectError = {
 type ClientData = {
   id?: string;
   email: string;
-  lastname: string;
-  firstname: string;
+  lastName: string;
+  firstName: string;
   notifyMe?: boolean;
   subscriptionPlan?: string;
 };
 
-const properties = ['email', 'firstname', 'lastname', 'notify_me', 'subscription_plan'];
+const properties = ['email', 'firstName', 'lastName', 'notify_me', 'subscription_plan'];
 
 const returnContact = (
   email: string,
@@ -46,8 +46,8 @@ const returnContact = (
   if (G.isNullable(contact)) {
     return {
       email,
-      lastname: '',
-      firstname: '',
+      lastName: '',
+      firstName: '',
       notifyMe: false,
       subscriptionPlan: ''
     };
@@ -58,8 +58,8 @@ const returnContact = (
     email: contact.properties.email ?? email,
     notifyMe: contact.properties.notify_me === 'true',
     subscriptionPlan: contact.properties.subscription_plan ?? '',
-    lastname: contact.properties.lastname ?? input?.lastname ?? '',
-    firstname: contact.properties.firstname ?? input?.firstname ?? ''
+    lastName: contact.properties.lastName ?? input?.lastName ?? '',
+    firstName: contact.properties.firstName ?? input?.firstName ?? ''
   };
 };
 
@@ -89,8 +89,8 @@ export const createContact = async (input: ClientData) => {
           associations: [],
           properties: {
             email: input.email,
-            lastname: input.lastname,
-            firstname: input.firstname,
+            lastName: input.lastName,
+            firstName: input.firstName,
             notify_me: input.notifyMe ? 'true' : 'false',
             subscription_plan: input.subscriptionPlan ?? defaultSubscriptionPermissionsKey
           }
@@ -102,7 +102,7 @@ export const createContact = async (input: ClientData) => {
   return returnData(input, data);
 };
 
-export const updateContact = async (input: ClientData, id?: string) => {
+export const updateContact = async (input: ClientData, id: string) => {
   const { data } = await unbox(
     api.crm.v3ObjectsContactsBatchUpdateCreate({
       inputs: [
@@ -110,8 +110,8 @@ export const updateContact = async (input: ClientData, id?: string) => {
           id,
           properties: {
             email: input.email,
-            lastname: input.lastname,
-            firstname: input.firstname,
+            lastName: input.lastName,
+            firstName: input.firstName,
             notify_me: input.notifyMe ? 'true' : 'false',
             subscription_plan: input.subscriptionPlan ?? defaultSubscriptionPermissionsKey
           }
@@ -125,7 +125,7 @@ export const updateContact = async (input: ClientData, id?: string) => {
 
 export const upsertContact = async (input: ClientData) => {
   const contact = await getContact(input.email);
-  return G.isNullable(contact) ? createContact(input) : updateContact(input, contact.id);
+  return G.isNullable(contact?.id) ? createContact(input) : updateContact(input, contact.id);
 };
 
 export const getOrUpsertContact = async (input: ClientData) => {

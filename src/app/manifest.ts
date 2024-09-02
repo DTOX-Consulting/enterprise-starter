@@ -142,7 +142,8 @@ const sharp = (input?: string) => {
   return {
     png,
     resize,
-    toFile
+    toFile,
+    input
   };
 };
 

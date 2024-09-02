@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { getOrUpsertContact, upsertContact } from '@/lib/sdks/hubspot';
+import { getOrUpsertContact, upsertContact } from '@/lib/sdks/wix';
 import { protectedProcedure } from '@/trpc';
 
 export const crmRouter = {
@@ -8,8 +8,8 @@ export const crmRouter = {
     .input(
       z.object({
         email: z.string(),
-        lastname: z.string(),
-        firstname: z.string(),
+        lastName: z.string(),
+        firstName: z.string(),
         notifyMe: z.boolean().optional(),
         subscriptionPlan: z.string().optional()
       })
@@ -24,8 +24,8 @@ export const crmRouter = {
     .input(
       z.object({
         email: z.string(),
-        lastname: z.string(),
-        firstname: z.string(),
+        lastName: z.string(),
+        firstName: z.string(),
         notifyMe: z.boolean().optional(),
         subscriptionPlan: z.string().optional()
       })

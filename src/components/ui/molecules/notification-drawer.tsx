@@ -50,7 +50,7 @@ export const NotificationItemIcon = ({
   return <Icon className={className} />;
 };
 
-export const NotificationContent = <T,>({
+export const NotificationContent = ({
   onClick,
   seeAllRoute,
   notifications

@@ -3,16 +3,19 @@ import { unbox } from 'unbox-js';
 
 import { db } from '@/lib/db/prisma';
 import { logger } from '@/lib/logger/console';
-import { getOrUpsertContact, upsertContact } from '@/lib/sdks/hubspot';
 import { setPermission } from '@/lib/sdks/kinde/api/permissions';
 import { getUserSession } from '@/lib/sdks/kinde/api/session';
 import { getStripeDetailsNoCreate } from '@/lib/sdks/stripe/server/utils';
+import { getOrUpsertContact, upsertContact } from '@/lib/sdks/wix';
 import { isDeepEqual } from '@/lib/utils/deep-equal';
 import { publicProcedure } from '@/trpc';
 
-const addToKinde = true;
-const addToHubspot = true;
-const addToDatabase = false;
+const syncConfig = {
+  db: false,
+  crm: false,
+  auth: false,
+  stripe: false
+};
 
 export const authRouter = {
   ping: publicProcedure.query(() => {
@@ -23,11 +26,14 @@ export const authRouter = {
   }),
   callback: publicProcedure.query(async () => {
     const { user, subscription } = await getUserSession();
-    const { data: stripeDetails } = await unbox(getStripeDetailsNoCreate(user));
+
+    const { data: stripeDetails } = syncConfig.stripe
+      ? await unbox(getStripeDetailsNoCreate(user))
+      : { data: undefined };
 
     const subscriptionKey = stripeDetails?.key ?? subscription.key;
 
-    if (addToKinde) {
+    if (syncConfig.auth) {
       logger.info('Setting Permissions', {
         email: user.email,
         subscriptionKey,
@@ -37,19 +43,19 @@ export const authRouter = {
       await setPermission(user.email, subscriptionKey);
     }
 
-    if (addToHubspot) {
+    if (syncConfig.crm) {
       const data = await getOrUpsertContact({
         notifyMe: false,
         email: user.email,
-        lastname: user.lastName,
-        firstname: user.firstName,
+        lastName: user.lastName,
+        firstName: user.firstName,
         subscriptionPlan: subscriptionKey
       });
 
       const newData = {
         email: user.email,
-        lastname: user.lastName,
-        firstname: user.firstName,
+        lastName: user.lastName,
+        firstName: user.firstName,
         notifyMe: data?.notifyMe ?? false,
         subscriptionPlan: subscriptionKey
       };
@@ -59,8 +65,7 @@ export const authRouter = {
       }
     }
 
-    if (addToDatabase) {
-      // check if the user is in the database
+    if (syncConfig.db) {
       const dbUser = await db.user.findFirst({
         where: {
           id: user.id
@@ -68,7 +73,6 @@ export const authRouter = {
       });
 
       if (!dbUser) {
-        // create user in db
         await db.user.create({
           data: user
         });
@@ -78,6 +82,6 @@ export const authRouter = {
     return { success: true };
   }),
   user: publicProcedure.query(async () => {
-    return getUserSession();
+    return getUserSession(true);
   })
 };

@@ -1,6 +1,5 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { useCallback } from 'react';
 
 import { memoize } from '@/components/tools/memoize';
@@ -13,7 +12,6 @@ import type { Notification } from '@/lib/db/rxdb/schemas/notification';
 import type { DCS } from '@/lib/db/rxdb/utils/schema';
 
 function _NotificationToggle() {
-  const router = useRouter(); // This is declared but not used in the callback
   const { notifications } = useDBDataExtras();
   const { setNotificationRead, setNotificationRemoved } = useDBDataExtrasMutation();
 

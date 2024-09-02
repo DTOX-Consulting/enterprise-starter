@@ -143,7 +143,7 @@ const pluginsConfig = plugins.reduce((acc, plugin) => plugin(acc), nextConfig);
  *
  * @returns {import("next").NextConfig}
  */
-const nextMillion = () => {
+const _nextMillion = () => {
   const lint = nextMillionLint({
     rsc: true
   });

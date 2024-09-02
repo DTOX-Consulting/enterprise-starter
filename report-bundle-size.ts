@@ -66,10 +66,10 @@ const globalBundle = buildMeta.pages['/_app'];
 if (!globalBundle) {
   throw new Error('Global bundle not found in buildMeta.');
 }
-const globalBundleSizes = getScriptSizes(globalBundle);
+const _globalBundleSizes = getScriptSizes(globalBundle);
 
 // Calculate the size of each page's scripts, after subtracting out the global scripts
-const allPageSizes = Object.keys(buildMeta.pages).reduce(
+const _allPageSizes = Object.keys(buildMeta.pages).reduce(
   (acc, pagePath) => {
     const scriptPaths = buildMeta.pages[pagePath];
     if (!scriptPaths) {
