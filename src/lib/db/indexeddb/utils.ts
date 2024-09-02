@@ -56,7 +56,7 @@ export const clearDbs = async () => {
       request.onupgradeneeded = () => {
         // This event is triggered if the database is being created or upgraded.
         // It's an opportunity to create object stores if needed.
-        const db = request.result;
+        // const db = request.result;
         // Example: Create an object store if none exist (not shown here)
       };
     });

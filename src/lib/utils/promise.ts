@@ -85,7 +85,7 @@ export async function retry<T>(times: number, fn: () => Promise<T>): Promise<T> 
     }
   }
 
-  throw new Error('Failed after retrying');
+  throw error ?? new Error('Failed after retrying');
 }
 
 export const retryWithTimeout = async <T>(

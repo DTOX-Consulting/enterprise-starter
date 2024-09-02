@@ -5,5 +5,7 @@
     "browser": true
   },
   "plugins": ["import", "jest", "jsx-a11y", "nextjs", "react-perf", "promise"],
-  "rules": {}
+  "rules": {
+    "no-unused-vars": "off"
+  }
 }

@@ -94,7 +94,7 @@ export function GridPattern({
       <rect width="100%" height="100%" fill={`url(#${id})`} strokeWidth="0" />
       <svg x="50%" y={yOffset} strokeWidth="0" className="overflow-visible">
         <title>Grid</title>
-        {staticBlocks.map((block, index) => (
+        {staticBlocks.map((block) => (
           <Block key={`${block[0]}-${block[1]}`} x={block[0]} y={block[1]} />
         ))}
         {hoveredBlocks.map((block) => (

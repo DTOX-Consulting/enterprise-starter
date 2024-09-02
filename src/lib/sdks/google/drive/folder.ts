@@ -75,7 +75,7 @@ export const findFolderByName = async (name: string, parent?: string) => {
   return fromPromise(Promise.resolve(response.data));
 };
 
-export const listFolders = async (path?: string) => {
+export const listFolders = async () => {
   const response = await drive.files.list({
     corpora: 'allDrives',
     supportsAllDrives: true,
