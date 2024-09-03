@@ -500,6 +500,9 @@ importers:
       remark-math:
         specifier: 6.0.0
         version: 6.0.0
+      replicate:
+        specifier: 0.32.1
+        version: 0.32.1
       reveal.js:
         specifier: 5.1.0
         version: 5.1.0
@@ -16063,6 +16066,10 @@ packages:
   repeat-string@1.6.1:
     resolution: {integrity: sha512-PV0dzCYDNfRi1jCDbJzpW7jNNDRuCOG/jI5ctQcGKt/clZD+YcPS3yIlWuTJMmESC8aevCFmWJy5wjAFgNqN6w==}
     engines: {node: '>=0.10'}
+
+  replicate@0.32.1:
+    resolution: {integrity: sha512-OmzyDVx3P9FXVXcFrzWft8XW8LjyGo65qRCwUPJwbjBZS4Z89pQFX+ZUfYlHwcfIHGtP4/Pf0uis+XJiznKacQ==}
+    engines: {git: '>=2.11.0', node: '>=18.0.0', npm: '>=7.19.0', yarn: '>=1.7.0'}
 
   request-promise-core@1.1.4:
     resolution: {integrity: sha512-TTbAfBBRdWD7aNNOoVOBH4pN/KigV6LyapYNNlAPA8JwbovRti1E88m3sYAwsLi5ryhPKsE9APwnjFTgdUjTpw==}
@@ -37445,6 +37452,10 @@ snapshots:
       strip-ansi: 6.0.1
 
   repeat-string@1.6.1: {}
+
+  replicate@0.32.1:
+    optionalDependencies:
+      readable-stream: 4.5.2
 
   request-promise-core@1.1.4(request@2.88.2):
     dependencies:

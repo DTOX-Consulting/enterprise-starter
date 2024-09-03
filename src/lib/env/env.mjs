@@ -12,6 +12,7 @@ export const env = createEnv({
     STRIPE_SECRET_KEY: z.string().min(1),
     OTEL_SERVICE_NAME: z.string().min(1),
     OTEL_EXPORTER_OTLP_ENDPOINT: z.string().min(1),
+    REPLICATE_API_TOKEN: z.string().min(1).optional(),
     NODE_ENV: z.enum(['development', 'production', 'test']).optional(),
     ANALYZE: z
       .enum(['true', 'false'])
@@ -44,6 +45,7 @@ export const env = createEnv({
     SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY,
     STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
     OTEL_SERVICE_NAME: process.env.OTEL_SERVICE_NAME,
+    REPLICATE_API_TOKEN: process.env.REPLICATE_API_TOKEN,
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
     NEXT_PUBLIC_NODE_ENV: process.env.NEXT_PUBLIC_NODE_ENV,
     NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,

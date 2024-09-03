@@ -26,7 +26,7 @@ export function createUrl(
   return urlWithParams.toString();
 }
 
-export function danglingPromise<T>(promise: Promise<T>): void {
+export function danglingPromise<T>(promise: Promise<T> | (() => Promise<T>)): void {
   // Capture stack traces so that we can later append them to the error
   let originalStack = new Error().stack as unknown as string;
   originalStack = originalStack.slice(originalStack.indexOf('\n') + 1);
@@ -37,7 +37,7 @@ export function danglingPromise<T>(promise: Promise<T>): void {
    * Wrap promise to capture error
    */
   async function wrapper() {
-    const { error } = await unbox(promise);
+    const { error } = await unbox(G.isFunction(promise) ? promise() : promise);
 
     if (error) {
       error.stack = `${error.stack ?? `Error: ${error.message}`}\n${originalStack}`;
