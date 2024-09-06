@@ -11,15 +11,13 @@ import type { UserSession } from '@/lib/sdks/kinde/api/session';
 export async function create(name = 'app') {
   await setupPlugins();
 
-  const db = await createRxDatabase({
+  return await createRxDatabase({
     storage: await setupStorage(),
     ignoreDuplicate: true,
     multiInstance: true,
     eventReduce: true,
     name
   });
-
-  return db;
 }
 
 export const initialize = async (userSession: UserSession, clearFirst = true) => {

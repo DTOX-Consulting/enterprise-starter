@@ -2,26 +2,18 @@ import { type TierName, tiers } from '@/config/permissions/features';
 import { getEnv } from '@/lib/env/env.mjs';
 import { getLocation } from '@/lib/utils/dom';
 
-export const getStripeMode = () => {
-  return getEnv('NEXT_PUBLIC_NODE_ENV') === 'production' ? 'live' : 'test';
-};
+export const getStripeMode = () => getEnv('NEXT_PUBLIC_NODE_ENV') === 'production' ? 'live' : 'test';
 
 export const getStripeTierConfig = (tier: TierName) => {
   const mode = getStripeMode();
   return tiers[tier].stripe[mode];
 };
 
-export const getStripeAmount = (tier: TierName) => {
-  return getStripeTierConfig(tier).amount;
-};
+export const getStripeAmount = (tier: TierName) => getStripeTierConfig(tier).amount;
 
-export const getStripePriceId = (tier: TierName) => {
-  return getStripeTierConfig(tier).priceId;
-};
+export const getStripePriceId = (tier: TierName) => getStripeTierConfig(tier).priceId;
 
-export const getStripeProductId = (tier: TierName) => {
-  return getStripeTierConfig(tier).productId;
-};
+export const getStripeProductId = (tier: TierName) => getStripeTierConfig(tier).productId;
 
 export const getKindeSubscriptionPermissionsKeyFromPriceId = (priceId: string) => {
   const mode = getStripeMode();
@@ -41,11 +33,9 @@ export const getStripeUrls = (tier?: TierName) => {
   };
 };
 
-export const createStripeLineItems = (tier: TierName) => {
-  return [
+export const createStripeLineItems = (tier: TierName) => [
     {
       price: getStripePriceId(tier),
       quantity: 1
     }
   ];
-};

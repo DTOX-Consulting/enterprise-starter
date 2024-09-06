@@ -100,7 +100,7 @@ export const retryWithTimeout = async <T>(
     return retryWithTimeout(fn, timeoutMs, retries - 1);
   }
 
-  if (timedout || !reflection?.isResolved) {
+  if (timedout || !reflection.isResolved) {
     throw new Error('Timeout while executing function');
   }
 

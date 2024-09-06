@@ -2,7 +2,7 @@ import { Footer } from '@/components/ui/layouts/default/footer';
 import { Header } from '@/components/ui/layouts/default/header';
 import { Main } from '@/components/ui/layouts/default/main';
 
-interface LayoutProps {
+type LayoutProps = {
   children: React.ReactNode;
 }
 

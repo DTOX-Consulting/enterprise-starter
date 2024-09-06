@@ -5,7 +5,7 @@ import { Main } from '@/components/ui/layouts/dashboard/main';
 import { Sidebar } from '@/components/ui/layouts/dashboard/sidebar';
 import { cn } from '@/lib/utils';
 
-interface LayoutProps {
+type LayoutProps = {
   className?: string;
   sidebarWidth?: number;
   children: React.ReactNode;

@@ -38,6 +38,7 @@ import { Upgrade } from '@/config/permissions/upgrade';
 import { cn } from '@/lib/utils';
 
 type BasicChoice = { id: string; name: string };
+
 type SwitcherProps<T extends BasicChoice> = {
   choices?: T[];
   selected?: T;

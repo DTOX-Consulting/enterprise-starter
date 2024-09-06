@@ -133,8 +133,7 @@ export const SelectSingle = ({
   placeholder?: string;
   defaultValue?: string;
   onChange: (value: string) => void;
-}) => {
-  return (
+}) => (
     <Select value={value} defaultValue={defaultValue} onValueChange={onChange}>
       <SelectTrigger>
         <SelectValue className="text-sm" placeholder={placeholder} />
@@ -148,4 +147,3 @@ export const SelectSingle = ({
       </SelectContent>
     </Select>
   );
-};

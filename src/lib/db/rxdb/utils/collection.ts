@@ -21,8 +21,7 @@ export const addCollections = async (db: RxDatabase) => {
   return db.addCollections(collections);
 };
 
-const createCollections = (schemas: Schema) => {
-  return Object.entries(schemas).reduce(
+const createCollections = (schemas: Schema) => Object.entries(schemas).reduce(
     (acc, [name, schema]) => {
       acc[name] = {
         schema,
@@ -34,16 +33,13 @@ const createCollections = (schemas: Schema) => {
     },
     {} as Record<string, RxCollectionCreator>
   );
-};
 
-export const migrateCollections = async (collections: Record<string, RxCollection>) => {
-  return each(Object.entries(collections), async ([, coll]) => {
+export const migrateCollections = async (collections: Record<string, RxCollection>) => each(Object.entries(collections), async ([, coll]) => {
     const needed = await coll.migrationNeeded();
     if (needed) {
       await coll.startMigration(20);
     }
   });
-};
 
 type UnwrapRxJsonSchema<T> = T extends RxJsonSchema<infer U>
   ? U extends CollectionSchema<infer V>
@@ -61,18 +57,16 @@ export const getMigrationStrategies = <
   const _noop = (oldDoc: unknown) => oldDoc as V;
 
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  const _getDefaults = (oldDoc: any): Record<keyof CommonProperties, string> => {
-    return {
+  const _getDefaults = (oldDoc: any): Record<keyof CommonProperties, string> => ({
       id: oldDoc.id,
       ownerId: oldDoc.ownerId,
       createdAt: oldDoc.createdAt,
       updatedAt: oldDoc.updatedAt
-    };
-  };
+    });
 
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   const _getMeta = (oldDoc: any, rev: number) => {
-    const [_, revId = ''] = (oldDoc._rev as string)?.split('-') ?? [];
+    const [_, revId = ''] = (oldDoc._rev as string).split('-') ?? [];
 
     return {
       _meta: oldDoc._meta,

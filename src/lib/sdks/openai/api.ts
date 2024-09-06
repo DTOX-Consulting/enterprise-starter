@@ -56,14 +56,12 @@ export const createImageCompletion = async (imageOptions: ImageOptions) => {
 export const _createCompletion = async (
   _messages: ChatCompletionRequestMessage[],
   chatOptions: ChatOptions = {}
-) => {
-  return openai.createChatCompletion({
+) => openai.createChatCompletion({
     messages: _messages,
     stream: chatOptions.stream,
     temperature: chatOptions.temperature,
     model: chatOptions.model ?? 'gpt-3.5-turbo'
   });
-};
 
 export const createCompletion = async (
   messages: ChatCompletionRequestMessage[],
@@ -85,10 +83,10 @@ export const streamCompletion = async (
 
   const stream = OpenAIStream(completionResponse, {
     async onCompletion(completion) {
-      await chatOptions?.callback?.({
-        messages: messages,
-        completion: completion,
-        chatOptions: chatOptions
+      await chatOptions.callback?.({
+        messages,
+        completion,
+        chatOptions
       });
     }
   });

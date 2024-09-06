@@ -7,7 +7,7 @@ export const drive = google.drive({ version: 'v3' });
 export const email = google.gmail({ version: 'v1' });
 export const sheets = google.sheets({ version: 'v4' });
 
-interface AuthConfig {
+type AuthConfig = {
   email: string;
   key: string;
   scopes: string[];
@@ -29,4 +29,4 @@ export const changeAuth = (type: 'subject' | 'service') => {
   });
 };
 
-void changeAuth('subject');
+changeAuth('subject');

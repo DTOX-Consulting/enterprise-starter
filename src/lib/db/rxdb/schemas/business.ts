@@ -25,7 +25,7 @@ export type Image = {
   searchText: string;
 };
 
-export interface CompanyStatements {
+export type CompanyStatements = {
   name: string;
   vision: string;
   mission: string;
@@ -35,7 +35,7 @@ export interface CompanyStatements {
   industry: Option[];
 }
 
-export interface Business {
+export type Business = {
   image: null;
   description: null;
   name: string;

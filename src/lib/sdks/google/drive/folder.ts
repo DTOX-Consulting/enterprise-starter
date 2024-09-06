@@ -48,7 +48,7 @@ export const getOrCreateFolder = async (
 ) => {
   const { data: maybeFolder } = unboxR(await findFolderByName(name, parent));
   const folder = maybeFolder?.files?.[0];
-  return folder ? folder : unboxR(await createFolder(name, parent))?.data;
+  return folder ? folder : unboxR(await createFolder(name, parent)).data;
 };
 
 export const createOrOverwriteFolder = async (
@@ -59,7 +59,7 @@ export const createOrOverwriteFolder = async (
   const folderId = maybeFolder?.files?.[0]?.id;
 
   if (folderId) unboxR(await deleteFolder(folderId));
-  return unboxR(await createFolder(name, parent))?.data;
+  return unboxR(await createFolder(name, parent)).data;
 };
 
 export const findFolderByName = async (name: string, parent?: string) => {
@@ -104,5 +104,5 @@ export const moveFolder = async (fileId: string, toAdd: string[], toRemove: stri
 
 export const deleteAllFolders = async () => {
   const { data } = unboxR(await listFolders());
-  return pMap(data?.files ?? [], async (file) => file?.id && deleteFolder(file.id));
+  return pMap(data?.files ?? [], async (file) => file.id && deleteFolder(file.id));
 };

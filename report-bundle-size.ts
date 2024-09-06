@@ -12,16 +12,16 @@ import zlib from 'node:zlib';
 import { sync as mkdirpSync } from 'mkdirp';
 
 // Define types for build manifests
-interface BuildManifest {
+type BuildManifest = {
   pages: Record<string, string[]>;
   rootMainFiles?: string[];
 }
 
-interface AppBuildManifest {
+type AppBuildManifest = {
   pages: Record<string, string[]>;
 }
 
-interface PackageJSON {
+type PackageJSON = {
   nextBundleAnalysis?: { buildOutputDirectory?: string };
   name: string;
 }

@@ -4,7 +4,7 @@ import { ChatMessage } from '@/components/ui/organisms/chat/chat-message';
 import type { Message } from 'ai';
 import type { PropsWithChildren } from 'react';
 
-export interface ChatList {
+export type ChatList = {
   messages: Message[];
 }
 

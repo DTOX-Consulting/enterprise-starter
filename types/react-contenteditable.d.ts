@@ -23,7 +23,7 @@ declare module 'react-contenteditable' {
   // Extending value to HTMLElement is enough for my use case.
   // I haven't had a look at the source code in detail, there may be other keys
   // that were appended to the underlying HTMLElement.
-  interface ContentEditableElement extends HTMLElement {
+  type ContentEditableElement = {
     value: string;
-  }
+  } & HTMLElement
 }

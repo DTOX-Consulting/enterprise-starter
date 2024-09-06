@@ -3,7 +3,7 @@ import { getWindow } from '@/lib/utils/dom';
 import type { AnalyticsEvent, EventProperties } from '@/lib/analytics/events';
 
 // Analytics service interface
-export interface AnalyticsService {
+export type AnalyticsService = {
   trackEvent(event: AnalyticsEvent, properties?: EventProperties): void;
   identify(userId: string, traits?: EventProperties): void;
   setUserProperties(properties: EventProperties): void;
@@ -13,7 +13,7 @@ export interface AnalyticsService {
   init(): void;
 }
 
-export interface AnalyticsConfig {
+export type AnalyticsConfig = {
   token: string;
   debug?: boolean;
   [key: string]: unknown; // Allow for additional service-specific config options

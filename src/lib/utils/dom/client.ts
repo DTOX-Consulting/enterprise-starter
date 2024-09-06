@@ -11,12 +11,10 @@ export function closeOnDocumentClick<T extends RefObject<HTMLElement>[]>(
   const document = getDocument();
   if (!document) return;
 
-  const checkNodes = (e: MouseEvent) => {
-    return refs.some((ref) => {
+  const checkNodes = (e: MouseEvent) => refs.some((ref) => {
       const node = ref.current;
-      return !node || node?.contains(e.target as Node);
+      return !node || node.contains(e.target as Node);
     });
-  };
 
   const handleClick = (e: MouseEvent) => {
     if (checkNodes(e)) return;

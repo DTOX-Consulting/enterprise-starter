@@ -32,7 +32,7 @@ export function useDebounceEffect(key: string, fn: () => void, deps: unknown[], 
 
 export function useDebounceRerender(key: string) {
   const rerender = useForceRerender();
-  let timer: Timer | undefined = undefined;
+  let timer: Timer | undefined;
   useEffect(() => () => clearTimeout(timer), [timer]);
 
   return useCallback(

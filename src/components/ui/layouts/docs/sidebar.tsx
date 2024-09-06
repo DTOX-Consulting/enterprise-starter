@@ -6,13 +6,13 @@ import { cn } from '@/lib/utils';
 import type { FC } from 'react';
 
 // Define types for links and sections
-interface LinkProps {
+type LinkProps = {
   href: string;
   text: string;
   isNew?: boolean;
 }
 
-interface SectionProps {
+type SectionProps = {
   title: string;
   links: LinkProps[];
 }

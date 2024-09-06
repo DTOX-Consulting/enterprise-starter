@@ -16,7 +16,7 @@ export const getTierNameFromSubscription = (subscription?: Stripe.Subscription) 
   }
 
   const mode = getStripeMode();
-  const priceId = subscription?.items?.data[0]?.price.id;
+  const priceId = subscription.items.data[0]?.price.id;
 
   const tier = Object.entries(tiers)
     .reverse()
@@ -120,7 +120,7 @@ export async function getCustomerEmail(
     throw new Error('Customer was deleted');
   }
 
-  const email = customerData.email;
+  const {email} = customerData;
 
   if (!email) {
     throw new Error('Customer email not found');

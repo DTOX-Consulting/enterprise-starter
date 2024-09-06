@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/atoms/button';
 
 import type { ImageEditorInstance } from '@toast-ui/react-image-editor';
 
-interface ImageEditorOptions {
+type ImageEditorOptions = {
   includeUI: {
     menu?: string[];
     initMenu?: string;

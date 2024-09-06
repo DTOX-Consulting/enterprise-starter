@@ -14,10 +14,10 @@ import { useRouter } from '@/lib/hooks/use-router';
 
 import type { UseChatHelpers } from 'ai/react';
 
-export interface PromptProps extends Pick<UseChatHelpers, 'input' | 'setInput'> {
+export type PromptProps = {
   onSubmit: (value: string) => Promise<void>;
   isLoading: boolean;
-}
+} & Pick<UseChatHelpers, 'input' | 'setInput'>
 
 export function PromptForm({ onSubmit, input, setInput, isLoading }: PromptProps) {
   const { formRef, onKeyDown } = useEnterSubmit();
@@ -34,7 +34,7 @@ export function PromptForm({ onSubmit, input, setInput, isLoading }: PromptProps
     <form
       onSubmit={async (e) => {
         e.preventDefault();
-        if (!input?.trim()) {
+        if (!input.trim()) {
           return;
         }
         setInput('');

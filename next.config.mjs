@@ -11,6 +11,7 @@ import { rewrites } from './config/rewrites.config.mjs';
 import { headers, images } from './config/security.config.mjs';
 import { env } from './src/lib/env/env.mjs';
 
+// eslint-disable-next-line no-console
 console.table({ isDev, isDocker, isVercel, isCloudflare });
 
 /** @type {import("next").NextConfig} */
@@ -49,14 +50,13 @@ const nextConfig = {
 
   /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
   webpack: (config, { isServer, nextRuntime, webpack }) => {
-    const createPlugins = (modules) => {
-      return modules.map(
+    const createPlugins = (modules) =>
+      modules.map(
         (module) =>
           new webpack.NormalModuleReplacementPlugin(new RegExp(`^node:${module}`), (resource) => {
             resource.request = resource.request.replace(/^node:/, '');
           })
       );
-    };
 
     if (isCloudflare && (!isServer || nextRuntime === 'edge')) {
       config.resolve.fallback = {
@@ -108,17 +108,21 @@ const nextConfig = {
 };
 
 /**
+ * Creates a Next.js config with Highlight integration.
  *
- * @param {import('./types/highlight-run').HighlightConfigOptions | undefined} highlightConfig
+ * @param {import('./types/highlight-run').HighlightConfigOptions | undefined} highlightConfig - Highlight configuration options
+ * @returns {(config: import("next").NextConfig) => Promise<import("next").NextConfig>} A function that applies Highlight config
  */
-const nextHighlight = (highlightConfig) => {
+const nextHighlight =
+  (highlightConfig) =>
   /**
+   * Applies Highlight configuration to Next.js config.
    *
-   *
-   * @param {import("next").NextConfig} config
+   * @param {import("next").NextConfig} config - Next.js configuration
+   * @returns {Promise<import("next").NextConfig>} Updated Next.js configuration
    */
-  return async (config) => withHighlightConfig(config, highlightConfig);
-};
+  async (config) =>
+    withHighlightConfig(config, highlightConfig);
 
 /** @type {((config: import('next').NextConfig) => import('next').NextConfig)[]} */
 const plugins = [
@@ -132,6 +136,7 @@ const plugins = [
   }),
   nextHighlight({
     uploadSourceMaps: !isDev,
+    // eslint-disable-next-line n/no-process-env
     apiKey: process.env.HIGHLIGHT_SOURCEMAP_API_KEY
   })
 ];
@@ -139,9 +144,9 @@ const plugins = [
 const pluginsConfig = plugins.reduce((acc, plugin) => plugin(acc), nextConfig);
 
 /**
+ * Configures Next.js with Million.js optimizations.
  *
- *
- * @returns {import("next").NextConfig}
+ * @returns {import("next").NextConfig} Optimized Next.js configuration
  */
 const _nextMillion = () => {
   const lint = nextMillionLint({
@@ -163,6 +168,11 @@ const _nextMillion = () => {
   /* eslint-enable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-return */
 };
 
+/**
+ * Asynchronous configuration function for Next.js.
+ *
+ * @returns {Promise<import("next").NextConfig>} Next.js configuration
+ */
 const config = async () => {
   await import('./src/lib/env/env.mjs');
 
@@ -174,8 +184,6 @@ const config = async () => {
   }
 
   return pluginsConfig;
-
-  // return nextMillion();
 };
 
 export default config;

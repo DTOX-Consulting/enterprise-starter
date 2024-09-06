@@ -1,13 +1,13 @@
 'use client';
 
-import * as React from 'react';
+import { useState } from 'react';
 
-export interface UseCopyToClipboardProps {
+export type UseCopyToClipboardProps = {
   timeout?: number;
 }
 
 export function useCopyToClipboard({ timeout = 2000 }: UseCopyToClipboardProps) {
-  const [isCopied, setIsCopied] = React.useState<boolean>(false);
+  const [isCopied, setIsCopied] = useState<boolean>(false);
 
   const copyToClipboard = async (value: string) => {
     if (typeof window === 'undefined') {

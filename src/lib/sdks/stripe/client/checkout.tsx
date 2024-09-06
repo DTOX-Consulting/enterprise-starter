@@ -52,8 +52,7 @@ export const handleCheckout = (
   setLoading: Dispatch<SetStateAction<boolean>>,
   mutateAsync: ReturnType<typeof api.payment.subscribe.useMutation>['mutateAsync'],
   router: AppRouterInstance
-) => {
-  return async (e: FormEvent) => {
+) => async (e: FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
@@ -79,15 +78,13 @@ export const handleCheckout = (
     sendGTMEvent({ event: 'begin_checkout', tier });
     await stripe?.redirectToCheckout({ sessionId: details.session.id });
   };
-};
 
 export const handleManageSubscription = (
   tier: TierName,
   setLoading: Dispatch<SetStateAction<boolean>>,
   mutateAsync: ReturnType<typeof api.payment.manageSubscription.useMutation>['mutateAsync'],
   router: AppRouterInstance
-) => {
-  return async (e: FormEvent) => {
+) => async (e: FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
@@ -110,7 +107,6 @@ export const handleManageSubscription = (
     finish();
     router.push(details.hasSubscription ? details.billing.url : routes.pricing);
   };
-};
 
 export const ManageSubscriptionButton = ({ tier }: { tier: TierName }) => {
   const router = useRouter();

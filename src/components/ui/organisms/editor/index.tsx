@@ -32,7 +32,7 @@ import type { Editor as EditorType, UpdateContent } from '@/components/ui/organi
 
 const extensions = [...defaultExtensions, slashCommand];
 
-//Apply Codeblock Highlighting on the HTML from editor.getHTML()
+// Apply Codeblock Highlighting on the HTML from editor.getHTML()
 const highlightCodeblocks = (content: string) => {
   const doc = new DOMParser().parseFromString(content, 'text/html');
   doc.querySelectorAll('pre code').forEach((el) => hljs.highlightElement(el as HTMLElement));
@@ -69,7 +69,7 @@ export const Editor = ({
     const json = editor.getJSON();
     const text = editor.getText();
     const html = highlightCodeblocks(editor.getHTML());
-    const markdown = editor.storage.markdown?.getMarkdown();
+    const markdown = editor.storage.markdown.getMarkdown();
 
     onUpdate?.({ text, json, html, markdown }, editor, setInitialContent);
     setCharsCount(editor.storage.characterCount.words());

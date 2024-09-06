@@ -25,7 +25,7 @@ type DataProps<T> = {
   currentDataAtom: ReturnType<typeof atom<T | null>>;
 };
 
-interface MinimalData {
+type MinimalData = {
   id: string;
   name?: string;
   createdAt?: string;
@@ -157,7 +157,7 @@ export function useData<T extends MinimalData>({
         return;
       }
 
-      const createdAt = currentData.createdAt;
+      const {createdAt} = currentData;
       const lastUpdated = new Date().toISOString();
       const standardData = { id, createdAt, lastUpdated };
 

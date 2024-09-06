@@ -1,5 +1,5 @@
-import * as z from 'zod';
+import { object, string } from 'zod';
 
-export const userAuthSchema = z.object({
-  email: z.string().email()
+export const userAuthSchema = object({
+  email: string().email()
 });

@@ -1,6 +1,6 @@
 import type { DeepReadonlyArray, DeepReadonlyObject } from '@/lib/utils/object';
 
-export interface Option {
+export type Option = {
   value: string;
   label: string;
   disable?: boolean;

@@ -8,15 +8,13 @@ export const findPermission = async (permission: string) => {
   return foundPermission as NonNullable<typeof foundPermission> & { id: string };
 };
 
-export const createPermission = async (key: string, name: string, description?: string) => {
-  return permissionsApi.createPermission({
+export const createPermission = async (key: string, name: string, description?: string) => permissionsApi.createPermission({
     requestBody: {
       key,
       name,
       description
     }
   });
-};
 
 export const getPermissions = async (email: string, orgId?: string) => {
   const user = await getUserByEmail(email);

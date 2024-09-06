@@ -65,7 +65,7 @@ export const getOrCreateFile = async (
   const { data: maybeFile } = unboxR(await findFileByName(name, parent));
   const file = maybeFile?.files?.[0];
 
-  return file ? file : unboxR(await createFile(name, body, parent, mimeType))?.data;
+  return file ? file : unboxR(await createFile(name, body, parent, mimeType)).data;
 };
 
 export const createOrOverwriteFile = async (
@@ -132,5 +132,5 @@ export const moveFile = async (fileId: string, toAdd: string[], toRemove: string
 
 export const deleteAllFiles = async () => {
   const { data } = unboxR(await listFiles());
-  return pMap(data?.files ?? [], async (file) => file?.id && deleteFile(file.id));
+  return pMap(data?.files ?? [], async (file) => file.id && deleteFile(file.id));
 };

@@ -2,7 +2,7 @@ import { loadStripe, type Stripe } from '@stripe/stripe-js';
 
 import { config } from '@/lib/sdks/stripe/client/config';
 
-let stripePromise: Promise<Stripe | null> | undefined = undefined;
+let stripePromise: Promise<Stripe | null> | undefined;
 
 const getStripe = async () => {
   if (!stripePromise) {

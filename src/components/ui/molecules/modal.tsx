@@ -23,7 +23,7 @@ const variants = {
   large: 'flex flex-col max-w-screen h-screen w-screen overflow-auto lg:size-[98%] xl:size-[95%]'
 };
 
-interface ModalProps extends PropsWithChildren {
+type ModalProps = {
   title: string;
   description?: ReactNode;
   variant?: keyof typeof variants;
@@ -60,7 +60,7 @@ interface ModalProps extends PropsWithChildren {
   closeButtonVariant?: ButtonVariants;
   closeButtonOnClick?: MouseEventHandler<HTMLButtonElement>;
   closeButtonProps?: ButtonHTMLAttributes<HTMLButtonElement>;
-}
+} & PropsWithChildren
 
 export function Modal({
   title,

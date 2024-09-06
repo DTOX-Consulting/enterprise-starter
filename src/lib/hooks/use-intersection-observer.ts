@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState, type RefObject } from 'react';
 
-interface Args extends IntersectionObserverInit {
+type Args = {
   freezeOnceVisible?: boolean;
-}
+} & IntersectionObserverInit
 
 function useIntersectionObserver(
   elementRef: RefObject<Element>,
@@ -18,7 +18,7 @@ function useIntersectionObserver(
   }, []);
 
   useEffect(() => {
-    const node = elementRef?.current; // DOM Ref
+    const node = elementRef.current; // DOM Ref
     const hasIOSupport = !!(window.IntersectionObserver as
       | typeof window.IntersectionObserver
       | undefined);

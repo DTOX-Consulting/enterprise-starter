@@ -3,7 +3,7 @@ import { createSchema } from '@/lib/db/rxdb/utils/schema';
 import type { Option } from '@/components/ui/atoms/select-multi';
 import type { BusinessChangeKeys } from '@/data/guards';
 
-export interface History {
+export type History = {
   businessId: string;
   organizationId: string;
   description?: string;

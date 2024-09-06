@@ -3,7 +3,7 @@
 export type QueryParamsType = Record<string | number, unknown>;
 export type ResponseFormat = keyof Omit<Body, 'body' | 'bodyUsed'>;
 
-export interface FullRequestParams extends Omit<RequestInit, 'body'> {
+export type FullRequestParams = {
   /** set parameter to `true` for call `securityWorker` for this request */
   secure?: boolean;
   /** request path */
@@ -20,11 +20,11 @@ export interface FullRequestParams extends Omit<RequestInit, 'body'> {
   baseUrl?: string;
   /** request cancellation token */
   cancelToken?: CancelToken;
-}
+} & Omit<RequestInit, 'body'>
 
 export type RequestParams = Omit<FullRequestParams, 'body' | 'method' | 'query' | 'path'>;
 
-export interface ApiConfig<SecurityDataType = unknown> {
+export type ApiConfig<SecurityDataType = unknown> = {
   baseUrl?: string;
   baseApiParams?: Omit<RequestParams, 'baseUrl' | 'cancelToken' | 'signal'>;
   securityWorker?: (
@@ -33,10 +33,10 @@ export interface ApiConfig<SecurityDataType = unknown> {
   customFetch?: typeof fetch;
 }
 
-export interface HttpResponse<D, E = unknown> extends Response {
+export type HttpResponse<D, E = unknown> = {
   data: D;
   error: E;
-}
+} & Response
 
 type CancelToken = symbol | string | number;
 

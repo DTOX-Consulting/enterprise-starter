@@ -9,7 +9,7 @@ const slack = new Slack({
   id: 'slack'
 });
 
-interface KindeJWT {
+type KindeJWT = {
   type: 'user.created';
   timestamp: string;
   event_id: string;
@@ -35,7 +35,7 @@ export const kindeUserCreated = client.defineJob({
     const body = await request.text();
     const jwt = decodeJwt<KindeJWT>(body);
 
-    const user = jwt.data.user;
+    const {user} = jwt.data;
     const { email, first_name: name } = user;
 
     await send({

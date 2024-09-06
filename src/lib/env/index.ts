@@ -26,7 +26,7 @@ export const currentEnv = (): ENV =>
   isProd() ? 'production' : isStaging() ? 'staging' : 'development';
 
 export const getEnv = (key: string, defaultValue?: string) => {
-  const value = process?.env?.[key] ?? defaultValue;
+  const value = process.env[key] ?? defaultValue;
 
   if (G.isNullable(value)) {
     throw new Error(`Missing environment variable ${key}`);

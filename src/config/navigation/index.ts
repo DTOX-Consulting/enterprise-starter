@@ -12,6 +12,7 @@ const config = {
 } as const;
 
 type Base = (typeof bases)[number];
+
 type SlugBase = (typeof slugBases)[number];
 
 type Path = {
@@ -92,7 +93,7 @@ export function createPath({ page, slug, base, orgId, businessId }: Path) {
 
 export function parsePath(path: string): Path {
   let [, base = '', orgId, businessId, page] = path.split('/');
-  let slug: string | undefined = undefined;
+  let slug: string | undefined;
 
   if (isSlugBase(base)) {
     slug = orgId;

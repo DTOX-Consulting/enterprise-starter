@@ -52,7 +52,7 @@ type EventObject =
   | 'all_notifications';
 
 // Main analytics event interface
-export interface AnalyticsEvent {
+export type AnalyticsEvent = {
   category: EventCategory;
   action: EventAction;
   object: EventObject;

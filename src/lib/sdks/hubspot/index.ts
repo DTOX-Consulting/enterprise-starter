@@ -64,8 +64,8 @@ const returnContact = (
 };
 
 const returnData = (input: ClientData, data?: object) => {
-  const contact = (data as { results: SimplePublicObject[] }).results?.[0];
-  const contactError = (data as { errors: SimplePublicObjectError[] }).errors?.[0];
+  const contact = (data as { results: SimplePublicObject[] }).results[0];
+  const contactError = (data as { errors: SimplePublicObjectError[] }).errors[0];
   return returnContact(input.email, input, contact, contactError);
 };
 

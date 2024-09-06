@@ -86,8 +86,7 @@ export function Navigation() {
   );
 }
 
-export const FooterNavigation = () => {
-  return (
+export const FooterNavigation = () => (
     <nav className="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12" aria-label="Footer">
       {footerNavigation.map((item) => (
         <div key={item.name} className="pb-6">
@@ -101,4 +100,3 @@ export const FooterNavigation = () => {
       ))}
     </nav>
   );
-};

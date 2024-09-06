@@ -42,9 +42,7 @@ export const generateImageMarkdown = (
     description2: '{description2}',
     description3: '{description3}'
   }
-) => {
-  return `![Image](${generateImageUrl(params)})`;
-};
+) => `![Image](${generateImageUrl(params)})`;
 
 export const generateImagePromptBody = () =>
   `
@@ -86,12 +84,10 @@ Do not display the {image url} in code block or quotes.
 Ensure the word/character count is within the specified range.
 `.trim();
 
-export const generateImagePrompt = (responseType?: ImageResponseType) => {
-  return [
+export const generateImagePrompt = (responseType?: ImageResponseType) => [
     generateImagePromptBody(),
     generateImagePromptResponse(responseType),
     generateImagePromptPostBody()
   ]
     .join('\n\n')
     .trim();
-};

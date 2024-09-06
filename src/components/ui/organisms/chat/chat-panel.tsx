@@ -10,13 +10,12 @@ import { cn } from '@/lib/utils';
 
 import type { UseChatHelpers } from 'ai/react';
 
-export interface ChatPanelProps
-  extends Pick<
+export type ChatPanelProps = {
+  id?: string;
+} & Pick<
     UseChatHelpers,
     'append' | 'isLoading' | 'reload' | 'messages' | 'stop' | 'input' | 'setInput'
-  > {
-  id?: string;
-}
+  >
 
 export function ChatPanel({
   id,

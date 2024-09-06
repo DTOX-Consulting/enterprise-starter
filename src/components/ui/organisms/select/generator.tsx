@@ -17,8 +17,7 @@ export type SelectGeneratorProps<Params> = {
 export const SelectGenerator = <Params extends Record<keyof Params, unknown>>({
   config,
   onChange
-}: SelectGeneratorProps<Params>) => {
-  return (
+}: SelectGeneratorProps<Params>) => (
     <>
       {config
         .filter(({ condition }) => condition !== false)
@@ -35,4 +34,3 @@ export const SelectGenerator = <Params extends Record<keyof Params, unknown>>({
         ))}
     </>
   );
-};

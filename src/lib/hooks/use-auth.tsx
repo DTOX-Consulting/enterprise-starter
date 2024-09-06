@@ -25,13 +25,11 @@ export function useAuth() {
     data = utils.auth.user.getData();
   }
 
-  const userId = data?.user?.id ?? 'default';
+  const userId = data?.user.id ?? 'default';
   const orgId = data?.organization?.orgCode ?? 'default';
 
   const getStorageKey = useCallback(
-    (prefix: string) => {
-      return `${prefix}-${orgId}-${userId}`;
-    },
+    (prefix: string) => `${prefix}-${orgId}-${userId}`,
     [orgId, userId]
   );
 

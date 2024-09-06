@@ -18,7 +18,7 @@ import Magic from '@/components/ui/organisms/editor/icons/magic';
 
 import type { Editor } from '@/components/ui/organisms/editor/types';
 
-interface AISelectorProps {
+type AISelectorProps = {
   open: boolean;
   completionApi?: string;
   onOpenChange: (open: boolean) => void;
@@ -33,7 +33,7 @@ export function AISelector({ onOpenChange, completionApi }: AISelectorProps) {
     onResponse: (response) => {
       if (response.status === 429) {
         toast.error('You have reached your request limit for the day.');
-        return;
+        
       }
     },
     onError: (e) => {
@@ -100,7 +100,7 @@ export function AISelector({ onOpenChange, completionApi }: AISelectorProps) {
           {hasCompletion ? (
             <AICompletionCommands
               onDiscard={() => {
-                editor.chain().unsetHighlight?.().focus().run();
+                editor.chain().unsetHighlight().focus().run();
                 onOpenChange(false);
               }}
               completion={completion}

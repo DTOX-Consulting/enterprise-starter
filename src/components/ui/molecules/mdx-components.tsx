@@ -113,7 +113,7 @@ const components: MDXComponents = {
   Card: MdxCard
 };
 
-interface MdxProps {
+type MdxProps = {
   code: string;
 }
 

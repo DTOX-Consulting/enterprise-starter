@@ -17,13 +17,9 @@ export function useDBData() {
   const { path } = useNavigation();
   const [isReady] = useAtom('dbInitializedAtom');
 
-  const { result: bizResult } = useRxDBData('business', (collection) => {
-    return collection.find().where('ownerId').equals(userId);
-  });
+  const { result: bizResult } = useRxDBData('business', (collection) => collection.find().where('ownerId').equals(userId));
 
-  const { result: orgResult } = useRxDBData('organization', (collection) => {
-    return collection.find().where('ownerId').equals(userId);
-  });
+  const { result: orgResult } = useRxDBData('organization', (collection) => collection.find().where('ownerId').equals(userId));
 
   const businesses = useMemo(() => bizResult.map((biz) => biz.toJSON()), [bizResult]);
   const organizations = useMemo(() => orgResult.map((org) => org.toJSON()), [orgResult]);
@@ -76,8 +72,7 @@ export function useDBData() {
   );
 
   const filterBusinesses = useCallback(
-    (search: string, filter: string) => {
-      return currentBusinesses
+    (search: string, filter: string) => currentBusinesses
         .filter((business) => {
           if (search) {
             return business.name.toLowerCase().includes(search.toLowerCase());
@@ -99,8 +94,7 @@ export function useDBData() {
           }
 
           return 0;
-        });
-    },
+        }),
     [currentBusinesses]
   );
 
@@ -122,17 +116,11 @@ export function useDBData() {
 export function useDBDataExtras() {
   const { userId } = useAuth();
 
-  const { result: historyResult } = useRxDBData('history', (collection) => {
-    return collection.find().where('ownerId').equals(userId);
-  });
+  const { result: historyResult } = useRxDBData('history', (collection) => collection.find().where('ownerId').equals(userId));
 
-  const { result: userMetaResult } = useRxDBData('user_meta', (collection) => {
-    return collection.find().where('ownerId').equals(userId);
-  });
+  const { result: userMetaResult } = useRxDBData('user_meta', (collection) => collection.find().where('ownerId').equals(userId));
 
-  const { result: notificationResult } = useRxDBData('notification', (collection) => {
-    return collection.find().where('ownerId').equals(userId);
-  });
+  const { result: notificationResult } = useRxDBData('notification', (collection) => collection.find().where('ownerId').equals(userId));
 
   const history = useMemo(() => historyResult.map((history) => history.toJSON()), [historyResult]);
 

@@ -64,15 +64,13 @@ function useOrganizationMigration() {
   const businessCollection = useRxCollection<BusinessSchema>('business');
   const organizationCollection = useRxCollection<OrganizationSchema>('organization');
 
-  const migrateOrganization = () => {
+  return () => {
     organizationMigration(organizationCollection, organizations, user);
     organizations.forEach((organization) => {
       const businesses = organization.businesses ?? [];
       businessMigration(businessCollection, businesses, user, organization.id);
     });
   };
-
-  return migrateOrganization;
 }
 
 function useExtrasMigration() {
@@ -84,10 +82,8 @@ function useExtrasMigration() {
   const historyCollection = useRxCollection<HistorySchema>('history');
   const notificationCollection = useRxCollection<NotificationSchema>('notification');
 
-  const migrateExtras = () => {
+  return () => {
     notificationMigration(notificationCollection, notifications, user);
     historyMigration(historyCollection, histories, user, getBusinessOrgId);
   };
-
-  return migrateExtras;
 }

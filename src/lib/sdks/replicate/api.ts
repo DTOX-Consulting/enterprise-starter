@@ -32,7 +32,7 @@ export const clarityAI = async ({
       output_format: 'png',
       num_inference_steps: 18,
       downscaling_resolution: 768,
-      prompt: prompt,
+      prompt,
       image: imageUrl,
       negative_prompt: negativePrompt,
       scheduler: 'DPM++ 3M SDE Karras',
@@ -50,7 +50,7 @@ export const stabilityDiffusion = async ({
   const input = {
     cfg: 3.5,
     steps: 28,
-    prompt: prompt,
+    prompt,
     output_quality: 90,
     negative_prompt: '',
     aspect_ratio: '3:2',
@@ -70,7 +70,7 @@ export const stableDiffusionInPainting = async ({
   const input = {
     mask: maskUrl,
     num_outputs: 1,
-    prompt: prompt,
+    prompt,
     image: imageUrl,
     invert_mask: false,
     guidance_scale: 7.5,
@@ -90,7 +90,7 @@ export const metaLlama = async ({
     top_k: 50,
     top_p: 0.9,
     min_tokens: 0,
-    prompt: prompt,
+    prompt,
     max_tokens: 1024,
     temperature: 0.6,
     presence_penalty: 0,
@@ -104,7 +104,7 @@ export const metaLlama = async ({
 export const fluxSchnell = async ({ prompt = 'a photo of a vibrant cityscape' }: ModelInput) => {
   const model = 'black-forest-labs/flux-schnell';
   const input = {
-    prompt: prompt,
+    prompt,
     output_quality: 90
   };
 

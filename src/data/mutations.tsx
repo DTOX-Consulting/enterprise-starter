@@ -148,8 +148,7 @@ export function useDBDataMutation() {
         images
       });
 
-      const newBusiness = await insertBusiness(business);
-      return newBusiness;
+      return await insertBusiness(business);
     },
     [currentOrganization?.id, insertBusiness, provideSuggestions]
   );

@@ -3,9 +3,7 @@ import { getRequestConfig } from 'next-intl/server';
 
 import { locales, type Locale, type LocalePath } from '@/constants';
 
-const hasLocale = (locale: string): locale is Locale => {
-  return locales.includes(locale as Locale);
-};
+const hasLocale = (locale: string): locale is Locale => locales.includes(locale as Locale);
 
 const createLocalePath = (locale: Locale): LocalePath => `../messages/${locale}.json`;
 
@@ -16,7 +14,7 @@ export default getRequestConfig(async ({ locale }) => {
   }
 
   const path = createLocalePath(locale);
-  const messages = ((await import(path)) as { default: RequestConfig['messages'] })?.default;
+  const messages = ((await import(path)) as { default: RequestConfig['messages'] }).default;
 
   return {
     messages

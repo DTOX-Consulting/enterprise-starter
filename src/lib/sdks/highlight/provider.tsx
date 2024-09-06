@@ -10,8 +10,7 @@ import type { PropsWithChildren } from 'react';
 
 HyperDX.attachToReactErrorBoundary(ErrorBoundary);
 
-export const HighlightProvider = ({ children }: PropsWithChildren) => {
-  return (
+export const HighlightProvider = ({ children }: PropsWithChildren) => (
     <>
       <HighlightInit
         manualStart
@@ -28,4 +27,3 @@ export const HighlightProvider = ({ children }: PropsWithChildren) => {
       <ErrorBoundary>{children}</ErrorBoundary>
     </>
   );
-};

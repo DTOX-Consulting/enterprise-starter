@@ -309,11 +309,13 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results.
+       *
        * @example "<string>"
        */
       after?: string;
       /**
        * The maximum number of results to display per page.
+       *
        * @example "500"
        */
       limit?: number;
@@ -323,7 +325,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v4/objects/${objectType}/${objectId}/associations/${toObjectType}`,
       method: 'GET',
-      query: query,
+      query,
       secure: true,
       format: 'json',
       ...params
@@ -431,6 +433,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -440,7 +443,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: '/crm/v3/objects/carts/batch/read',
       method: 'POST',
-      query: query,
+      query,
       body: data,
       secure: true,
       type: ContentType.Json,
@@ -517,26 +520,31 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       properties?: string;
       /**
        * A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       propertiesWithHistory?: string;
       /**
        * A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
+       *
        * @example "<string>"
        */
       associations?: string;
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
       /**
        * The name of a property whose values are unique for this object type
+       *
        * @example "<string>"
        */
       idProperty?: string;
@@ -546,7 +554,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/objects/carts/${cartId}`,
       method: 'GET',
-      query: query,
+      query,
       secure: true,
       format: 'json',
       ...params
@@ -582,6 +590,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * The name of a property whose values are unique for this object type
+       *
        * @example "<string>"
        */
       idProperty?: string;
@@ -591,7 +600,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/objects/carts/${cartId}`,
       method: 'PATCH',
-      query: query,
+      query,
       body: data,
       secure: true,
       type: ContentType.Json,
@@ -611,31 +620,37 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * The maximum number of results to display per page.
+       *
        * @example "10"
        */
       limit?: number;
       /**
        * The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results.
+       *
        * @example "<string>"
        */
       after?: string;
       /**
        * A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       properties?: string;
       /**
        * A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored. Usage of this parameter will reduce the maximum number of objects that can be read by a single request.
+       *
        * @example "<string>"
        */
       propertiesWithHistory?: string;
       /**
        * A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
+       *
        * @example "<string>"
        */
       associations?: string;
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -645,7 +660,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: '/crm/v3/objects/carts',
       method: 'GET',
-      query: query,
+      query,
       secure: true,
       format: 'json',
       ...params
@@ -702,6 +717,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -711,7 +727,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: '/crm/v3/objects/commerce_payments/batch/read',
       method: 'POST',
-      query: query,
+      query,
       body: data,
       secure: true,
       type: ContentType.Json,
@@ -782,26 +798,31 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested payment, they will be ignored.
+       *
        * @example "<string>"
        */
       properties?: string;
       /**
        * A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested payment, they will be ignored.
+       *
        * @example "<string>"
        */
       propertiesWithHistory?: string;
       /**
        * A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
+       *
        * @example "<string>"
        */
       associations?: string;
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
       /**
        * The name of a property whose values are unique for this object type.
+       *
        * @example "<string>"
        */
       idProperty?: string;
@@ -811,7 +832,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/objects/commerce_payments/${commercePaymentId}`,
       method: 'GET',
-      query: query,
+      query,
       secure: true,
       format: 'json',
       ...params
@@ -844,6 +865,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * The name of a property whose values are unique for this object type
+       *
        * @example "<string>"
        */
       idProperty?: string;
@@ -853,7 +875,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/objects/commerce_payments/${commercePaymentId}`,
       method: 'PATCH',
-      query: query,
+      query,
       body: data,
       type: ContentType.Json,
       format: 'json',
@@ -872,31 +894,37 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * The maximum number of results to display per page.
+       *
        * @example "10"
        */
       limit?: number;
       /**
        * The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results.
+       *
        * @example "<string>"
        */
       after?: string;
       /**
        * A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       properties?: string;
       /**
        * A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored. Usage of this parameter will reduce the maximum number of objects that can be read by a single request.
+       *
        * @example "<string>"
        */
       propertiesWithHistory?: string;
       /**
        * A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
+       *
        * @example "<string>"
        */
       associations?: string;
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -906,7 +934,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: '/crm/v3/objects/commerce_payments',
       method: 'GET',
-      query: query,
+      query,
       secure: true,
       format: 'json',
       ...params
@@ -960,6 +988,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -969,7 +998,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: '/crm/v3/objects/subscriptions/batch/read',
       method: 'POST',
-      query: query,
+      query,
       body: data,
       type: ContentType.Json,
       format: 'json',
@@ -988,26 +1017,31 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       properties?: string;
       /**
        * A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       propertiesWithHistory?: string;
       /**
        * A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
+       *
        * @example "<string>"
        */
       associations?: string;
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
       /**
        * The name of a property whose values are unique for this object type
+       *
        * @example "<string>"
        */
       idProperty?: string;
@@ -1017,7 +1051,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/objects/subscriptions/${subscriptionId}`,
       method: 'GET',
-      query: query,
+      query,
       format: 'json',
       ...params
     });
@@ -1033,31 +1067,37 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * The maximum number of results to display per page.
+       *
        * @example "10"
        */
       limit?: number;
       /**
        * The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results.
+       *
        * @example "<string>"
        */
       after?: string;
       /**
        * A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       properties?: string;
       /**
        * A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored. Usage of this parameter will reduce the maximum number of objects that can be read by a single request.
+       *
        * @example "<string>"
        */
       propertiesWithHistory?: string;
       /**
        * A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
+       *
        * @example "<string>"
        */
       associations?: string;
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -1067,7 +1107,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: '/crm/v3/objects/subscriptions',
       method: 'GET',
-      query: query,
+      query,
       format: 'json',
       ...params
     });
@@ -1102,6 +1142,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -1111,7 +1152,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: '/crm/v3/objects/companies/batch/read',
       method: 'POST',
-      query: query,
+      query,
       body: data,
       secure: true,
       type: ContentType.Json,
@@ -1186,31 +1227,37 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * The maximum number of results to display per page.
+       *
        * @example "10"
        */
       limit?: number;
       /**
        * The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results.
+       *
        * @example "<string>"
        */
       after?: string;
       /**
        * A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       properties?: string;
       /**
        * A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored. Usage of this parameter will reduce the maximum number of objects that can be read by a single request.
+       *
        * @example "<string>"
        */
       propertiesWithHistory?: string;
       /**
        * A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
+       *
        * @example "<string>"
        */
       associations?: string;
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -1220,7 +1267,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: '/crm/v3/objects/companies',
       method: 'GET',
-      query: query,
+      query,
       secure: true,
       format: 'json',
       ...params
@@ -1258,26 +1305,31 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       properties?: string;
       /**
        * A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       propertiesWithHistory?: string;
       /**
        * A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
+       *
        * @example "<string>"
        */
       associations?: string;
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
       /**
        * The name of a property whose values are unique for this object type
+       *
        * @example "<string>"
        */
       idProperty?: string;
@@ -1287,7 +1339,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/objects/companies/${companyId}`,
       method: 'GET',
-      query: query,
+      query,
       secure: true,
       format: 'json',
       ...params
@@ -1323,6 +1375,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * The name of a property whose values are unique for this object type
+       *
        * @example "<string>"
        */
       idProperty?: string;
@@ -1332,7 +1385,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/objects/companies/${companyId}`,
       method: 'PATCH',
-      query: query,
+      query,
       body: data,
       secure: true,
       type: ContentType.Json,
@@ -1426,6 +1479,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -1435,7 +1489,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: '/crm/v3/objects/contacts/batch/read',
       method: 'POST',
-      query: query,
+      query,
       body: data,
       secure: true,
       type: ContentType.Json,
@@ -1455,31 +1509,37 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * The maximum number of results to display per page.
+       *
        * @example "10"
        */
       limit?: number;
       /**
        * The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results.
+       *
        * @example "<string>"
        */
       after?: string;
       /**
        * A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       properties?: string;
       /**
        * A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored. Usage of this parameter will reduce the maximum number of objects that can be read by a single request.
+       *
        * @example "<string>"
        */
       propertiesWithHistory?: string;
       /**
        * A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
+       *
        * @example "<string>"
        */
       associations?: string;
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -1489,7 +1549,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: '/crm/v3/objects/contacts',
       method: 'GET',
-      query: query,
+      query,
       secure: true,
       format: 'json',
       ...params
@@ -1527,21 +1587,25 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       properties?: string;
       /**
        * A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       propertiesWithHistory?: string;
       /**
        * A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
+       *
        * @example "<string>"
        */
       associations?: string;
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -1551,7 +1615,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/objects/contacts/${contactId}`,
       method: 'GET',
-      query: query,
+      query,
       secure: true,
       format: 'json',
       ...params
@@ -1738,6 +1802,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -1747,7 +1812,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/objects/${objectType}/batch/read`,
       method: 'POST',
-      query: query,
+      query,
       body: data,
       secure: true,
       type: ContentType.Json,
@@ -1832,26 +1897,31 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       properties?: string;
       /**
        * A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       propertiesWithHistory?: string;
       /**
        * A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
+       *
        * @example "<string>"
        */
       associations?: string;
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
       /**
        * The name of a property whose values are unique for this object type
+       *
        * @example "<string>"
        */
       idProperty?: string;
@@ -1861,7 +1931,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/objects/${objectType}/${objectId}`,
       method: 'GET',
-      query: query,
+      query,
       secure: true,
       format: 'json',
       ...params
@@ -1898,6 +1968,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * The name of a property whose values are unique for this object type
+       *
        * @example "<string>"
        */
       idProperty?: string;
@@ -1907,7 +1978,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/objects/${objectType}/${objectId}`,
       method: 'PATCH',
-      query: query,
+      query,
       body: data,
       secure: true,
       type: ContentType.Json,
@@ -1930,31 +2001,37 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * The maximum number of results to display per page.
+       *
        * @example "10"
        */
       limit?: number;
       /**
        * The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results.
+       *
        * @example "<string>"
        */
       after?: string;
       /**
        * A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       properties?: string;
       /**
        * A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored. Usage of this parameter will reduce the maximum number of objects that can be read by a single request.
+       *
        * @example "<string>"
        */
       propertiesWithHistory?: string;
       /**
        * A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
+       *
        * @example "<string>"
        */
       associations?: string;
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -1964,7 +2041,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/objects/${objectType}`,
       method: 'GET',
-      query: query,
+      query,
       secure: true,
       format: 'json',
       ...params
@@ -2076,6 +2153,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -2085,7 +2163,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: '/crm/v3/objects/deals/batch/read',
       method: 'POST',
-      query: query,
+      query,
       body: data,
       secure: true,
       type: ContentType.Json,
@@ -2105,31 +2183,37 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * The maximum number of results to display per page.
+       *
        * @example "10"
        */
       limit?: number;
       /**
        * The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results.
+       *
        * @example "<string>"
        */
       after?: string;
       /**
        * A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       properties?: string;
       /**
        * A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored. Usage of this parameter will reduce the maximum number of objects that can be read by a single request.
+       *
        * @example "<string>"
        */
       propertiesWithHistory?: string;
       /**
        * A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
+       *
        * @example "<string>"
        */
       associations?: string;
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -2139,7 +2223,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: '/crm/v3/objects/deals',
       method: 'GET',
-      query: query,
+      query,
       secure: true,
       format: 'json',
       ...params
@@ -2177,26 +2261,31 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       properties?: string;
       /**
        * A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       propertiesWithHistory?: string;
       /**
        * A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
+       *
        * @example "<string>"
        */
       associations?: string;
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
       /**
        * The name of a property whose values are unique for this object type
+       *
        * @example "<string>"
        */
       idProperty?: string;
@@ -2206,7 +2295,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/objects/deals/${dealId}`,
       method: 'GET',
-      query: query,
+      query,
       secure: true,
       format: 'json',
       ...params
@@ -2242,6 +2331,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * The name of a property whose values are unique for this object type
+       *
        * @example "<string>"
        */
       idProperty?: string;
@@ -2251,7 +2341,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/objects/deals/${dealId}`,
       method: 'PATCH',
-      query: query,
+      query,
       body: data,
       secure: true,
       type: ContentType.Json,
@@ -2384,6 +2474,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -2393,7 +2484,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: '/crm/v3/objects/discounts/batch/read',
       method: 'POST',
-      query: query,
+      query,
       body: data,
       secure: true,
       type: ContentType.Json,
@@ -2414,26 +2505,31 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       properties?: string;
       /**
        * A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       propertiesWithHistory?: string;
       /**
        * A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
+       *
        * @example "<string>"
        */
       associations?: string;
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
       /**
        * The name of a property whose values are unique for this object type
+       *
        * @example "<string>"
        */
       idProperty?: string;
@@ -2443,7 +2539,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/objects/discounts/${discountId}`,
       method: 'GET',
-      query: query,
+      query,
       secure: true,
       format: 'json',
       ...params
@@ -2479,6 +2575,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * The name of a property whose values are unique for this object type
+       *
        * @example "<string>"
        */
       idProperty?: string;
@@ -2488,7 +2585,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/objects/discounts/${discountId}`,
       method: 'PATCH',
-      query: query,
+      query,
       body: data,
       secure: true,
       type: ContentType.Json,
@@ -2508,31 +2605,37 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * The maximum number of results to display per page.
+       *
        * @example "10"
        */
       limit?: number;
       /**
        * The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results.
+       *
        * @example "<string>"
        */
       after?: string;
       /**
        * A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       properties?: string;
       /**
        * A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored. Usage of this parameter will reduce the maximum number of objects that can be read by a single request.
+       *
        * @example "<string>"
        */
       propertiesWithHistory?: string;
       /**
        * A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
+       *
        * @example "<string>"
        */
       associations?: string;
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -2542,7 +2645,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: '/crm/v3/objects/discounts',
       method: 'GET',
-      query: query,
+      query,
       secure: true,
       format: 'json',
       ...params
@@ -2689,6 +2792,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -2698,7 +2802,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: '/crm/v3/objects/feedback_submissions/batch/read',
       method: 'POST',
-      query: query,
+      query,
       body: data,
       type: ContentType.Json,
       format: 'json',
@@ -2717,26 +2821,31 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       properties?: string;
       /**
        * A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       propertiesWithHistory?: string;
       /**
        * A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
+       *
        * @example "<string>"
        */
       associations?: string;
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
       /**
        * The name of a property whose values are unique for this object type
+       *
        * @example "<string>"
        */
       idProperty?: string;
@@ -2746,7 +2855,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/objects/feedback_submissions/${feedbackSubmissionId}`,
       method: 'GET',
-      query: query,
+      query,
       format: 'json',
       ...params
     });
@@ -2781,6 +2890,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * The name of a property whose values are unique for this object type
+       *
        * @example "<string>"
        */
       idProperty?: string;
@@ -2790,7 +2900,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/objects/feedback_submissions/${feedbackSubmissionId}`,
       method: 'PATCH',
-      query: query,
+      query,
       body: data,
       type: ContentType.Json,
       format: 'json',
@@ -2808,31 +2918,37 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * The maximum number of results to display per page.
+       *
        * @example "10"
        */
       limit?: number;
       /**
        * The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results.
+       *
        * @example "<string>"
        */
       after?: string;
       /**
        * A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       properties?: string;
       /**
        * A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored. Usage of this parameter will reduce the maximum number of objects that can be read by a single request.
+       *
        * @example "<string>"
        */
       propertiesWithHistory?: string;
       /**
        * A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
+       *
        * @example "<string>"
        */
       associations?: string;
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -2842,7 +2958,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: '/crm/v3/objects/feedback_submissions',
       method: 'GET',
-      query: query,
+      query,
       format: 'json',
       ...params
     });
@@ -2949,6 +3065,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -2958,7 +3075,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: '/crm/v3/objects/fees/batch/read',
       method: 'POST',
-      query: query,
+      query,
       body: data,
       secure: true,
       type: ContentType.Json,
@@ -2979,26 +3096,31 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       properties?: string;
       /**
        * A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       propertiesWithHistory?: string;
       /**
        * A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
+       *
        * @example "<string>"
        */
       associations?: string;
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
       /**
        * The name of a property whose values are unique for this object type
+       *
        * @example "<string>"
        */
       idProperty?: string;
@@ -3008,7 +3130,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/objects/fees/${feeId}`,
       method: 'GET',
-      query: query,
+      query,
       secure: true,
       format: 'json',
       ...params
@@ -3044,6 +3166,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * The name of a property whose values are unique for this object type
+       *
        * @example "<string>"
        */
       idProperty?: string;
@@ -3053,7 +3176,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/objects/fees/${feeId}`,
       method: 'PATCH',
-      query: query,
+      query,
       body: data,
       secure: true,
       type: ContentType.Json,
@@ -3073,31 +3196,37 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * The maximum number of results to display per page.
+       *
        * @example "10"
        */
       limit?: number;
       /**
        * The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results.
+       *
        * @example "<string>"
        */
       after?: string;
       /**
        * A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       properties?: string;
       /**
        * A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored. Usage of this parameter will reduce the maximum number of objects that can be read by a single request.
+       *
        * @example "<string>"
        */
       propertiesWithHistory?: string;
       /**
        * A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
+       *
        * @example "<string>"
        */
       associations?: string;
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -3107,7 +3236,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: '/crm/v3/objects/fees',
       method: 'GET',
-      query: query,
+      query,
       secure: true,
       format: 'json',
       ...params
@@ -3200,6 +3329,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -3209,7 +3339,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: '/crm/v3/objects/goal_targets/batch/read',
       method: 'POST',
-      query: query,
+      query,
       body: data,
       type: ContentType.Json,
       format: 'json',
@@ -3228,26 +3358,31 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       properties?: string;
       /**
        * A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       propertiesWithHistory?: string;
       /**
        * A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
+       *
        * @example "<string>"
        */
       associations?: string;
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
       /**
        * The name of a property whose values are unique for this object type
+       *
        * @example "<string>"
        */
       idProperty?: string;
@@ -3257,7 +3392,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/objects/goal_targets/${goalTargetId}`,
       method: 'GET',
-      query: query,
+      query,
       format: 'json',
       ...params
     });
@@ -3273,31 +3408,37 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * The maximum number of results to display per page.
+       *
        * @example "10"
        */
       limit?: number;
       /**
        * The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results.
+       *
        * @example "<string>"
        */
       after?: string;
       /**
        * A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       properties?: string;
       /**
        * A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored. Usage of this parameter will reduce the maximum number of objects that can be read by a single request.
+       *
        * @example "<string>"
        */
       propertiesWithHistory?: string;
       /**
        * A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
+       *
        * @example "<string>"
        */
       associations?: string;
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -3307,7 +3448,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: '/crm/v3/objects/goal_targets',
       method: 'GET',
-      query: query,
+      query,
       format: 'json',
       ...params
     });
@@ -3375,6 +3516,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results.
+       *
        * @example "<string>"
        */
       after?: string;
@@ -3382,6 +3524,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       before?: string;
       /**
        * The maximum number of results to display per page.
+       *
        * @example "<integer>"
        */
       limit?: string;
@@ -3391,7 +3534,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: '/crm/v3/imports/',
       method: 'GET',
-      query: query,
+      query,
       secure: true,
       format: 'json',
       ...params
@@ -3409,11 +3552,13 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     data: {
       /**
        * A list of files containing the data to import
+       *
        * @example "<string>"
        */
       files?: string;
       /**
        * JSON formatted metadata about the import. This includes a name for the import and the column mappings for each file. See the overview tab for more on the required format.
+       *
        * @example "<string>"
        */
       importRequest?: string;
@@ -3443,11 +3588,13 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results.
+       *
        * @example "<string>"
        */
       after?: string;
       /**
        * The maximum number of results to display per page.
+       *
        * @example "<integer>"
        */
       limit?: string;
@@ -3457,7 +3604,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/imports/${importId}/errors`,
       method: 'GET',
-      query: query,
+      query,
       secure: true,
       format: 'json',
       ...params
@@ -3476,6 +3623,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -3485,7 +3633,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: '/crm/v3/objects/leads/batch/read',
       method: 'POST',
-      query: query,
+      query,
       body: data,
       secure: true,
       type: ContentType.Json,
@@ -3562,26 +3710,31 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       properties?: string;
       /**
        * A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       propertiesWithHistory?: string;
       /**
        * A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
+       *
        * @example "<string>"
        */
       associations?: string;
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
       /**
        * The name of a property whose values are unique for this object type
+       *
        * @example "<string>"
        */
       idProperty?: string;
@@ -3591,7 +3744,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/objects/leads/${leadsId}`,
       method: 'GET',
-      query: query,
+      query,
       secure: true,
       format: 'json',
       ...params
@@ -3627,6 +3780,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * The name of a property whose values are unique for this object type
+       *
        * @example "<string>"
        */
       idProperty?: string;
@@ -3636,7 +3790,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/objects/leads/${leadsId}`,
       method: 'PATCH',
-      query: query,
+      query,
       body: data,
       secure: true,
       type: ContentType.Json,
@@ -3656,31 +3810,37 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * The maximum number of results to display per page.
+       *
        * @example "10"
        */
       limit?: number;
       /**
        * The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results.
+       *
        * @example "<string>"
        */
       after?: string;
       /**
        * A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       properties?: string;
       /**
        * A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored. Usage of this parameter will reduce the maximum number of objects that can be read by a single request.
+       *
        * @example "<string>"
        */
       propertiesWithHistory?: string;
       /**
        * A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
+       *
        * @example "<string>"
        */
       associations?: string;
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -3690,7 +3850,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: '/crm/v3/objects/leads',
       method: 'GET',
-      query: query,
+      query,
       secure: true,
       format: 'json',
       ...params
@@ -3802,6 +3962,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -3811,7 +3972,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: '/crm/v3/objects/line_items/batch/read',
       method: 'POST',
-      query: query,
+      query,
       body: data,
       secure: true,
       type: ContentType.Json,
@@ -3831,31 +3992,37 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * The maximum number of results to display per page.
+       *
        * @example "10"
        */
       limit?: number;
       /**
        * The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results.
+       *
        * @example "<string>"
        */
       after?: string;
       /**
        * A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       properties?: string;
       /**
        * A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored. Usage of this parameter will reduce the maximum number of objects that can be read by a single request.
+       *
        * @example "<string>"
        */
       propertiesWithHistory?: string;
       /**
        * A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
+       *
        * @example "<string>"
        */
       associations?: string;
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -3865,7 +4032,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: '/crm/v3/objects/line_items',
       method: 'GET',
-      query: query,
+      query,
       secure: true,
       format: 'json',
       ...params
@@ -3903,26 +4070,31 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       properties?: string;
       /**
        * A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       propertiesWithHistory?: string;
       /**
        * A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
+       *
        * @example "<string>"
        */
       associations?: string;
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
       /**
        * The name of a property whose values are unique for this object type
+       *
        * @example "<string>"
        */
       idProperty?: string;
@@ -3932,7 +4104,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/objects/line_items/${lineItemId}`,
       method: 'GET',
-      query: query,
+      query,
       secure: true,
       format: 'json',
       ...params
@@ -3968,6 +4140,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * The name of a property whose values are unique for this object type
+       *
        * @example "<string>"
        */
       idProperty?: string;
@@ -3977,7 +4150,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/objects/line_items/${lineItemId}`,
       method: 'PATCH',
-      query: query,
+      query,
       body: data,
       secure: true,
       type: ContentType.Json,
@@ -4082,6 +4255,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
        * The paging offset token for the page that comes `after` the previously requested records.
        *
        * If provided, then the records in the response will be the records following the offset, sorted in *ascending* order. Takes precedence over the `before` offset.
+       *
        * @example "<string>"
        */
       after?: string;
@@ -4089,11 +4263,13 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
        * The paging offset token for the page that comes `before` the previously requested records.
        *
        * If provided, then the records in the response will be the records preceding the offset, sorted in *descending* order.
+       *
        * @example "<string>"
        */
       before?: string;
       /**
        * The number of records to return in the response. The maximum `limit` is 250.
+       *
        * @example "100"
        */
       limit?: number;
@@ -4103,7 +4279,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/lists/${listId}/memberships`,
       method: 'GET',
-      query: query,
+      query,
       secure: true,
       format: 'json',
       ...params
@@ -4181,11 +4357,13 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * The name to update the list to.
+       *
        * @example "<string>"
        */
       listName?: string;
       /**
        * A flag indicating whether or not the response object list definition should include a filter branch definition. By default, object list definitions will not have their filter branch definitions included in the response.
+       *
        * @example "false"
        */
       includeFilters?: boolean;
@@ -4195,7 +4373,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<string, string>({
       path: `/crm/v3/lists/${listId}/update-list-name`,
       method: 'PUT',
-      query: query,
+      query,
       body: data,
       secure: true,
       ...params
@@ -4214,6 +4392,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * A flag indicating whether or not the response object list definition should include a filter branch definition. By default, object list definitions will not have their filter branch definitions included in the response.
+       *
        * @example "false"
        */
       includeFilters?: boolean;
@@ -4223,7 +4402,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<string, string>({
       path: `/crm/v3/lists/${listId}`,
       method: 'GET',
-      query: query,
+      query,
       secure: true,
       ...params
     });
@@ -4258,6 +4437,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * A flag indicating whether or not the memberships added to the list as a result of the filter change should be enrolled in workflows that are relevant to this list.
+       *
        * @example "false"
        */
       enrollObjectsInWorkflows?: boolean;
@@ -4267,7 +4447,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<string, string>({
       path: `/crm/v3/lists/${listId}/update-list-filters`,
       method: 'PUT',
-      query: query,
+      query,
       body: data,
       secure: true,
       type: ContentType.Json,
@@ -4288,6 +4468,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * A flag indicating whether or not the response object list definition should include a filter branch definition. By default, object list definitions will not have their filter branch definitions included in the response.
+       *
        * @example "false"
        */
       includeFilters?: boolean;
@@ -4297,7 +4478,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<string, string>({
       path: `/crm/v3/lists/object-type-id/${objectTypeId}/name/${listName}`,
       method: 'GET',
-      query: query,
+      query,
       secure: true,
       ...params
     });
@@ -4314,11 +4495,13 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * The **ILS IDs** of the lists to fetch.
+       *
        * @example "<integer>"
        */
       listIds?: string;
       /**
        * A flag indicating whether or not the response object list definitions should include a filter branch definition. By default, object list definitions will not have their filter branch definitions included in the response.
+       *
        * @example "false"
        */
       includeFilters?: boolean;
@@ -4328,7 +4511,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<string, string>({
       path: '/crm/v3/lists/',
       method: 'GET',
-      query: query,
+      query,
       secure: true,
       ...params
     });
@@ -4429,7 +4612,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/lists/folders/${folderId}/rename`,
       method: 'PUT',
-      query: query,
+      query,
       body: data,
       secure: true,
       format: 'json',
@@ -4469,6 +4652,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * The Id of the folder to retrieve.
+       *
        * @example "0"
        */
       folderId?: number;
@@ -4478,7 +4662,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: '/crm/v3/lists/folders',
       method: 'GET',
-      query: query,
+      query,
       secure: true,
       format: 'json',
       ...params
@@ -4551,6 +4735,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -4560,7 +4745,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: '/crm/v3/objects/orders/batch/read',
       method: 'POST',
-      query: query,
+      query,
       body: data,
       secure: true,
       type: ContentType.Json,
@@ -4637,26 +4822,31 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       properties?: string;
       /**
        * A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       propertiesWithHistory?: string;
       /**
        * A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
+       *
        * @example "<string>"
        */
       associations?: string;
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
       /**
        * The name of a property whose values are unique for this object type
+       *
        * @example "<string>"
        */
       idProperty?: string;
@@ -4666,7 +4856,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/objects/orders/${orderId}`,
       method: 'GET',
-      query: query,
+      query,
       secure: true,
       format: 'json',
       ...params
@@ -4702,6 +4892,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * The name of a property whose values are unique for this object type
+       *
        * @example "<string>"
        */
       idProperty?: string;
@@ -4711,7 +4902,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/objects/orders/${orderId}`,
       method: 'PATCH',
-      query: query,
+      query,
       body: data,
       secure: true,
       type: ContentType.Json,
@@ -4731,31 +4922,37 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * The maximum number of results to display per page.
+       *
        * @example "10"
        */
       limit?: number;
       /**
        * The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results.
+       *
        * @example "<string>"
        */
       after?: string;
       /**
        * A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       properties?: string;
       /**
        * A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored. Usage of this parameter will reduce the maximum number of objects that can be read by a single request.
+       *
        * @example "<string>"
        */
       propertiesWithHistory?: string;
       /**
        * A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
+       *
        * @example "<string>"
        */
       associations?: string;
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -4765,7 +4962,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: '/crm/v3/objects/orders',
       method: 'GET',
-      query: query,
+      query,
       secure: true,
       format: 'json',
       ...params
@@ -4821,21 +5018,25 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * Filter by email address (optional)
+       *
        * @example "<string>"
        */
       email?: string;
       /**
        * The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results.
+       *
        * @example "<string>"
        */
       after?: string;
       /**
        * The maximum number of results to display per page.
+       *
        * @example "100"
        */
       limit?: number;
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -4845,7 +5046,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: '/crm/v3/owners/',
       method: 'GET',
-      query: query,
+      query,
       secure: true,
       format: 'json',
       ...params
@@ -4866,6 +5067,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       idProperty?: string;
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -4875,7 +5077,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/owners/${ownerId}`,
       method: 'GET',
-      query: query,
+      query,
       secure: true,
       format: 'json',
       ...params
@@ -4893,6 +5095,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -4902,7 +5105,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: '/crm/v3/objects/payments/batch/read',
       method: 'POST',
-      query: query,
+      query,
       body: data,
       type: ContentType.Json,
       format: 'json',
@@ -4921,26 +5124,31 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       properties?: string;
       /**
        * A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       propertiesWithHistory?: string;
       /**
        * A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
+       *
        * @example "<string>"
        */
       associations?: string;
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
       /**
        * The name of a property whose values are unique for this object type
+       *
        * @example "<string>"
        */
       idProperty?: string;
@@ -4950,7 +5158,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/objects/payments/${paymentsId}`,
       method: 'GET',
-      query: query,
+      query,
       format: 'json',
       ...params
     });
@@ -4966,31 +5174,37 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * The maximum number of results to display per page.
+       *
        * @example "10"
        */
       limit?: number;
       /**
        * The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results.
+       *
        * @example "<string>"
        */
       after?: string;
       /**
        * A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       properties?: string;
       /**
        * A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored. Usage of this parameter will reduce the maximum number of objects that can be read by a single request.
+       *
        * @example "<string>"
        */
       propertiesWithHistory?: string;
       /**
        * A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
+       *
        * @example "<string>"
        */
       associations?: string;
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -5000,7 +5214,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: '/crm/v3/objects/payments',
       method: 'GET',
-      query: query,
+      query,
       format: 'json',
       ...params
     });
@@ -5062,7 +5276,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/pipelines/${objectType}/${pipelineId}`,
       method: 'PUT',
-      query: query,
+      query,
       body: data,
       secure: true,
       type: ContentType.Json,
@@ -5092,7 +5306,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<string, string>({
       path: `/crm/v3/pipelines/${objectType}/${pipelineId}`,
       method: 'DELETE',
-      query: query,
+      query,
       secure: true,
       ...params
     });
@@ -5120,7 +5334,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/pipelines/${objectType}/${pipelineId}`,
       method: 'PATCH',
-      query: query,
+      query,
       body: data,
       secure: true,
       type: ContentType.Json,
@@ -5377,6 +5591,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -5386,7 +5601,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: '/crm/v3/objects/products/batch/read',
       method: 'POST',
-      query: query,
+      query,
       body: data,
       type: ContentType.Json,
       format: 'json',
@@ -5437,31 +5652,37 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * The maximum number of results to display per page.
+       *
        * @example "10"
        */
       limit?: number;
       /**
        * The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results.
+       *
        * @example "<string>"
        */
       after?: string;
       /**
        * A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       properties?: string;
       /**
        * A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored. Usage of this parameter will reduce the maximum number of objects that can be read by a single request.
+       *
        * @example "<string>"
        */
       propertiesWithHistory?: string;
       /**
        * A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
+       *
        * @example "<string>"
        */
       associations?: string;
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -5471,7 +5692,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: '/crm/v3/objects/products',
       method: 'GET',
-      query: query,
+      query,
       format: 'json',
       ...params
     });
@@ -5505,26 +5726,31 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       properties?: string;
       /**
        * A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       propertiesWithHistory?: string;
       /**
        * A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
+       *
        * @example "<string>"
        */
       associations?: string;
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
       /**
        * The name of a property whose values are unique for this object type
+       *
        * @example "<string>"
        */
       idProperty?: string;
@@ -5534,7 +5760,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/objects/products/${productId}`,
       method: 'GET',
-      query: query,
+      query,
       format: 'json',
       ...params
     });
@@ -5566,6 +5792,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * The name of a property whose values are unique for this object type
+       *
        * @example "<string>"
        */
       idProperty?: string;
@@ -5575,7 +5802,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/objects/products/${productId}`,
       method: 'PATCH',
-      query: query,
+      query,
       body: data,
       type: ContentType.Json,
       format: 'json',
@@ -5666,6 +5893,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -5675,7 +5903,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: '/crm/v3/objects/quotes/batch/read',
       method: 'POST',
-      query: query,
+      query,
       body: data,
       secure: true,
       type: ContentType.Json,
@@ -5695,31 +5923,37 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * The maximum number of results to display per page.
+       *
        * @example "10"
        */
       limit?: number;
       /**
        * The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results.
+       *
        * @example "<string>"
        */
       after?: string;
       /**
        * A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       properties?: string;
       /**
        * A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored. Usage of this parameter will reduce the maximum number of objects that can be read by a single request.
+       *
        * @example "<string>"
        */
       propertiesWithHistory?: string;
       /**
        * A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
+       *
        * @example "<string>"
        */
       associations?: string;
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -5729,7 +5963,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: '/crm/v3/objects/quotes',
       method: 'GET',
-      query: query,
+      query,
       secure: true,
       format: 'json',
       ...params
@@ -5767,26 +6001,31 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       properties?: string;
       /**
        * A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       propertiesWithHistory?: string;
       /**
        * A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
+       *
        * @example "<string>"
        */
       associations?: string;
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
       /**
        * The name of a property whose values are unique for this object type
+       *
        * @example "<string>"
        */
       idProperty?: string;
@@ -5796,7 +6035,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/objects/quotes/${quoteId}`,
       method: 'GET',
-      query: query,
+      query,
       secure: true,
       format: 'json',
       ...params
@@ -5832,6 +6071,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * The name of a property whose values are unique for this object type
+       *
        * @example "<string>"
        */
       idProperty?: string;
@@ -5841,7 +6081,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/objects/quotes/${quoteId}`,
       method: 'PATCH',
-      query: query,
+      query,
       body: data,
       secure: true,
       type: ContentType.Json,
@@ -5918,6 +6158,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -5927,7 +6168,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: '/crm/v3/objects/taxes/batch/read',
       method: 'POST',
-      query: query,
+      query,
       body: data,
       secure: true,
       type: ContentType.Json,
@@ -5965,31 +6206,37 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * The maximum number of results to display per page.
+       *
        * @example "10"
        */
       limit?: number;
       /**
        * The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results.
+       *
        * @example "<string>"
        */
       after?: string;
       /**
        * A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       properties?: string;
       /**
        * A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored. Usage of this parameter will reduce the maximum number of objects that can be read by a single request.
+       *
        * @example "<string>"
        */
       propertiesWithHistory?: string;
       /**
        * A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
+       *
        * @example "<string>"
        */
       associations?: string;
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -5999,7 +6246,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: '/crm/v3/objects/taxes',
       method: 'GET',
-      query: query,
+      query,
       secure: true,
       format: 'json',
       ...params
@@ -6037,26 +6284,31 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       properties?: string;
       /**
        * A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       propertiesWithHistory?: string;
       /**
        * A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
+       *
        * @example "<string>"
        */
       associations?: string;
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
       /**
        * The name of a property whose values are unique for this object type
+       *
        * @example "<string>"
        */
       idProperty?: string;
@@ -6066,7 +6318,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/objects/taxes/${taxId}`,
       method: 'GET',
-      query: query,
+      query,
       secure: true,
       format: 'json',
       ...params
@@ -6102,6 +6354,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * The name of a property whose values are unique for this object type
+       *
        * @example "<string>"
        */
       idProperty?: string;
@@ -6111,7 +6364,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/objects/taxes/${taxId}`,
       method: 'PATCH',
-      query: query,
+      query,
       body: data,
       secure: true,
       type: ContentType.Json,
@@ -6203,6 +6456,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -6212,7 +6466,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: '/crm/v3/objects/tickets/batch/read',
       method: 'POST',
-      query: query,
+      query,
       body: data,
       type: ContentType.Json,
       format: 'json',
@@ -6264,26 +6518,31 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       properties?: string;
       /**
        * A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       propertiesWithHistory?: string;
       /**
        * A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
+       *
        * @example "<string>"
        */
       associations?: string;
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
       /**
        * The name of a property whose values are unique for this object type
+       *
        * @example "<string>"
        */
       idProperty?: string;
@@ -6293,7 +6552,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/objects/tickets/${ticketId}`,
       method: 'GET',
-      query: query,
+      query,
       format: 'json',
       ...params
     });
@@ -6325,6 +6584,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * The name of a property whose values are unique for this object type
+       *
        * @example "<string>"
        */
       idProperty?: string;
@@ -6334,7 +6594,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/objects/tickets/${ticketId}`,
       method: 'PATCH',
-      query: query,
+      query,
       body: data,
       type: ContentType.Json,
       format: 'json',
@@ -6352,31 +6612,37 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * The maximum number of results to display per page.
+       *
        * @example "10"
        */
       limit?: number;
       /**
        * The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results.
+       *
        * @example "<string>"
        */
       after?: string;
       /**
        * A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       properties?: string;
       /**
        * A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored. Usage of this parameter will reduce the maximum number of objects that can be read by a single request.
+       *
        * @example "<string>"
        */
       propertiesWithHistory?: string;
       /**
        * A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
+       *
        * @example "<string>"
        */
       associations?: string;
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -6386,7 +6652,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: '/crm/v3/objects/tickets',
       method: 'GET',
-      query: query,
+      query,
       format: 'json',
       ...params
     });
@@ -6437,6 +6703,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -6446,7 +6713,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: '/crm/v3/objects/invoices/batch/read',
       method: 'POST',
-      query: query,
+      query,
       body: data,
       secure: true,
       type: ContentType.Json,
@@ -6467,26 +6734,31 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       properties?: string;
       /**
        * A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       propertiesWithHistory?: string;
       /**
        * A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
+       *
        * @example "<string>"
        */
       associations?: string;
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
       /**
        * The name of a property whose values are unique for this object type
+       *
        * @example "<string>"
        */
       idProperty?: string;
@@ -6496,7 +6768,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: `/crm/v3/objects/invoices/${invoiceId}`,
       method: 'GET',
-      query: query,
+      query,
       secure: true,
       format: 'json',
       ...params
@@ -6514,31 +6786,37 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     query?: {
       /**
        * The maximum number of results to display per page.
+       *
        * @example "10"
        */
       limit?: number;
       /**
        * The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results.
+       *
        * @example "<string>"
        */
       after?: string;
       /**
        * A comma separated list of the properties to be returned in the response. If any of the specified properties are not present on the requested object(s), they will be ignored.
+       *
        * @example "<string>"
        */
       properties?: string;
       /**
        * A comma separated list of the properties to be returned along with their history of previous values. If any of the specified properties are not present on the requested object(s), they will be ignored. Usage of this parameter will reduce the maximum number of objects that can be read by a single request.
+       *
        * @example "<string>"
        */
       propertiesWithHistory?: string;
       /**
        * A comma separated list of object types to retrieve associated IDs for. If any of the specified associations do not exist, they will be ignored.
+       *
        * @example "<string>"
        */
       associations?: string;
       /**
        * Whether to return only results that have been archived.
+       *
        * @example "false"
        */
       archived?: boolean;
@@ -6548,7 +6826,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
     this.request<object, string>({
       path: '/crm/v3/objects/invoices',
       method: 'GET',
-      query: query,
+      query,
       secure: true,
       format: 'json',
       ...params

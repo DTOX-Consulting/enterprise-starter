@@ -78,7 +78,7 @@ export const authOptions: NextAuthOptions = {
 
       if (!dbUser) {
         if (user as typeof user | undefined) {
-          token.id = user?.id;
+          token.id = user.id;
         }
         return token;
       }

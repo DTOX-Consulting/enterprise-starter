@@ -14,7 +14,7 @@ export function useInputFocusEnd<T extends HTMLInputElement | HTMLTextAreaElemen
     if (!inputRef.current?.focus) return;
 
     inputRef.current.focus();
-    const length = inputRef.current.value.length;
+    const {length} = inputRef.current.value;
     inputRef.current.setSelectionRange(length, length);
   }, [inputValue]);
 

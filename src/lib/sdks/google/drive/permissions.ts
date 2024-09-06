@@ -43,9 +43,7 @@ export const listPermissions = async (fileId: string) => {
 export const hasPermissions = async (fileId: string, emailAddress: string) => {
   const { data: permissions } = unboxR(await listPermissions(fileId));
 
-  return permissions?.permissions?.some((permission) => {
-    return permission?.emailAddress === emailAddress;
-  });
+  return permissions?.permissions?.some((permission) => permission.emailAddress === emailAddress);
 };
 
 export const createPermissionsIfNotExists = async (
@@ -63,7 +61,7 @@ export const shareFiles = async (emailAddress: string, role = 'reader') => {
 
   return pMap(
     data?.files ?? [],
-    async (file) => file?.id && createPermissions(file.id, emailAddress, role)
+    async (file) => file.id && createPermissions(file.id, emailAddress, role)
   );
 };
 
@@ -72,6 +70,6 @@ export const shareFolders = async (emailAddress: string, role = 'reader') => {
 
   return pMap(
     data?.files ?? [],
-    async (file) => file?.id && createPermissions(file.id, emailAddress, role)
+    async (file) => file.id && createPermissions(file.id, emailAddress, role)
   );
 };

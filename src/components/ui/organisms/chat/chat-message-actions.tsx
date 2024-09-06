@@ -7,9 +7,9 @@ import { cn } from '@/lib/utils';
 
 import type { Message } from 'ai';
 
-interface ChatMessageActionsProps extends React.ComponentProps<'div'> {
+type ChatMessageActionsProps = {
   message: Message;
-}
+} & React.ComponentProps<'div'>
 
 export function ChatMessageActions({ message, className, ...props }: ChatMessageActionsProps) {
   const { isCopied, copyToClipboard } = useCopyToClipboard({ timeout: 2000 });

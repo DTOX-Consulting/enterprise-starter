@@ -198,6 +198,5 @@ export const splitSentences = (_text: string) => {
 
 export const splitAll = (text: string) => {
   const lines = splitLines(text);
-  const sentences = lines.flatMap((line) => splitSentences(line));
-  return sentences;
+  return lines.flatMap((line) => splitSentences(line));
 };

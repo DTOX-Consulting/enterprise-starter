@@ -13,7 +13,7 @@ import {
 
 import { cn } from '@/lib/utils';
 
-interface UseTextareaAutosizeProps {
+type UseTextareaAutosizeProps = {
   textAreaRef: HTMLTextAreaElement | null;
   minHeight?: number;
   maxHeight?: number;
@@ -41,7 +41,7 @@ export const useTextareaAutosize = ({
         setInit(false);
       }
       textAreaRef.style.height = `${minHeight + offsetBorder}px`;
-      const scrollHeight = textAreaRef.scrollHeight;
+      const {scrollHeight} = textAreaRef;
       // We then set the height directly, outside of the render loop
       // Trying to set this with state or a ref will product an incorrect value.
       if (scrollHeight > maxHeight) {
@@ -81,7 +81,7 @@ export const TextareaAutosize = forwardRef<TextareaAutosizeRef, TextareaAutosize
 
     useTextareaAutosize({
       textAreaRef: textAreaRef.current,
-      triggerAutoSize: triggerAutoSize,
+      triggerAutoSize,
       maxHeight,
       minHeight
     });

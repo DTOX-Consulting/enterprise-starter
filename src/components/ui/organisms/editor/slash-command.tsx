@@ -142,7 +142,7 @@ export const suggestionItems = createSuggestionItems([
       const videoLink = prompt('Please enter Youtube Video Link');
       if (!videoLink) return;
 
-      //From https://regexr.com/3dj5t
+      // From https://regexr.com/3dj5t
       const ytregex = new RegExp(
         /^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w-]+\?v=|embed\/|v\/)?)([\w-]+)(\S+)?$/
       );
@@ -156,11 +156,9 @@ export const suggestionItems = createSuggestionItems([
             src: videoLink
           })
           .run();
-      } else {
-        if (videoLink !== null) {
+      } else if (videoLink !== null) {
           alert('Please enter a correct Youtube Video Link');
         }
-      }
     }
   }
 ]);

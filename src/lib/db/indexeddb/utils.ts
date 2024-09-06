@@ -3,8 +3,7 @@ import { delay } from 'already';
 export const deleteDbs = async () => {
   const dbs = await indexedDB.databases();
 
-  const deletePromises = dbs.map(async (db) => {
-    return new Promise<void>((resolve, reject) => {
+  const deletePromises = dbs.map(async (db) => new Promise<void>((resolve, reject) => {
       if (!db.name) return resolve(); // Skip if no name
       const request = indexedDB.deleteDatabase(db.name);
       request.onsuccess = () => {
@@ -15,8 +14,7 @@ export const deleteDbs = async () => {
         console.error(`Error deleting database: ${db.name}`);
         reject(request.error as Error);
       };
-    });
-  });
+    }));
 
   await Promise.all(deletePromises);
   await delay(1000); // Wait for the databases to be deleted
@@ -27,8 +25,7 @@ export const deleteDbs = async () => {
 export const clearDbs = async () => {
   const dbs = await indexedDB.databases();
 
-  const clearPromises = dbs.map(async (db) => {
-    return new Promise<void>((resolve, reject) => {
+  const clearPromises = dbs.map(async (db) => new Promise<void>((resolve, reject) => {
       if (!db.name) return resolve(); // Skip if no name
       const request = indexedDB.open(db.name);
       request.onerror = () => reject(request.error as Error);
@@ -43,7 +40,7 @@ export const clearDbs = async () => {
           };
           transaction.onerror = () => reject(transaction.error as Error);
 
-          const objectStoreNames = db.objectStoreNames;
+          const {objectStoreNames} = db;
           for (const name of objectStoreNames) {
             const objectStore = transaction.objectStore(name);
             objectStore.clear(); // Clear each object store
@@ -59,8 +56,7 @@ export const clearDbs = async () => {
         // const db = request.result;
         // Example: Create an object store if none exist (not shown here)
       };
-    });
-  });
+    }));
 
   await Promise.all(clearPromises);
   await delay(1000); // Wait for the databases to be cleared

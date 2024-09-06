@@ -15,6 +15,7 @@ export const FEATURE_FLAGS = {
 } as const;
 
 type FeatureFlagType = typeof FEATURE_FLAGS;
+
 type FeatureFlagName = keyof FeatureFlagType;
 
 export const getFFValue = <I extends FeatureFlagName = FeatureFlagName, T = FeatureFlagType[I]>(

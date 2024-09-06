@@ -1,7 +1,7 @@
 import { Container } from '@/components/ui/atoms/container';
 import { Header } from '@/components/ui/layouts/settings-old/header';
 
-interface LayoutProps {
+type LayoutProps = {
   children: React.ReactNode;
 }
 

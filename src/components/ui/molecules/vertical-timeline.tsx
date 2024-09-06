@@ -2,7 +2,7 @@ import React, { type FC } from 'react';
 
 import { cn } from '@/lib/utils';
 
-interface TimelineItem {
+type TimelineItem = {
   id: string;
   date: string;
   label?: string;
@@ -11,12 +11,11 @@ interface TimelineItem {
   content: string | JSX.Element;
 }
 
-interface VerticalTimelineProps {
+type VerticalTimelineProps = {
   items: TimelineItem[];
 }
 
-const VerticalTimeline1: FC<VerticalTimelineProps> = ({ items }) => {
-  return (
+const VerticalTimeline1: FC<VerticalTimelineProps> = ({ items }) => (
     <div className="mx-auto w-full max-w-3xl">
       <div className="-my-6">
         {items.map((item, index) => (
@@ -44,10 +43,8 @@ const VerticalTimeline1: FC<VerticalTimelineProps> = ({ items }) => {
       </div>
     </div>
   );
-};
 
-const VerticalTimeline2: FC<VerticalTimelineProps> = ({ items }) => {
-  return (
+const VerticalTimeline2: FC<VerticalTimelineProps> = ({ items }) => (
     <div className="mx-auto w-full max-w-3xl">
       <div className="relative space-y-8 before:absolute before:inset-0 before:z-0 before:-mx-3.5 before:ml-5 before:self-start before:border-l before:border-slate-300">
         {items.map((item) => (
@@ -64,10 +61,8 @@ const VerticalTimeline2: FC<VerticalTimelineProps> = ({ items }) => {
       </div>
     </div>
   );
-};
 
-const VerticalTimeline3: FC<VerticalTimelineProps> = ({ items }) => {
-  return (
+const VerticalTimeline3: FC<VerticalTimelineProps> = ({ items }) => (
     <div className="mx-auto w-full max-w-3xl">
       <div className="-my-6">
         {items.map((item, index) => (
@@ -92,6 +87,5 @@ const VerticalTimeline3: FC<VerticalTimelineProps> = ({ items }) => {
       </div>
     </div>
   );
-};
 
 export { VerticalTimeline1, VerticalTimeline2, VerticalTimeline3 };

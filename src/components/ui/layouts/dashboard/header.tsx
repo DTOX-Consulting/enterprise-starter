@@ -41,8 +41,7 @@ const InternalHeader = ({
   showThemeToggle = true,
   showNotifications = true,
   showSwitcherNavigation = false
-}: HeaderProps) => {
-  return (
+}: HeaderProps) => (
     <>
       {showSwitcherNavigation ? <Switcher /> : <Logo />}
       <div className="ml-auto flex items-center justify-center space-x-2">
@@ -52,10 +51,8 @@ const InternalHeader = ({
       </div>
     </>
   );
-};
 
-export const Header = ({ children, ...headerProps }: PropsWithChildren<HeaderProps>) => {
-  return (
+export const Header = ({ children, ...headerProps }: PropsWithChildren<HeaderProps>) => (
     <FadeIn>
       <header className="sticky top-0 z-10 flex h-16 w-full grow items-center justify-between border-b border-gray-200 p-4">
         <div className="flex w-full flex-row items-center">
@@ -65,4 +62,3 @@ export const Header = ({ children, ...headerProps }: PropsWithChildren<HeaderPro
       </header>
     </FadeIn>
   );
-};

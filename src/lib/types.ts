@@ -1,6 +1,6 @@
 import type { Message } from 'ai';
 
-export interface Chat extends Record<string, unknown> {
+export type Chat = {
   id: string;
   title: string;
   createdAt: Date;
@@ -8,7 +8,7 @@ export interface Chat extends Record<string, unknown> {
   path: string;
   messages: Message[];
   sharePath?: string;
-}
+} & Record<string, unknown>
 
 export type ServerActionResult<Result> = Promise<
   | Result

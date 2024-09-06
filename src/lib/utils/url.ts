@@ -34,9 +34,7 @@ const downloadUrlProxy = async (url: string, fileName: string, ext = 'png', cors
   return downloadResponse(response, fileName, ext);
 };
 
-const downloadBlob = (blobOrBlobUrl: Blob | string, fileName: string, ext = 'pdf') => {
-  return createObjectURLAndDownload(blobOrBlobUrl, `${fileName}.${ext}`);
-};
+const downloadBlob = (blobOrBlobUrl: Blob | string, fileName: string, ext = 'pdf') => createObjectURLAndDownload(blobOrBlobUrl, `${fileName}.${ext}`);
 
 export const downloadResponse = async (response: Response, fileName: string, ext = 'pdf') => {
   const cd = response.headers.get('Content-Disposition');
@@ -45,13 +43,11 @@ export const downloadResponse = async (response: Response, fileName: string, ext
   createAndClickAnchor(url, finalFileName);
 };
 
-export const downloadUrl = async (url: string, fileName: string, ext = 'png', cors = false) => {
-  return url.startsWith('blob:')
+export const downloadUrl = async (url: string, fileName: string, ext = 'png', cors = false) => url.startsWith('blob:')
     ? downloadBlob(url, fileName, ext)
     : url.startsWith('data:')
       ? createAndClickAnchor(url, fileName)
       : downloadUrlProxy(url, fileName, ext, cors);
-};
 
 export const parseDataURL = (dataURL: string) => {
   const matches = /^data:(.+);base64,(.+)$/.exec(dataURL);
@@ -66,11 +62,9 @@ export const parseDataURL = (dataURL: string) => {
   };
 };
 
-export const fileToBase64 = async (file: File): Promise<string> => {
-  return new Promise((resolve, reject) => {
+export const fileToBase64 = async (file: File): Promise<string> => new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => resolve(reader.result as string);
     reader.onerror = (error) => reject(error as unknown as Error);
   });
-};

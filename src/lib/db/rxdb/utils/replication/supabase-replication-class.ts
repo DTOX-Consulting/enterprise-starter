@@ -31,12 +31,14 @@ export type SupabaseReplicationOptions<RxDocType> = {
 
   /**
    * The table to replicate to, if different from the name of the collection.
+   *
    * @default the name of the RxDB collection.
    */
   table?: string;
 
   /**
    * The primary key of the supabase table, if different from the primary key of the RxDB.
+   *
    * @default the primary key of the RxDB collection
    */
   // TODO: Support composite primary keys.
@@ -69,6 +71,7 @@ export type SupabaseReplicationOptions<RxDocType> = {
      * Whether to subscribe to realtime Postgres changes for the table. If set to false,
      * only an initial pull will be performed. Only has an effect if the live option is set
      * to true.
+     *
      * @default true
      */
     realtimePostgresChanges?: boolean;
@@ -77,6 +80,7 @@ export type SupabaseReplicationOptions<RxDocType> = {
      * The name of the supabase field that is automatically updated to the last
      * modified timestamp by postgres. This field is required for the pull sync
      * to work and can easily be implemented with moddatetime in supabase.
+     *
      * @default '_modified'
      */
     lastModifiedField?: string;
@@ -93,6 +97,7 @@ export type SupabaseReplicationOptions<RxDocType> = {
      * applied to the supabase table. Returning false signalises a write conflict, in
      * which case the current state of the row will be fetched from supabase and passed to
      * the RxDB collection's conflict handler.
+     *
      * @default the default handler will update the row only iff all fields match the
      * local state (before the update was applied), otherwise the conflict handler is
      * invoked. The default handler does not support JSON fields at the moment.
@@ -114,7 +119,7 @@ export type SupabaseReplicationOptions<RxDocType> = {
  * last modified time. In case two rows have the same timestamp, we use the primary
  * key to define a strict order.
  */
-export interface SupabaseReplicationCheckpoint {
+export type SupabaseReplicationCheckpoint = {
   modified: string;
   primaryKeyValue: string | number;
 }
@@ -184,7 +189,7 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
   }
 
   public override async start(): Promise<void> {
-    if (this.live && this.options.pull && this.options.pull?.realtimePostgresChanges !== false) {
+    if (this.live && this.options.pull && this.options.pull.realtimePostgresChanges !== false) {
       this.watchPostgresChanges();
     }
 
@@ -303,10 +308,10 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
     const state = (row.assumedMasterState ?? row.newDocumentState) as GenericObject;
 
     const toTest = {
-      id: state?.id,
-      ownerId: state?.ownerId ?? state?.ownerid,
-      createdAt: state?.createdAt ?? state?.createdat,
-      updatedAt: state?.updatedAt ?? state?.updatedat
+      id: state.id,
+      ownerId: state.ownerId ?? state.ownerid,
+      createdAt: state.createdAt ?? state.createdat,
+      updatedAt: state.updatedAt ?? state.updatedat
     };
 
     console.log('[SUPABASE REPLICATION] Updating row:', { state, toTest });

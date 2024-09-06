@@ -4,7 +4,7 @@ import { EditorBubbleItem, useEditor } from 'novel';
 import { Button } from '@/components/ui/atoms/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/atoms/popover';
 
-export interface BubbleColorMenuItem {
+export type BubbleColorMenuItem = {
   name: string;
   color: string;
 }
@@ -87,7 +87,7 @@ const HIGHLIGHT_COLORS: BubbleColorMenuItem[] = [
   }
 ];
 
-interface ColorSelectorProps {
+type ColorSelectorProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
@@ -156,7 +156,7 @@ export const ColorSelector = ({ open, onOpenChange }: ColorSelectorProps) => {
             <EditorBubbleItem
               key={name}
               onSelect={() => {
-                editor.commands.unsetHighlight?.();
+                editor.commands.unsetHighlight();
                 if (name !== 'Default') {
                   editor.commands.setHighlight({ color });
                 }

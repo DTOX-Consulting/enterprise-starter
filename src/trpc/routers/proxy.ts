@@ -36,10 +36,6 @@ const processProxyRequest = async (
 };
 
 export const proxyRouter = {
-  url: publicProcedure.input(zodType).query(async ({ input, ctx }) => {
-    return processProxyRequest(input, ctx);
-  }),
-  urlm: publicProcedure.input(zodType).mutation(async ({ input, ctx }) => {
-    return processProxyRequest(input, ctx);
-  })
+  url: publicProcedure.input(zodType).query(async ({ input, ctx }) => processProxyRequest(input, ctx)),
+  urlm: publicProcedure.input(zodType).mutation(async ({ input, ctx }) => processProxyRequest(input, ctx))
 };

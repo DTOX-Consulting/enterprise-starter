@@ -10,7 +10,7 @@ import { Command, CommandGroup, CommandItem, CommandList } from '@/components/ui
 import { cn } from '@/lib/utils';
 import { danglingPromise } from '@/lib/utils/promise';
 
-export interface Option {
+export type Option = {
   value: string;
   label: string;
   disable?: boolean;
@@ -22,7 +22,7 @@ export interface Option {
 
 type GroupOption = Record<string, Option[]>;
 
-interface SelectMultiProps {
+type SelectMultiProps = {
   value?: Option[];
   defaultOptions?: Option[];
   /** manually controlled options */
@@ -71,7 +71,7 @@ interface SelectMultiProps {
   >;
 }
 
-export interface SelectMultiRef {
+export type SelectMultiRef = {
   selectedValue: Option[];
   input: HTMLInputElement;
 }
@@ -106,7 +106,7 @@ function transToGroupOption(options: Option[], groupBy?: string) {
     if (!groupOption[key]) {
       groupOption[key] = [];
     }
-    groupOption[key]?.push(option);
+    groupOption[key].push(option);
   });
   return groupOption;
 }
@@ -326,9 +326,7 @@ const SelectMulti = React.forwardRef<SelectMultiRef, SelectMultiProps>(
       }
 
       if (creatable) {
-        return (value: string, search: string) => {
-          return value.toLowerCase().includes(search.toLowerCase()) ? 1 : -1;
-        };
+        return (value: string, search: string) => value.toLowerCase().includes(search.toLowerCase()) ? 1 : -1;
       }
       // Using default filter in `cmdk`. We don't have to provide it.
       return undefined;
@@ -354,8 +352,7 @@ const SelectMulti = React.forwardRef<SelectMultiRef, SelectMultiProps>(
           )}
         >
           <div className="flex flex-wrap gap-1">
-            {selected.map((option) => {
-              return (
+            {selected.map((option) => (
                 <Badge
                   key={option.value}
                   className={cn(
@@ -387,8 +384,7 @@ const SelectMulti = React.forwardRef<SelectMultiRef, SelectMultiProps>(
                     <X className="size-3 text-muted-foreground hover:text-foreground" />
                   </button>
                 </Badge>
-              );
-            })}
+              ))}
             {/* Avoid having the "Search" Icon */}
             <CommandPrimitive.Input
               {...inputProps}
@@ -431,8 +427,7 @@ const SelectMulti = React.forwardRef<SelectMultiRef, SelectMultiProps>(
                   {Object.entries(selectables).map(([key, dropdowns]) => (
                     <CommandGroup key={key} heading={key} className="h-full overflow-auto">
                       <>
-                        {dropdowns.map((option) => {
-                          return (
+                        {dropdowns.map((option) => (
                             <CommandItem
                               key={option.value}
                               value={option.value}
@@ -458,8 +453,7 @@ const SelectMulti = React.forwardRef<SelectMultiRef, SelectMultiProps>(
                             >
                               {option.label}
                             </CommandItem>
-                          );
-                        })}
+                          ))}
                       </>
                     </CommandGroup>
                   ))}

@@ -100,8 +100,7 @@ export const access = [
 /** @type {Header[]} */
 export const securityHeaders = [...hsts, ...access, ...nextSafe(nextSafeConfig), ...frame];
 
-export const headers = async () => {
-  return Promise.resolve([
+export const headers = async () => Promise.resolve([
     {
       source: '/',
       headers: [...securityHeaders, ...noCacheHeader]
@@ -111,7 +110,6 @@ export const headers = async () => {
       headers: securityHeaders
     }
   ]);
-};
 
 /** @type {import("next").NextConfig['images']} */
 export const images = {

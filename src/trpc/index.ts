@@ -24,7 +24,7 @@ import type { NextRequest } from 'next/server';
  * These allow you to access things when processing a request, like the database, the session, etc.
  */
 
-interface CreateContextOptions {
+type CreateContextOptions = {
   request: NextRequest;
   headers: Headers;
 }
@@ -56,14 +56,14 @@ export const createInnerTRPCContext = async (opts: CreateContextOptions) => {
  *
  * @see https://trpc.io/docs/context
  */
-export const createTRPCContext = async (opts: { req: NextRequest }) => {
+export const createTRPCContext = async (opts: { req: NextRequest }) => 
   // Fetch stuff that depends on the request
 
-  return await createInnerTRPCContext({
+   await createInnerTRPCContext({
     request: opts.req,
     headers: opts.req.headers
-  });
-};
+  })
+;
 
 /**
  * 2. INITIALIZATION
@@ -111,7 +111,7 @@ export const publicProcedure = t.procedure;
 
 /** Reusable middleware that enforces users are logged in before running the procedure. */
 const enforceUserIsAuthed = t.middleware(async ({ ctx, next }) => {
-  if (!ctx.session?.user) {
+  if (!ctx.session.user) {
     throw new TRPCError({ code: 'UNAUTHORIZED' });
   }
   return next({

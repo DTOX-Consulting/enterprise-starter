@@ -9,12 +9,12 @@ import { cn } from '@/lib/utils';
 
 import type { HTMLAttributes } from 'react';
 
-interface SettingsSidebarProps extends HTMLAttributes<HTMLElement> {
+type SettingsSidebarProps = {
   items: {
     href: string;
     title: string;
   }[];
-}
+} & HTMLAttributes<HTMLElement>
 
 export function SettingsSidebar({ className, items, ...props }: SettingsSidebarProps) {
   const pathname = usePathname();

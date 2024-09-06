@@ -6,8 +6,7 @@ import { Copyright, SocialMedia } from '@/components/ui/organisms/social/social-
 
 import type { PropsWithChildren } from 'react';
 
-export const Footer = ({ children }: PropsWithChildren) => {
-  return (
+export const Footer = ({ children }: PropsWithChildren) => (
     <footer className="flex grow flex-col">
       {children}
       <div className="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8">
@@ -22,4 +21,3 @@ export const Footer = ({ children }: PropsWithChildren) => {
       </div>
     </footer>
   );
-};

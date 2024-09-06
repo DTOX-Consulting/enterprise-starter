@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/atoms/button';
 import { IconCheck, IconCopy, IconDownload } from '@/components/ui/organisms/chat/icons';
 import { useCopyToClipboard } from '@/lib/hooks/use-copy-to-clipboard';
 
-interface Props {
+type Props = {
   language: string;
   value: string;
 }

@@ -84,7 +84,8 @@ const items: SelectorItem[] = [
     isActive: (editor) => editor.isActive('codeBlock')
   }
 ];
-interface NodeSelectorProps {
+
+type NodeSelectorProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }

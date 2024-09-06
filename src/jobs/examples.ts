@@ -15,11 +15,9 @@ export const example = client.defineJob({
   }),
   run: async (_payload, io, _ctx) => {
     // Use a Task to generate a random number. Using a Tasks means it only runs once.
-    const result = await io.runTask('generate-random-number', async () => {
-      return Promise.resolve({
+    const result = await io.runTask('generate-random-number', async () => Promise.resolve({
         num: Math.floor(Math.random() * 10000)
-      });
-    });
+      }));
 
     // Use the random number in a joke and log it to the console.
     await io.logger.info(`Why was the number ${result.num} afraid of the number 7?`);
@@ -30,11 +28,9 @@ export const example = client.defineJob({
     // Use a Task to display the answer. Tasks are important to use in all Jobs as they allow your Runs to resume again after e.g. a serverless function timeout. Learn more about Tasks in the docs: https://trigger.dev/docs/documentation/concepts/tasks
     await io.runTask(
       'task-example',
-      async () => {
-        return Promise.resolve({
+      async () => Promise.resolve({
           foo: 'bar'
-        });
-      },
+        }),
       { name: `Answer: Because 7,8,9! And ${result.num} was next 🤦` }
     );
     await io.logger.info(

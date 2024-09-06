@@ -48,7 +48,7 @@ const moreOptions = [
   }
 ];
 
-interface AISelectorCommandsProps {
+type AISelectorCommandsProps = {
   onSelect: (value: string, option: string) => void;
 }
 

@@ -31,7 +31,7 @@ export function BusinessSwitcher({
     const newPath = createPath({
       base: 'businesses',
       orgId: currentOrgId,
-      businessId: businessId,
+      businessId,
       page: path.page ?? 'core'
     });
 
@@ -45,7 +45,7 @@ export function BusinessSwitcher({
         page: 'core',
         base: 'businesses',
         orgId: currentOrgId,
-        businessId: businessId
+        businessId
       })
     );
   };

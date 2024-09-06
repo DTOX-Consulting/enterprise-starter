@@ -4,11 +4,9 @@ import { useState, useCallback, useRef } from 'react';
 export function useForceRerender() {
   const [, setTick] = useState(0);
 
-  const forceRerender = useCallback(() => {
+  return useCallback(() => {
     setTick((tick) => tick + 1);
   }, []);
-
-  return forceRerender;
 }
 
 export function useForceState<T>(initialValue: T) {

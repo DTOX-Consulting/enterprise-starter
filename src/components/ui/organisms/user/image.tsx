@@ -21,8 +21,7 @@ type UserImageProps = {
   user?: SessionUser;
 };
 
-export const UserImage = ({ user, width = 40, height = 40, className = '' }: UserImageProps) => {
-  return (
+export const UserImage = ({ user, width = 40, height = 40, className = '' }: UserImageProps) => (
     <Image
       unoptimized
       alt="Profile"
@@ -32,10 +31,8 @@ export const UserImage = ({ user, width = 40, height = 40, className = '' }: Use
       className={cn('size-10 rounded-full border bg-gray-200', className)}
     />
   );
-};
 
-export const UserDetails = ({ user, className }: UserImageProps) => {
-  return (
+export const UserDetails = ({ user, className }: UserImageProps) => (
     <span className="flex flex-col text-gray-500 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-400">
       <span className={cn('w-full truncate font-semibold leading-none ', className)}>
         {user?.name}
@@ -43,24 +40,19 @@ export const UserDetails = ({ user, className }: UserImageProps) => {
       <span className={cn('mt-1 w-full truncate text-xs leading-none', className)}> </span>
     </span>
   );
-};
 
-export const UserImageWithDetails = (props: UserImageProps) => {
-  return (
+export const UserImageWithDetails = (props: UserImageProps) => (
     <div className="flex cursor-pointer flex-row items-center space-x-2">
       <UserImage {...props} />
       <UserDetails {...props} />
     </div>
   );
-};
 
-export const UserImageLink = (props: UserImageProps) => {
-  return (
+export const UserImageLink = (props: UserImageProps) => (
     <Link href={routes.settings}>
       <UserImageWithDetails {...props} />
     </Link>
   );
-};
 
 export const UserImageSession = async (props: UserImageProps & { link?: boolean }) => {
   const newProps = { ...props, user: props.user ?? (await getUserSession()).user };

@@ -1,7 +1,7 @@
-// eslint-disable-next-line import/no-unassigned-import
+// eslint-disable-next-line import-x/no-unassigned-import
 import '@/lib/sdks/kinde/auth';
 
-// eslint-disable-next-line import/order
+// eslint-disable-next-line import-x/order
 import { Users, Roles, Permissions, Organizations } from '@kinde/management-api-js';
 
 export const usersApi = Users;

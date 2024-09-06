@@ -18,9 +18,7 @@ const syncConfig = {
 };
 
 export const authRouter = {
-  ping: publicProcedure.query(() => {
-    return { success: true };
-  }),
+  ping: publicProcedure.query(() => ({ success: true })),
   pingError: publicProcedure.query(() => {
     throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR', message: 'This is a test error' });
   }),
@@ -81,7 +79,5 @@ export const authRouter = {
 
     return { success: true };
   }),
-  user: publicProcedure.query(async () => {
-    return getUserSession(true);
-  })
+  user: publicProcedure.query(async () => getUserSession(true))
 };

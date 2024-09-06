@@ -18,29 +18,23 @@ export type Icons = {
   Sparkles: LucideIcon;
 };
 
-const NotificationBadge = ({ count }: { count: number }) => {
-  return (
+const NotificationBadge = ({ count }: { count: number }) => (
     <Badge className="absolute -top-1 right-[0.1rem] m-0 flex size-3 items-center justify-center p-0 text-center text-[0.5rem]">
       <span>{count}</span>
     </Badge>
   );
-};
 
-const NotificationIcon = ({ Icon }: { Icon: LucideIcon }) => {
-  return <Icon className="size-7 text-gray-400 hover:text-gray-500" />;
-};
+const NotificationIcon = ({ Icon }: { Icon: LucideIcon }) => <Icon className="size-7 text-gray-400 hover:text-gray-500" />;
 
 export const NotificationTrigger = ({
   count,
   icon = Bell
-}: { count: number; icon?: LucideIcon }) => {
-  return (
+}: { count: number; icon?: LucideIcon }) => (
     <div className="relative top-1 flex items-center">
       <NotificationIcon Icon={icon} />
       <NotificationBadge count={count} />
     </div>
   );
-};
 
 export const NotificationItemIcon = ({
   icon,
@@ -58,8 +52,7 @@ export const NotificationContent = ({
   seeAllRoute: string;
   notifications: DCS<Notification>[];
   onClick: (notification: DCS<Notification>, isRemoved?: boolean) => void;
-}) => {
-  return (
+}) => (
     <div className="z-20 w-full overflow-hidden rounded-md">
       <div className="py-2">
         {notifications.slice(0, 10).map((notification) => (
@@ -129,7 +122,6 @@ export const NotificationContent = ({
       )}
     </div>
   );
-};
 
 export const NotificationDrawer = ({
   icon = Bell,

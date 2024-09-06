@@ -46,7 +46,7 @@ const returnData = (input: ClientData, data?: object) => {
 export const getContact = async (email: string) => {
   const { data } = await unbox(wix.contacts.queryContacts().eq('primaryInfo.email', email).find());
 
-  return returnData({ email } as ClientData, data?.items?.[0]);
+  return returnData({ email } as ClientData, data?.items[0]);
 };
 
 export const createContact = async (input: ClientData) => {
@@ -89,7 +89,7 @@ export const updateContact = async (input: ClientData, id: string, revision: num
 
 export const upsertContact = async (input: ClientData) => {
   const contact = await getContact(input.email);
-  return G.isNullable(contact?.id) || G.isNullable(contact?.revision)
+  return G.isNullable(contact?.id) || G.isNullable(contact.revision)
     ? createContact(input)
     : updateContact(input, contact.id, contact.revision);
 };

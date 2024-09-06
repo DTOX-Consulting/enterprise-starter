@@ -2,6 +2,7 @@
 const exactOrigins = []; // update this with your domain
 
 const defaultOrigins = [
+  // eslint-disable-next-line sonarjs/no-clear-text-protocols
   'http://localhost:*',
   'https://*.pages.dev',
   'https://*.vercel.app',

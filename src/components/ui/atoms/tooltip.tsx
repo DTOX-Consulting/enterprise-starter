@@ -52,12 +52,10 @@ const InverseTip = ({
   <Tip content={children}>{content}</Tip>
 );
 
-const InfoTip = ({ children, className }: React.PropsWithChildren<{ className?: string }>) => {
-  return (
+const InfoTip = ({ children, className }: React.PropsWithChildren<{ className?: string }>) => (
     <Tip content={children}>
       <Info className={cn('ml-2 size-4 text-neutral-400 hover:text-neutral-200', className)} />
     </Tip>
   );
-};
 
 export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider, Tip, InverseTip, InfoTip };

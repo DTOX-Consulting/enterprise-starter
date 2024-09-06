@@ -1,6 +1,6 @@
 import { createSchema } from '@/lib/db/rxdb/utils/schema';
 
-export interface Organization {
+export type Organization = {
   name: string;
   type: string;
 }

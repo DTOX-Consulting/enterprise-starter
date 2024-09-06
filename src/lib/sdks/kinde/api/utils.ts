@@ -5,7 +5,7 @@ export const getUserByEmail = async (email: string) => {
   const { users } = await usersApi.getUsers({ email });
   const user = users?.[0];
 
-  if (!user || !user.id) throw new Error('User not found');
+  if (!user?.id) throw new Error('User not found');
   return user as NonNullable<typeof user> & { id: string };
 };
 
@@ -14,6 +14,4 @@ export const refreshUserClaimsByEmail = async (email: string) => {
   await usersApi.refreshUserClaims({ userId: user.id });
 };
 
-export const getDefaultOrgCode = () => {
-  return config.defaultOrgCode;
-};
+export const getDefaultOrgCode = () => config.defaultOrgCode;

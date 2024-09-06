@@ -5,10 +5,10 @@ import { useState } from 'react';
 
 import fallbackImage from '@/assets/images/fallback.png';
 
-interface ImageWithFallbackProps extends ImageProps {
+type ImageWithFallbackProps = {
   fallbackSrc?: string;
   imgKey: string | number;
-}
+} & ImageProps
 
 export const ImageWithFallback = (props: ImageWithFallbackProps) => {
   const { imgKey, src, fallbackSrc = fallbackImage, ...rest } = props;

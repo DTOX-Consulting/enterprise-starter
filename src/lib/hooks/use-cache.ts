@@ -7,7 +7,7 @@ export const createCachedHook = <I, O>(processor: (arg: I) => O) => {
   const cachedResults = new Map<string, O>();
   const cachedExecutions = new Map<string, () => O | undefined>();
 
-  const useCache = (cacheKey: string, i: I) => {
+  return (cacheKey: string, i: I) => {
     const stringified = stringifyDeterministic(i);
     const argsHash = stringified ? hash(stringified) : '';
 
@@ -24,6 +24,4 @@ export const createCachedHook = <I, O>(processor: (arg: I) => O) => {
       return cachedExecutions.get(cacheKey)?.();
     }, [argsHash]);
   };
-
-  return useCache;
 };

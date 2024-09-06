@@ -73,11 +73,9 @@ export const env = createEnv({
  *
  * @param key {keyof typeof env}
  * @param defaultValue {string | boolean | number | undefined}
- * @returns {string}
+ * @returns {string} The value of the environment variable or the default value
  */
-export const getEnv = (key, defaultValue = '') => {
-  return env[key] ?? defaultValue;
-};
+export const getEnv = (key, defaultValue = '') => env[key] ?? defaultValue;
 
 export const isDev = () => getEnv('NEXT_PUBLIC_NODE_ENV') !== 'production';
 export const isProd = () => getEnv('NEXT_PUBLIC_NODE_ENV') === 'production';

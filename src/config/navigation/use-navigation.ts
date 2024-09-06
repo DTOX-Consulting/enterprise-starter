@@ -30,14 +30,14 @@ export function useLastPage() {
   const setLastPage = useDebounceCallback<NonNullable<UserMeta['lastVisited']>>(
     `set-${id}-callback`,
     (lastVisitedData) => {
-      if (!userMeta || isDeepEqual(lastVisitedData, userMeta?.lastVisited)) return;
+      if (!userMeta || isDeepEqual(lastVisitedData, userMeta.lastVisited)) return;
 
       void upsertUserMeta({
-        id: userMeta?.id,
+        id: userMeta.id,
         lastVisited: lastVisitedData,
-        editingState: userMeta?.editingState,
-        journeyState: userMeta?.journeyState ?? {},
-        hasAcceptedTerms: userMeta?.hasAcceptedTerms ?? false
+        editingState: userMeta.editingState,
+        journeyState: userMeta.journeyState ?? {},
+        hasAcceptedTerms: userMeta.hasAcceptedTerms ?? false
       });
     },
     [userMeta, upsertUserMeta],
@@ -106,9 +106,7 @@ export function useNavigation() {
     [path]
   );
 
-  const inPages = useCallback((path: string) => {
-    return isInPages(path, initialize(path));
-  }, []);
+  const inPages = useCallback((path: string) => isInPages(path, initialize(path)), []);
 
   return {
     is,

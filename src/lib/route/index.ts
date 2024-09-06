@@ -19,9 +19,7 @@ export const sendResponse = ({
   errorCode?: number;
   successCode?: number;
   data?: Record<string, unknown>;
-} = {}): NextResponse => {
-  return error ? errorResponse(error, errorCode) : successResponse(data, successCode);
-};
+} = {}): NextResponse => error ? errorResponse(error, errorCode) : successResponse(data, successCode);
 
 type Status = {
   code?: number;
@@ -31,7 +29,7 @@ type Status = {
 
 export const getStatus = ({ data, error, code }: Status) => {
   let successStatus = code ?? data?.code ?? 200;
-  let errorStatus = code ?? (error as ErrorWithCode)?.code ?? 500;
+  let errorStatus = code ?? (error as ErrorWithCode).code ?? 500;
 
   if (!G.isNumber(errorStatus)) errorStatus = 500;
   if (!G.isNumber(successStatus)) successStatus = 200;
@@ -61,14 +59,12 @@ export const errorResponse = (
 
 export const apiResponse = async <T, E extends APIError>(
   fn: APIResult<T, E>
-): Promise<NextResponse> => {
-  return pipe(
+): Promise<NextResponse> => pipe(
     await fn,
     R.map(successResponse),
     R.mapError(errorResponse),
     R.match<NextResponse, NextResponse, NextResponse>(F.identity, F.identity)
   );
-};
 
 export const routeHandler = <T extends Response>(
   fn: (request: NextRequest, data: GenericObject) => Promise<T>,

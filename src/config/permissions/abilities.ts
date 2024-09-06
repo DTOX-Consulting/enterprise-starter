@@ -44,7 +44,7 @@ export const defineAbilitiesFor = (user: AbilityUser) => {
 
   const tier = tiers[user.tier];
 
-  const features = tier.features;
+  const {features} = tier;
 
   // Teams allowed
   if (features.teamsAllowed) {

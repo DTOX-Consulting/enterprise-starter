@@ -3,7 +3,7 @@ import { Main } from '@/components/ui/layouts/dashboard/main';
 import { Sidebar } from '@/components/ui/layouts/docs/sidebar';
 import { cn } from '@/lib/utils';
 
-interface LayoutProps {
+type LayoutProps = {
   children: React.ReactNode;
 }
 

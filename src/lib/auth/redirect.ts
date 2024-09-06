@@ -7,7 +7,7 @@ import { getFFValue } from '@/config/permissions/feature-flags';
 import { generateRoutes, redirect } from '@/lib/auth/utils';
 import { isUserAuthenticated } from '@/lib/sdks/kinde/api/session';
 
-interface AuthenticationRedirection {
+type AuthenticationRedirection = {
   replace?: boolean;
   redirectWhenAuthenticated?: boolean;
   redirectPaths?: {
@@ -30,7 +30,7 @@ export async function authenticationRedirection(
 ) {
   const currentPath = generateRoutes().current.path;
 
-  const args = Object.assign({}, defaultARArgs, authArgs);
+  const args = { ...defaultARArgs, ...authArgs};
 
   const authCheck = await isUserAuthenticated();
 

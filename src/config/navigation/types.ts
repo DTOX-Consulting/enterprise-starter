@@ -4,7 +4,7 @@ import type { LucideIcon } from 'lucide-react';
 import type { StaticImageData } from 'next/image';
 import type { ValueOf } from 'tsdef';
 
-export interface NavigationItem {
+export type NavigationItem = {
   tier?: TierName;
   name: string;
   icon?: LucideIcon;
@@ -19,8 +19,8 @@ export interface NavigationItem {
   items?: NavigationItem[];
 }
 
-export interface HomeItem extends NavigationItem {
+export type HomeItem = {
   src: StaticImageData;
-}
+} & NavigationItem
 
 export type GetNavigationItems = (route: string) => NavigationItem[];

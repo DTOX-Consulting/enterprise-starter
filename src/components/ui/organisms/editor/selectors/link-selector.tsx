@@ -25,7 +25,8 @@ export function getUrlFromString(str: string) {
     return null;
   }
 }
-interface LinkSelectorProps {
+
+type LinkSelectorProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }

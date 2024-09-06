@@ -19,7 +19,7 @@ export function useAbilities() {
     organizations
   });
 
-  const currentTier = auth?.subscription?.tier ?? defaultTier;
+  const currentTier = auth.subscription?.tier ?? defaultTier;
   const { price, features } = getTier(currentTier);
 
   return {
@@ -27,7 +27,7 @@ export function useAbilities() {
     features,
     abilities,
     tier: currentTier,
-    abilitiesReady: !!auth?.user?.id,
+    abilitiesReady: !!auth.user?.id,
     isTier: (tier: TierName) => currentTier === tier,
     getFeature: (feature: keyof typeof features) => features[feature]
   };
@@ -43,12 +43,12 @@ const defineAbilities = ({
   organizations: DCS<Organization>[];
 }) => {
   const abilityUser: AbilityUser = {
-    id: auth?.user?.id ?? '',
-    tier: auth?.subscription?.tier ?? defaultTier,
+    id: auth.user?.id ?? '',
+    tier: auth.subscription?.tier ?? defaultTier,
     meta: {
       historyCount: 0,
-      businessCount: businesses?.length ?? 0,
-      organizationCount: organizations?.length ?? 0
+      businessCount: businesses.length ?? 0,
+      organizationCount: organizations.length ?? 0
     }
   };
 

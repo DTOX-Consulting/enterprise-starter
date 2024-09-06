@@ -25,7 +25,7 @@ export const closeSidebar = () => {
   sidebarTrigger?.click();
 };
 
-interface ClearHistoryProps {
+type ClearHistoryProps = {
   clearChats: () => ServerActionResult<void>;
 }
 

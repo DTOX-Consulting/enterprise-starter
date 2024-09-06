@@ -95,8 +95,7 @@ export function ThemeToggleTrigger({ isSubmenu = false }: { isSubmenu?: boolean 
   );
 }
 
-export const ThemeToggle = () => {
-  return (
+export const ThemeToggle = () => (
     <>
       <DropdownMenuGroup>
         <DropdownMenuLabel>Theme</DropdownMenuLabel>
@@ -105,7 +104,6 @@ export const ThemeToggle = () => {
       <DropdownMenuSeparator />
     </>
   );
-};
 
 export function ThemeToggleContent({ isSubmenu = false }: { isSubmenu?: boolean }) {
   const { theme, setTheme } = useTheme();

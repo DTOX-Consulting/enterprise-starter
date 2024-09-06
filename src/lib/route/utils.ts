@@ -5,7 +5,7 @@ import type { APIError } from '@/lib/route/types';
 export const defaultErrorMapper = <E extends APIError>(_error: unknown): E => {
   const error = (_error as { error?: unknown }).error || _error;
 
-  const status = (error as { status?: unknown }).status;
+  const {status} = (error as { status?: unknown });
   const errors = (error as { errors?: unknown }).errors || [{ error }];
   const code =
     typeof (error as { code?: unknown }).code === 'number' ? (error as { code: number }).code : 500;
@@ -32,12 +32,10 @@ export const fromPromise = async <T, E extends APIError>(
   }
 };
 
-export const unboxR = <T, E extends APIError>(result: Result<T, E>): { data?: T; error?: E } => {
-  return {
+export const unboxR = <T, E extends APIError>(result: Result<T, E>): { data?: T; error?: E } => ({
     data: R.toUndefined(result),
     error: R.toUndefined(R.flip(result))
-  };
-};
+  });
 
 export const unboxPath = <
   T extends Record<string, unknown>,
@@ -46,6 +44,4 @@ export const unboxPath = <
 >(
   result: Result<T, E>,
   path: R = 'result' as R
-): T[R] | undefined => {
-  return unboxR(result)?.data?.[path];
-};
+): T[R] | undefined => unboxR(result).data?.[path];

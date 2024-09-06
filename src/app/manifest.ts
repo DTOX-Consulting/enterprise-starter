@@ -8,7 +8,7 @@ import { name, shortName, shortDescription, themeColor, backgroundColor } from '
 import type { MetadataRoute } from 'next';
 
 type IconType = NonNullable<MetadataRoute.Manifest['icons']>[0] & {
-  targets: Array<'manifest' | 'favicon' | 'apple' | 'android' | 'ms'>;
+  targets: ('manifest' | 'favicon' | 'apple' | 'android' | 'ms')[];
   element?: string;
 };
 
@@ -31,7 +31,7 @@ const iconRoot = 'public/images/icons';
 const logoRoot = 'public/images/logos';
 const screenshotRoot = 'public/images/screenshots';
 
-const sizes = [/*16, 32, */ 36, 48, 64, 70, 72, 96, 128, 144, 150, 152, 192, 310, 384, 512];
+const sizes = [/* 16, 32, */ 36, 48, 64, 70, 72, 96, 128, 144, 150, 152, 192, 310, 384, 512];
 
 const ROOT_DIR = resolve(__dirname, '../..');
 
@@ -185,7 +185,7 @@ const generateLogos = async () => {
 const generateScreenshots = async () => {
   await ensureDir(screenshotRoot);
 
-  const screenshots = ['narrow', 'narrow', 'wide', 'wide'].map((formFactor, index) => {
+  return ['narrow', 'narrow', 'wide', 'wide'].map((formFactor, index) => {
     const isN = formFactor === 'narrow';
     const sizes1 = `${isN ? '540' : '720'}x${isN ? '720' : '540'}`;
     const sizes2 = `${isN ? '1080' : '1440'}x${isN ? '1440' : '1080'}`;
@@ -200,8 +200,6 @@ const generateScreenshots = async () => {
       .png()
       .toFile(output, logError);
   });
-
-  return screenshots;
 };
 const logError = (err?: Error) => {
   if (err) console.error(err);

@@ -8,7 +8,7 @@ const sidebarNavItems = [
   }
 ];
 
-interface SettingsLayoutProps {
+type SettingsLayoutProps = {
   children: React.ReactNode;
 }
 

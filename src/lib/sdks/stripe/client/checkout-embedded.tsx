@@ -17,13 +17,11 @@ import { api } from '@/trpc/react';
 import type { TierName } from '@/config/permissions/features';
 import type { Stripe, StripeElements } from '@stripe/stripe-js';
 
-export const CheckoutLoader = () => {
-  return (
+export const CheckoutLoader = () => (
     <div className="mx-auto flex h-80 w-full items-center justify-center">
       <LoadingDots />
     </div>
   );
-};
 
 export const CheckoutButton = ({ tier }: { tier: TierName }) => {
   if (tier === 'starter') {
@@ -47,12 +45,12 @@ export const CheckoutElement = ({ tier }: { tier: TierName }) => {
 
   const options = useMemo(
     () => ({
-      clientSecret: data?.intent?.client_secret ?? ''
+      clientSecret: data?.intent.client_secret ?? ''
     }),
-    [data?.intent?.client_secret]
+    [data?.intent.client_secret]
   );
 
-  if (!data?.intent?.client_secret) {
+  if (!data?.intent.client_secret) {
     return <CheckoutLoader />;
   }
 
@@ -104,7 +102,7 @@ export const confirmPayment = async ({ tier, stripe, elements }: Required<Checko
     })
   );
 
-  const err = error ?? data?.error;
+  const err = error ?? data.error;
 
   if (G.isNotNullable(error)) {
     return toast({

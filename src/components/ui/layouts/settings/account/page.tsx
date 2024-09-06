@@ -39,7 +39,7 @@ async function PersonalInformationForm() {
                 name="first-name"
                 type="text"
                 autoComplete="given-name"
-                value={user?.firstName}
+                value={user.firstName}
               />
             </div>
           </div>
@@ -54,7 +54,7 @@ async function PersonalInformationForm() {
                 name="last-name"
                 type="text"
                 autoComplete="family-name"
-                value={user?.lastName}
+                value={user.lastName}
               />
             </div>
           </div>
@@ -69,7 +69,7 @@ async function PersonalInformationForm() {
                 name="email"
                 type="email"
                 autoComplete="email"
-                value={user?.email}
+                value={user.email}
               />
             </div>
           </div>

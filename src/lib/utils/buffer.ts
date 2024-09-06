@@ -4,15 +4,12 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { PassThrough } from 'node:stream';
 
-export const bufferToString = (buffer: Buffer): string => {
-  return buffer.toString('utf-8');
-};
+export const bufferToString = (buffer: Buffer): string => buffer.toString('utf-8');
 
 export const bufferSize = (buffer: Buffer): string => {
   const bufferSizeBytes = Buffer.byteLength(buffer);
   const bufferSizeMB = bufferSizeBytes / (1024 * 1024);
-  const size = `${bufferSizeMB.toFixed(2)} MB`;
-  return size;
+  return `${bufferSizeMB.toFixed(2)} MB`;
 };
 
 export const bufferToStreamFromTmp = async (buffer: Buffer): Promise<ReadStream> => {

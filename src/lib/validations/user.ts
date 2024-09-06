@@ -1,5 +1,5 @@
-import * as z from 'zod';
+import { object, string } from 'zod';
 
-export const userNameSchema = z.object({
-  name: z.string().min(3).max(32)
+export const userNameSchema = object({
+  name: string().min(3).max(32)
 });

@@ -7,7 +7,7 @@ import type { GenericFunction } from '@/lib/utils/function';
 
 // export type { DeepReadonly, DeepReadonlyArray, DeepReadonlyObject } from 'rxdb';
 
-export type DeepReadonlyArray<T> = ReadonlyArray<DeepReadonly<T>>;
+export type DeepReadonlyArray<T> = readonly DeepReadonly<T>[];
 
 export type DeepReadonlyObject<T> = {
   readonly [P in keyof T]: DeepReadonly<T[P]>;
@@ -113,11 +113,11 @@ export type NonNullableObjectWithFields<
  */
 export function assertNonNullableFields<T extends object, K extends keyof T = keyof T>(
   obj: T | null = {} as T,
-  ...fields: ReadonlyArray<K>
+  ...fields: readonly K[]
 ): asserts obj is NonNullableObjectWithFields<T, K> {
   assertNonNullish(obj, 'Expected object to be defined');
 
-  const fieldsToCheck = fields.length === 0 ? (Object.keys(obj) as Array<keyof T>) : fields;
+  const fieldsToCheck = fields.length === 0 ? (Object.keys(obj) as (keyof T)[]) : fields;
 
   for (const field of fieldsToCheck) {
     const fieldValue = obj[field] as T[K];
@@ -137,7 +137,7 @@ export type NonNullableObject<T extends object, K extends keyof T = keyof T> = T
  * @param obj
  * @param keys
  */
-export function pick<T extends GenericObject>(obj: T, ...keys: ReadonlyArray<keyof T>) {
+export function pick<T extends GenericObject>(obj: T, ...keys: readonly (keyof T)[]) {
   return filterProperties<T>(obj, (_, key) => keys.includes(key));
 }
 
@@ -147,7 +147,7 @@ export function pick<T extends GenericObject>(obj: T, ...keys: ReadonlyArray<key
  * @param obj
  * @param keys
  */
-export function omit<T extends GenericObject>(obj: T, ...keys: ReadonlyArray<keyof T>) {
+export function omit<T extends GenericObject>(obj: T, ...keys: readonly (keyof T)[]) {
   return filterProperties<T>(obj, (_, key) => !keys.includes(key));
 }
 

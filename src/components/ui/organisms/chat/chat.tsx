@@ -11,12 +11,12 @@ import { cn } from '@/lib/utils';
 
 import type { ChatRequestBody } from '@/lib/sdks/openai/api';
 
-export interface ChatProps extends React.ComponentProps<'div'> {
+export type ChatProps = {
   initialMessages?: Message[];
   isUnAuthenticated?: boolean;
   showBots?: boolean;
   id?: string;
-}
+} & React.ComponentProps<'div'>
 
 export function Chat({ id, isUnAuthenticated, initialMessages, className }: ChatProps) {
   const { messages, append, reload, stop, isLoading, input, setInput } = useChat({

@@ -1,6 +1,6 @@
 import { createSchema } from '@/lib/db/rxdb/utils/schema';
 
-export interface UserMeta {
+export type UserMeta = {
   hasAcceptedTerms: boolean;
   journeyState: Record<string, Record<string, unknown>>;
   lastVisited?: {

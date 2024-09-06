@@ -88,7 +88,7 @@ export const useRxDB = () => {
     async (forceResync = false) => {
       if (!session?.user.id) return;
       if (getDb() && getReplicates()) return resyncDb(forceResync);
-      if (!session?.user.id || (getDb() ?? getReplicates())) {
+      if (!session.user.id || (getDb() ?? getReplicates())) {
         devLog('DB already initialized', getDb());
         return;
       }
@@ -195,6 +195,4 @@ export const useRxDBData = <T extends SchemaName, U extends SchemaType<T> = Sche
   collectionName: T,
   queryConstructor: QueryConstructor<U>,
   options?: UseRxQueryOptions & { json: false }
-): RxQueryResultDoc<U> => {
-  return useRxData<U>(collectionName, queryConstructor, options);
-};
+): RxQueryResultDoc<U> => useRxData<U>(collectionName, queryConstructor, options);

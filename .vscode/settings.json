@@ -30,9 +30,9 @@
   "eslint.workingDirectories": [{ "mode": "auto", "changeProcessCWD": true }],
   "eslint.codeActionsOnSave.mode": "all",
   "eslint.codeActionsOnSave.rules": [
-    "!import/namespace",
-    "!import/no-deprecated",
-    "!import/no-cycle",
+    "!import-x/namespace",
+    "!import-x/no-deprecated",
+    "!import-x/no-cycle",
     "*"
   ],
   "eslint.probe": ["javascript", "javascriptreact", "typescript", "typescriptreact"],

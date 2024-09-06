@@ -7,22 +7,19 @@ import { cn } from '@/lib/utils';
 const RadioGroupButton = React.forwardRef<
   React.ElementRef<typeof RadioGroupPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Root>
->(({ className, ...props }, ref) => {
-  return (
+>(({ className, ...props }, ref) => (
     <RadioGroupPrimitive.Root
       className={cn('grid gap-0 overflow-hidden rounded-md border border-primary', className)}
       {...props}
       ref={ref}
     />
-  );
-});
+  ));
 RadioGroupButton.displayName = RadioGroupPrimitive.Root.displayName;
 
 const RadioGroupButtonItem = React.forwardRef<
   React.ElementRef<typeof RadioGroupPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Item>
->(({ className, children, ...props }, ref) => {
-  return (
+>(({ className, children, ...props }, ref) => (
     <RadioGroupPrimitive.Item
       ref={ref}
       className={cn(
@@ -36,8 +33,7 @@ const RadioGroupButtonItem = React.forwardRef<
       </RadioGroupPrimitive.Indicator>
       {children}
     </RadioGroupPrimitive.Item>
-  );
-});
+  ));
 RadioGroupButtonItem.displayName = RadioGroupPrimitive.Item.displayName;
 
 export { RadioGroupButton, RadioGroupButtonItem };

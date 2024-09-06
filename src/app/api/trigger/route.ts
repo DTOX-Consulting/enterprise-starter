@@ -1,6 +1,6 @@
 import { createAppRoute } from '@trigger.dev/nextjs';
 
-// eslint-disable-next-line import/no-unassigned-import
+// eslint-disable-next-line import-x/no-unassigned-import
 import '@/jobs';
 import { client } from '@/trigger';
 

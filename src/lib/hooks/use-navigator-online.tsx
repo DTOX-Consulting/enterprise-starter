@@ -1,6 +1,6 @@
 import { type ReactNode, useCallback, useEffect, useState } from 'react';
 
-interface IState {
+type IState = {
   startOnline?: boolean;
   whenOnline?: ReactNode;
   whenOffline?: ReactNode;
