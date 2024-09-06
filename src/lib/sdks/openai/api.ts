@@ -56,7 +56,8 @@ export const createImageCompletion = async (imageOptions: ImageOptions) => {
 export const _createCompletion = async (
   _messages: ChatCompletionRequestMessage[],
   chatOptions: ChatOptions = {}
-) => openai.createChatCompletion({
+) =>
+  openai.createChatCompletion({
     messages: _messages,
     stream: chatOptions.stream,
     temperature: chatOptions.temperature,

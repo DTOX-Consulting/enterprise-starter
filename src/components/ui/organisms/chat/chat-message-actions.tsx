@@ -9,7 +9,7 @@ import type { Message } from 'ai';
 
 type ChatMessageActionsProps = {
   message: Message;
-} & React.ComponentProps<'div'>
+} & React.ComponentProps<'div'>;
 
 export function ChatMessageActions({ message, className, ...props }: ChatMessageActionsProps) {
   const { isCopied, copyToClipboard } = useCopyToClipboard({ timeout: 2000 });

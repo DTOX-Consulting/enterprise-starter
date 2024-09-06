@@ -8,7 +8,7 @@ export type Option = {
   fixed?: boolean;
   /** Group the options by providing key. */
   [key: string]: string | boolean | undefined;
-}
+};
 
 export type ReadOnlyOption = DeepReadonlyObject<Option>;
 export type ReadOnlyOptions = ReadOnlyOption[];

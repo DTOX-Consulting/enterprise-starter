@@ -7,7 +7,7 @@ import type { Route } from 'next';
 type CardProps = {
   href?: Route<string>;
   disabled?: boolean;
-} & React.HTMLAttributes<HTMLDivElement>
+} & React.HTMLAttributes<HTMLDivElement>;
 
 export function MdxCard({ href, className, children, disabled, ...props }: CardProps) {
   return (

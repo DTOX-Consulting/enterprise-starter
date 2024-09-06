@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState, type RefObject } from 'react';
 
 type Args = {
   freezeOnceVisible?: boolean;
-} & IntersectionObserverInit
+} & IntersectionObserverInit;
 
 function useIntersectionObserver(
   elementRef: RefObject<Element>,

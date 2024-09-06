@@ -26,7 +26,7 @@ export const AICompletionCommands = ({
             className="gap-2 px-4"
             value="replace"
             onSelect={() => {
-              const {selection} = editor.view.state;
+              const { selection } = editor.view.state;
 
               editor
                 .chain()
@@ -48,7 +48,7 @@ export const AICompletionCommands = ({
             className="gap-2 px-4"
             value="insert"
             onSelect={() => {
-              const {selection} = editor.view.state;
+              const { selection } = editor.view.state;
               editor
                 .chain()
                 .focus()

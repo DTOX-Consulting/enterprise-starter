@@ -8,12 +8,12 @@ import fsWatch from 'node-watch';
 import { isDev } from '@Root/config/env.config.mjs';
 
 const options = (): BuildConfig => ({
-    minify: !isDev,
-    format: 'esm',
-    target: 'browser',
-    outdir: 'public/iframe/',
-    entrypoints: ['src/iframe/widget.js', 'src/iframe/app.js']
-  });
+  minify: !isDev,
+  format: 'esm',
+  target: 'browser',
+  outdir: 'public/iframe/',
+  entrypoints: ['src/iframe/widget.js', 'src/iframe/app.js']
+});
 
 const clean = async () => {
   const opts = options();

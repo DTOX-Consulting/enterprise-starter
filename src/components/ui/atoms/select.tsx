@@ -134,16 +134,16 @@ export const SelectSingle = ({
   defaultValue?: string;
   onChange: (value: string) => void;
 }) => (
-    <Select value={value} defaultValue={defaultValue} onValueChange={onChange}>
-      <SelectTrigger>
-        <SelectValue className="text-sm" placeholder={placeholder} />
-      </SelectTrigger>
-      <SelectContent>
-        {options?.map((option) => (
-          <SelectItem key={option.value} value={option.value}>
-            {option.label}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
-  );
+  <Select value={value} defaultValue={defaultValue} onValueChange={onChange}>
+    <SelectTrigger>
+      <SelectValue className="text-sm" placeholder={placeholder} />
+    </SelectTrigger>
+    <SelectContent>
+      {options?.map((option) => (
+        <SelectItem key={option.value} value={option.value}>
+          {option.label}
+        </SelectItem>
+      ))}
+    </SelectContent>
+  </Select>
+);

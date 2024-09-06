@@ -12,7 +12,7 @@ export type History = {
     score?: number;
     data: string | Option[];
   };
-}
+};
 
 export type HistoryFilters = {
   date?: string;

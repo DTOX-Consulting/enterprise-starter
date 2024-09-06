@@ -10,7 +10,7 @@ const sidebarNavItems = [
 
 type SettingsLayoutProps = {
   children: React.ReactNode;
-}
+};
 
 export default function SettingsLayout({ children }: SettingsLayoutProps) {
   return (

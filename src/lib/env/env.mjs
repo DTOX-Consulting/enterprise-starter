@@ -14,6 +14,7 @@ export const env = createEnv({
     OTEL_EXPORTER_OTLP_ENDPOINT: z.string().min(1),
     WIX_API_KEY: z.string().min(1).optional(),
     WIX_SITE_ID: z.string().min(1).optional(),
+    REPLICATE_API_TOKEN: z.string().min(1).optional(),
     WIX_ACCOUNT_ID: z.string().min(1).optional(),
     NODE_ENV: z.enum(['development', 'production', 'test']).optional(),
     ANALYZE: z
@@ -51,6 +52,7 @@ export const env = createEnv({
     STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
     OTEL_SERVICE_NAME: process.env.OTEL_SERVICE_NAME,
     OTEL_EXPORTER_OTLP_ENDPOINT: process.env.OTEL_EXPORTER_OTLP_ENDPOINT,
+    REPLICATE_API_TOKEN: process.env.REPLICATE_API_TOKEN,
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
     NEXT_PUBLIC_NODE_ENV: process.env.NEXT_PUBLIC_NODE_ENV,
     NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,

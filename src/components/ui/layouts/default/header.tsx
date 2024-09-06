@@ -4,8 +4,8 @@ import { Navigation } from '@/components/ui/layouts/default/navigation';
 import type { PropsWithChildren } from 'react';
 
 export const Header = ({ children }: PropsWithChildren) => (
-    <HeaderContainer>
-      {children}
-      <Navigation />
-    </HeaderContainer>
-  );
+  <HeaderContainer>
+    {children}
+    <Navigation />
+  </HeaderContainer>
+);

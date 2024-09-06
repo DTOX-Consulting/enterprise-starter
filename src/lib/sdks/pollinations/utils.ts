@@ -84,7 +84,8 @@ Do not display the {image url} in code block or quotes.
 Ensure the word/character count is within the specified range.
 `.trim();
 
-export const generateImagePrompt = (responseType?: ImageResponseType) => [
+export const generateImagePrompt = (responseType?: ImageResponseType) =>
+  [
     generateImagePromptBody(),
     generateImagePromptResponse(responseType),
     generateImagePromptPostBody()

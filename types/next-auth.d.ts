@@ -5,7 +5,7 @@ type UserId = string;
 declare module 'next-auth/jwt' {
   type JWT = {
     id: UserId;
-  }
+  };
 }
 
 declare module 'next-auth' {
@@ -13,5 +13,5 @@ declare module 'next-auth' {
     user: User & {
       id: UserId;
     };
-  }
+  };
 }

@@ -16,7 +16,7 @@ export type ChatProps = {
   isUnAuthenticated?: boolean;
   showBots?: boolean;
   id?: string;
-} & React.ComponentProps<'div'>
+} & React.ComponentProps<'div'>;
 
 export function Chat({ id, isUnAuthenticated, initialMessages, className }: ChatProps) {
   const { messages, append, reload, stop, isLoading, input, setInput } = useChat({

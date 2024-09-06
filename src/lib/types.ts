@@ -8,7 +8,7 @@ export type Chat = {
   path: string;
   messages: Message[];
   sharePath?: string;
-} & Record<string, unknown>
+} & Record<string, unknown>;
 
 export type ServerActionResult<Result> = Promise<
   | Result

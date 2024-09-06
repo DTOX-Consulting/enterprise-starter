@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 export type UseCopyToClipboardProps = {
   timeout?: number;
-}
+};
 
 export function useCopyToClipboard({ timeout = 2000 }: UseCopyToClipboardProps) {
   const [isCopied, setIsCopied] = useState<boolean>(false);

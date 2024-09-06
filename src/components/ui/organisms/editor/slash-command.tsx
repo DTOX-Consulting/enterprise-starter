@@ -157,8 +157,8 @@ export const suggestionItems = createSuggestionItems([
           })
           .run();
       } else if (videoLink !== null) {
-          alert('Please enter a correct Youtube Video Link');
-        }
+        alert('Please enter a correct Youtube Video Link');
+      }
     }
   }
 ]);

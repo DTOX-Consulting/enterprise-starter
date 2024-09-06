@@ -11,19 +11,19 @@ import type { PropsWithChildren } from 'react';
 HyperDX.attachToReactErrorBoundary(ErrorBoundary);
 
 export const HighlightProvider = ({ children }: PropsWithChildren) => (
-    <>
-      <HighlightInit
-        manualStart
-        tracingOrigins
-        projectId={config.projectId}
-        serviceName={config.serviceName}
-        networkRecording={{
-          enabled: true,
-          recordHeadersAndBody: true,
-          urlBlocklist: []
-        }}
-      />
-      <CustomHighlightStart />
-      <ErrorBoundary>{children}</ErrorBoundary>
-    </>
-  );
+  <>
+    <HighlightInit
+      manualStart
+      tracingOrigins
+      projectId={config.projectId}
+      serviceName={config.serviceName}
+      networkRecording={{
+        enabled: true,
+        recordHeadersAndBody: true,
+        urlBlocklist: []
+      }}
+    />
+    <CustomHighlightStart />
+    <ErrorBoundary>{children}</ErrorBoundary>
+  </>
+);

@@ -14,7 +14,7 @@ import { useCopyToClipboard } from '@/lib/hooks/use-copy-to-clipboard';
 type Props = {
   language: string;
   value: string;
-}
+};
 
 type languageMap = Record<string, string | undefined>;
 

@@ -13,9 +13,9 @@ import type { UseChatHelpers } from 'ai/react';
 export type ChatPanelProps = {
   id?: string;
 } & Pick<
-    UseChatHelpers,
-    'append' | 'isLoading' | 'reload' | 'messages' | 'stop' | 'input' | 'setInput'
-  >
+  UseChatHelpers,
+  'append' | 'isLoading' | 'reload' | 'messages' | 'stop' | 'input' | 'setInput'
+>;
 
 export function ChatPanel({
   id,

@@ -3,7 +3,7 @@ import { Header } from '@/components/ui/layouts/settings-old/header';
 
 type LayoutProps = {
   children: React.ReactNode;
-}
+};
 
 export default function Layout({ children }: LayoutProps) {
   return (

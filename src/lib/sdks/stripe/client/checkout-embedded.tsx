@@ -18,10 +18,10 @@ import type { TierName } from '@/config/permissions/features';
 import type { Stripe, StripeElements } from '@stripe/stripe-js';
 
 export const CheckoutLoader = () => (
-    <div className="mx-auto flex h-80 w-full items-center justify-center">
-      <LoadingDots />
-    </div>
-  );
+  <div className="mx-auto flex h-80 w-full items-center justify-center">
+    <LoadingDots />
+  </div>
+);
 
 export const CheckoutButton = ({ tier }: { tier: TierName }) => {
   if (tier === 'starter') {

@@ -21,7 +21,7 @@ type KindeJWT = {
       last_name: string;
     };
   };
-}
+};
 
 export const kindeUserCreated = client.defineJob({
   version: '0.1.0',
@@ -35,7 +35,7 @@ export const kindeUserCreated = client.defineJob({
     const body = await request.text();
     const jwt = decodeJwt<KindeJWT>(body);
 
-    const {user} = jwt.data;
+    const { user } = jwt.data;
     const { email, first_name: name } = user;
 
     await send({

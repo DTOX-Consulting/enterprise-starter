@@ -27,7 +27,7 @@ export const closeSidebar = () => {
 
 type ClearHistoryProps = {
   clearChats: () => ServerActionResult<void>;
-}
+};
 
 export function ClearHistory({ clearChats }: ClearHistoryProps) {
   const router = useRouter();

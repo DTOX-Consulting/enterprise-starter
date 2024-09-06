@@ -4,7 +4,7 @@ type IState = {
   startOnline?: boolean;
   whenOnline?: ReactNode;
   whenOffline?: ReactNode;
-}
+};
 
 const defaultState: IState = {
   startOnline: true,

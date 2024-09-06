@@ -12,7 +12,7 @@ type LayoutProps = {
   headerChildren?: React.ReactNode;
   sidebarChildren?: React.ReactNode;
   headerProps?: HeaderProps;
-}
+};
 
 export default function Layout({
   className,

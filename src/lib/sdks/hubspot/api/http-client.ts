@@ -20,7 +20,7 @@ export type FullRequestParams = {
   baseUrl?: string;
   /** request cancellation token */
   cancelToken?: CancelToken;
-} & Omit<RequestInit, 'body'>
+} & Omit<RequestInit, 'body'>;
 
 export type RequestParams = Omit<FullRequestParams, 'body' | 'method' | 'query' | 'path'>;
 
@@ -31,12 +31,12 @@ export type ApiConfig<SecurityDataType = unknown> = {
     securityData: SecurityDataType | null
   ) => Promise<RequestParams | undefined> | RequestParams | undefined;
   customFetch?: typeof fetch;
-}
+};
 
 export type HttpResponse<D, E = unknown> = {
   data: D;
   error: E;
-} & Response
+} & Response;
 
 type CancelToken = symbol | string | number;
 

@@ -18,7 +18,7 @@ export type Option = {
   fixed?: boolean;
   /** Group the options by providing key. */
   [key: string]: string | boolean | undefined;
-}
+};
 
 type GroupOption = Record<string, Option[]>;
 
@@ -69,12 +69,12 @@ type SelectMultiProps = {
     React.ComponentPropsWithoutRef<typeof CommandPrimitive.Input>,
     'value' | 'placeholder' | 'disabled'
   >;
-}
+};
 
 export type SelectMultiRef = {
   selectedValue: Option[];
   input: HTMLInputElement;
-}
+};
 
 export function useDebounce<T>(value: T, delay?: number): T {
   const [debouncedValue, setDebouncedValue] = React.useState<T>(value);
@@ -326,7 +326,8 @@ const SelectMulti = React.forwardRef<SelectMultiRef, SelectMultiProps>(
       }
 
       if (creatable) {
-        return (value: string, search: string) => value.toLowerCase().includes(search.toLowerCase()) ? 1 : -1;
+        return (value: string, search: string) =>
+          value.toLowerCase().includes(search.toLowerCase()) ? 1 : -1;
       }
       // Using default filter in `cmdk`. We don't have to provide it.
       return undefined;
@@ -353,38 +354,38 @@ const SelectMulti = React.forwardRef<SelectMultiRef, SelectMultiProps>(
         >
           <div className="flex flex-wrap gap-1">
             {selected.map((option) => (
-                <Badge
-                  key={option.value}
+              <Badge
+                key={option.value}
+                className={cn(
+                  'data-[disabled]:bg-muted-foreground data-[disabled]:text-muted data-[disabled]:hover:bg-muted-foreground',
+                  'data-[fixed]:bg-muted-foreground data-[fixed]:text-muted data-[fixed]:hover:bg-muted-foreground',
+                  badgeClassName
+                )}
+                data-fixed={option.fixed}
+                data-disabled={disabled}
+              >
+                {option.label}
+                <button
+                  type="button"
                   className={cn(
-                    'data-[disabled]:bg-muted-foreground data-[disabled]:text-muted data-[disabled]:hover:bg-muted-foreground',
-                    'data-[fixed]:bg-muted-foreground data-[fixed]:text-muted data-[fixed]:hover:bg-muted-foreground',
-                    badgeClassName
+                    'ml-1 rounded-full outline-none ring-offset-background focus:ring-2 focus:ring-ring focus:ring-offset-2',
+                    (disabled ?? option.fixed) && 'hidden'
                   )}
-                  data-fixed={option.fixed}
-                  data-disabled={disabled}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      handleUnselect(option);
+                    }
+                  }}
+                  onMouseDown={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                  }}
+                  onClick={() => handleUnselect(option)}
                 >
-                  {option.label}
-                  <button
-                    type="button"
-                    className={cn(
-                      'ml-1 rounded-full outline-none ring-offset-background focus:ring-2 focus:ring-ring focus:ring-offset-2',
-                      (disabled ?? option.fixed) && 'hidden'
-                    )}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter') {
-                        handleUnselect(option);
-                      }
-                    }}
-                    onMouseDown={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                    }}
-                    onClick={() => handleUnselect(option)}
-                  >
-                    <X className="size-3 text-muted-foreground hover:text-foreground" />
-                  </button>
-                </Badge>
-              ))}
+                  <X className="size-3 text-muted-foreground hover:text-foreground" />
+                </button>
+              </Badge>
+            ))}
             {/* Avoid having the "Search" Icon */}
             <CommandPrimitive.Input
               {...inputProps}
@@ -428,32 +429,32 @@ const SelectMulti = React.forwardRef<SelectMultiRef, SelectMultiProps>(
                     <CommandGroup key={key} heading={key} className="h-full overflow-auto">
                       <>
                         {dropdowns.map((option) => (
-                            <CommandItem
-                              key={option.value}
-                              value={option.value}
-                              disabled={option.disable}
-                              onMouseDown={(e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                              }}
-                              onSelect={() => {
-                                if (selected.length >= maxSelected) {
-                                  onMaxSelected?.(selected.length);
-                                  return;
-                                }
-                                setInputValue('');
-                                const newOptions = [...selected, option];
-                                setSelected(newOptions);
-                                onChange?.(newOptions);
-                              }}
-                              className={cn(
-                                'cursor-pointer',
-                                option.disable && 'cursor-default text-muted-foreground'
-                              )}
-                            >
-                              {option.label}
-                            </CommandItem>
-                          ))}
+                          <CommandItem
+                            key={option.value}
+                            value={option.value}
+                            disabled={option.disable}
+                            onMouseDown={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                            }}
+                            onSelect={() => {
+                              if (selected.length >= maxSelected) {
+                                onMaxSelected?.(selected.length);
+                                return;
+                              }
+                              setInputValue('');
+                              const newOptions = [...selected, option];
+                              setSelected(newOptions);
+                              onChange?.(newOptions);
+                            }}
+                            className={cn(
+                              'cursor-pointer',
+                              option.disable && 'cursor-default text-muted-foreground'
+                            )}
+                          >
+                            {option.label}
+                          </CommandItem>
+                        ))}
                       </>
                     </CommandGroup>
                   ))}

@@ -22,7 +22,7 @@ type AISelectorProps = {
   open: boolean;
   completionApi?: string;
   onOpenChange: (open: boolean) => void;
-}
+};
 
 export function AISelector({ onOpenChange, completionApi }: AISelectorProps) {
   const { editor } = useEditor() as { editor: Editor | null };
@@ -33,7 +33,6 @@ export function AISelector({ onOpenChange, completionApi }: AISelectorProps) {
     onResponse: (response) => {
       if (response.status === 429) {
         toast.error('You have reached your request limit for the day.');
-        
       }
     },
     onError: (e) => {

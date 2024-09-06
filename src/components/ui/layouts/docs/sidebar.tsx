@@ -10,12 +10,12 @@ type LinkProps = {
   href: string;
   text: string;
   isNew?: boolean;
-}
+};
 
 type SectionProps = {
   title: string;
   links: LinkProps[];
-}
+};
 
 // Sample data structure for sections and links
 const sections: SectionProps[] = [

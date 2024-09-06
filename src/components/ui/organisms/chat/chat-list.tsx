@@ -6,7 +6,7 @@ import type { PropsWithChildren } from 'react';
 
 export type ChatList = {
   messages: Message[];
-}
+};
 
 export function ChatList({ messages, children }: PropsWithChildren<ChatList>) {
   if (!messages.length) {

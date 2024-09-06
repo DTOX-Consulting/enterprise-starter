@@ -7,7 +7,7 @@ import { useAtBottom } from '@/lib/hooks/use-at-bottom';
 
 type ChatScrollAnchorProps = {
   trackVisibility?: boolean;
-}
+};
 
 export function ChatScrollAnchor({ trackVisibility }: ChatScrollAnchorProps) {
   const isAtBottom = useAtBottom();

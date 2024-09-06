@@ -19,7 +19,8 @@ export const sendResponse = ({
   errorCode?: number;
   successCode?: number;
   data?: Record<string, unknown>;
-} = {}): NextResponse => error ? errorResponse(error, errorCode) : successResponse(data, successCode);
+} = {}): NextResponse =>
+  error ? errorResponse(error, errorCode) : successResponse(data, successCode);
 
 type Status = {
   code?: number;
@@ -59,7 +60,8 @@ export const errorResponse = (
 
 export const apiResponse = async <T, E extends APIError>(
   fn: APIResult<T, E>
-): Promise<NextResponse> => pipe(
+): Promise<NextResponse> =>
+  pipe(
     await fn,
     R.map(successResponse),
     R.mapError(errorResponse),

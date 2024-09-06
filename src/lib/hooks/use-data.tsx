@@ -30,7 +30,7 @@ type MinimalData = {
   name?: string;
   createdAt?: string;
   lastUpdated?: string;
-}
+};
 
 export function useLocalData<T extends MinimalData>(storageKeyPrefix?: string) {
   const { getStorageKey } = useAuth();
@@ -157,7 +157,7 @@ export function useData<T extends MinimalData>({
         return;
       }
 
-      const {createdAt} = currentData;
+      const { createdAt } = currentData;
       const lastUpdated = new Date().toISOString();
       const standardData = { id, createdAt, lastUpdated };
 

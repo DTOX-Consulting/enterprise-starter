@@ -14,7 +14,7 @@ export type UserMeta = {
         organizationId: string;
       }
     | Record<string, never>;
-}
+};
 
 export const userMetaSchema = createSchema<UserMeta>({
   version: 0,

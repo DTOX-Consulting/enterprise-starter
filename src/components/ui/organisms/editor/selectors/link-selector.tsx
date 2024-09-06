@@ -29,7 +29,7 @@ export function getUrlFromString(str: string) {
 type LinkSelectorProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-}
+};
 
 export const LinkSelector = ({ open, onOpenChange }: LinkSelectorProps) => {
   const inputRef = useRef<HTMLInputElement>(null);

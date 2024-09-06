@@ -11,7 +11,7 @@ type GenerativeMenuSwitchProps = {
   children: ReactNode;
   completionApi?: string;
   onOpenChange: (open: boolean) => void;
-}
+};
 export const GenerativeMenuSwitch = ({
   children,
   open,

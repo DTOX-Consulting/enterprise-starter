@@ -1,6 +1,6 @@
-import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import EmailAuthProvider from 'next-auth/providers/email';
-import GoogleProvider from 'next-auth/providers/google';
+import { PrismaAdapter as prismaAdapter } from '@next-auth/prisma-adapter';
+import emailAuthProvider from 'next-auth/providers/email';
+import googleProvider from 'next-auth/providers/google';
 
 import { db } from '@/lib/db/prisma';
 import { getEnv } from '@/lib/env';
@@ -10,7 +10,7 @@ import { send } from '@/lib/sdks/sendgrid/send';
 import type { NextAuthOptions } from 'next-auth';
 
 export const authOptions: NextAuthOptions = {
-  adapter: PrismaAdapter(db),
+  adapter: prismaAdapter(db),
   session: {
     strategy: 'jwt'
   },
@@ -18,11 +18,11 @@ export const authOptions: NextAuthOptions = {
     signIn: '/login'
   },
   providers: [
-    GoogleProvider({
+    googleProvider({
       clientId: getEnv('GOOGLE_CLIENT_ID', ''),
       clientSecret: getEnv('GOOGLE_CLIENT_SECRET', '')
     }),
-    EmailAuthProvider({
+    emailAuthProvider({
       from: config.emails.noreply.email,
       sendVerificationRequest: async ({ identifier }) => {
         const user = await db.user.findUnique({
@@ -61,10 +61,11 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     session({ token, session }) {
       if (token as typeof token | undefined) {
-        session.user.id = token.id as unknown as string;
-        session.user.name = token.name;
-        session.user.email = token.email;
-        session.user.image = token.picture;
+        session.user = session.user ?? {};
+        session.user = {
+          ...session.user,
+          ...token
+        };
       }
 
       return session;
@@ -72,7 +73,7 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user }) {
       const dbUser = await db.user.findFirst({
         where: {
-          email: token.email
+          email: user.email
         }
       });
 

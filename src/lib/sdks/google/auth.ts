@@ -11,7 +11,7 @@ type AuthConfig = {
   email: string;
   key: string;
   scopes: string[];
-}
+};
 
 export const createAuth = () => {
   const jwtAuth = new google.auth.JWT(config.auth as AuthConfig);

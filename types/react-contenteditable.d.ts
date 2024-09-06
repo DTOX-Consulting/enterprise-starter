@@ -25,5 +25,5 @@ declare module 'react-contenteditable' {
   // that were appended to the underlying HTMLElement.
   type ContentEditableElement = {
     value: string;
-  } & HTMLElement
+  } & HTMLElement;
 }

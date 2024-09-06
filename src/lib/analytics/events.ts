@@ -58,7 +58,7 @@ export type AnalyticsEvent = {
   object: EventObject;
   module?: string;
   feature?: string;
-}
+};
 
 // Generic properties type
 export type EventProperties = Record<string, string | number | boolean | Date | null>;

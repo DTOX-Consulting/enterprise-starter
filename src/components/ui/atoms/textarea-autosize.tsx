@@ -18,7 +18,7 @@ type UseTextareaAutosizeProps = {
   minHeight?: number;
   maxHeight?: number;
   triggerAutoSize: string;
-}
+};
 
 export const useTextareaAutosize = ({
   textAreaRef,
@@ -41,7 +41,7 @@ export const useTextareaAutosize = ({
         setInit(false);
       }
       textAreaRef.style.height = `${minHeight + offsetBorder}px`;
-      const {scrollHeight} = textAreaRef;
+      const { scrollHeight } = textAreaRef;
       // We then set the height directly, outside of the render loop
       // Trying to set this with state or a ref will product an incorrect value.
       if (scrollHeight > maxHeight) {

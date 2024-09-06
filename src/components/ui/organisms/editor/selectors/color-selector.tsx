@@ -7,7 +7,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/atoms/p
 export type BubbleColorMenuItem = {
   name: string;
   color: string;
-}
+};
 
 const TEXT_COLORS: BubbleColorMenuItem[] = [
   {
@@ -90,7 +90,7 @@ const HIGHLIGHT_COLORS: BubbleColorMenuItem[] = [
 type ColorSelectorProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-}
+};
 
 export const ColorSelector = ({ open, onOpenChange }: ColorSelectorProps) => {
   const { editor } = useEditor();

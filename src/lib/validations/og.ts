@@ -1,7 +1,7 @@
-import { object, string, enum } from 'zod';
+import { z } from 'zod';
 
-export const ogImageSchema = object({
-  heading: string(),
-  type: string(),
-  mode: enum(['light', 'dark']).default('dark')
+export const ogImageSchema = z.object({
+  heading: z.string(),
+  type: z.string(),
+  mode: z.enum(['light', 'dark']).default('dark')
 });

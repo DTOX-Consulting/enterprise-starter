@@ -21,7 +21,8 @@ export const addCollections = async (db: RxDatabase) => {
   return db.addCollections(collections);
 };
 
-const createCollections = (schemas: Schema) => Object.entries(schemas).reduce(
+const createCollections = (schemas: Schema) =>
+  Object.entries(schemas).reduce(
     (acc, [name, schema]) => {
       acc[name] = {
         schema,
@@ -34,7 +35,8 @@ const createCollections = (schemas: Schema) => Object.entries(schemas).reduce(
     {} as Record<string, RxCollectionCreator>
   );
 
-export const migrateCollections = async (collections: Record<string, RxCollection>) => each(Object.entries(collections), async ([, coll]) => {
+export const migrateCollections = async (collections: Record<string, RxCollection>) =>
+  each(Object.entries(collections), async ([, coll]) => {
     const needed = await coll.migrationNeeded();
     if (needed) {
       await coll.startMigration(20);
@@ -58,11 +60,11 @@ export const getMigrationStrategies = <
 
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   const _getDefaults = (oldDoc: any): Record<keyof CommonProperties, string> => ({
-      id: oldDoc.id,
-      ownerId: oldDoc.ownerId,
-      createdAt: oldDoc.createdAt,
-      updatedAt: oldDoc.updatedAt
-    });
+    id: oldDoc.id,
+    ownerId: oldDoc.ownerId,
+    createdAt: oldDoc.createdAt,
+    updatedAt: oldDoc.updatedAt
+  });
 
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   const _getMeta = (oldDoc: any, rev: number) => {

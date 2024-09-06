@@ -100,7 +100,8 @@ export const access = [
 /** @type {Header[]} */
 export const securityHeaders = [...hsts, ...access, ...nextSafe(nextSafeConfig), ...frame];
 
-export const headers = async () => Promise.resolve([
+export const headers = async () =>
+  Promise.resolve([
     {
       source: '/',
       headers: [...securityHeaders, ...noCacheHeader]

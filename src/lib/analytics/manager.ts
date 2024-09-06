@@ -11,13 +11,13 @@ export type AnalyticsService = {
   optIn(): void;
   reset(): void;
   init(): void;
-}
+};
 
 export type AnalyticsConfig = {
   token: string;
   debug?: boolean;
   [key: string]: unknown; // Allow for additional service-specific config options
-}
+};
 
 export class AnalyticsManager implements AnalyticsService {
   private services = new Map<string, AnalyticsService>();

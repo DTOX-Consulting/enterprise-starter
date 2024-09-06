@@ -27,7 +27,7 @@ import type { NextRequest } from 'next/server';
 type CreateContextOptions = {
   request: NextRequest;
   headers: Headers;
-}
+};
 
 /**
  * This helper generates the "internals" for a tRPC context. If you need to use it, you can export
@@ -56,14 +56,13 @@ export const createInnerTRPCContext = async (opts: CreateContextOptions) => {
  *
  * @see https://trpc.io/docs/context
  */
-export const createTRPCContext = async (opts: { req: NextRequest }) => 
+export const createTRPCContext = async (opts: { req: NextRequest }) =>
   // Fetch stuff that depends on the request
 
-   await createInnerTRPCContext({
+  await createInnerTRPCContext({
     request: opts.req,
     headers: opts.req.headers
-  })
-;
+  });
 
 /**
  * 2. INITIALIZATION

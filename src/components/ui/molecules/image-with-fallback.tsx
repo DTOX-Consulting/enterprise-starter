@@ -8,7 +8,7 @@ import fallbackImage from '@/assets/images/fallback.png';
 type ImageWithFallbackProps = {
   fallbackSrc?: string;
   imgKey: string | number;
-} & ImageProps
+} & ImageProps;
 
 export const ImageWithFallback = (props: ImageWithFallbackProps) => {
   const { imgKey, src, fallbackSrc = fallbackImage, ...rest } = props;

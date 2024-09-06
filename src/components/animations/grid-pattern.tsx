@@ -32,9 +32,7 @@ export function GridPattern({
   const ref = useRef<React.ElementRef<'svg'>>(null);
   const currentBlock = useRef<[x: number, y: number]>();
   const counter = useRef(0);
-  const [hoveredBlocks, setHoveredBlocks] = useState<[x: number, y: number, key: number][]>(
-    []
-  );
+  const [hoveredBlocks, setHoveredBlocks] = useState<[x: number, y: number, key: number][]>([]);
   const staticBlocks = [
     [1, 1],
     [2, 2],

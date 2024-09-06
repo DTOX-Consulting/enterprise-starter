@@ -19,22 +19,24 @@ export type Icons = {
 };
 
 const NotificationBadge = ({ count }: { count: number }) => (
-    <Badge className="absolute -top-1 right-[0.1rem] m-0 flex size-3 items-center justify-center p-0 text-center text-[0.5rem]">
-      <span>{count}</span>
-    </Badge>
-  );
+  <Badge className="absolute -top-1 right-[0.1rem] m-0 flex size-3 items-center justify-center p-0 text-center text-[0.5rem]">
+    <span>{count}</span>
+  </Badge>
+);
 
-const NotificationIcon = ({ Icon }: { Icon: LucideIcon }) => <Icon className="size-7 text-gray-400 hover:text-gray-500" />;
+const NotificationIcon = ({ Icon }: { Icon: LucideIcon }) => (
+  <Icon className="size-7 text-gray-400 hover:text-gray-500" />
+);
 
 export const NotificationTrigger = ({
   count,
   icon = Bell
 }: { count: number; icon?: LucideIcon }) => (
-    <div className="relative top-1 flex items-center">
-      <NotificationIcon Icon={icon} />
-      <NotificationBadge count={count} />
-    </div>
-  );
+  <div className="relative top-1 flex items-center">
+    <NotificationIcon Icon={icon} />
+    <NotificationBadge count={count} />
+  </div>
+);
 
 export const NotificationItemIcon = ({
   icon,
@@ -53,75 +55,73 @@ export const NotificationContent = ({
   notifications: DCS<Notification>[];
   onClick: (notification: DCS<Notification>, isRemoved?: boolean) => void;
 }) => (
-    <div className="z-20 w-full overflow-hidden rounded-md">
-      <div className="py-2">
-        {notifications.slice(0, 10).map((notification) => (
-          <div
-            key={notification.id}
-            onKeyDown={() => {
-              /* do nothing */
-            }}
-            onClick={() => onClick(notification)}
-            className="group relative -mx-2 flex cursor-pointer flex-col border-b px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-500"
-          >
-            <X
-              onClick={(e) => {
-                e.stopPropagation();
-                onClick(notification, true);
-              }}
-              className={cn(
-                'invisible absolute right-3 top-2 size-4 cursor-pointer text-red-500 hover:text-red-300 group-hover:visible',
-                {
-                  visible: isMobile
-                }
-              )}
-            />
-            <div className="flex items-center">
-              {notification.icon && (
-                <NotificationItemIcon
-                  icon={notification.icon}
-                  className="mx-1 size-6 text-gray-500"
-                />
-              )}
-              {(notification.image ?? notification.content.actorImage) && (
-                <Image
-                  src={notification.image ?? notification.content.actorImage ?? ''}
-                  className="mx-1 size-8 rounded-full object-cover"
-                  alt="avatar"
-                  height={32}
-                  width={32}
-                  unoptimized
-                />
-              )}
-              <div className="flex flex-col">
-                <p className="mx-2 w-[90%] text-sm">
-                  {notification.content.actor && (
-                    <span className="font-bold">{notification.content.actor}&nbsp;</span>
-                  )}
-                  <span className="text-sm">{notification.content.action}</span>
-                </p>
-              </div>
-            </div>
-            <p className="mx-2 mt-2 text-right text-xs">
-              {formatCreatedAt(notification.createdAt)}
-            </p>
-          </div>
-        ))}
-
-        {notifications.length === 0 && (
-          <p className="text-center font-mont text-gray-600 dark:text-gray-400">No notifications</p>
-        )}
-      </div>
-      {notifications.length !== 0 && (
-        <Link
-          href={seeAllRoute}
-          className="block bg-gray-800 py-2 text-center font-bold text-white shadow-lg"
+  <div className="z-20 w-full overflow-hidden rounded-md">
+    <div className="py-2">
+      {notifications.slice(0, 10).map((notification) => (
+        <div
+          key={notification.id}
+          onKeyDown={() => {
+            /* do nothing */
+          }}
+          onClick={() => onClick(notification)}
+          className="group relative -mx-2 flex cursor-pointer flex-col border-b px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-500"
         >
-          See all notifications
-        </Link>
+          <X
+            onClick={(e) => {
+              e.stopPropagation();
+              onClick(notification, true);
+            }}
+            className={cn(
+              'invisible absolute right-3 top-2 size-4 cursor-pointer text-red-500 hover:text-red-300 group-hover:visible',
+              {
+                visible: isMobile
+              }
+            )}
+          />
+          <div className="flex items-center">
+            {notification.icon && (
+              <NotificationItemIcon
+                icon={notification.icon}
+                className="mx-1 size-6 text-gray-500"
+              />
+            )}
+            {(notification.image ?? notification.content.actorImage) && (
+              <Image
+                src={notification.image ?? notification.content.actorImage ?? ''}
+                className="mx-1 size-8 rounded-full object-cover"
+                alt="avatar"
+                height={32}
+                width={32}
+                unoptimized
+              />
+            )}
+            <div className="flex flex-col">
+              <p className="mx-2 w-[90%] text-sm">
+                {notification.content.actor && (
+                  <span className="font-bold">{notification.content.actor}&nbsp;</span>
+                )}
+                <span className="text-sm">{notification.content.action}</span>
+              </p>
+            </div>
+          </div>
+          <p className="mx-2 mt-2 text-right text-xs">{formatCreatedAt(notification.createdAt)}</p>
+        </div>
+      ))}
+
+      {notifications.length === 0 && (
+        <p className="text-center font-mont text-gray-600 dark:text-gray-400">No notifications</p>
       )}
     </div>
-  );
+    {notifications.length !== 0 && (
+      <Link
+        href={seeAllRoute}
+        className="block bg-gray-800 py-2 text-center font-bold text-white shadow-lg"
+      >
+        See all notifications
+      </Link>
+    )}
+  </div>
+);
 
 export const NotificationDrawer = ({
   icon = Bell,

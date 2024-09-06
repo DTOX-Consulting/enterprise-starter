@@ -2,7 +2,8 @@ import { type TierName, tiers } from '@/config/permissions/features';
 import { getEnv } from '@/lib/env/env.mjs';
 import { getLocation } from '@/lib/utils/dom';
 
-export const getStripeMode = () => getEnv('NEXT_PUBLIC_NODE_ENV') === 'production' ? 'live' : 'test';
+export const getStripeMode = () =>
+  getEnv('NEXT_PUBLIC_NODE_ENV') === 'production' ? 'live' : 'test';
 
 export const getStripeTierConfig = (tier: TierName) => {
   const mode = getStripeMode();
@@ -34,8 +35,8 @@ export const getStripeUrls = (tier?: TierName) => {
 };
 
 export const createStripeLineItems = (tier: TierName) => [
-    {
-      price: getStripePriceId(tier),
-      quantity: 1
-    }
-  ];
+  {
+    price: getStripePriceId(tier),
+    quantity: 1
+  }
+];

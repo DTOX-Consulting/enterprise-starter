@@ -4,7 +4,7 @@ import { Main } from '@/components/ui/layouts/default/main';
 
 type LayoutProps = {
   children: React.ReactNode;
-}
+};
 
 export default function Layout({ children }: LayoutProps) {
   return (

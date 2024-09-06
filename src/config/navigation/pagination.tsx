@@ -19,7 +19,8 @@ export const isInPages = (path: string, navigationItems: NavigationItem[]) => {
   return pages.some((page) => standardizePath(page.href) === standardizePath(path));
 };
 
-export const getPages = (navigationItems: NavigationItem[]) => navigationItems.reduce((acc, item) => {
+export const getPages = (navigationItems: NavigationItem[]) =>
+  navigationItems.reduce((acc, item) => {
     if (!item.disabled) {
       acc.push(item);
     }

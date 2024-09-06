@@ -120,7 +120,7 @@ export async function getCustomerEmail(
     throw new Error('Customer was deleted');
   }
 
-  const {email} = customerData;
+  const { email } = customerData;
 
   if (!email) {
     throw new Error('Customer email not found');

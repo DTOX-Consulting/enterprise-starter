@@ -15,16 +15,16 @@ import { sync as mkdirpSync } from 'mkdirp';
 type BuildManifest = {
   pages: Record<string, string[]>;
   rootMainFiles?: string[];
-}
+};
 
 type AppBuildManifest = {
   pages: Record<string, string[]>;
-}
+};
 
 type PackageJSON = {
   nextBundleAnalysis?: { buildOutputDirectory?: string };
   name: string;
-}
+};
 
 // Define the memory cache type
 type MemoryCache = Record<string, [number, number]>;

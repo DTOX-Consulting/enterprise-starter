@@ -10,7 +10,8 @@ import type { RxCollection } from 'rxdb';
 export const addReplication = (
   userSession: UserSession,
   collections: Record<string, RxCollection>
-) => Object.entries(collections).reduce(
+) =>
+  Object.entries(collections).reduce(
     (acc, [name, collection]) => {
       const replication = createReplication(userSession, collection);
       acc[name] = replication;
@@ -19,7 +20,8 @@ export const addReplication = (
     {} as Record<string, SupabaseReplication<unknown>>
   );
 
-const createReplication = <T>(userSession: UserSession, collection: RxCollection<T>) => new SupabaseReplication<T>({
+const createReplication = <T>(userSession: UserSession, collection: RxCollection<T>) =>
+  new SupabaseReplication<T>({
     live: true,
     autoStart: true,
     collection,

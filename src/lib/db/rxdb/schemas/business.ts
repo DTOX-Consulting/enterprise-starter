@@ -33,7 +33,7 @@ export type CompanyStatements = {
   tagline: string;
   description: string;
   industry: Option[];
-}
+};
 
 export type Business = {
   image: null;
@@ -61,7 +61,7 @@ export type Business = {
     scores?: Scores;
     provideSuggestions?: ProvideSuggestions;
   };
-}
+};
 
 export type ReadOnlyScore = DeepReadonly<Score[]>;
 export type ReadOnlyScores = DeepReadonly<Scores>;

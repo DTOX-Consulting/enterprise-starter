@@ -30,19 +30,19 @@ export default function Slides({ slides }: { slides: Slide[] }) {
     <div className="relative w-full max-w-[calc(100%-2rem)]">
       <div className="aspect-video flex h-28 animate-fade-down overflow-hidden rounded-lg px-4 duration-500">
         {slides.map((slide, index) => (
-            <div
-              key={slide.title}
-              className={cn(
-                'tex-ellipsis flex w-0 grow overflow-hidden text-clip transition-[width] duration-500 ease-in-out',
-                {
-                  'w-full': currentIndex === index,
-                  invisible: currentIndex !== index
-                }
-              )}
-            >
-              {slide.element}
-            </div>
-          ))}
+          <div
+            key={slide.title}
+            className={cn(
+              'tex-ellipsis flex w-0 grow overflow-hidden text-clip transition-[width] duration-500 ease-in-out',
+              {
+                'w-full': currentIndex === index,
+                invisible: currentIndex !== index
+              }
+            )}
+          >
+            {slide.element}
+          </div>
+        ))}
       </div>
       <div className="absolute inset-0 -mx-3 -ml-4 flex items-center justify-between">
         <Button size="icon" variant="ghost" onClick={handlePrevious} disabled={currentIndex === 0}>

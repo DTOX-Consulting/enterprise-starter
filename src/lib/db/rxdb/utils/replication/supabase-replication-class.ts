@@ -122,7 +122,7 @@ export type SupabaseReplicationOptions<RxDocType> = {
 export type SupabaseReplicationCheckpoint = {
   modified: string;
   primaryKeyValue: string | number;
-}
+};
 
 /**
  * Replicates the local RxDB database with the given Supabase client.

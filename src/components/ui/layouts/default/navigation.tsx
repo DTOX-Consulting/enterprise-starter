@@ -87,16 +87,16 @@ export function Navigation() {
 }
 
 export const FooterNavigation = () => (
-    <nav className="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12" aria-label="Footer">
-      {footerNavigation.map((item) => (
-        <div key={item.name} className="pb-6">
-          <Link
-            href={item.href}
-            className="text-sm leading-6 text-gray-500 hover:text-gray-900 dark:text-neutral-400"
-          >
-            {item.name}
-          </Link>
-        </div>
-      ))}
-    </nav>
-  );
+  <nav className="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12" aria-label="Footer">
+    {footerNavigation.map((item) => (
+      <div key={item.name} className="pb-6">
+        <Link
+          href={item.href}
+          className="text-sm leading-6 text-gray-500 hover:text-gray-900 dark:text-neutral-400"
+        >
+          {item.name}
+        </Link>
+      </div>
+    ))}
+  </nav>
+);

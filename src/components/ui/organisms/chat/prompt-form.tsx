@@ -17,7 +17,7 @@ import type { UseChatHelpers } from 'ai/react';
 export type PromptProps = {
   onSubmit: (value: string) => Promise<void>;
   isLoading: boolean;
-} & Pick<UseChatHelpers, 'input' | 'setInput'>
+} & Pick<UseChatHelpers, 'input' | 'setInput'>;
 
 export function PromptForm({ onSubmit, input, setInput, isLoading }: PromptProps) {
   const { formRef, onKeyDown } = useEnterSubmit();

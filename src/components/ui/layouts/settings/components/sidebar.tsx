@@ -14,7 +14,7 @@ type SettingsSidebarProps = {
     href: string;
     title: string;
   }[];
-} & HTMLAttributes<HTMLElement>
+} & HTMLAttributes<HTMLElement>;
 
 export function SettingsSidebar({ className, items, ...props }: SettingsSidebarProps) {
   const pathname = usePathname();

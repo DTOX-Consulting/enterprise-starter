@@ -31,7 +31,7 @@ type ImageEditorOptions = {
     rotatingPointOffset: number;
   };
   usageStatistics: boolean;
-}
+};
 
 const defaultOptions: ImageEditorOptions = {
   includeUI: {

@@ -4,7 +4,7 @@ type CalloutProps = {
   icon?: string;
   children?: React.ReactNode;
   type?: 'default' | 'warning' | 'danger';
-}
+};
 
 export function Callout({ children, icon, type = 'default', ...props }: CalloutProps) {
   return (

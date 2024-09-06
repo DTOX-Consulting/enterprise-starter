@@ -8,7 +8,8 @@ export const findRole = async (role: string) => {
   return foundRole as NonNullable<typeof foundRole> & { id: string };
 };
 
-export const createRole = async (key: string, name: string, description?: string) => rolesApi.createRole({
+export const createRole = async (key: string, name: string, description?: string) =>
+  rolesApi.createRole({
     requestBody: {
       key,
       name,

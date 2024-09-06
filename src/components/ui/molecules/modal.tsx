@@ -60,7 +60,7 @@ type ModalProps = {
   closeButtonVariant?: ButtonVariants;
   closeButtonOnClick?: MouseEventHandler<HTMLButtonElement>;
   closeButtonProps?: ButtonHTMLAttributes<HTMLButtonElement>;
-} & PropsWithChildren
+} & PropsWithChildren;
 
 export function Modal({
   title,

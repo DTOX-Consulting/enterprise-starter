@@ -14,7 +14,7 @@ type AuthenticationRedirection = {
     authenticated: string;
     unauthenticated: string;
   };
-}
+};
 
 const defaultARArgs = {
   replace: false,
@@ -30,7 +30,7 @@ export async function authenticationRedirection(
 ) {
   const currentPath = generateRoutes().current.path;
 
-  const args = { ...defaultARArgs, ...authArgs};
+  const args = { ...defaultARArgs, ...authArgs };
 
   const authCheck = await isUserAuthenticated();
 

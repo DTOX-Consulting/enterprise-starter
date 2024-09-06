@@ -50,7 +50,7 @@ const moreOptions = [
 
 type AISelectorCommandsProps = {
   onSelect: (value: string, option: string) => void;
-}
+};
 
 export const AISelectorCommands = ({ onSelect }: AISelectorCommandsProps) => {
   const { editor } = useEditor() as { editor: Editor | null };

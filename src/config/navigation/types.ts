@@ -17,10 +17,10 @@ export type NavigationItem = {
   authenticated?: boolean;
   unauthenticated?: boolean;
   items?: NavigationItem[];
-}
+};
 
 export type HomeItem = {
   src: StaticImageData;
-} & NavigationItem
+} & NavigationItem;
 
 export type GetNavigationItems = (route: string) => NavigationItem[];
