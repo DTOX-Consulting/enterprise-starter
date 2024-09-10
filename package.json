@@ -288,7 +288,7 @@
     "concurrently": "8.2.2",
     "cross-env": "7.0.3",
     "eslint": "9.9.1",
-    "eslint-config-extreme": "1.0.19",
+    "eslint-config-extreme": "1.0.20",
     "fetch-mock": "9.11.0",
     "glob": "10.4.5",
     "gzip-size": "7.0.0",
