@@ -75,7 +75,7 @@ export const env = createEnv({
  *
  * @param key {keyof typeof env}
  * @param defaultValue {string | boolean | number | undefined}
- * @returns {string} The value of the environment variable or the default value
+ * @returns The value of the environment variable or the default value
  */
 export const getEnv = (key, defaultValue = '') => env[key] ?? defaultValue;
 

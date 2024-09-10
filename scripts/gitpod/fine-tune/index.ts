@@ -75,6 +75,6 @@ async function main() {
 // eslint-disable-next-line promise/prefer-await-to-callbacks
 main().catch((err) => {
   console.error(err);
-  // eslint-disable-next-line n/no-process-exit
+
   process.exit(1);
 });

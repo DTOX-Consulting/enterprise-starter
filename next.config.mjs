@@ -110,16 +110,16 @@ const nextConfig = {
 /**
  * Creates a Next.js config with Highlight integration.
  *
- * @param {import('./types/highlight-run').HighlightConfigOptions | undefined} highlightConfig - Highlight configuration options
- * @returns {(config: import("next").NextConfig) => Promise<import("next").NextConfig>} A function that applies Highlight config
+ * @param highlightConfig - Highlight configuration options
+ * @returns A function that applies Highlight config
  */
 const nextHighlight =
   (highlightConfig) =>
   /**
    * Applies Highlight configuration to Next.js config.
    *
-   * @param {import("next").NextConfig} config - Next.js configuration
-   * @returns {Promise<import("next").NextConfig>} Updated Next.js configuration
+   * @param config - Next.js configuration
+   * @returns Updated Next.js configuration
    */
   async (config) =>
     withHighlightConfig(config, highlightConfig);
@@ -146,7 +146,7 @@ const pluginsConfig = plugins.reduce((acc, plugin) => plugin(acc), nextConfig);
 /**
  * Configures Next.js with Million.js optimizations.
  *
- * @returns {import("next").NextConfig} Optimized Next.js configuration
+ * @returns Optimized Next.js configuration
  */
 const _nextMillion = () => {
   const lint = nextMillionLint({
@@ -171,7 +171,7 @@ const _nextMillion = () => {
 /**
  * Asynchronous configuration function for Next.js.
  *
- * @returns {Promise<import("next").NextConfig>} Next.js configuration
+ * @returns Next.js configuration
  */
 const config = async () => {
   await import('./src/lib/env/env.mjs');
