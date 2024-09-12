@@ -39,7 +39,7 @@ export function TRPCReactProvider(props: { children: React.ReactNode; headers: H
       links: [
         loggerLink({
           enabled: (op) =>
-            getEnv('NEXT_PUBLIC_NODE_ENV') === 'development' ||
+            getEnv('NEXT_PUBLIC_ENVIRONMENT') === 'development' ||
             (op.direction === 'down' && op.result instanceof Error)
         }),
 

@@ -1,8 +1,8 @@
 import { createAppRoute } from '@trigger.dev/nextjs';
 
+import { client } from '@/lib/sdks/trigger/client';
 // eslint-disable-next-line import-x/no-unassigned-import
-import '@/jobs';
-import { client } from '@/trigger';
+import '@/trigger/jobs';
 
 // this route is used to send and receive data with Trigger.dev
 export const { POST } = createAppRoute(client);

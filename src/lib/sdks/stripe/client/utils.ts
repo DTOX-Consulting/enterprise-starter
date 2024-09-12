@@ -3,7 +3,7 @@ import { getEnv } from '@/lib/env/env.mjs';
 import { getLocation } from '@/lib/utils/dom';
 
 export const getStripeMode = () =>
-  getEnv('NEXT_PUBLIC_NODE_ENV') === 'production' ? 'live' : 'test';
+  getEnv('NEXT_PUBLIC_ENVIRONMENT') === 'production' ? 'live' : 'test';
 
 export const getStripeTierConfig = (tier: TierName) => {
   const mode = getStripeMode();

@@ -1,7 +1,5 @@
 import '@/styles/globals.css';
 
-import { GoogleAnalytics } from '@next/third-parties/google';
-
 import { staticMetaData, staticViewport } from '@/app/metadata';
 import {
   fontSFPro,
@@ -48,7 +46,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ScrollToTop />
         <TailwindIndicator />
       </body>
-      <GoogleAnalytics gaId="" />
     </html>
   );
 }

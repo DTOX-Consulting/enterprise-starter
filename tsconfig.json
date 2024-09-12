@@ -46,6 +46,7 @@
     "**/*.mjs",
     "next-env.d.ts",
     "types/**/*.d.ts",
+    "trigger.config.ts",
     "vitest.config.mts",
     ".storybook/**/*.ts",
     ".next/types/**/*.ts",

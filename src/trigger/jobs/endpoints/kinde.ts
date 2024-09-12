@@ -1,4 +1,4 @@
-import { client } from '@/trigger';
+import { client } from '@/lib/sdks/trigger/client';
 
 export const kinde = client.defineHttpEndpoint({
   // this should be unique inside your project

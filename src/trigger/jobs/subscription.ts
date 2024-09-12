@@ -4,7 +4,7 @@ import { refreshUserClaimsByEmail } from '@/lib/sdks/kinde/api/utils';
 import { getKindeSubscriptionPermissionsKeyFromPriceId } from '@/lib/sdks/stripe/client/utils';
 import { stripe as stripeTrigger } from '@/lib/sdks/stripe/server/trigger';
 import { getCustomerEmail } from '@/lib/sdks/stripe/server/utils';
-import { client } from '@/trigger';
+import { client } from '@/lib/sdks/trigger/client';
 
 // brew install stripe/stripe-cli/stripe
 // https://docs.stripe.com/stripe-cli?shell=true

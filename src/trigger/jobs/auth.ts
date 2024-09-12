@@ -1,9 +1,9 @@
 import { Slack } from '@trigger.dev/slack';
 import { decodeJwt } from 'jose';
 
-import { kinde } from '@/jobs/endpoints/kinde';
 import { send } from '@/lib/sdks/sendgrid/send';
-import { client } from '@/trigger';
+import { client } from '@/lib/sdks/trigger/client';
+import { kinde } from '@/trigger/jobs/endpoints/kinde';
 
 const slack = new Slack({
   id: 'slack'

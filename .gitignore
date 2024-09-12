@@ -58,3 +58,5 @@ public/sw.*
 .million
 
 analyze
+
+.trigger
