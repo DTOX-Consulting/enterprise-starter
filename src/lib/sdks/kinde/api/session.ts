@@ -25,7 +25,7 @@ export const getUserSession = async (throwError?: boolean) => {
   } = getKindeServerSession();
   const user = await getUser();
 
-  if (!user?.id || !user.email) {
+  if (!user.id || !user.email) {
     logger.error('User not found', { user, throwError });
 
     if (throwError) {

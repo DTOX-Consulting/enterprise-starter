@@ -131,7 +131,6 @@ export const useImageEditor = () => {
   );
 
   if (G.isNullable(instance)) return null;
-
   return {
     instance,
     loadImage,

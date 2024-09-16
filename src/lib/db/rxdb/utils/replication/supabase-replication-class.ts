@@ -381,7 +381,7 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
 
   private updateRowKeys<T extends GenericObject>(doc: T, revert = false) {
     Object.entries(doc).forEach(([key, value]) => {
-      const newKey = revert ? this.reverseKeyMapping[key] ?? key : this.keyMapping[key] ?? key;
+      const newKey = revert ? (this.reverseKeyMapping[key] ?? key) : (this.keyMapping[key] ?? key);
       if (newKey === key) return;
 
       doc[newKey as keyof T] = value;

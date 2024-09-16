@@ -30,7 +30,6 @@
     --warning: 54 100% 62%; /* Yellowish color */
     --warning-foreground: 0 0% 3.9%; /* Adjusted foreground color for better contrast */
 
-
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
@@ -39,7 +38,6 @@
     --ring: 0 0% 3.9%;
 
     --radius: 0.5rem;
-
 
     --novel-highlight-default: #ffffff;
     --novel-highlight-purple: #f6f3f8;
@@ -86,7 +84,6 @@
     --input: 0 0% 14.9%;
     --ring: 0 0% 83.1%;
 
-
     --novel-highlight-default: #000000;
     --novel-highlight-purple: #3f2c4b;
     --novel-highlight-red: #5c1a1a;
@@ -106,7 +103,8 @@
   body {
     @apply bg-background text-foreground;
   }
-  object, iframe {
+  object,
+  iframe {
     color-scheme: light; /*<--Add this to fix WHITE BG issue*/
   }
 }
@@ -162,7 +160,6 @@
     }
   }
 }
-
 
 input,
 [type],

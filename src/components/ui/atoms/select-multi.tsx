@@ -427,35 +427,33 @@ const SelectMulti = React.forwardRef<SelectMultiRef, SelectMultiProps>(
                   {!selectFirstItem && <CommandItem value="-" className="hidden" />}
                   {Object.entries(selectables).map(([key, dropdowns]) => (
                     <CommandGroup key={key} heading={key} className="h-full overflow-auto">
-                      <>
-                        {dropdowns.map((option) => (
-                          <CommandItem
-                            key={option.value}
-                            value={option.value}
-                            disabled={option.disable}
-                            onMouseDown={(e) => {
-                              e.preventDefault();
-                              e.stopPropagation();
-                            }}
-                            onSelect={() => {
-                              if (selected.length >= maxSelected) {
-                                onMaxSelected?.(selected.length);
-                                return;
-                              }
-                              setInputValue('');
-                              const newOptions = [...selected, option];
-                              setSelected(newOptions);
-                              onChange?.(newOptions);
-                            }}
-                            className={cn(
-                              'cursor-pointer',
-                              option.disable && 'cursor-default text-muted-foreground'
-                            )}
-                          >
-                            {option.label}
-                          </CommandItem>
-                        ))}
-                      </>
+                      {dropdowns.map((option) => (
+                        <CommandItem
+                          key={option.value}
+                          value={option.value}
+                          disabled={option.disable}
+                          onMouseDown={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                          }}
+                          onSelect={() => {
+                            if (selected.length >= maxSelected) {
+                              onMaxSelected?.(selected.length);
+                              return;
+                            }
+                            setInputValue('');
+                            const newOptions = [...selected, option];
+                            setSelected(newOptions);
+                            onChange?.(newOptions);
+                          }}
+                          className={cn(
+                            'cursor-pointer',
+                            option.disable && 'cursor-default text-muted-foreground'
+                          )}
+                        >
+                          {option.label}
+                        </CommandItem>
+                      ))}
                     </CommandGroup>
                   ))}
                 </>

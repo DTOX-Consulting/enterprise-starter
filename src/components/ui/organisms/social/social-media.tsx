@@ -148,7 +148,6 @@ export function SocialMedia({
 }) {
   return (
     <ul
-      role="list"
       className={cn(
         'flex gap-x-10',
         invert ? 'text-white dark:text-neutral-950' : 'text-neutral-950 dark:text-neutral-200',

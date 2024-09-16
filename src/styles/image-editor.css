@@ -7,7 +7,7 @@ div:has(> .tui-image-editor-container) {
 }
 
 .tui-image-editor-header .tui-image-editor-header-buttons {
-    display: none !important;
+  display: none !important;
 }
 
 /*!
@@ -20,7 +20,7 @@ div:has(> .tui-image-editor-container) {
   zoom: 1;
 }
 .tui-colorpicker-clearfix:after {
-  content: '';
+  content: "";
   display: block;
   clear: both;
 }
@@ -93,7 +93,7 @@ div:has(> .tui-image-editor-container) {
   zoom: 1;
 }
 .tui-colorpicker-slider-container:after {
-  content: '';
+  content: "";
   display: block;
   clear: both;
 }
@@ -159,4 +159,3 @@ div:has(> .tui-image-editor-container) {
   width: 18px;
   height: 121px;
 }
-
