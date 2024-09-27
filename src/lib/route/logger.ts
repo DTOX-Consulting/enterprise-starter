@@ -1,11 +1,11 @@
 import { type NextRequest, userAgent } from 'next/server';
 import { serializeError } from 'serialize-error';
 
-import { getEnv, isProd } from '@/lib/env';
+import { getEnv, isProd } from '@/lib/env/env.mjs';
 import { logger } from '@/lib/logger/console';
 import { getRequestDetails } from '@/lib/route/params';
 
-const LOG_API_REQUESTS = getEnv('LOG_API_REQUESTS', 'false') === 'true';
+const LOG_API_REQUESTS = getEnv('LOG_API_REQUESTS');
 
 export const startLogger = async (request: NextRequest) => {
   const startTime = new Date().getTime(); // Start time in milliseconds
@@ -29,7 +29,7 @@ export const startLogger = async (request: NextRequest) => {
     env: {
       isProd: isProd(),
       vercelEnv: getEnv('VERCEL_ENV'),
-      nodeEnv: getEnv('NODE_ENV', 'unset')
+      nodeEnv: getEnv('NODE_ENV') ?? 'unset'
     }
   };
 
@@ -55,8 +55,10 @@ export const finishLogger = <T extends Response>({
         status: response.status,
         headers: response.headers,
         statusText: response.statusText,
-        // @ts-expect-error -- TSCONVERSION
-        body: response.body?._readableStreamController ? '[Response Stream]' : response.body
+        body:
+          'body' in response && response.body && '_readableStreamController' in response.body
+            ? '[Response Stream]'
+            : (response.body ?? null)
       }
     : {
         error: serializeError(error)

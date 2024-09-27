@@ -1,7 +1,7 @@
 import { createTRPCProxyClient, loggerLink, unstable_httpBatchStreamLink } from '@trpc/client';
 import { headers } from 'next/headers';
 
-import { getEnv } from '@/lib/env';
+import { getEnv } from '@/lib/env/env.mjs';
 import { getUrl, transformer } from '@/trpc/shared';
 
 import type { AppRouter } from '@/trpc/routers';

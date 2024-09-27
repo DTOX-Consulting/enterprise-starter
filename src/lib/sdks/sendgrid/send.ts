@@ -1,5 +1,5 @@
 import { devEmail } from '@/app/metadata';
-import { getEnv } from '@/lib/env';
+import { getEnv } from '@/lib/env/env.mjs';
 import { logger } from '@/lib/logger/console';
 import { sendMail } from '@/lib/sdks/sendgrid';
 import { config } from '@/lib/sdks/sendgrid/config';

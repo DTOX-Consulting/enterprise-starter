@@ -1,7 +1,7 @@
 import { headers } from 'next/headers';
 import { redirect as nextRedirect, RedirectType } from 'next/navigation';
 
-import { getEnv } from '@/lib/env';
+import { getEnv } from '@/lib/env/env.mjs';
 
 export function generateRoutes(
   path: string | null = null,

@@ -1,4 +1,4 @@
-import { getEnv } from '@/lib/env';
+import { getEnv } from '@/lib/env/env.mjs';
 
 export const config = {
   defaultOrgCode: 'org_a1de411b6d8',

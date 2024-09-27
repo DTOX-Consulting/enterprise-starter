@@ -1,6 +1,6 @@
 import { H } from '@highlight-run/node';
 
-import { getEnv } from '@/lib/env';
+import { getEnv } from '@/lib/env/env.mjs';
 import { config } from '@/lib/sdks/highlight/config';
 
 import type { NextRequest } from 'next/server';

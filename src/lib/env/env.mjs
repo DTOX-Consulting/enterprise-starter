@@ -1,3 +1,4 @@
+/* eslint-disable jsdoc/no-types */
 import { createEnv } from '@t3-oss/env-nextjs';
 import { z } from 'zod';
 
@@ -23,6 +24,10 @@ export const env = createEnv({
     // Supabase
     SUPABASE_JWT_SECRET: z.string().min(1),
     SUPABASE_SERVICE_ROLE_KEY: z.string().min(1),
+
+    // Upstash
+    UPSTASH_REDIS_API_URL: z.string().min(1).optional(),
+    UPSTASH_REDIS_REST_TOKEN: z.string().min(1).optional(),
 
     // Trigger
     TRIGGER_API_ID: z.string().min(1),
@@ -58,9 +63,22 @@ export const env = createEnv({
     WIX_ACCOUNT_ID: z.string().min(1).optional(),
     HUBSPOT_API_KEY: z.string().min(1).optional(),
 
+    // Google
+    GOOGLE_CLIENT_ID: z.string().min(1).optional(),
+    GOOGLE_CLIENT_SECRET: z.string().min(1).optional(),
+    GOOGLE_CLIENT_SUBJECT: z.string().min(1).optional(),
+    GOOGLE_PRIVATE_KEY: z.string().min(1).optional(),
+    GOOGLE_CLIENT_EMAIL: z.string().min(1).optional(),
+    GOOGLE_PROJECT_ID: z.string().min(1).optional(),
+
     // Environment
     PORT: z.number().optional(),
-    NODE_ENV: z.enum(['development', 'staging', 'production', 'testing']).optional(),
+    DOMAIN: z.string().min(1).optional(),
+    NODE_ENV: z.enum(['development', 'production']).optional(),
+    LOG_API_REQUESTS: z
+      .enum(['true', 'false'])
+      .optional()
+      .transform((value) => value === 'true'),
     ANALYZE: z
       .enum(['true', 'false'])
       .optional()
@@ -178,13 +196,33 @@ export const env = createEnv({
 /**
  * Get an environment variable.
  *
- * @param key {keyof typeof env}
- * @param defaultValue {string | boolean | number | undefined}
- * @returns
+ * @template {keyof typeof env} T
+ * @param {T} key - The key of the environment variable.
+ * @param {typeof env[T]} [defaultValue=''] - The default value if the environment variable is not set.
+ * @returns {typeof env[T]} The value of the environment variable or the default value.
  */
 export const getEnv = (key, defaultValue = '') => env[key] ?? defaultValue;
 
-export const isTest = () => getEnv('NEXT_PUBLIC_ENVIRONMENT') === 'testing';
-export const isDev = () => getEnv('NEXT_PUBLIC_ENVIRONMENT') === 'development';
-export const isStaging = () => getEnv('NEXT_PUBLIC_ENVIRONMENT') === 'staging';
-export const isProd = () => getEnv('NEXT_PUBLIC_ENVIRONMENT') === 'production';
+const domain = getEnv('DOMAIN');
+const port = getEnv('PORT', 3000);
+const currentEnv = getEnv('NEXT_PUBLIC_ENVIRONMENT');
+
+/** @type {Record<typeof currentEnv, string>} */
+const environmentUrls = {
+  production: `https://${domain}`,
+  staging: `https://staging.${domain}`,
+  testing: `https://testing.${domain}`,
+  development: `http://localhost:${port}`
+};
+
+export const isTest = () => currentEnv === 'testing';
+export const isDev = () => currentEnv === 'development';
+export const isStaging = () => currentEnv === 'staging';
+export const isProd = () => currentEnv === 'production';
+
+/**
+ * Get the URL for the current environment.
+ *
+ * @returns {typeof environmentUrls[keyof typeof environmentUrls]} The URL for the current environment.
+ */
+export const getEnvUrl = () => environmentUrls[currentEnv];

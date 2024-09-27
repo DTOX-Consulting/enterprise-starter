@@ -1,6 +1,6 @@
 import { fetchRequestHandler } from '@trpc/server/adapters/fetch';
 
-import { getEnv } from '@/lib/env';
+import { getEnv } from '@/lib/env/env.mjs';
 import { createTRPCContext } from '@/trpc';
 import { appRouter } from '@/trpc/routers';
 

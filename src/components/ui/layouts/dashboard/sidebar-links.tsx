@@ -13,7 +13,7 @@ import { triggerElementAction } from '@/lib/utils/dom';
 import { danglingPromise } from '@/lib/utils/promise';
 
 import type { NavigationProps } from '@/config/navigation/use-navigation';
-import type { User } from '@/lib/sdks/kinde/api/session';
+import type { SessionUser } from '@/lib/sdks/kinde/api/session';
 
 export function SidebarLinks({
   user,
@@ -21,7 +21,7 @@ export function SidebarLinks({
   navigationProps,
   contentClassName
 }: {
-  user?: User;
+  user?: SessionUser;
   className?: string;
   contentClassName?: string;
   navigationProps: NavigationProps;
@@ -58,7 +58,7 @@ function SidebarLink({
   navigationProps,
   contentClassName
 }: {
-  user?: User;
+  user?: SessionUser;
   className?: string;
   bottomClass: string;
   activeParent?: string;

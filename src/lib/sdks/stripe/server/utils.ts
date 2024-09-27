@@ -4,7 +4,7 @@ import {
   getSubscriptionPermissionsKey,
   type TierName
 } from '@/config/permissions/features';
-import { getUserSession, type User } from '@/lib/sdks/kinde/api/session';
+import { getUserSession, type SessionUser } from '@/lib/sdks/kinde/api/session';
 import { getStripeMode } from '@/lib/sdks/stripe/client/utils';
 import { stripe } from '@/lib/sdks/stripe/server/auth';
 
@@ -25,7 +25,7 @@ export const getTierNameFromSubscription = (subscription?: Stripe.Subscription) 
   return tier ? (tier[0] as TierName) : defaultTier;
 };
 
-export const findStripeCustomer = async (user?: User) => {
+export const findStripeCustomer = async (user?: SessionUser) => {
   const { email } = user ?? (await getUserSession(true)).user;
 
   const customers = await stripe.customers.list({
@@ -35,7 +35,7 @@ export const findStripeCustomer = async (user?: User) => {
   return customers.data[0];
 };
 
-export const upsertStripeCustomer = async (user?: User) => {
+export const upsertStripeCustomer = async (user?: SessionUser) => {
   const { email, name } = user ?? (await getUserSession()).user;
 
   const customers = await stripe.customers.list({
@@ -60,7 +60,7 @@ export const upsertStripeCustomer = async (user?: User) => {
   return customer;
 };
 
-export const getStripeDetails = async (user?: User) => {
+export const getStripeDetails = async (user?: SessionUser) => {
   const customer = await upsertStripeCustomer(user);
 
   const subscriptions = await stripe.subscriptions.list({
@@ -79,7 +79,7 @@ export const getStripeDetails = async (user?: User) => {
   };
 };
 
-export const getStripeDetailsNoCreate = async (user?: User) => {
+export const getStripeDetailsNoCreate = async (user?: SessionUser) => {
   const customer = await findStripeCustomer(user);
 
   if (!customer) {
