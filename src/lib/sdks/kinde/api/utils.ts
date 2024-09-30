@@ -5,7 +5,7 @@ export const getUserByEmail = async (email: string) => {
   const { users } = await usersApi.getUsers({ email });
   const user = users?.[0];
 
-  if (!user?.id) throw new Error('User not found');
+  if (!user) throw new Error('User not found');
   return user as NonNullable<typeof user> & { id: string };
 };
 

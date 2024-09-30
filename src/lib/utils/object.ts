@@ -3,9 +3,6 @@ import { G } from '@mobily/ts-belt';
 import { throwError } from '@/lib/utils/error';
 
 import type { GenericFunction } from '@/lib/utils/function';
-// import type { DeepReadonlyArray, DeepReadonlyObject } from 'rxdb';
-
-// export type { DeepReadonly, DeepReadonlyArray, DeepReadonlyObject } from 'rxdb';
 
 export type DeepReadonlyArray<T> = readonly DeepReadonly<T>[];
 

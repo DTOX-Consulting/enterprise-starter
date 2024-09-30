@@ -40,8 +40,8 @@ export const aiRouter = {
         });
 
         return { success: true, data };
-      } catch (e) {
-        const error = e as Error;
+      } catch (err) {
+        const error = err as Error;
         return { success: false, error: error.message };
       }
     }),
@@ -63,8 +63,8 @@ export const aiRouter = {
       try {
         const data = await createImageCompletion(imageOptions);
         return { success: true, data };
-      } catch (e) {
-        const error = e as Error;
+      } catch (err) {
+        const error = err as Error;
         return { success: false, error: error.message };
       }
     })

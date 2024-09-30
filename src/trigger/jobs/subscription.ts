@@ -21,13 +21,13 @@ export const stripeSubscription = client.defineJob({
   }),
   run: async (payload, _, ctx) => {
     const email = await getCustomerEmail(payload.customer);
-    const priceId = payload.items.data[0]?.price.id;
+    const priceId = payload.items.data[0]?.price.id ?? '';
 
     if (!priceId) {
       throw new Error('Price ID not found');
     }
 
-    const subscriptionKey = getKindeSubscriptionPermissionsKeyFromPriceId(priceId);
+    const subscriptionKey = getKindeSubscriptionPermissionsKeyFromPriceId(priceId) ?? '';
 
     if (!subscriptionKey) {
       throw new Error('Subscription ID not found');

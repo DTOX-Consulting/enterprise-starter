@@ -1,4 +1,5 @@
 /* eslint-disable promise/prefer-await-to-then, @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-unsafe-assignment -- SDK */
+import { stringify } from 'safe-stable-stringify';
 
 export type QueryParamsType = Record<string | number, unknown>;
 export type ResponseFormat = keyof Omit<Body, 'body' | 'bodyUsed'>;
@@ -104,10 +105,10 @@ export class HttpClient<SecurityDataType = unknown> {
     {
       [ContentType.Json]: (input: unknown) =>
         input !== null && (typeof input === 'object' || typeof input === 'string')
-          ? JSON.stringify(input)
+          ? stringify(input)
           : input,
       [ContentType.Text]: (input: unknown) =>
-        input !== null && typeof input !== 'string' ? JSON.stringify(input) : input,
+        input !== null && typeof input !== 'string' ? stringify(input) : input,
       [ContentType.FormData]: (input: unknown) =>
         Object.keys((input as object) || {}).reduce((formData, key) => {
           const property = (input as Record<string, unknown>)[key];
@@ -116,7 +117,7 @@ export class HttpClient<SecurityDataType = unknown> {
             property instanceof Blob
               ? property
               : typeof property === 'object' && property !== null
-                ? JSON.stringify(property)
+                ? stringify(property)
                 : `${property as string}`
           );
           return formData;

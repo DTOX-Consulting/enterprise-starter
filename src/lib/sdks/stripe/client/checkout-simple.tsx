@@ -29,7 +29,7 @@ export const CheckoutButton = ({ tier }: { tier: TierName }) => {
   const email = user?.email;
 
   if (!email) {
-    return null;
+    return '';
   }
 
   return (
