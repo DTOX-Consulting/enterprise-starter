@@ -11,14 +11,14 @@ export function closeOnDocumentClick<T extends RefObject<HTMLElement>[]>(
   const document = getDocument();
   if (!document) return;
 
-  const checkNodes = (e: MouseEvent) =>
+  const checkNodes = (event: MouseEvent) =>
     refs.some((ref) => {
       const node = ref.current;
-      return !node || node.contains(e.target as Node);
+      return !node || node.contains(event.target as Node);
     });
 
-  const handleClick = (e: MouseEvent) => {
-    if (checkNodes(e)) return;
+  const handleClick = (event: MouseEvent) => {
+    if (checkNodes(event)) return;
     document.removeEventListener('click', handleClick);
     debounce(`close-on-document-click-close-${id}`, closeFn, 0);
   };

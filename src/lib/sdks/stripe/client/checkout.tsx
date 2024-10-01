@@ -54,8 +54,8 @@ export const handleCheckout =
     mutateAsync: ReturnType<typeof api.payment.subscribe.useMutation>['mutateAsync'],
     router: AppRouterInstance
   ) =>
-  async (e: FormEvent) => {
-    e.preventDefault();
+  async (event: FormEvent) => {
+    event.preventDefault();
     setLoading(true);
 
     const details = await mutateAsync({ tier });
@@ -88,8 +88,8 @@ export const handleManageSubscription =
     mutateAsync: ReturnType<typeof api.payment.manageSubscription.useMutation>['mutateAsync'],
     router: AppRouterInstance
   ) =>
-  async (e: FormEvent) => {
-    e.preventDefault();
+  async (event: FormEvent) => {
+    event.preventDefault();
     setLoading(true);
 
     const details = await mutateAsync();

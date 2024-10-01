@@ -34,7 +34,7 @@ const returnContact = (email: string, input?: ClientData, contact?: Contact): Cl
     lastName: contact.info?.name?.last ?? '',
     firstName: contact.info?.name?.first ?? '',
     notifyMe: contact.info?.extendedFields?.items?.['custom.notify'] === 'yes',
-    subscriptionPlan: (contact.info?.extendedFields?.items?.['custom.subscription'] as string) ?? ''
+    subscriptionPlan: (contact.info?.extendedFields?.items?.['custom.subscription'] as string) || ''
   };
 };
 

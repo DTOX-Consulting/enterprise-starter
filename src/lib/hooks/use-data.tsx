@@ -66,7 +66,7 @@ export function useData<T extends MinimalData>({
 
   const setCurrentDataByName = useCallback(
     (dataName: string) => {
-      const foundData = data.find((d) => d.name === dataName);
+      const foundData = data.find((data) => data.name === dataName);
       if (foundData) {
         setCurrentData(foundData);
       }
@@ -75,7 +75,7 @@ export function useData<T extends MinimalData>({
   );
 
   const getDefaultData = useCallback(
-    (defaultData?: T) => [data.find((d) => d.name === 'Default') ?? defaultData].filter(Boolean),
+    (defaultData?: T) => [data.find((data) => data.name === 'Default') ?? defaultData].filter(Boolean),
     [data]
   );
 
@@ -99,7 +99,6 @@ export function useData<T extends MinimalData>({
         await runCBData(updatedData, cbdata, true);
 
         setData(updatedData);
-        // updatedData[0] && setCurrentData(updatedData[0]);
       });
     },
     [data, setData, getItems, getDefaultData, runCBData, storageKeyPrefix]
@@ -110,7 +109,7 @@ export function useData<T extends MinimalData>({
       newData: PartialWithoutKeys<T, 'id' | 'createdAt' | 'lastUpdated'>,
       cbdata?: (data: T[]) => Promise<void>
     ) => {
-      const similar = 'name' in newData && data.some((d) => d.name === newData.name);
+      const similar = 'name' in newData && data.some((data) => data.name === newData.name);
 
       if (similar) {
         toast({
@@ -146,7 +145,7 @@ export function useData<T extends MinimalData>({
       cbdata?: (data: T[]) => Promise<void>,
       currData?: T
     ) => {
-      const currentData = currData ?? data.find((d) => d.id === id);
+      const currentData = currData ?? data.find((data) => data.id === id);
 
       if (!currentData) {
         toast({
@@ -186,9 +185,9 @@ export function useData<T extends MinimalData>({
 
   const deleteData = useCallback(
     (dataToDelete: T, cbdata?: (data: T[]) => Promise<void>): MouseEventHandler<SVGSVGElement> =>
-      (e) => {
-        e.stopPropagation();
-        e.preventDefault();
+      (event) => {
+        event.stopPropagation();
+        event.preventDefault();
 
         toast({
           variant: 'destructive',

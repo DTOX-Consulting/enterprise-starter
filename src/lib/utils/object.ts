@@ -55,9 +55,9 @@ export function keysExist<T, K extends (keyof T)[]>(
 }
 
 export function shuffle<T>(arr: T[]) {
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]] as [T, T];
+  for (let index = arr.length - 1; index > 0; index--) {
+    const secondIndex = Math.floor(Math.random() * (index + 1));
+    [arr[index], arr[secondIndex]] = [arr[secondIndex], arr[index]] as [T, T];
   }
 
   return arr;
@@ -70,9 +70,9 @@ export function replaceWholeArray<T>(arr: T[], replacement: T[]) {
 export function chunk<T>(arr: T[], totalLength: number): T[][] {
   const chunkSize = Math.ceil(arr.length / totalLength);
 
-  return Array.from({ length: totalLength }, (_, i) => {
-    const start = i * chunkSize;
-    const end = Math.min((i + 1) * chunkSize, arr.length);
+  return Array.from({ length: totalLength }, (_, index) => {
+    const start = index * chunkSize;
+    const end = Math.min((index + 1) * chunkSize, arr.length);
     return arr.slice(start, end);
   }).filter((subarray) => subarray.length > 0);
 }

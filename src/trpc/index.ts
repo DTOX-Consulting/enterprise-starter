@@ -59,7 +59,7 @@ export const createInnerTRPCContext = async (opts: CreateContextOptions) => {
 export const createTRPCContext = async (opts: { req: NextRequest }) =>
   // Fetch stuff that depends on the request
 
-  await createInnerTRPCContext({
+  createInnerTRPCContext({
     request: opts.req,
     headers: opts.req.headers
   });
@@ -72,7 +72,7 @@ export const createTRPCContext = async (opts: { req: NextRequest }) =>
  * errors on the backend.
  */
 
-const t = initTRPC.context<typeof createTRPCContext>().create({
+const trpcInstance = initTRPC.context<typeof createTRPCContext>().create({
   transformer: superjson,
   errorFormatter({ shape, error }) {
     return {
@@ -97,7 +97,7 @@ const t = initTRPC.context<typeof createTRPCContext>().create({
  *
  * @see https://trpc.io/docs/router
  */
-export const createTRPCRouter = t.router;
+export const createTRPCRouter = trpcInstance.router;
 
 /**
  * Public (unauthenticated) procedure
@@ -106,10 +106,10 @@ export const createTRPCRouter = t.router;
  * guarantee that a user querying is authorized, but you can still access user session data if they
  * are logged in.
  */
-export const publicProcedure = t.procedure;
+export const publicProcedure = trpcInstance.procedure;
 
 /** Reusable middleware that enforces users are logged in before running the procedure. */
-const enforceUserIsAuthed = t.middleware(async ({ ctx, next }) => {
+const enforceUserIsAuthed = trpcInstance.middleware(async ({ ctx, next }) => {
   if (!ctx.session.user) {
     throw new TRPCError({ code: 'UNAUTHORIZED' });
   }
@@ -129,4 +129,4 @@ const enforceUserIsAuthed = t.middleware(async ({ ctx, next }) => {
  *
  * @see https://trpc.io/docs/procedures
  */
-export const protectedProcedure = t.procedure.use(enforceUserIsAuthed);
+export const protectedProcedure = trpcInstance.procedure.use(enforceUserIsAuthed);

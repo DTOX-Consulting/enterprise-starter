@@ -6,6 +6,7 @@ import {
   type PersistedClient
 } from '@tanstack/react-query-persist-client';
 import { useEffect } from 'react';
+import { stringify } from 'safe-stable-stringify'
 
 export const usePersistQueryClient = () => {
   const queryClient = useQueryClient();
@@ -15,7 +16,7 @@ export const usePersistQueryClient = () => {
       throttleTime: 1000,
       retry: removeOldestQuery,
       storage: window.localStorage,
-      serialize: (data) => JSON.stringify(data),
+      serialize: (data) => stringify(data),
       deserialize: (data) => JSON.parse(data) as PersistedClient
     });
 

@@ -81,7 +81,7 @@ export class HttpClient<SecurityDataType = unknown> {
 
   protected addArrayQueryParam(query: QueryParamsType, key: string) {
     const value: string[] = (query[key] as string[]) ?? [];
-    return value.map((v: string | number | boolean) => this.encodeQueryParam(key, v)).join('&');
+    return value.map((val: string | number | boolean) => this.encodeQueryParam(key, val)).join('&');
   }
 
   protected toQueryString(rawQuery?: QueryParamsType): string {
@@ -198,24 +198,24 @@ export class HttpClient<SecurityDataType = unknown> {
             : (payloadFormatter(body as QueryParamsType) as BodyInit | null | undefined)
       }
     ).then(async (response) => {
-      const r = response.clone() as HttpResponse<T, E>;
-      r.data = null as unknown as T;
-      r.error = null as unknown as E;
+      const res = response.clone() as HttpResponse<T, E>;
+      res.data = null as unknown as T;
+      res.error = null as unknown as E;
 
       const data = !responseFormat
-        ? r
+        ? res
         : await response[responseFormat]()
             .then((data) => {
-              if (r.ok) {
-                r.data = data;
+              if (res.ok) {
+                res.data = data;
               } else {
-                r.error = data;
+                res.error = data;
               }
-              return r;
+              return res;
             })
-            .catch((e) => {
-              r.error = e as E;
-              return r;
+            .catch((err) => {
+              res.error = err as E;
+              return res;
             });
 
       if (cancelToken) {
