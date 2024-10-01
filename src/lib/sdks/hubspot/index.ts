@@ -55,11 +55,11 @@ const returnContact = (
 
   return {
     id: contact.id,
-    email: contact.properties.email ?? email,
+    email: contact.properties.email || email,
     notifyMe: contact.properties.notify_me === 'true',
-    subscriptionPlan: contact.properties.subscription_plan ?? '',
-    lastName: contact.properties.lastName ?? input?.lastName ?? '',
-    firstName: contact.properties.firstName ?? input?.firstName ?? ''
+    subscriptionPlan: contact.properties.subscription_plan || '',
+    lastName: contact.properties.lastName || (input ? input.lastName : ''),
+    firstName: contact.properties.firstName || (input ? input.firstName : '')
   };
 };
 
