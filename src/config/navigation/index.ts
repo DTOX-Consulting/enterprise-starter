@@ -11,7 +11,7 @@ const config = {
   organization: organizationNavigationItems
 } as const;
 
-type Base = (typeof bases)[number];
+type Base = typeof businessBases[number] | typeof nonBusinessBases[number];
 
 type SlugBase = (typeof slugBases)[number];
 
@@ -42,8 +42,8 @@ const nonBusinessBases = [
 const bases = [...businessBases, ...nonBusinessBases] as const;
 const pages = ['new', 'edit', 'view', 'profile', 'settings'] as const;
 
-function isPage(value?: string) {
-  return !value || pages.includes(value);
+function isPage(value: string | undefined): boolean {
+  return !value || pages.includes(value as typeof pages[number]);
 }
 
 export function isNonBusinessBase(base: string): base is Base {

@@ -38,12 +38,16 @@ export function useLocalData<T extends MinimalData>(storageKeyPrefix?: string) {
   const storageKey = storageKeyPrefix ? getStorageKey(storageKeyPrefix) : null;
 
   const getLocalItems = useCallback(
-    async () => (storageKey ? localForage.getItem<T[]>(storageKey) : null),
+    async () => (storageKey ? await localForage.getItem<T[]>(storageKey) : null),
     [storageKey]
   );
 
   const setLocalItems = useCallback(
-    async (items: T[]) => (storageKey ? localForage.setItem(storageKey, items) : null),
+    async (items: T[]) => {
+      if (storageKey) {
+        await localForage.setItem(storageKey, items);
+      }
+    },
     [storageKey]
   );
   return { getLocalItems, setLocalItems, storageKey };
@@ -66,7 +70,7 @@ export function useData<T extends MinimalData>({
 
   const setCurrentDataByName = useCallback(
     (dataName: string) => {
-      const foundData = data.find((data) => data.name === dataName);
+      const foundData = data.find((item) => item.name === dataName);
       if (foundData) {
         setCurrentData(foundData);
       }
@@ -75,7 +79,7 @@ export function useData<T extends MinimalData>({
   );
 
   const getDefaultData = useCallback(
-    (defaultData?: T) => [data.find((data) => data.name === 'Default') ?? defaultData].filter(Boolean),
+    (defaultData?: T) => [data.find((item) => item.name === 'Default') ?? defaultData].filter(Boolean),
     [data]
   );
 
@@ -145,9 +149,9 @@ export function useData<T extends MinimalData>({
       cbdata?: (data: T[]) => Promise<void>,
       currData?: T
     ) => {
-      const currentData = currData ?? data.find((data) => data.id === id);
+      const currentItem = currData ?? data.find((item) => item.id === id);
 
-      if (!currentData) {
+      if (!currentItem) {
         toast({
           title: 'Error',
           description: 'Data not found'
@@ -156,23 +160,23 @@ export function useData<T extends MinimalData>({
         return;
       }
 
-      const { createdAt } = currentData;
+      const { createdAt } = currentItem;
       const lastUpdated = new Date().toISOString();
       const standardData = { id, createdAt, lastUpdated };
 
       const mergedData = merge.withOptions(
         { mergeArrays: false },
-        currentData,
+        currentItem,
         newData,
         standardData
       ) as T;
 
-      Object.assign(currentData, mergedData);
+      Object.assign(currentItem, mergedData);
 
       debounce(id, () => {
         setCurrentData(mergedData);
         setData((prevData) => {
-          const updatedData = prevData.map((d) => (d.id === id ? mergedData : d));
+          const updatedData = prevData.map((item) => (item.id === id ? mergedData : item));
           danglingPromise(runCBData(updatedData, cbdata));
           return updatedData;
         });
@@ -214,7 +218,11 @@ export function useData<T extends MinimalData>({
 
   useDebounceEffect(
     `retrieve-data-on-mount-${storageKeyPrefix}`,
-    () => (retrieveOnMount ? danglingPromise(retrieveData()) : undefined),
+    () => {
+      if (retrieveOnMount) {
+        danglingPromise(retrieveData());
+      }
+    },
     [retrieveData, retrieveOnMount]
   );
 

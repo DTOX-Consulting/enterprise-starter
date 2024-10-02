@@ -108,7 +108,7 @@ export class HttpClient<SecurityDataType = unknown> {
           ? stringify(input)
           : input,
       [ContentType.Text]: (input: unknown) =>
-        input !== null && typeof input !== 'string' ? stringify(input) : input,
+        input !== null && typeof input !== 'string' ? stringify(input) : (input as string),
       [ContentType.FormData]: (input: unknown) =>
         Object.keys((input as object) || {}).reduce((formData, key) => {
           const property = (input as Record<string, unknown>)[key];

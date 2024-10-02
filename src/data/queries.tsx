@@ -44,14 +44,14 @@ export function useDBData() {
   );
 
   const current = useMemo(() => {
-    if (path.slug) {
+    if (path.slug && path.slug.length > 0) {
       const business = getBusinessBySlug(path.slug);
       const organization = business ? getOrganization(business.organizationId) : undefined;
       return { business, organization };
     }
 
-    const business = path.businessId ? getBusiness(path.businessId) : undefined;
-    const organization = path.orgId ? getOrganization(path.orgId) : undefined;
+    const business = path.businessId && path.businessId.length > 0 ? getBusiness(path.businessId) : undefined;
+    const organization = path.orgId && path.orgId.length > 0 ? getOrganization(path.orgId) : undefined;
     return { business, organization };
   }, [path.slug, path.orgId, path.businessId, getBusiness, getOrganization, getBusinessBySlug]);
 
@@ -79,7 +79,7 @@ export function useDBData() {
     (search: string, filter: string) =>
       currentBusinesses
         .filter((business) => {
-          if (search) {
+          if (search && search.length > 0) {
             return business.name.toLowerCase().includes(search.toLowerCase());
           }
 

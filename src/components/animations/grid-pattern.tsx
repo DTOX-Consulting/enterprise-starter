@@ -71,10 +71,10 @@ export function GridPattern({
 
       currentBlock.current = [x, y];
 
-      setHoveredBlocks((blocks) => {
+      setHoveredBlocks((prevBlocks) => {
         const key = counter.current++;
-        const block = [x, y, key] as (typeof hoveredBlocks)[number];
-        return [...blocks, block].filter(
+        const newBlock = [x, y, key] as (typeof hoveredBlocks)[number];
+        return [...prevBlocks, newBlock].filter(
           (block) => !(block[0] === x && block[1] === y && block[2] !== key)
         );
       });

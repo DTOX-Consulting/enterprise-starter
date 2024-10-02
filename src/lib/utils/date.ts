@@ -67,7 +67,7 @@ export function formatDate(date: string | Date, short?: boolean): string {
   const difference = getDifference(date);
 
   for (const unit of units) {
-    const format = unit && formats[unit];
+    const format = formats[unit];
 
     if (difference < format.ms * format.max) {
       return formatter(difference, unit, short);
@@ -86,7 +86,7 @@ export function formatCreatedAt(createdAt: string | Date): string {
   return `${formatDate(createdAt, true)} ago`;
 }
 
-export const timeAgo = (timestamp?: Date, timeOnly?: boolean): string => {
+export const timeAgo = (timestamp: Date | undefined, timeOnly: boolean | undefined): string => {
   if (!timestamp) return 'never';
   return `${ms(Date.now() - new Date(timestamp).getTime())}${timeOnly ? '' : 'ago'}`;
 };

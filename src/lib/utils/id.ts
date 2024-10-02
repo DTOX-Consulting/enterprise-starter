@@ -17,7 +17,7 @@ export const isNanoId = (id: string, length = 12) =>
 export const slugify = (name: string) => {
   const text = name
     .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/[^a-z0-9]+/gi, '-')
     .replace(/^-+|-+$/g, '');
 
   const id = nanoid(4);

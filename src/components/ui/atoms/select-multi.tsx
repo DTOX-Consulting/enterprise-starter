@@ -96,7 +96,7 @@ function transToGroupOption(options: Option[], groupBy?: string) {
   if (options.length === 0) {
     return {};
   }
-  if (groupBy === null || groupBy === undefined) {
+  if (groupBy == null) {
     return {
       '': options
     };
@@ -140,7 +140,7 @@ const CommandEmpty = forwardRef<
     <div
       ref={forwardedRef}
       className={cn('py-6 text-center text-sm', className)}
-      cmdk-empty=""
+      data-cmdk-empty=""
       role="presentation"
       {...props}
     />
@@ -275,13 +275,13 @@ const SelectMulti = React.forwardRef<SelectMultiRef, SelectMultiProps>(
             event.preventDefault();
             event.stopPropagation();
           }}
-          onSelect={(value: string) => {
+          onSelect={(selectedValue: string) => {
             if (selected.length >= maxSelected) {
               onMaxSelected?.(selected.length);
               return;
             }
             setInputValue('');
-            const newOptions = [...selected, { value, label: value }];
+            const newOptions = [...selected, { value: selectedValue, label: selectedValue }];
             setSelected(newOptions);
             onChange?.(newOptions);
           }}
@@ -402,14 +402,14 @@ const SelectMulti = React.forwardRef<SelectMultiRef, SelectMultiProps>(
                 setOpen(false);
                 inputProps?.onBlur?.(event);
               }}
-              onFocus={async (event) => {
+              onFocus={(event) => {
                 setOpen(true);
                 if (triggerSearchOnFocus && onSearch) {
-                  await onSearch(debouncedSearchTerm);
+                  void onSearch(debouncedSearchTerm);
                 }
                 inputProps?.onFocus?.(event);
               }}
-              placeholder={hidePlaceholderWhenSelected === true && selected.length !== 0 ? '' : placeholder}
+              placeholder={hidePlaceholderWhenSelected && selected.length !== 0 ? '' : placeholder}
               className={cn(
                 'flex-1 border-0 bg-transparent placeholder:text-muted-foreground focus:border-0 focus:outline-none focus:ring-0',
                 inputProps?.className

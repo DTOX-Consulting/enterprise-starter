@@ -60,24 +60,24 @@ export const useRxDB = () => {
     (forceResync = false) => {
       if (!isOnline) {
         devLog('Stopping resync', { isOnline });
-        const replicates = getReplicatesOrThrow();
-        Object.values(replicates).forEach((replicate) => void replicate.cancel());
+        const replicatesLocal = getReplicatesOrThrow();
+        Object.values(replicatesLocal).forEach((replicate) => void replicate.cancel());
         return;
       }
 
-      if (forceResync || (previous && previous !== isOnline && isOnline)) {
+      if (forceResync || (previous !== undefined && previous !== isOnline && isOnline)) {
         devLog('Resyncing DB', { isOnline });
-        const replicates = getReplicatesOrThrow();
-        Object.values(replicates).forEach((replicate) => replicate.reSync());
+        const replicatesLocal = getReplicatesOrThrow();
+        Object.values(replicatesLocal).forEach((replicate) => replicate.reSync());
       }
     },
     [previous, isOnline, getReplicatesOrThrow]
   );
 
   const destroyDb = useCallback(async () => {
-    const db = getDbOrThrow();
-    await db.remove();
-    await db.destroy();
+    const dbLocal = getDbOrThrow();
+    await dbLocal.remove();
+    await dbLocal.destroy();
 
     setDb(undefined);
     setReplicates(undefined);
@@ -86,18 +86,18 @@ export const useRxDB = () => {
   const initializeDb = useDebounceCallback<boolean>(
     'initialize-db',
     async (forceResync = false) => {
-      if (!session?.user.id) return;
+      if (session?.user.id === undefined) return;
       if (getDb() && getReplicates()) return resyncDb(forceResync);
-      if (!session.user.id || (getDb() ?? getReplicates())) {
+      if (session.user.id === undefined || (getDb() !== undefined || getReplicates() !== undefined)) {
         devLog('DB already initialized', getDb());
         return;
       }
 
-      const { db, replication } = await initialize(session);
+      const { db: dbInitialized, replication } = await initialize(session);
 
-      setDb(db);
+      setDb(dbInitialized);
       setReplicates(replication);
-      devLog('DB initialized', db);
+      devLog('DB initialized', dbInitialized);
 
       danglingPromise(
         (async () => {
@@ -111,7 +111,7 @@ export const useRxDB = () => {
   );
 
   const reinitializeDb = useCallback(async () => {
-    if (!session?.user.id) return;
+    if (session?.user.id === undefined) return;
     await clearDbs();
     await destroyDb();
     initializeDb(true);
@@ -126,10 +126,10 @@ export const useRxDBCollection = <T extends SchemaName, U extends SchemaType<T> 
   collectionName: T
 ) => {
   const { user } = useAuth();
-  const collection = useRxCollection<U>(collectionName);
+  const collectionHook = useRxCollection<U>(collectionName);
   const ownerId = user?.id;
 
-  const getCollection = useCallback(() => collection, [collection]);
+  const getCollection = useCallback(() => collectionHook, [collectionHook]);
 
   const getCollectionOrThrow = useCallback(() => {
     const collection = getCollection();

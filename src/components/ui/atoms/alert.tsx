@@ -1,4 +1,5 @@
 import { cva, type VariantProps } from 'class-variance-authority';
+// eslint-disable-next-line import-x/no-namespace
 import * as React from 'react';
 
 import { cn } from '@/lib/utils';

@@ -1,6 +1,5 @@
 import { resolve } from 'node:path';
 
-// import sharp from 'sharp';
 import { $ } from 'zx';
 
 import { name, shortName, shortDescription, themeColor, backgroundColor } from '@/app/metadata';
@@ -151,7 +150,8 @@ const generateLogos = async () => {
   await ensureDir(logoRoot);
   await ensureDir(iconRoot);
 
-  sizes.forEach((size) => {
+  const sizesForLogos = sizes;
+  sizesForLogos.forEach((size) => {
     const input = resolve(ROOT_DIR, `${inputRoot}/logo.svg`);
     const output = resolve(ROOT_DIR, `${logoRoot}/logo-${size}.png`);
 
@@ -166,7 +166,8 @@ const generateLogos = async () => {
       .toFile(output, logError);
   });
 
-  sizes.forEach((size) => {
+  const sizesForIcons = sizes;
+  sizesForIcons.forEach((size) => {
     const input = resolve(ROOT_DIR, `${inputRoot}/icon.svg`);
     const output = resolve(ROOT_DIR, `${iconRoot}/icon-${size}.png`);
 
