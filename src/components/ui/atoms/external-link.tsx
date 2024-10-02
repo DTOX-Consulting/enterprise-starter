@@ -1,4 +1,4 @@
-export function ExternalLink({ href, children }: { href: string; children: React.ReactNode }) {
+export function ExternalLink({ href, children }: Readonly<{ href: string; children: React.ReactNode }>) {
   return (
     <a
       href={href}

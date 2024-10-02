@@ -5,14 +5,14 @@ import { Main } from '@/components/ui/layouts/dashboard/main';
 import { Sidebar } from '@/components/ui/layouts/dashboard/sidebar';
 import { cn } from '@/lib/utils';
 
-type LayoutProps = {
+type LayoutProps = Readonly<{
   className?: string;
   sidebarWidth?: number;
   children: React.ReactNode;
   headerChildren?: React.ReactNode;
   sidebarChildren?: React.ReactNode;
   headerProps?: HeaderProps;
-};
+}>;
 
 export default function Layout({
   className,

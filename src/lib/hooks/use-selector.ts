@@ -50,7 +50,7 @@ export function useSelector<
     defaultValue: Z;
     enabled?: boolean;
     debounce?: number;
-  }``
+  }
 ): NonNullable<R>;
 export function useSelector<
   T,

@@ -1,5 +1,7 @@
 import { G } from '@mobily/ts-belt';
+import { Root as LabelPrimitiveRoot } from '@radix-ui/react-label';
 import { Slot } from '@radix-ui/react-slot';
+// eslint-disable-next-line import-x/no-namespace
 import * as React from 'react';
 import {
   useForm,
@@ -15,7 +17,6 @@ import {
 import { Label } from '@/components/ui/atoms/label';
 import { cn } from '@/lib/utils';
 
-import type * as LabelPrimitive from '@radix-ui/react-label';
 
 const Form = FormProvider;
 
@@ -33,11 +34,15 @@ const FormField = <
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
 >({
   ...props
-}: ControllerProps<TFieldValues, TName>) => (
-  <FormFieldContext.Provider value={{ name: props.name }}>
-    <Controller {...props} />
-  </FormFieldContext.Provider>
-);
+}: ControllerProps<TFieldValues, TName>) => {
+  const value = React.useMemo(() => ({ name: props.name }), [props.name]);
+
+  return (
+    <FormFieldContext.Provider value={value}>
+      <Controller {...props} />
+    </FormFieldContext.Provider>
+  );
+};
 
 const useFormField = () => {
   const fieldContext = React.useContext(FormFieldContext);
@@ -71,9 +76,10 @@ const FormItemContext = React.createContext<FormItemContextValue>({} as FormItem
 const FormItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => {
     const id = React.useId();
+    const value = React.useMemo(() => ({ id }), []);
 
     return (
-      <FormItemContext.Provider value={{ id }}>
+      <FormItemContext.Provider value={value}>
         <div ref={ref} className={cn('space-y-2', className)} {...props} />
       </FormItemContext.Provider>
     );
@@ -82,8 +88,8 @@ const FormItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
 FormItem.displayName = 'FormItem';
 
 const FormLabel = React.forwardRef<
-  React.ElementRef<typeof LabelPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root>
+  React.ElementRef<typeof LabelPrimitiveRoot>,
+  React.ComponentPropsWithoutRef<typeof LabelPrimitiveRoot>
 >(({ className, ...props }, ref) => {
   const { error, formItemId } = useFormField();
 
