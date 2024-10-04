@@ -226,3 +226,5 @@ export const isProd = () => currentEnv === 'production';
  * @returns {typeof environmentUrls[keyof typeof environmentUrls]} The URL for the current environment.
  */
 export const getEnvUrl = () => environmentUrls[currentEnv];
+
+/* eslint-enable jsdoc/no-types */
