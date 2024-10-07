@@ -4,11 +4,20 @@ import type { MetadataRoute } from 'next';
 
 export const runtime = 'nodejs';
 
-const priority = 1;
-const priority08 = 0.8;
 const currentDate = new Date();
-const changeFrequencyYearly = 'yearly';
-const changeFrequencyMonthly = 'monthly';
+
+const changeTypes = {
+  daily: 'daily',
+  weekly: 'weekly',
+  monthly: 'monthly',
+  yearly: 'yearly'
+} as const;
+
+const priorities = {
+  1: 1,
+  2: 0.8,
+  3: 0.5
+} as const;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   await Promise.resolve();
@@ -16,21 +25,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return [
     {
       url,
-      priority,
+      priority: priorities[1],
       lastModified: currentDate,
-      changeFrequency: changeFrequencyYearly
+      changeFrequency: changeTypes.yearly
     },
     {
       url: `${url}/about`,
-      priority: priority08,
+      priority: priorities[2],
       lastModified: currentDate,
-      changeFrequency: changeFrequencyMonthly
+      changeFrequency: changeTypes.monthly
     },
     {
       url: `${url}/contact`,
-      priority: priority08,
+      priority: priorities[2],
       lastModified: currentDate,
-      changeFrequency: changeFrequencyMonthly
+      changeFrequency: changeTypes.monthly
     }
   ];
 }
