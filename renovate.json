@@ -1,14 +1,46 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:base"],
+  "automerge": true,
+  "rangeStrategy": "pin",
+  "configMigration": true,
+  "schedule": "at any time",
+  "forkProcessing": "enabled",
+  "semanticCommits": "enabled",
+  "dependencyDashboard": true,
+  "dependencyDashboardApproval": true,
+  "dependencyDashboardAutoclose": true,
+  "extends": [
+    "config:recommended",
+    "group:linters",
+    "group:monorepos",
+    "group:allNonMajor",
+    "group:testNonMajor",
+    "group:definitelyTyped"
+  ],
+  "osvVulnerabilityAlerts": true,
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "labels": [
+      "security"
+    ]
+  },
+  "lockFileMaintenance": {
+    "enabled": true,
+    "minimumReleaseAge": "14",
+    "schedule": "at any time",
+    "dependencyDashboardApproval": true
+  },
+  "labels": [
+    "renovate",
+    "dependencies"
+  ],
+  "ignorePaths": [],
   "packageRules": [
     {
       "enabled": false,
-      "matchPackagePatterns": ["*"]
+      "matchPackageNames": [
+        "*"
+      ]
     }
-  ],
-  "vulnerabilityAlerts": {
-    "enabled": true
-  },
-  "osvVulnerabilityAlerts": true
+  ]
 }

@@ -1,9 +1,9 @@
 import { devEmail, noReplyEmail } from '@/app/metadata';
-import { getEnv } from '@/lib/env';
+import { getEnv } from '@/lib/env/env.mjs';
 
 export const config = {
   auth: {
-    API_KEY: getEnv('SENDGRID_API_KEY')
+    API_KEY: getEnv('SENDGRID_API_KEY') ?? ''
   },
   emails: {
     dev: { name: 'Dev', email: devEmail },

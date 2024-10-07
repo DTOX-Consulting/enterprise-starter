@@ -1,6 +1,6 @@
 import { stringify } from 'safe-stable-stringify';
 
-import { isProd } from '@/lib/env';
+import { isProd } from '@/lib/env/env.mjs';
 
 type LogType = 'info' | 'warn' | 'error' | 'success' | 'log' | 'marker';
 const logType = ['info', 'warn', 'error', 'success', 'log'] as LogType[];

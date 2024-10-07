@@ -1,3 +1,4 @@
+import { G } from '@mobily/ts-belt';
 import { createClient } from '@supabase/supabase-js';
 
 import { config } from '@/lib/sdks/supabase/config';
@@ -5,7 +6,7 @@ import { config } from '@/lib/sdks/supabase/config';
 import type { UserSession } from '@/lib/sdks/kinde/api/session';
 
 export const supabase = (userSession: UserSession) => {
-  if (!userSession.auth.idToken) {
+  if (G.isNullable(userSession.auth.idToken)) {
     throw new Error('User must be authenticated to create a Supabase client');
   }
 

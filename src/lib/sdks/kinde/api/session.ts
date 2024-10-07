@@ -1,17 +1,16 @@
 'use server';
 
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
+import { G } from '@mobily/ts-belt';
 import { redirect } from 'next/navigation';
 
 import { routes } from '@/config/navigation/routes';
 import {
-  convertPermissionsToArray,
   getTierNameFromPermissionsKey,
   getSubscriptionPermissionsKeyFromPermissions
 } from '@/config/permissions/features';
 import { logger } from '@/lib/logger';
 import { isAdminUser } from '@/lib/sdks/kinde/admin';
-import { getPermissions } from '@/lib/sdks/kinde/api/permissions';
 import { props } from '@/lib/utils/promise';
 
 export const getUserSession = async (throwError?: boolean) => {
@@ -25,10 +24,10 @@ export const getUserSession = async (throwError?: boolean) => {
   } = getKindeServerSession();
   const user = await getUser();
 
-  if (!user.id || !user.email) {
+  if (G.isNullable(user.id) || G.isNullable(user.email)) {
     logger.error('User not found', { user, throwError });
 
-    if (throwError) {
+    if (throwError === true) {
       throw new Error('User not found');
     }
 
@@ -37,16 +36,15 @@ export const getUserSession = async (throwError?: boolean) => {
 
   const isAdmin = await isAdminUser(user.email);
 
-  const { token, idToken, refreshToken, permissions, organization, authenticated } = await props({
+  const { token, idToken, refreshToken, organization, authenticated } = await props({
     token: getAccessToken(),
     idToken: getIdTokenRaw(),
+    refreshToken: refreshTokens(),
     organization: getOrganization(),
-    authenticated: isAuthenticated(),
-    permissions: getPermissions(user.email),
-    refreshToken: refreshTokens() as Promise<string | undefined>
+    authenticated: isAuthenticated()
   });
 
-  const convertedRoles = convertPermissionsToArray(permissions.permissions);
+  const convertedRoles = [] as string[];
   const key = getSubscriptionPermissionsKeyFromPermissions(convertedRoles);
   const tier = getTierNameFromPermissionsKey(convertedRoles);
 
@@ -81,4 +79,3 @@ export const isUserAuthenticated = async () => {
 
 export type UserSession = Awaited<ReturnType<typeof getUserSession>>;
 export type SessionUser = UserSession['user'];
-export type User = UserSession['user'];

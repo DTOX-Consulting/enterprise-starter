@@ -3,7 +3,7 @@ import emailAuthProvider from 'next-auth/providers/email';
 import googleProvider from 'next-auth/providers/google';
 
 import { db } from '@/lib/db/prisma';
-import { getEnv } from '@/lib/env';
+import { getEnv } from '@/lib/env/env.mjs';
 import { config } from '@/lib/sdks/sendgrid/config';
 import { send } from '@/lib/sdks/sendgrid/send';
 
@@ -19,8 +19,8 @@ export const authOptions: NextAuthOptions = {
   },
   providers: [
     googleProvider({
-      clientId: getEnv('GOOGLE_CLIENT_ID', ''),
-      clientSecret: getEnv('GOOGLE_CLIENT_SECRET', '')
+      clientId: getEnv('GOOGLE_CLIENT_ID') ?? '',
+      clientSecret: getEnv('GOOGLE_CLIENT_SECRET') ?? ''
     }),
     emailAuthProvider({
       from: config.emails.noreply.email,

@@ -1,4 +1,4 @@
-import { getEnv } from '@/lib/env';
+import { getEnv } from '@/lib/env/env.mjs';
 
 const scopes = [
   'https://www.googleapis.com/auth/drive',

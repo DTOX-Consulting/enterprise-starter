@@ -11,7 +11,7 @@ type Slide = {
   element: JSX.Element;
 };
 
-export default function Slides({ slides }: { slides: Slide[] }) {
+export default function Slides({ slides }: Readonly<{ slides: Slide[] }>) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handlePrevious = () => {

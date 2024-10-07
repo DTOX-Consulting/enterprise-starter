@@ -21,14 +21,14 @@ import { useNavigation, type NavigationProps } from '@/config/navigation/use-nav
 import { useAtom } from '@/lib/state/atoms';
 import { cn } from '@/lib/utils';
 
-import type { User } from '@/lib/sdks/kinde/api/session';
+import type { SessionUser } from '@/lib/sdks/kinde/api/session';
 import type { PropsWithChildren } from 'react';
 
 export function SidebarDesktop({
   user,
   children,
   sidebarWidth
-}: PropsWithChildren & { sidebarWidth?: number; user?: User }) {
+}: PropsWithChildren & { sidebarWidth?: number; user?: SessionUser }) {
   const navigationProps = useNavigation();
 
   return (
@@ -46,7 +46,7 @@ export function SidebarDesktop({
   );
 }
 
-export function SidebarMobile({ user, children }: PropsWithChildren & { user?: User }) {
+export function SidebarMobile({ user, children }: PropsWithChildren & { user?: SessionUser }) {
   const navigationProps = useNavigation();
 
   return (
@@ -86,15 +86,15 @@ export function SidebarContent({
   linksClassName,
   navigationProps,
   showWorkspaceSwitcher
-}: {
-  user?: User;
+}: Readonly<{
+  user?: SessionUser;
   className?: string;
   noMinimize?: boolean;
   showUserMenu?: boolean;
   linksClassName?: string;
   showWorkspaceSwitcher?: boolean;
   navigationProps: NavigationProps;
-}) {
+}>) {
   const [isMinimized] = useAtom('sidebarMinimizedAtom');
 
   return (
