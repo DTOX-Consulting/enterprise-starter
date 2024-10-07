@@ -20,7 +20,9 @@
   "osvVulnerabilityAlerts": true,
   "vulnerabilityAlerts": {
     "enabled": true,
-    "labels": ["security"]
+    "labels": [
+      "security"
+    ]
   },
   "lockFileMaintenance": {
     "enabled": true,
@@ -28,12 +30,17 @@
     "schedule": "at any time",
     "dependencyDashboardApproval": true
   },
-  "labels": ["renovate", "dependencies"],
+  "labels": [
+    "renovate",
+    "dependencies"
+  ],
   "ignorePaths": [],
   "packageRules": [
     {
       "enabled": false,
-      "matchPackagePatterns": ["*"]
+      "matchPackageNames": [
+        "*"
+      ]
     }
   ]
 }
