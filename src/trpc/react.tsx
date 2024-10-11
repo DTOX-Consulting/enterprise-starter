@@ -18,7 +18,9 @@ import type { AppRouter } from '@/trpc/routers';
 
 export const api = createTRPCReact<AppRouter>();
 
-export function TRPCReactProvider(props: Readonly<{ children: React.ReactNode; headers: Headers }>) {
+export function TRPCReactProvider(
+  props: Readonly<{ children: React.ReactNode; headers: Headers }>
+) {
   const linkCondition = (op: Operation) => op.context.skipBatch === true;
 
   const linkSetup = {

@@ -60,6 +60,6 @@ export function UpgradeModal({ children }: PropsWithChildren) {
 }
 
 export function Upgrade({ children, hasAccess }: PropsWithChildren<{ hasAccess: boolean }>) {
-  if (hasAccess) return <>{children}</>;
+  if (hasAccess) return <>{children}&nbsp;</>;
   return <UpgradeModal>{children}</UpgradeModal>;
 }

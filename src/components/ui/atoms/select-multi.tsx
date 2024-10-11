@@ -5,7 +5,7 @@ import { X } from 'lucide-react';
 // eslint-disable-next-line import-x/no-namespace
 import * as React from 'react';
 import { useEffect, forwardRef } from 'react';
-import { stringify } from 'safe-stable-stringify'
+import { stringify } from 'safe-stable-stringify';
 
 import { Badge } from '@/components/ui/atoms/badge';
 import { Command, CommandGroup, CommandItem, CommandList } from '@/components/ui/atoms/command';

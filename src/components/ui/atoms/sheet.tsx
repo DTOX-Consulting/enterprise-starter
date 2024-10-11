@@ -1,6 +1,15 @@
 'use client';
 
-import { Root, Trigger, Close, Portal, Overlay, Content, Title, Description } from '@radix-ui/react-dialog';
+import {
+  Root,
+  Trigger,
+  Close,
+  Portal,
+  Overlay,
+  Content,
+  Title,
+  Description
+} from '@radix-ui/react-dialog';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { X } from 'lucide-react';
 // eslint-disable-next-line import-x/no-namespace
@@ -50,23 +59,23 @@ const sheetVariants = cva(
   }
 );
 
-type SheetContentProps = React.ComponentPropsWithoutRef<typeof Content> & VariantProps<typeof sheetVariants>;
+type SheetContentProps = React.ComponentPropsWithoutRef<typeof Content> &
+  VariantProps<typeof sheetVariants>;
 
-const SheetContent = React.forwardRef<
-  React.ElementRef<typeof Content>,
-  SheetContentProps
->(({ side = 'left', className, children, ...props }, ref) => (
-  <SheetPortal>
-    <SheetOverlay />
-    <Content ref={ref} className={cn(sheetVariants({ side }), className)} {...props}>
-      {children}
-      <Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
-        <X className="size-4" />
-        <span className="sr-only">Close</span>
-      </Close>
-    </Content>
-  </SheetPortal>
-));
+const SheetContent = React.forwardRef<React.ElementRef<typeof Content>, SheetContentProps>(
+  ({ side = 'left', className, children, ...props }, ref) => (
+    <SheetPortal>
+      <SheetOverlay />
+      <Content ref={ref} className={cn(sheetVariants({ side }), className)} {...props}>
+        {children}
+        <Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
+          <X className="size-4" />
+          <span className="sr-only">Close</span>
+        </Close>
+      </Content>
+    </SheetPortal>
+  )
+);
 SheetContent.displayName = Content.displayName;
 
 const SheetHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
@@ -86,11 +95,7 @@ const SheetTitle = React.forwardRef<
   React.ElementRef<typeof Title>,
   React.ComponentPropsWithoutRef<typeof Title>
 >(({ className, ...props }, ref) => (
-  <Title
-    ref={ref}
-    className={cn('text-lg font-semibold text-foreground', className)}
-    {...props}
-  />
+  <Title ref={ref} className={cn('text-lg font-semibold text-foreground', className)} {...props} />
 ));
 SheetTitle.displayName = Title.displayName;
 
@@ -98,11 +103,7 @@ const SheetDescription = React.forwardRef<
   React.ElementRef<typeof Description>,
   React.ComponentPropsWithoutRef<typeof Description>
 >(({ className, ...props }, ref) => (
-  <Description
-    ref={ref}
-    className={cn('text-sm text-muted-foreground', className)}
-    {...props}
-  />
+  <Description ref={ref} className={cn('text-sm text-muted-foreground', className)} {...props} />
 ));
 SheetDescription.displayName = Description.displayName;
 

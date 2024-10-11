@@ -1,6 +1,10 @@
 'use client';
 
-import { Root as RadioGroupRoot, Item as RadioGroupItem, Indicator as RadioGroupIndicator } from '@radix-ui/react-radio-group';
+import {
+  Root as RadioGroupRoot,
+  Item as RadioGroupItem,
+  Indicator as RadioGroupIndicator
+} from '@radix-ui/react-radio-group';
 import { Circle } from 'lucide-react';
 // eslint-disable-next-line import-x/no-namespace
 import * as React from 'react';

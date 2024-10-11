@@ -79,7 +79,8 @@ export function useData<T extends MinimalData>({
   );
 
   const getDefaultData = useCallback(
-    (defaultData?: T) => [data.find((item) => item.name === 'Default') ?? defaultData].filter(Boolean),
+    (defaultData?: T) =>
+      [data.find((item) => item.name === 'Default') ?? defaultData].filter(Boolean),
     [data]
   );
 

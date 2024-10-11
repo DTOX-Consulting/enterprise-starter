@@ -20,7 +20,7 @@ const defaultARArgs = {
   replace: false,
   redirectWhenAuthenticated: false,
   redirectPaths: {
-    authenticated: routes.businesses, // routes.dashboard
+    authenticated: routes.dashboard,
     unauthenticated: routes.login
   }
 };
@@ -28,13 +28,21 @@ const defaultARArgs = {
 export async function authenticationRedirection(
   authArgs: AuthenticationRedirection = defaultARArgs
 ) {
-  const currentPath = generateRoutes().current.path;
-
   const args = { ...defaultARArgs, ...authArgs };
 
   const authCheck = await isUserAuthenticated();
 
   const redirectType = args.replace ? RedirectType.replace : RedirectType.push;
+
+  const pathOrUrl = getPathOrUrl(authCheck, args);
+
+  if (pathOrUrl) {
+    redirect({ pathOrUrl, redirectType });
+  }
+}
+
+function getPathOrUrl(authCheck: boolean, args: Required<AuthenticationRedirection>) {
+  const currentPath = generateRoutes().current.path;
 
   let pathOrUrl = '';
 
@@ -50,7 +58,5 @@ export async function authenticationRedirection(
     pathOrUrl = args.redirectPaths.authenticated;
   }
 
-  if (pathOrUrl) {
-    redirect({ pathOrUrl, redirectType });
-  }
+  return pathOrUrl;
 }

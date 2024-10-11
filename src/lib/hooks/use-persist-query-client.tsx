@@ -6,7 +6,7 @@ import {
   type PersistedClient
 } from '@tanstack/react-query-persist-client';
 import { useEffect } from 'react';
-import { stringify } from 'safe-stable-stringify'
+import { stringify } from 'safe-stable-stringify';
 
 export const usePersistQueryClient = () => {
   const queryClient = useQueryClient();

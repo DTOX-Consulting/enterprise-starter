@@ -6,7 +6,7 @@ import {
   Content as NavigationMenuContentPrimitive,
   Link as NavigationMenuLinkPrimitive,
   Viewport as NavigationMenuViewportPrimitive,
-  Indicator as NavigationMenuIndicatorPrimitive,
+  Indicator as NavigationMenuIndicatorPrimitive
 } from '@radix-ui/react-navigation-menu';
 import { cva } from 'class-variance-authority';
 import { ChevronDown } from 'lucide-react';

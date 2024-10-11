@@ -15,7 +15,6 @@ import {
 import { Logo, LogoWithMinimizer } from '@/components/ui/layouts/dashboard/logo';
 import { SidebarDesktopWrapper } from '@/components/ui/layouts/dashboard/sidebar-desktop-wrapper';
 import { SidebarLinks } from '@/components/ui/layouts/dashboard/sidebar-links';
-import { OrganizationSwitcher as WorkspaceSwitcher } from '@/components/ui/layouts/dashboard/switcher-navigation';
 import { UserMenu } from '@/components/ui/organisms/user/menu';
 import { useNavigation, type NavigationProps } from '@/config/navigation/use-navigation';
 import { useAtom } from '@/lib/state/atoms';
@@ -82,10 +81,9 @@ export function SidebarContent({
   user,
   className,
   noMinimize,
-  showUserMenu,
   linksClassName,
   navigationProps,
-  showWorkspaceSwitcher
+  showUserMenu = false
 }: Readonly<{
   user?: SessionUser;
   className?: string;
@@ -108,11 +106,6 @@ export function SidebarContent({
           'items-center': isMinimized
         })}
       >
-        {showWorkspaceSwitcher && (
-          <li className="mb-4">
-            <WorkspaceSwitcher />
-          </li>
-        )}
         <SidebarLinks
           user={user}
           className={linksClassName}

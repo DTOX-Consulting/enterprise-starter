@@ -88,7 +88,7 @@ export const useRxDB = () => {
     async (forceResync = false) => {
       if (session?.user.id === undefined) return;
       if (getDb() && getReplicates()) return resyncDb(forceResync);
-      if (session.user.id === undefined || (getDb() !== undefined || getReplicates() !== undefined)) {
+      if (session.user.id === undefined || getDb() !== undefined || getReplicates() !== undefined) {
         devLog('DB already initialized', getDb());
         return;
       }

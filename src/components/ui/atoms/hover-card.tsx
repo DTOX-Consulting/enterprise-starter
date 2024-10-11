@@ -1,6 +1,10 @@
 'use client';
 
-import { Content as HoverCardContentPrimitive, Root as HoverCardRoot, Trigger as HoverCardTriggerPrimitive } from '@radix-ui/react-hover-card';
+import {
+  Content as HoverCardContentPrimitive,
+  Root as HoverCardRoot,
+  Trigger as HoverCardTriggerPrimitive
+} from '@radix-ui/react-hover-card';
 // eslint-disable-next-line import-x/no-namespace
 import * as React from 'react';
 

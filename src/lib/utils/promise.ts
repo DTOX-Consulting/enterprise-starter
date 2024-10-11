@@ -40,9 +40,8 @@ export function danglingPromise<T>(promise: Promise<T> | (() => Promise<T>)): vo
     const { error } = await unbox(G.isFunction(promise) ? promise() : promise);
 
     if (error) {
-      const errorMessage = (error.stack != null && error.stack !== '')
-        ? error.stack
-        : `Error: ${error.message}`;
+      const errorMessage =
+        error.stack != null && error.stack !== '' ? error.stack : `Error: ${error.message}`;
 
       error.stack = `${errorMessage}\n${originalStack}`;
       console.error(error);

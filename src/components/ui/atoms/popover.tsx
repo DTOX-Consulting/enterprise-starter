@@ -1,6 +1,11 @@
 'use client';
 
-import { Root as PopoverRoot, Trigger as PopoverTriggerPrimitive, Content as PopoverContentPrimitive, Portal as PopoverPortalPrimitive } from '@radix-ui/react-popover';
+import {
+  Root as PopoverRoot,
+  Trigger as PopoverTriggerPrimitive,
+  Content as PopoverContentPrimitive,
+  Portal as PopoverPortalPrimitive
+} from '@radix-ui/react-popover';
 // eslint-disable-next-line import-x/no-namespace
 import * as React from 'react';
 

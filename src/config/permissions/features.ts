@@ -37,20 +37,7 @@ export type TiersConfig<TierName extends string, Features extends Record<string,
 >;
 
 export type Features = {
-  teamsAllowed: boolean;
-  aiSuggestions: boolean;
-  ideaRefinement: boolean;
-  historyLimit: number | 'unlimited';
-  organizationLimit: number | 'unlimited';
-  businessCreationLimit: number | 'unlimited';
-  iterationType: 'simplified' | 'advanced' | 'limited';
-  sharingType: 'simplified' | 'advanced';
-  sharingMethods: {
-    simple?: boolean;
-    passwordProtection?: boolean;
-    oneTimePassCode?: boolean;
-    emailRestrictions?: boolean;
-  };
+  [x: string]: unknown;
 };
 
 export type TierName = 'none' | 'starter' | 'pro' | 'team';
@@ -95,7 +82,7 @@ export const tiers: TiersConfig<TierName, Features> = {
     price: 'Free',
     label: 'Starter',
     buttonLabel: 'Get Started for Free',
-    description: 'Perfect for individuals in the research phase of their idea.',
+    description: 'Perfect for individuals',
     kinde: {
       subscriptionPermissionsKey: 'subscriptions-starter'
     },
@@ -135,7 +122,7 @@ export const tiers: TiersConfig<TierName, Features> = {
     price: '£9.99',
     label: 'Pro',
     buttonLabel: 'Be an Early Adopter',
-    description: 'Perfect for individuals looking to do more with their business idea.',
+    description: 'Perfect for pros',
     kinde: {
       subscriptionPermissionsKey: 'subscriptions-pro'
     },
@@ -151,15 +138,7 @@ export const tiers: TiersConfig<TierName, Features> = {
         productId: 'prod_QScRMU9UOeclY5'
       }
     },
-    pricingFeatures: [
-      'All Starter features',
-      '3 business ideas',
-      '3 organizations',
-      'Advanced sharing',
-      'Automatic AI suggestions',
-      'Advanced AI iteration of your business',
-      'Retain last 5 edits per business feature'
-    ],
+    pricingFeatures: ['All Starter features'],
     features: {
       businessCreationLimit: 3,
       organizationLimit: 3,
@@ -181,7 +160,7 @@ export const tiers: TiersConfig<TierName, Features> = {
     price: '£19.99',
     label: 'Team',
     buttonLabel: 'Be an Early Adopter',
-    description: 'Perfect for teams looking to collaborate and grow their business.',
+    description: 'Perfect for teams',
     kinde: {
       subscriptionPermissionsKey: 'subscriptions-team'
     },
@@ -197,15 +176,7 @@ export const tiers: TiersConfig<TierName, Features> = {
         productId: 'prod_QScREUXTtjOnaK'
       }
     },
-    pricingFeatures: [
-      'All Pro features',
-      'Unlimited business ideas',
-      'Unlimited organizations',
-      'Realtime collaboration',
-      'Advanced Auto AI suggestions',
-      'Retain last 20 edits per business feature',
-      '24/7 online support'
-    ],
+    pricingFeatures: ['All Pro features', '24/7 online support'],
     features: {
       businessCreationLimit: 'unlimited',
       organizationLimit: 'unlimited',

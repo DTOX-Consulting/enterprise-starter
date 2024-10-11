@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import { useFieldArray, useForm } from 'react-hook-form';
-import { stringify } from 'safe-stable-stringify'
+import { stringify } from 'safe-stable-stringify';
 import { z } from 'zod';
 
 import { Button } from '@/components/ui/atoms/button';
@@ -54,16 +54,9 @@ const profileFormSchema = z.object({
 
 type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
-// This can come from your database or API.
-const defaultValues: Partial<ProfileFormValues> = {
-  bio: 'I own a computer.',
-  urls: [{ value: 'https://shadcn.com' }, { value: 'http://twitter.com/shadcn' }]
-};
-
-export function ProfileForm() {
+function ProfileForm() {
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
-    defaultValues,
     mode: 'onChange'
   });
 

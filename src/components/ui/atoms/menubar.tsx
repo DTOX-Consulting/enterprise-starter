@@ -1,6 +1,23 @@
 'use client';
 
-import { Menu, Group, Portal, Sub, RadioGroup, Trigger, Item, CheckboxItem, RadioItem, Label, Separator, SubTrigger, SubContent, Root, Content, ItemIndicator } from '@radix-ui/react-menubar';
+import {
+  Menu,
+  Group,
+  Portal,
+  Sub,
+  RadioGroup,
+  Trigger,
+  Item,
+  CheckboxItem,
+  RadioItem,
+  Label,
+  Separator,
+  SubTrigger,
+  SubContent,
+  Root,
+  Content,
+  ItemIndicator
+} from '@radix-ui/react-menubar';
 import { Check, ChevronRight, Circle } from 'lucide-react';
 // eslint-disable-next-line import-x/no-namespace
 import * as React from 'react';
@@ -184,11 +201,7 @@ const MenubarSeparator = React.forwardRef<
   React.ElementRef<typeof Separator>,
   React.ComponentPropsWithoutRef<typeof Separator>
 >(({ className, ...props }, ref) => (
-  <Separator
-    ref={ref}
-    className={cn('-mx-1 my-1 h-px bg-muted', className)}
-    {...props}
-  />
+  <Separator ref={ref} className={cn('-mx-1 my-1 h-px bg-muted', className)} {...props} />
 ));
 MenubarSeparator.displayName = Separator.displayName;
 

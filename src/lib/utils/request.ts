@@ -1,5 +1,5 @@
 import { G } from '@mobily/ts-belt';
-import {stringify} from 'safe-stable-stringify';
+import { stringify } from 'safe-stable-stringify';
 import { unbox } from 'unbox-js';
 
 import { createUrl } from '@/lib/utils/promise';

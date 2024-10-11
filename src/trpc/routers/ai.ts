@@ -21,7 +21,7 @@ export const aiRouter = {
     .mutation(async ({ input }) => {
       const { topic, model } = input as GenerateParams;
 
-      if (topic===null) {
+      if (topic === null) {
         return {
           success: false,
           error: 'Missing topic'

@@ -16,6 +16,7 @@ import type {
   RxJsonSchema
 } from 'rxdb';
 
+
 export const addCollections = async (db: RxDatabase) => {
   const collections = createCollections(schemas);
   return db.addCollections(collections);
