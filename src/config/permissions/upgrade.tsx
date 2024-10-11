@@ -48,9 +48,7 @@ export function UpgradeModal({ children }: PropsWithChildren) {
         <DialogFooter>
           <DialogClose asChild>
             <Link className="w-full" href={routes.pricing}>
-              <Button variant="pulse" className="w-full">
-                Go To Pricing
-              </Button>
+              <Button className="w-full">Go To Pricing</Button>
             </Link>
           </DialogClose>
         </DialogFooter>

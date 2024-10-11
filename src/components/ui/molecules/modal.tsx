@@ -86,7 +86,7 @@ export function Modal({
   confirmButtonProps = {},
   confirmButtonContent = 'Confirm',
   confirmButtonOnClick = noopSync,
-  confirmButtonVariant = 'pulse',
+  confirmButtonVariant = 'default',
   confirmButtonDisabled = false
 }: ModalProps) {
   return (

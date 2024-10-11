@@ -109,7 +109,7 @@ export function NavigationPagination() {
       <div className="!mt-6 flex w-full flex-row justify-between pb-8">
         {previousRoute && (
           <div className="flex grow items-start justify-start">
-            <Button asChild variant="pulse">
+            <Button asChild>
               <Link href={previousRoute.href}>
                 <ChevronLeft className="-ml-2 mr-2" />
                 <span>{previousRoute.name}</span>
@@ -119,7 +119,7 @@ export function NavigationPagination() {
         )}
         {nextRoute && (
           <div className="flex grow items-end justify-end">
-            <Button asChild variant="pulse">
+            <Button asChild>
               <Link href={nextRoute.href}>
                 <span>{nextRoute.name}</span>
                 <ChevronRight className="-mr-2 ml-2" />

@@ -22,7 +22,7 @@ export function Header() {
         <ul className="flex min-w-full flex-none gap-x-6 px-4 text-sm font-semibold leading-6 text-gray-400 sm:px-6 lg:px-8">
           {settingsRoutes.map((item) => (
             <li key={item.name}>
-              <Link href={item.href} className={item === current ? 'text-pulse' : ''}>
+              <Link href={item.href} className={item === current ? 'text-gray-500' : ''}>
                 {item.name}
               </Link>
             </li>

@@ -4,8 +4,6 @@
 
 @layer base {
   :root {
-    --pulse: 259 100% 56%;
-
     --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;
 
@@ -51,8 +49,6 @@
   }
 
   .dark {
-    --pulse: 259 100% 56%;
-
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
 

@@ -100,7 +100,7 @@ export const ImageEditor = ({ options }: { options: Options }) => {
         <Button onClick={downloadImage} disabled={!options.actions?.download}>
           Download Image
         </Button>
-        <Button variant="pulse" onClick={saveImage} disabled={!options.actions?.upload}>
+        <Button onClick={saveImage} disabled={!options.actions?.upload}>
           Save Image
         </Button>
       </div>

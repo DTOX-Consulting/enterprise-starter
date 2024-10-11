@@ -119,7 +119,7 @@ export const ManageSubscriptionButton = ({ tier }: { tier: TierName }) => {
 
   return (
     <Button
-      className="w-48 bg-pulse"
+      className="w-48"
       disabled={managing || isNoneTier(tier)}
       onClick={handleManageSubscription(tier, setManaging, mutateAsync, router)}
     >

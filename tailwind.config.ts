@@ -46,7 +46,6 @@ module.exports = {
         85: '.85'
       },
       colors: {
-        pulse: 'hsl(var(--pulse))',
         ring: 'hsl(var(--ring))',
         input: 'hsl(var(--input))',
         border: 'hsl(var(--border))',

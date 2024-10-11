@@ -1,4 +1,4 @@
-name = "pulse-app"
+name = "enterprise-starter-app"
 main = "index.js"
 compatibility_date = "2024-03-29"
 

@@ -22,7 +22,6 @@ export default appRouterSsrErrorHandler(({ error, reset }: AppRouterErrorProps) 
         <div className="mt-6">
           <Button
             type="reset"
-            variant="pulse"
             onClick={() => reset()} // Attempt to recover by trying to re-render the segment
           >
             Try again

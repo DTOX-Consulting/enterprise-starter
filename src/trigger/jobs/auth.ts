@@ -43,7 +43,7 @@ export const kindeUserCreated = client.defineJob({
       templateKey: 'welcome',
       dynamicTemplateData: {
         name,
-        company: 'Pulse'
+        company: 'Enterprise Starter'
       }
     });
 

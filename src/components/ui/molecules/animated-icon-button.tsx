@@ -26,7 +26,6 @@ export function AnimatedButton<T extends UseFormReturn<any>>({
   return (
     <Button
       type="submit"
-      variant="pulse"
       className={className}
       disabled={
         (allowDisabled && disabled) ??

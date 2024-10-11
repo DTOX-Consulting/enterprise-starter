@@ -20,10 +20,7 @@ export const generateImagePath = (url: string) => {
   }
 
   // This needs to not need a proxy
-  if (
-    url.startsWith('https://user-generated.pulseline.io') ||
-    url.startsWith('https://user-generated-temp.pulseline.io')
-  ) {
+  if (url.startsWith('https://user-generated.') || url.startsWith('https://user-generated-temp.')) {
     return {
       name: 'Image',
       path: `${getEnv('NEXT_PUBLIC_APP_URL')}/api/proxy?url=${encodeURIComponent(url)}`

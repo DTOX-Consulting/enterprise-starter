@@ -222,7 +222,6 @@ function SwitcherModal({
               <form onSubmit={form.handleSubmit((data) => onSubmit?.(data.name))}>
                 <Button
                   type="submit"
-                  variant="pulse"
                   className="w-full"
                   disabled={form.formState.isSubmitting || !form.formState.isValid}
                 >

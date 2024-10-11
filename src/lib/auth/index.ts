@@ -40,7 +40,7 @@ export const authOptions: NextAuthOptions = {
             templateKey: 'emailVerification',
             dynamicTemplateData: {
               name: 'User',
-              company: 'Pulse'
+              company: 'Enterprise Starter'
             }
           });
 
@@ -52,7 +52,7 @@ export const authOptions: NextAuthOptions = {
           templateKey: 'welcome',
           dynamicTemplateData: {
             name: 'User',
-            company: 'Pulse'
+            company: 'Enterprise Starter'
           }
         });
       }

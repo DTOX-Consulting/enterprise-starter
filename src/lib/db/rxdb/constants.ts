@@ -1,1 +1,1 @@
-export const DB_NAME = 'pulse-db';
+export const DB_NAME = 'enterprise-starter-rxdb';
