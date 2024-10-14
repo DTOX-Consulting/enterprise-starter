@@ -1,11 +1,12 @@
-import { OpenAIStream, StreamingTextResponse } from 'ai';
+import { openai as aiOpenai } from '@ai-sdk/openai';
+import { type CoreMessage, streamText } from 'ai';
 
-import { openai, openaiSdk } from '@/lib/sdks/openai/auth';
+import { openai } from '@/lib/sdks/openai/client';
 
 import type { ModelType } from '@/lib/sdks/openai';
 import type { NN } from '@/lib/types';
-import type { ImageGenerateParams } from 'openai/resources/images';
-import type { ChatCompletionRequestMessage, CreateChatCompletionResponse } from 'openai-edge';
+import type { ChatCompletionMessageParam } from 'openai/resources/chat/completions.mjs';
+import type { ImageGenerateParams } from 'openai/resources/images.mjs';
 
 export type ChatOptions = {
   stream?: boolean;
@@ -22,7 +23,7 @@ export type StreamChatOptions = Omit<ChatOptions, 'stream'> & {
 export type CallbackArgs = {
   completion: string;
   chatOptions: ChatOptions;
-  messages: ChatCompletionRequestMessage[];
+  messages: ChatCompletionMessageParam[];
 };
 
 export type ChatRequestBody = {
@@ -32,7 +33,7 @@ export type ChatRequestBody = {
 };
 
 export type ChatRequestBodyWithMessages = ChatRequestBody & {
-  messages: ChatCompletionRequestMessage[];
+  messages: CoreMessage[];
 };
 
 export type ImageOptions = Omit<ImageGenerateParams, 'n' | 'user'> & { n?: number };
@@ -49,48 +50,31 @@ export type GenerateParamsResult = {
 };
 
 export const createImageCompletion = async (imageOptions: ImageOptions) => {
-  const response = await openaiSdk.images.generate(imageOptions);
+  const response = await openai.images.generate(imageOptions);
   return response.data;
 };
 
-export const _createCompletion = async (
-  _messages: ChatCompletionRequestMessage[],
-  chatOptions: ChatOptions = {}
-) =>
-  openai.createChatCompletion({
-    messages: _messages,
-    stream: chatOptions.stream,
-    temperature: chatOptions.temperature,
-    model: chatOptions.model ?? 'gpt-3.5-turbo'
-  });
-
 export const createCompletion = async (
-  messages: ChatCompletionRequestMessage[],
+  messages: ChatCompletionMessageParam[],
   chatOptions: ChatOptions = {}
 ) => {
-  const response = await _createCompletion(messages, chatOptions);
-  const responseData = (await response.json()) as CreateChatCompletionResponse;
-  return responseData.choices[0]?.message?.content;
+  const completion = await openai.chat.completions.create({
+    model: chatOptions.model ?? 'gpt-4o',
+    temperature: chatOptions.temperature,
+    messages
+  });
+  return completion.choices[0]?.message?.content ?? '';
 };
 
 export const streamCompletion = async (
-  messages: ChatCompletionRequestMessage[],
+  messages: CoreMessage[],
   chatOptions: StreamChatOptions = {}
 ) => {
-  const completionResponse = await _createCompletion(messages, {
-    ...chatOptions,
-    stream: true
+  const stream = await streamText({
+    model: aiOpenai(chatOptions.model ?? 'gpt-4o'),
+    temperature: chatOptions.temperature,
+    messages
   });
 
-  const stream = OpenAIStream(completionResponse, {
-    async onCompletion(completion) {
-      await chatOptions.callback?.({
-        messages,
-        completion,
-        chatOptions
-      });
-    }
-  });
-
-  return new StreamingTextResponse(stream);
+  return stream.toDataStreamResponse();
 };
