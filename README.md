@@ -166,7 +166,7 @@ pnpm test
 ```
 
 - **Unit and integration tests**: Run Vitest tests using `pnpm test`
-- **End-to-end tests (headless mode)**: Run Playwright tests in headless mode with `pnpm e2e:headless`
+- **End-to-end tests (headless mode)**: Run Playwright tests in headless mode with `pnpm e2e`
 - **End-to-end tests (UI mode)**: Run Playwright tests with UI using `pnpm e2e:ui`
 
 <img width="1392" alt="image" src="https://user-images.githubusercontent.com/28964599/233666655-93b7d08b-2fd8-406a-b43c-44d4d96cf387.png">
