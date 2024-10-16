@@ -32,14 +32,16 @@ jobs:
         with:
           run_install: |
             - args: [--frozen-lockfile, --strict-peer-dependencies]
-      - name: Typecheck / Lint / Format
-        run: pnpm format
+      - name: Typecheck
+        run: pnpm typecheck
+      - name: Lint
+        run: pnpm lint
       - name: Unit & Integration tests
         run: pnpm test
       - name: Smoke & Acceptance tests
         run: |
-          pnpm build-storybook --quiet
           pnpm playwright install
-          npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
-            "npx http-server storybook-static --port 6006 --silent" \
-            "npx wait-on tcp:127.0.0.1:6006 && pnpm test-storybook"
+          pnpm storybook:build --quiet
+          pnpm concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
+            "pnpx http-server storybook-static --port 6006 --silent" \
+            "pnpx wait-on tcp:127.0.0.1:6006 && pnpm storybook:test"

@@ -1,4 +1,5 @@
 import { createMongoAbility, AbilityBuilder, subject } from '@casl/ability';
+import { G } from '@mobily/ts-belt';
 
 import { type TierName, type FeatureUser, tiers } from '@/config/permissions/features';
 
@@ -20,8 +21,8 @@ export const defineAbilitiesFor = (user: AbilityUser) => {
 
   const { features } = tier;
 
-  if (features.teamsAllowed) {
-    can('create', 'Team');
+  if (G.isNotNullable(features)) {
+    can('create', 'Entity');
   }
 
   return createMongoAbility(rules);

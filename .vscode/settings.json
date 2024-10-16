@@ -161,5 +161,6 @@
   "typescript.autoClosingTags": false,
   "typescriptreact.autoClosingTags": false,
   "tabnine.experimentalAutoImports": true,
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "workbench.panel.defaultLocation": "right"
 }
