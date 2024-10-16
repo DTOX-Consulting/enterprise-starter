@@ -18,7 +18,7 @@
   "addLabels": ["dependencies"],
   "enabledManagers": ["npm", "dockerfile", "github-actions"],
   "constraints": {
-    "pnpm": "9.0.6",
+    "pnpm": "9.12.1",
     "yarn": "1.22.19",
     "node": "20.12.2"
   },
