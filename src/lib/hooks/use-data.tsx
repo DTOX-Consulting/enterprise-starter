@@ -38,7 +38,7 @@ export function useLocalData<T extends MinimalData>(storageKeyPrefix?: string) {
   const storageKey = storageKeyPrefix ? getStorageKey(storageKeyPrefix) : null;
 
   const getLocalItems = useCallback(
-    async () => (storageKey ? await localForage.getItem<T[]>(storageKey) : null),
+    async () => (storageKey ? localForage.getItem<T[]>(storageKey) : null),
     [storageKey]
   );
 
