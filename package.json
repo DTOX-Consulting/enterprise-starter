@@ -1,6 +1,6 @@
 {
   "name": "enterprise-starter",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "prepare": "husky",
@@ -333,11 +333,11 @@
     "wrangler": "3.80.5",
     "zx": "7.2.3"
   },
+  "packageManager": "pnpm@9.12.2",
   "engines": {
     "node": "20.x"
   },
-  "packageManager": "pnpm@9.12.1",
   "volta": {
-    "node": "20.12.2"
+    "node": "20.18.0"
   }
 }
