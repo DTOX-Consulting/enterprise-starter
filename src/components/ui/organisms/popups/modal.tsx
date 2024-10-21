@@ -1,12 +1,16 @@
 'use client';
 
-import * as Dialog from '@radix-ui/react-dialog';
+import {
+  Root as DialogRoot,
+  Portal as DialogPortal,
+  Overlay as DialogOverlay,
+  Content as DialogContent
+} from '@radix-ui/react-dialog';
+import { ReactNode, Dispatch, SetStateAction } from 'react';
 import { Drawer } from 'vaul';
 
 import useMediaQuery from '@/lib/hooks/use-media-query';
 import { cn } from '@/lib/utils';
-
-import type { Dispatch, SetStateAction } from 'react';
 
 export default function Modal({
   children,
@@ -14,7 +18,7 @@ export default function Modal({
   showModal,
   setShowModal
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
   showModal: boolean;
   setShowModal: Dispatch<SetStateAction<boolean>>;
@@ -24,7 +28,7 @@ export default function Modal({
   if (isMobile) {
     return (
       <Drawer.Root open={showModal} onOpenChange={setShowModal}>
-        <Drawer.Overlay className="fixed inset-0 z-40 bg-gray-100/10  backdrop-blur" />
+        <Drawer.Overlay className="fixed inset-0 z-40 bg-gray-100/10 backdrop-blur" />
         <Drawer.Portal>
           <Drawer.Content
             className={cn(
@@ -43,14 +47,14 @@ export default function Modal({
     );
   }
   return (
-    <Dialog.Root open={showModal} onOpenChange={setShowModal}>
-      <Dialog.Portal>
-        <Dialog.Overlay
+    <DialogRoot open={showModal} onOpenChange={setShowModal}>
+      <DialogPortal>
+        <DialogOverlay
           // for detecting when there's an active opened modal
           id="modal-backdrop"
           className="animate-fade-in fixed inset-0 z-40 bg-gray-100/50 backdrop-blur-md"
         />
-        <Dialog.Content
+        <DialogContent
           onOpenAutoFocus={(e) => e.preventDefault()}
           onCloseAutoFocus={(e) => e.preventDefault()}
           className={cn(
@@ -59,8 +63,8 @@ export default function Modal({
           )}
         >
           {children}
-        </Dialog.Content>
-      </Dialog.Portal>
-    </Dialog.Root>
+        </DialogContent>
+      </DialogPortal>
+    </DialogRoot>
   );
 }

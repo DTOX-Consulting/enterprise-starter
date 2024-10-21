@@ -3,6 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import { useFieldArray, useForm } from 'react-hook-form';
+import { stringify } from 'safe-stable-stringify';
 import { z } from 'zod';
 
 import { Button } from '@/components/ui/atoms/button';
@@ -76,7 +77,7 @@ export function ProfileForm() {
       title: 'You submitted the following values:',
       description: (
         <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+          <code className="text-white">{stringify(data, null, 2)}</code>
         </pre>
       )
     });

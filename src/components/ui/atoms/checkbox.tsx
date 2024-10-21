@@ -2,14 +2,13 @@
 
 import { Root as CheckboxRoot, Indicator as CheckboxIndicator } from '@radix-ui/react-checkbox';
 import { Check } from 'lucide-react';
-// eslint-disable-next-line import-x/no-namespace
-import * as React from 'react';
+import { forwardRef, ElementRef, ComponentPropsWithoutRef } from 'react';
 
 import { cn } from '@/lib/utils';
 
-const Checkbox = React.forwardRef<
-  React.ElementRef<typeof CheckboxRoot>,
-  React.ComponentPropsWithoutRef<typeof CheckboxRoot>
+const Checkbox = forwardRef<
+  ElementRef<typeof CheckboxRoot>,
+  ComponentPropsWithoutRef<typeof CheckboxRoot>
 >(({ className, ...props }, ref) => (
   <CheckboxRoot
     ref={ref}

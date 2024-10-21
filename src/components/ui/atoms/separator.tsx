@@ -1,14 +1,13 @@
 'use client';
 
 import { Root } from '@radix-ui/react-separator';
-// eslint-disable-next-line import-x/no-namespace
-import * as React from 'react';
+import { forwardRef, ElementRef, ComponentPropsWithoutRef } from 'react';
 
 import { cn } from '@/lib/utils';
 
-const Separator = React.forwardRef<
-  React.ElementRef<typeof Root>,
-  React.ComponentPropsWithoutRef<typeof Root>
+const Separator = forwardRef<
+  ElementRef<typeof Root>,
+  ComponentPropsWithoutRef<typeof Root>
 >(({ className, orientation = 'horizontal', decorative = true, ...props }, ref) => (
   <Root
     ref={ref}

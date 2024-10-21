@@ -1,14 +1,13 @@
 'use client';
 
 import { Root as ProgressRoot, Indicator as ProgressIndicator } from '@radix-ui/react-progress';
-// eslint-disable-next-line import-x/no-namespace
-import * as React from 'react';
+import { forwardRef, ElementRef, ComponentPropsWithoutRef } from 'react';
 
 import { cn } from '@/lib/utils';
 
-const Progress = React.forwardRef<
-  React.ElementRef<typeof ProgressRoot>,
-  React.ComponentPropsWithoutRef<typeof ProgressRoot>
+const Progress = forwardRef<
+  ElementRef<typeof ProgressRoot>,
+  ComponentPropsWithoutRef<typeof ProgressRoot>
 >(({ className, value, ...props }, ref) => (
   <ProgressRoot
     ref={ref}

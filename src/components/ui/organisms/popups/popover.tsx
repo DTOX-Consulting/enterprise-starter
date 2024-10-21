@@ -1,6 +1,11 @@
 'use client';
 
-import * as PopoverPrimitive from '@radix-ui/react-popover';
+import {
+  Root as PopoverRoot,
+  Trigger as PopoverTrigger,
+  Portal as PopoverPortal,
+  Content as PopoverContent
+} from '@radix-ui/react-popover';
 import { Drawer } from 'vaul';
 
 import useMediaQuery from '@/lib/hooks/use-media-query';
@@ -44,19 +49,19 @@ export default function Popover({
   }
 
   return (
-    <PopoverPrimitive.Root open={openPopover} onOpenChange={setOpenPopover}>
-      <PopoverPrimitive.Trigger className="hidden sm:inline-flex" asChild>
+    <PopoverRoot open={openPopover} onOpenChange={setOpenPopover}>
+      <PopoverTrigger className="hidden sm:inline-flex" asChild>
         {children}
-      </PopoverPrimitive.Trigger>
-      <PopoverPrimitive.Portal>
-        <PopoverPrimitive.Content
+      </PopoverTrigger>
+      <PopoverPortal>
+        <PopoverContent
           sideOffset={8}
           align={align}
           className="z-50 hidden animate-slide-up-fade items-center rounded-md border border-gray-200 bg-white drop-shadow-lg sm:block"
         >
           {content}
-        </PopoverPrimitive.Content>
-      </PopoverPrimitive.Portal>
-    </PopoverPrimitive.Root>
+        </PopoverContent>
+      </PopoverPortal>
+    </PopoverRoot>
   );
 }

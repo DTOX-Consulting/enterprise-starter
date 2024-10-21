@@ -1,6 +1,11 @@
 'use client';
 
-import * as TooltipPrimitive from '@radix-ui/react-tooltip';
+import {
+  Provider as TooltipProvider,
+  Root as TooltipRoot,
+  Trigger as TooltipTrigger,
+  Content as TooltipContent
+} from '@radix-ui/react-tooltip';
 import { Drawer } from 'vaul';
 
 import useMediaQuery from '@/lib/hooks/use-media-query';
@@ -49,16 +54,16 @@ export default function Tooltip({
     );
   }
   return (
-    <TooltipPrimitive.Provider delayDuration={100}>
-      <TooltipPrimitive.Root>
-        <TooltipPrimitive.Trigger className="hidden md:inline-flex" asChild>
+    <TooltipProvider delayDuration={100}>
+      <TooltipRoot>
+        <TooltipTrigger className="hidden md:inline-flex" asChild>
           {children}
-        </TooltipPrimitive.Trigger>
+        </TooltipTrigger>
         {/*
             We don't use TooltipPrimitive.Portal here because for some reason it
             prevents you from selecting the contents of a tooltip when used inside a modal
         */}
-        <TooltipPrimitive.Content
+        <TooltipContent
           sideOffset={8}
           side="top"
           className="z-[99] hidden animate-slide-up-fade items-center overflow-hidden rounded-md border border-gray-200 bg-white shadow-md md:block"
@@ -70,8 +75,8 @@ export default function Tooltip({
           ) : (
             content
           )}
-        </TooltipPrimitive.Content>
-      </TooltipPrimitive.Root>
-    </TooltipPrimitive.Provider>
+        </TooltipContent>
+      </TooltipRoot>
+    </TooltipProvider>
   );
 }

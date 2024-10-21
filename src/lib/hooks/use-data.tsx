@@ -38,7 +38,10 @@ export function useLocalData<T extends MinimalData>(storageKeyPrefix?: string) {
   const storageKey = storageKeyPrefix ? getStorageKey(storageKeyPrefix) : null;
 
   const getLocalItems = useCallback(
-    async () => (storageKey ? await localForage.getItem<T[]>(storageKey) : null),
+    async () => {
+      if (!storageKey) return null;
+      return await localForage.getItem<T[]>(storageKey);
+    },
     [storageKey]
   );
 
@@ -114,9 +117,9 @@ export function useData<T extends MinimalData>({
       newData: PartialWithoutKeys<T, 'id' | 'createdAt' | 'lastUpdated'>,
       cbdata?: (data: T[]) => Promise<void>
     ) => {
-      const similar = 'name' in newData && data.some((data) => data.name === newData.name);
+      const nameExists = 'name' in newData && data.some((item) => item.name === newData.name);
 
-      if (similar) {
+      if (nameExists) {
         toast({
           title: 'Error',
           description: `${newData.name} already exists. Please choose a different name.`
@@ -138,7 +141,7 @@ export function useData<T extends MinimalData>({
         return updatedData;
       });
 
-      return Promise.resolve(mergedData);
+      return mergedData;
     },
     [data, setData, setCurrentData, runCBData]
   );
@@ -203,7 +206,7 @@ export function useData<T extends MinimalData>({
               altText="Delete"
               onClick={() => {
                 setData((prevData) => {
-                  const updatedData = prevData.filter((d) => d.id !== dataToDelete.id);
+                  const updatedData = prevData.filter((item) => item.id !== dataToDelete.id);
                   danglingPromise(runCBData(updatedData, cbdata));
                   return updatedData;
                 });

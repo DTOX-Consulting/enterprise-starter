@@ -1,16 +1,15 @@
 'use client';
 
 import { Root, List, Trigger, Content } from '@radix-ui/react-tabs';
-// eslint-disable-next-line import-x/no-namespace
-import * as React from 'react';
+import { forwardRef, ElementRef, ComponentPropsWithoutRef } from 'react';
 
 import { cn } from '@/lib/utils';
 
 const Tabs = Root;
 
-const TabsList = React.forwardRef<
-  React.ElementRef<typeof List>,
-  React.ComponentPropsWithoutRef<typeof List>
+const TabsList = forwardRef<
+  ElementRef<typeof List>,
+  ComponentPropsWithoutRef<typeof List>
 >(({ className, ...props }, ref) => (
   <List
     ref={ref}
@@ -23,9 +22,9 @@ const TabsList = React.forwardRef<
 ));
 TabsList.displayName = List.displayName;
 
-const TabsTrigger = React.forwardRef<
-  React.ElementRef<typeof Trigger>,
-  React.ComponentPropsWithoutRef<typeof Trigger>
+const TabsTrigger = forwardRef<
+  ElementRef<typeof Trigger>,
+  ComponentPropsWithoutRef<typeof Trigger>
 >(({ className, ...props }, ref) => (
   <Trigger
     ref={ref}
@@ -38,9 +37,9 @@ const TabsTrigger = React.forwardRef<
 ));
 TabsTrigger.displayName = Trigger.displayName;
 
-const TabsContent = React.forwardRef<
-  React.ElementRef<typeof Content>,
-  React.ComponentPropsWithoutRef<typeof Content>
+const TabsContent = forwardRef<
+  ElementRef<typeof Content>,
+  ComponentPropsWithoutRef<typeof Content>
 >(({ className, ...props }, ref) => (
   <Content
     ref={ref}

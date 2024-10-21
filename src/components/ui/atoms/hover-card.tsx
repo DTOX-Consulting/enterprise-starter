@@ -1,34 +1,36 @@
 'use client';
 
 import {
-  Content as HoverCardContentPrimitive,
   Root as HoverCardRoot,
-  Trigger as HoverCardTriggerPrimitive
+  Trigger as HoverCardTrigger,
+  Portal as HoverCardPortal,
+  Content as RadixHoverCardContent
 } from '@radix-ui/react-hover-card';
-// eslint-disable-next-line import-x/no-namespace
-import * as React from 'react';
+import { forwardRef, ElementRef, ComponentPropsWithoutRef } from 'react';
 
 import { cn } from '@/lib/utils';
 
-const HoverCard = HoverCardRoot;
-
-const HoverCardTrigger = HoverCardTriggerPrimitive;
-
-const HoverCardContent = React.forwardRef<
-  React.ElementRef<typeof HoverCardContentPrimitive>,
-  React.ComponentPropsWithoutRef<typeof HoverCardContentPrimitive>
+const HoverCardContent = forwardRef<
+  ElementRef<typeof RadixHoverCardContent>,
+  ComponentPropsWithoutRef<typeof RadixHoverCardContent>
 >(({ className, align = 'center', sideOffset = 4, ...props }, ref) => (
-  <HoverCardContentPrimitive
-    ref={ref}
-    align={align}
-    sideOffset={sideOffset}
-    className={cn(
-      'z-50 w-64 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none animate-in zoom-in-90',
-      className
-    )}
-    {...props}
-  />
+  <HoverCardPortal>
+    <RadixHoverCardContent
+      ref={ref}
+      align={align}
+      sideOffset={sideOffset}
+      className={cn(
+        'z-50 w-64 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none animate-in zoom-in-90 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+        className
+      )}
+      {...props}
+    />
+  </HoverCardPortal>
 ));
-HoverCardContent.displayName = HoverCardContentPrimitive.displayName;
+HoverCardContent.displayName = 'HoverCardContent';
 
-export { HoverCard, HoverCardTrigger, HoverCardContent };
+export {
+  HoverCardRoot as HoverCard,
+  HoverCardTrigger,
+  HoverCardContent
+};

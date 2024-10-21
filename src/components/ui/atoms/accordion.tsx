@@ -1,15 +1,13 @@
 'use client';
 
 import { Root, Item, Trigger, Content, Header } from '@radix-ui/react-accordion';
-import { ChevronDown } from 'lucide-react';
-// eslint-disable-next-line import-x/no-namespace
-import * as React from 'react';
+import { forwardRef } from 'react';
 
 import { cn } from '@/lib/utils';
 
 const Accordion = Root;
 
-const AccordionItem = React.forwardRef<
+const AccordionItem = forwardRef<
   React.ElementRef<typeof Item>,
   React.ComponentPropsWithoutRef<typeof Item>
 >(({ className, ...props }, ref) => (
@@ -17,7 +15,7 @@ const AccordionItem = React.forwardRef<
 ));
 AccordionItem.displayName = 'AccordionItem';
 
-const AccordionTrigger = React.forwardRef<
+const AccordionTrigger = forwardRef<
   React.ElementRef<typeof Trigger>,
   React.ComponentPropsWithoutRef<typeof Trigger>
 >(({ className, children, ...props }, ref) => (
@@ -37,7 +35,7 @@ const AccordionTrigger = React.forwardRef<
 ));
 AccordionTrigger.displayName = Trigger.displayName;
 
-const AccordionContent = React.forwardRef<
+const AccordionContent = forwardRef<
   React.ElementRef<typeof Content>,
   React.ComponentPropsWithoutRef<typeof Content>
 >(({ className, children, ...props }, ref) => (

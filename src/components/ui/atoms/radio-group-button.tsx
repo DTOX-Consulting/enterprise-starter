@@ -4,14 +4,13 @@ import {
   Indicator as RadioGroupIndicator
 } from '@radix-ui/react-radio-group';
 import { Check } from 'lucide-react';
-// eslint-disable-next-line import-x/no-namespace
-import * as React from 'react';
+import { forwardRef, ElementRef, ComponentPropsWithoutRef } from 'react';
 
 import { cn } from '@/lib/utils';
 
-const RadioGroupButton = React.forwardRef<
-  React.ElementRef<typeof RadioGroupRoot>,
-  React.ComponentPropsWithoutRef<typeof RadioGroupRoot>
+const RadioGroupButton = forwardRef<
+  ElementRef<typeof RadioGroupRoot>,
+  ComponentPropsWithoutRef<typeof RadioGroupRoot>
 >(({ className, ...props }, ref) => (
   <RadioGroupRoot
     className={cn('grid gap-0 overflow-hidden rounded-md border border-primary', className)}
@@ -21,9 +20,9 @@ const RadioGroupButton = React.forwardRef<
 ));
 RadioGroupButton.displayName = RadioGroupRoot.displayName;
 
-const RadioGroupButtonItem = React.forwardRef<
-  React.ElementRef<typeof RadioGroupItem>,
-  React.ComponentPropsWithoutRef<typeof RadioGroupItem>
+const RadioGroupButtonItem = forwardRef<
+  ElementRef<typeof RadioGroupItem>,
+  ComponentPropsWithoutRef<typeof RadioGroupItem>
 >(({ className, children, ...props }, ref) => (
   <RadioGroupItem
     ref={ref}

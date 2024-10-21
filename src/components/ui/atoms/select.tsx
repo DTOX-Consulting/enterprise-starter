@@ -16,16 +16,15 @@ import {
   Icon as SelectPrimitiveIcon
 } from '@radix-ui/react-select';
 import { Check, ChevronDown } from 'lucide-react';
-// eslint-disable-next-line import-x/no-namespace
-import * as React from 'react';
+import { forwardRef, ElementRef, ComponentPropsWithoutRef } from 'react';
 
 import { cn } from '@/lib/utils';
 
 import type { Option } from '@/data/option';
 
-const SelectTrigger = React.forwardRef<
-  React.ElementRef<typeof SelectPrimitiveTrigger>,
-  React.ComponentPropsWithoutRef<typeof SelectPrimitiveTrigger>
+const SelectTrigger = forwardRef<
+  ElementRef<typeof SelectPrimitiveTrigger>,
+  ComponentPropsWithoutRef<typeof SelectPrimitiveTrigger>
 >(({ className, children, ...props }, ref) => (
   <SelectPrimitiveTrigger
     ref={ref}
@@ -43,9 +42,9 @@ const SelectTrigger = React.forwardRef<
 ));
 SelectTrigger.displayName = SelectPrimitiveTrigger.displayName;
 
-const SelectContent = React.forwardRef<
-  React.ElementRef<typeof SelectPrimitiveContent>,
-  React.ComponentPropsWithoutRef<typeof SelectPrimitiveContent>
+const SelectContent = forwardRef<
+  ElementRef<typeof SelectPrimitiveContent>,
+  ComponentPropsWithoutRef<typeof SelectPrimitiveContent>
 >(({ className, children, position = 'popper', ...props }, ref) => (
   <Portal>
     <SelectPrimitiveContent
@@ -72,9 +71,9 @@ const SelectContent = React.forwardRef<
 ));
 SelectContent.displayName = SelectPrimitiveContent.displayName;
 
-const SelectLabel = React.forwardRef<
-  React.ElementRef<typeof SelectPrimitiveLabel>,
-  React.ComponentPropsWithoutRef<typeof SelectPrimitiveLabel>
+const SelectLabel = forwardRef<
+  ElementRef<typeof SelectPrimitiveLabel>,
+  ComponentPropsWithoutRef<typeof SelectPrimitiveLabel>
 >(({ className, ...props }, ref) => (
   <SelectPrimitiveLabel
     ref={ref}
@@ -84,9 +83,9 @@ const SelectLabel = React.forwardRef<
 ));
 SelectLabel.displayName = SelectPrimitiveLabel.displayName;
 
-const SelectItem = React.forwardRef<
-  React.ElementRef<typeof SelectPrimitiveItem>,
-  React.ComponentPropsWithoutRef<typeof SelectPrimitiveItem>
+const SelectItem = forwardRef<
+  ElementRef<typeof SelectPrimitiveItem>,
+  ComponentPropsWithoutRef<typeof SelectPrimitiveItem>
 >(({ className, children, ...props }, ref) => (
   <SelectPrimitiveItem
     ref={ref}
@@ -107,9 +106,9 @@ const SelectItem = React.forwardRef<
 ));
 SelectItem.displayName = SelectPrimitiveItem.displayName;
 
-const SelectSeparator = React.forwardRef<
-  React.ElementRef<typeof SelectPrimitiveSeparator>,
-  React.ComponentPropsWithoutRef<typeof SelectPrimitiveSeparator>
+const SelectSeparator = forwardRef<
+  ElementRef<typeof SelectPrimitiveSeparator>,
+  ComponentPropsWithoutRef<typeof SelectPrimitiveSeparator>
 >(({ className, ...props }, ref) => (
   <SelectPrimitiveSeparator
     ref={ref}

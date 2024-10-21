@@ -19,8 +19,7 @@ import {
   ItemIndicator
 } from '@radix-ui/react-menubar';
 import { Check, ChevronRight, Circle } from 'lucide-react';
-// eslint-disable-next-line import-x/no-namespace
-import * as React from 'react';
+import { forwardRef, ElementRef, ComponentPropsWithoutRef, HTMLAttributes } from 'react';
 
 import { cn } from '@/lib/utils';
 
@@ -34,9 +33,9 @@ const MenubarSub = Sub;
 
 const MenubarRadioGroup = RadioGroup;
 
-const Menubar = React.forwardRef<
-  React.ElementRef<typeof Root>,
-  React.ComponentPropsWithoutRef<typeof Root>
+const Menubar = forwardRef<
+  ElementRef<typeof Root>,
+  ComponentPropsWithoutRef<typeof Root>
 >(({ className, ...props }, ref) => (
   <Root
     ref={ref}
@@ -49,9 +48,9 @@ const Menubar = React.forwardRef<
 ));
 Menubar.displayName = Root.displayName;
 
-const MenubarTrigger = React.forwardRef<
-  React.ElementRef<typeof Trigger>,
-  React.ComponentPropsWithoutRef<typeof Trigger>
+const MenubarTrigger = forwardRef<
+  ElementRef<typeof Trigger>,
+  ComponentPropsWithoutRef<typeof Trigger>
 >(({ className, ...props }, ref) => (
   <Trigger
     ref={ref}
@@ -64,9 +63,9 @@ const MenubarTrigger = React.forwardRef<
 ));
 MenubarTrigger.displayName = Trigger.displayName;
 
-const MenubarSubTrigger = React.forwardRef<
-  React.ElementRef<typeof SubTrigger>,
-  React.ComponentPropsWithoutRef<typeof SubTrigger> & {
+const MenubarSubTrigger = forwardRef<
+  ElementRef<typeof SubTrigger>,
+  ComponentPropsWithoutRef<typeof SubTrigger> & {
     inset?: boolean;
   }
 >(({ className, inset, children, ...props }, ref) => (
@@ -85,9 +84,9 @@ const MenubarSubTrigger = React.forwardRef<
 ));
 MenubarSubTrigger.displayName = SubTrigger.displayName;
 
-const MenubarSubContent = React.forwardRef<
-  React.ElementRef<typeof SubContent>,
-  React.ComponentPropsWithoutRef<typeof SubContent>
+const MenubarSubContent = forwardRef<
+  ElementRef<typeof SubContent>,
+  ComponentPropsWithoutRef<typeof SubContent>
 >(({ className, ...props }, ref) => (
   <SubContent
     ref={ref}
@@ -100,9 +99,9 @@ const MenubarSubContent = React.forwardRef<
 ));
 MenubarSubContent.displayName = SubContent.displayName;
 
-const MenubarContent = React.forwardRef<
-  React.ElementRef<typeof Content>,
-  React.ComponentPropsWithoutRef<typeof Content>
+const MenubarContent = forwardRef<
+  ElementRef<typeof Content>,
+  ComponentPropsWithoutRef<typeof Content>
 >(({ className, align = 'start', alignOffset = -4, sideOffset = 8, ...props }, ref) => (
   <Portal>
     <Content
@@ -120,9 +119,9 @@ const MenubarContent = React.forwardRef<
 ));
 MenubarContent.displayName = Content.displayName;
 
-const MenubarItem = React.forwardRef<
-  React.ElementRef<typeof Item>,
-  React.ComponentPropsWithoutRef<typeof Item> & {
+const MenubarItem = forwardRef<
+  ElementRef<typeof Item>,
+  ComponentPropsWithoutRef<typeof Item> & {
     inset?: boolean;
   }
 >(({ className, inset, ...props }, ref) => (
@@ -138,9 +137,9 @@ const MenubarItem = React.forwardRef<
 ));
 MenubarItem.displayName = Item.displayName;
 
-const MenubarCheckboxItem = React.forwardRef<
-  React.ElementRef<typeof CheckboxItem>,
-  React.ComponentPropsWithoutRef<typeof CheckboxItem>
+const MenubarCheckboxItem = forwardRef<
+  ElementRef<typeof CheckboxItem>,
+  ComponentPropsWithoutRef<typeof CheckboxItem>
 >(({ className, children, checked, ...props }, ref) => (
   <CheckboxItem
     ref={ref}
@@ -161,9 +160,9 @@ const MenubarCheckboxItem = React.forwardRef<
 ));
 MenubarCheckboxItem.displayName = CheckboxItem.displayName;
 
-const MenubarRadioItem = React.forwardRef<
-  React.ElementRef<typeof RadioItem>,
-  React.ComponentPropsWithoutRef<typeof RadioItem>
+const MenubarRadioItem = forwardRef<
+  ElementRef<typeof RadioItem>,
+  ComponentPropsWithoutRef<typeof RadioItem>
 >(({ className, children, ...props }, ref) => (
   <RadioItem
     ref={ref}
@@ -183,9 +182,9 @@ const MenubarRadioItem = React.forwardRef<
 ));
 MenubarRadioItem.displayName = RadioItem.displayName;
 
-const MenubarLabel = React.forwardRef<
-  React.ElementRef<typeof Label>,
-  React.ComponentPropsWithoutRef<typeof Label> & {
+const MenubarLabel = forwardRef<
+  ElementRef<typeof Label>,
+  ComponentPropsWithoutRef<typeof Label> & {
     inset?: boolean;
   }
 >(({ className, inset, ...props }, ref) => (
@@ -197,15 +196,15 @@ const MenubarLabel = React.forwardRef<
 ));
 MenubarLabel.displayName = Label.displayName;
 
-const MenubarSeparator = React.forwardRef<
-  React.ElementRef<typeof Separator>,
-  React.ComponentPropsWithoutRef<typeof Separator>
+const MenubarSeparator = forwardRef<
+  ElementRef<typeof Separator>,
+  ComponentPropsWithoutRef<typeof Separator>
 >(({ className, ...props }, ref) => (
   <Separator ref={ref} className={cn('-mx-1 my-1 h-px bg-muted', className)} {...props} />
 ));
 MenubarSeparator.displayName = Separator.displayName;
 
-const MenubarShortcut = ({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>) => (
+const MenubarShortcut = ({ className, ...props }: HTMLAttributes<HTMLSpanElement>) => (
   <span
     className={cn('ml-auto text-xs tracking-widest text-muted-foreground', className)}
     {...props}

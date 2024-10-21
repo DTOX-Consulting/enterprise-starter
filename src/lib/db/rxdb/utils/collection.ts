@@ -4,7 +4,7 @@ import { each } from 'already';
 import { schemas, type Schema } from '@/lib/db/rxdb/schemas';
 import { isDeepEqual } from '@/lib/utils/deep-equal';
 
-import type { CollectionSchema, CommonProperties } from '@/lib/db/rxdb/utils/schema';
+import type { CollectionSchema } from '@/lib/db/rxdb/utils/schema';
 import type { GenericFunction } from '@/lib/utils/function';
 import type {
   RxCollection,
@@ -22,8 +22,8 @@ export const addCollections = async (db: RxDatabase) => {
   return db.addCollections(collections);
 };
 
-const createCollections = (schemas: Schema) =>
-  Object.entries(schemas).reduce(
+const createCollections = (schemaDefinitions: Schema) =>
+  Object.entries(schemaDefinitions).reduce(
     (acc, [name, schema]) => {
       acc[name] = {
         schema,
@@ -56,31 +56,7 @@ export const getMigrationStrategies = <
   V extends UnwrapRxJsonSchema<S> = UnwrapRxJsonSchema<S>
 >(
   _name: T
-): Record<number, GenericFunction<V, [V]>> | undefined => {
-  const _noop = (oldDoc: unknown) => oldDoc as V;
-
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  const _getDefaults = (oldDoc: any): Record<keyof CommonProperties, string> => ({
-    id: oldDoc.id,
-    ownerId: oldDoc.ownerId,
-    createdAt: oldDoc.createdAt,
-    updatedAt: oldDoc.updatedAt
-  });
-
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  const _getMeta = (oldDoc: any, rev: number) => {
-    const [_, revId = ''] = (oldDoc._rev as string).split('-') ?? [];
-
-    return {
-      _meta: oldDoc._meta,
-      _rev: `${rev}-${revId}`,
-      _deleted: oldDoc._deleted,
-      _attachments: oldDoc._attachments
-    };
-  };
-
-  return {};
-};
+): Record<number, GenericFunction<V, [V]>> | undefined => ({});
 
 const getConflictHandler = <
   T extends keyof Schema = keyof Schema,

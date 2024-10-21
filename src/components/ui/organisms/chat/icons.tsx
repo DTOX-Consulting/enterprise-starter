@@ -8,7 +8,7 @@ function IconNextChat({
   className,
   inverted,
   ...props
-}: ComponentProps<'svg'> & { inverted?: boolean }) {
+}: Readonly<ComponentProps<'svg'> & { inverted?: boolean }>) {
   const id = useId();
 
   return (
@@ -29,8 +29,8 @@ function IconNextChat({
           y2="14.2667"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor={inverted ? 'white' : 'black'} />
-          <stop offset={1} stopColor={inverted ? 'white' : 'black'} stopOpacity={0} />
+          <stop stopColor={inverted === true ? 'white' : 'black'} />
+          <stop offset={1} stopColor={inverted === true ? 'white' : 'black'} stopOpacity={0} />
         </linearGradient>
         <linearGradient
           id={`gradient-${id}-2`}
@@ -40,14 +40,14 @@ function IconNextChat({
           y2="9.50002"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor={inverted ? 'white' : 'black'} />
-          <stop offset={1} stopColor={inverted ? 'white' : 'black'} stopOpacity={0} />
+          <stop stopColor={inverted === true ? 'white' : 'black'} />
+          <stop offset={1} stopColor={inverted === true ? 'white' : 'black'} stopOpacity={0} />
         </linearGradient>
       </defs>
       <path
         d="M1 16L2.58314 11.2506C1.83084 9.74642 1.63835 8.02363 2.04013 6.39052C2.4419 4.75741 3.41171 3.32057 4.776 2.33712C6.1403 1.35367 7.81003 0.887808 9.4864 1.02289C11.1628 1.15798 12.7364 1.8852 13.9256 3.07442C15.1148 4.26363 15.842 5.83723 15.9771 7.5136C16.1122 9.18997 15.6463 10.8597 14.6629 12.224C13.6794 13.5883 12.2426 14.5581 10.6095 14.9599C8.97637 15.3616 7.25358 15.1692 5.74942 14.4169L1 16Z"
-        fill={inverted ? 'black' : 'white'}
-        stroke={inverted ? 'black' : 'white'}
+        fill={inverted === true ? 'black' : 'white'}
+        stroke={inverted === true ? 'black' : 'white'}
         strokeWidth={2}
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -61,10 +61,10 @@ function IconNextChat({
         width={16}
         height={16}
       >
-        <circle cx={9} cy={8} r={8} fill={inverted ? 'black' : 'white'} />
+        <circle cx={9} cy={8} r={8} fill={inverted === true ? 'black' : 'white'} />
       </mask>
       <g mask="url(#mask0_91_2047)">
-        <circle cx={9} cy={8} r={8} fill={inverted ? 'black' : 'white'} />
+        <circle cx={9} cy={8} r={8} fill={inverted === true ? 'black' : 'white'} />
         <path
           d="M14.2896 14.0018L7.146 4.8H5.80005V11.1973H6.87681V6.16743L13.4444 14.6529C13.7407 14.4545 14.0231 14.2369 14.2896 14.0018Z"
           fill={`url(#gradient-${id}-1)`}
@@ -75,7 +75,7 @@ function IconNextChat({
   );
 }
 
-function IconOpenAI({ className, ...props }: ComponentProps<'svg'>) {
+function IconOpenAI({ className, ...props }: Readonly<ComponentProps<'svg'>>) {
   return (
     <svg
       fill="currentColor"
@@ -92,7 +92,7 @@ function IconOpenAI({ className, ...props }: ComponentProps<'svg'>) {
   );
 }
 
-function IconVercel({ className, ...props }: ComponentProps<'svg'>) {
+function IconVercel({ className, ...props }: Readonly<ComponentProps<'svg'>>) {
   return (
     <svg
       aria-label="Vercel logomark"
@@ -107,7 +107,7 @@ function IconVercel({ className, ...props }: ComponentProps<'svg'>) {
   );
 }
 
-function IconGitHub({ className, ...props }: ComponentProps<'svg'>) {
+function IconGitHub({ className, ...props }: Readonly<ComponentProps<'svg'>>) {
   return (
     <svg
       role="img"
@@ -123,7 +123,7 @@ function IconGitHub({ className, ...props }: ComponentProps<'svg'>) {
   );
 }
 
-function IconGoogle({ className, ...props }: ComponentProps<'svg'>) {
+function IconGoogle({ className, ...props }: Readonly<ComponentProps<'svg'>>) {
   return (
     <svg
       role="img"
@@ -156,7 +156,7 @@ function IconGoogle({ className, ...props }: ComponentProps<'svg'>) {
   );
 }
 
-function IconSeparator({ className, ...props }: ComponentProps<'svg'>) {
+function IconSeparator({ className, ...props }: Readonly<ComponentProps<'svg'>>) {
   return (
     <svg
       fill="none"
@@ -176,7 +176,7 @@ function IconSeparator({ className, ...props }: ComponentProps<'svg'>) {
   );
 }
 
-function IconArrowDown({ className, ...props }: ComponentProps<'svg'>) {
+function IconArrowDown({ className, ...props }: Readonly<ComponentProps<'svg'>>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -191,7 +191,7 @@ function IconArrowDown({ className, ...props }: ComponentProps<'svg'>) {
   );
 }
 
-function IconArrowRight({ className, ...props }: ComponentProps<'svg'>) {
+function IconArrowRight({ className, ...props }: Readonly<ComponentProps<'svg'>>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -206,7 +206,7 @@ function IconArrowRight({ className, ...props }: ComponentProps<'svg'>) {
   );
 }
 
-function IconUser({ className, ...props }: ComponentProps<'svg'>) {
+function IconUser({ className, ...props }: Readonly<ComponentProps<'svg'>>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -221,7 +221,7 @@ function IconUser({ className, ...props }: ComponentProps<'svg'>) {
   );
 }
 
-function IconPlus({ className, ...props }: ComponentProps<'svg'>) {
+function IconPlus({ className, ...props }: Readonly<ComponentProps<'svg'>>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -236,7 +236,7 @@ function IconPlus({ className, ...props }: ComponentProps<'svg'>) {
   );
 }
 
-function IconArrowElbow({ className, ...props }: ComponentProps<'svg'>) {
+function IconArrowElbow({ className, ...props }: Readonly<ComponentProps<'svg'>>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -251,7 +251,7 @@ function IconArrowElbow({ className, ...props }: ComponentProps<'svg'>) {
   );
 }
 
-function IconSpinner({ className, ...props }: ComponentProps<'svg'>) {
+function IconSpinner({ className, ...props }: Readonly<ComponentProps<'svg'>>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -266,7 +266,7 @@ function IconSpinner({ className, ...props }: ComponentProps<'svg'>) {
   );
 }
 
-function IconMessage({ className, ...props }: ComponentProps<'svg'>) {
+function IconMessage({ className, ...props }: Readonly<ComponentProps<'svg'>>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -281,7 +281,7 @@ function IconMessage({ className, ...props }: ComponentProps<'svg'>) {
   );
 }
 
-function IconTrash({ className, ...props }: ComponentProps<'svg'>) {
+function IconTrash({ className, ...props }: Readonly<ComponentProps<'svg'>>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -296,7 +296,7 @@ function IconTrash({ className, ...props }: ComponentProps<'svg'>) {
   );
 }
 
-function IconRefresh({ className, ...props }: ComponentProps<'svg'>) {
+function IconRefresh({ className, ...props }: Readonly<ComponentProps<'svg'>>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -311,7 +311,7 @@ function IconRefresh({ className, ...props }: ComponentProps<'svg'>) {
   );
 }
 
-function IconStop({ className, ...props }: ComponentProps<'svg'>) {
+function IconStop({ className, ...props }: Readonly<ComponentProps<'svg'>>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -326,7 +326,7 @@ function IconStop({ className, ...props }: ComponentProps<'svg'>) {
   );
 }
 
-function IconSidebar({ className, ...props }: ComponentProps<'svg'>) {
+function IconSidebar({ className, ...props }: Readonly<ComponentProps<'svg'>>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -341,7 +341,7 @@ function IconSidebar({ className, ...props }: ComponentProps<'svg'>) {
   );
 }
 
-function IconMoon({ className, ...props }: ComponentProps<'svg'>) {
+function IconMoon({ className, ...props }: Readonly<ComponentProps<'svg'>>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -356,7 +356,7 @@ function IconMoon({ className, ...props }: ComponentProps<'svg'>) {
   );
 }
 
-function IconSun({ className, ...props }: ComponentProps<'svg'>) {
+function IconSun({ className, ...props }: Readonly<ComponentProps<'svg'>>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -371,7 +371,7 @@ function IconSun({ className, ...props }: ComponentProps<'svg'>) {
   );
 }
 
-function IconCopy({ className, ...props }: ComponentProps<'svg'>) {
+function IconCopy({ className, ...props }: Readonly<ComponentProps<'svg'>>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -386,7 +386,7 @@ function IconCopy({ className, ...props }: ComponentProps<'svg'>) {
   );
 }
 
-function IconCheck({ className, ...props }: ComponentProps<'svg'>) {
+function IconCheck({ className, ...props }: Readonly<ComponentProps<'svg'>>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -401,7 +401,7 @@ function IconCheck({ className, ...props }: ComponentProps<'svg'>) {
   );
 }
 
-function IconDownload({ className, ...props }: ComponentProps<'svg'>) {
+function IconDownload({ className, ...props }: Readonly<ComponentProps<'svg'>>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -416,7 +416,7 @@ function IconDownload({ className, ...props }: ComponentProps<'svg'>) {
   );
 }
 
-function IconClose({ className, ...props }: ComponentProps<'svg'>) {
+function IconClose({ className, ...props }: Readonly<ComponentProps<'svg'>>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -431,7 +431,7 @@ function IconClose({ className, ...props }: ComponentProps<'svg'>) {
   );
 }
 
-function IconEdit({ className, ...props }: ComponentProps<'svg'>) {
+function IconEdit({ className, ...props }: Readonly<ComponentProps<'svg'>>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -452,7 +452,7 @@ function IconEdit({ className, ...props }: ComponentProps<'svg'>) {
   );
 }
 
-function IconShare({ className, ...props }: ComponentProps<'svg'>) {
+function IconShare({ className, ...props }: Readonly<ComponentProps<'svg'>>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -467,7 +467,7 @@ function IconShare({ className, ...props }: ComponentProps<'svg'>) {
   );
 }
 
-function IconUsers({ className, ...props }: ComponentProps<'svg'>) {
+function IconUsers({ className, ...props }: Readonly<ComponentProps<'svg'>>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -484,7 +484,7 @@ function IconUsers({ className, ...props }: ComponentProps<'svg'>) {
   );
 }
 
-function IconExternalLink({ className, ...props }: ComponentProps<'svg'>) {
+function IconExternalLink({ className, ...props }: Readonly<ComponentProps<'svg'>>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -501,7 +501,7 @@ function IconExternalLink({ className, ...props }: ComponentProps<'svg'>) {
   );
 }
 
-function IconChevronUpDown({ className, ...props }: ComponentProps<'svg'>) {
+function IconChevronUpDown({ className, ...props }: Readonly<ComponentProps<'svg'>>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

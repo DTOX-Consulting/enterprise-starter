@@ -78,27 +78,27 @@ export const createOrOverwriteFile = async (
   const { data: maybeFile } = unboxR(await findFileByName(name, parent));
   const fileId = maybeFile?.files?.[0]?.id;
 
-  if (fileId && shouldDelete) {
-    await deleteFile(fileId);
+  if (fileId !== undefined && fileId !== null) { // Handle nullable string explicitly
+    if (shouldDelete) {
+      await deleteFile(fileId);
+    } else {
+      return unboxR(await updateFile(fileId, body, mimeType)).data;
+    }
   }
 
-  const file =
-    fileId && !shouldDelete
-      ? unboxR(await updateFile(fileId, body, mimeType))
-      : unboxR(await createFile(name, body, parent, mimeType));
-
-  return file.data;
+  return unboxR(await createFile(name, body, parent, mimeType)).data;
 };
 
 export const findFileByName = async (name: string, parent?: string) => {
+  const query = `mimeType != "application/vnd.google-apps.folder" and trashed = false and name = "${name}"${
+    parent ? `and '${parent}' in parents` : ''
+  }`;
   const response = await drive.files.list({
     corpora: 'allDrives',
     supportsAllDrives: true,
     includeItemsFromAllDrives: true,
     fields: config.drive.fields.folders,
-    q: `mimeType != "application/vnd.google-apps.folder" and trashed = false and name = "${name}"${
-      parent ? `and '${parent}' in parents` : ''
-    }`
+    q: query
   });
   return fromPromise(Promise.resolve(response.data));
 };
@@ -122,12 +122,15 @@ export const deleteFile = async (fileId: string) => {
 };
 
 export const moveFile = async (fileId: string, toAdd: string[], toRemove: string[]) => {
-  const response = await drive.files.update({
-    fileId,
-    addParents: toAdd.join(','),
-    removeParents: toRemove.join(',')
-  });
-  return fromPromise(Promise.resolve(response.data));
+  if (toAdd.length > 0 && toRemove.length > 0) {
+    const response = await drive.files.update({
+      fileId,
+      addParents: toAdd.join(','),
+      removeParents: toRemove.join(',')
+    });
+    return fromPromise(Promise.resolve(response.data));
+  }
+  throw new Error('Both toAdd and toRemove arrays must have at least one element.');
 };
 
 export const deleteAllFiles = async () => {

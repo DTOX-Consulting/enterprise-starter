@@ -12,8 +12,7 @@ import {
 } from '@radix-ui/react-dialog';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { X } from 'lucide-react';
-// eslint-disable-next-line import-x/no-namespace
-import * as React from 'react';
+import { forwardRef, ElementRef, ComponentPropsWithoutRef, HTMLAttributes } from 'react';
 
 import { cn } from '@/lib/utils';
 
@@ -25,9 +24,9 @@ const SheetClose = Close;
 
 const SheetPortal = Portal;
 
-const SheetOverlay = React.forwardRef<
-  React.ElementRef<typeof Overlay>,
-  React.ComponentPropsWithoutRef<typeof Overlay>
+const SheetOverlay = forwardRef<
+  ElementRef<typeof Overlay>,
+  ComponentPropsWithoutRef<typeof Overlay>
 >(({ className, ...props }, ref) => (
   <Overlay
     className={cn(
@@ -59,10 +58,10 @@ const sheetVariants = cva(
   }
 );
 
-type SheetContentProps = React.ComponentPropsWithoutRef<typeof Content> &
+type SheetContentProps = ComponentPropsWithoutRef<typeof Content> &
   VariantProps<typeof sheetVariants>;
 
-const SheetContent = React.forwardRef<React.ElementRef<typeof Content>, SheetContentProps>(
+const SheetContent = forwardRef<ElementRef<typeof Content>, SheetContentProps>(
   ({ side = 'left', className, children, ...props }, ref) => (
     <SheetPortal>
       <SheetOverlay />
@@ -78,12 +77,12 @@ const SheetContent = React.forwardRef<React.ElementRef<typeof Content>, SheetCon
 );
 SheetContent.displayName = Content.displayName;
 
-const SheetHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+const SheetHeader = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => (
   <div className={cn('flex flex-col space-y-2 text-center sm:text-left', className)} {...props} />
 );
 SheetHeader.displayName = 'SheetHeader';
 
-const SheetFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+const SheetFooter = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => (
   <div
     className={cn('flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2', className)}
     {...props}
@@ -91,17 +90,17 @@ const SheetFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivElemen
 );
 SheetFooter.displayName = 'SheetFooter';
 
-const SheetTitle = React.forwardRef<
-  React.ElementRef<typeof Title>,
-  React.ComponentPropsWithoutRef<typeof Title>
+const SheetTitle = forwardRef<
+  ElementRef<typeof Title>,
+  ComponentPropsWithoutRef<typeof Title>
 >(({ className, ...props }, ref) => (
   <Title ref={ref} className={cn('text-lg font-semibold text-foreground', className)} {...props} />
 ));
 SheetTitle.displayName = Title.displayName;
 
-const SheetDescription = React.forwardRef<
-  React.ElementRef<typeof Description>,
-  React.ComponentPropsWithoutRef<typeof Description>
+const SheetDescription = forwardRef<
+  ElementRef<typeof Description>,
+  ComponentPropsWithoutRef<typeof Description>
 >(({ className, ...props }, ref) => (
   <Description ref={ref} className={cn('text-sm text-muted-foreground', className)} {...props} />
 ));

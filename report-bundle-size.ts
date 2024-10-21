@@ -10,6 +10,7 @@ import path from 'node:path';
 import zlib from 'node:zlib';
 
 import { sync as mkdirpSync } from 'mkdirp';
+import { stringify } from 'safe-stable-stringify';
 
 // Define types for build manifests
 type BuildManifest = {
@@ -110,7 +111,7 @@ const allAppDirSizes = Object.keys(appDirMeta.pages).reduce(
 );
 
 // Format and write the output
-const rawData = JSON.stringify({
+const rawData = stringify({
   ...allAppDirSizes,
   __global: globalAppDirBundleSizes
 });
@@ -120,7 +121,7 @@ console.log(rawData);
 
 // Ensure the output directory exists and write the bundle analysis data
 mkdirpSync(path.join(nextMetaRoot, 'analyze/'));
-fs.writeFileSync(path.join(nextMetaRoot, 'analyze/__bundle_analysis.json'), rawData);
+fs.writeFileSync(path.join(nextMetaRoot, 'analyze/__bundle_analysis.json'), rawData as string);
 
 // --------------
 // Util Functions

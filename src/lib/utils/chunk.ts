@@ -3,19 +3,26 @@ export function chunkWithListConsideration<T extends string>(arr: T[], totalLeng
     return arr.map((item) => [item]);
   }
 
-  // Separate all lists fully
+  const separatedListItems = separateLists(arr);
+  if (separatedListItems.length <= totalLength) {
+    return separatedListItems;
+  }
+
+  const chunks = createChunks(separatedListItems, totalLength);
+  ensureChunkLength(chunks, totalLength);
+
+  return chunks;
+}
+
+function separateLists<T extends string>(arr: T[]): T[][] {
   let separatedListItems: T[][] = [];
   let currentList: T[] = [];
 
   for (const currentItem of arr) {
-    if (/^\d+\./.exec(currentItem)) {
-      // Check if the current item starts with a number followed by a period
-      if (currentList.length > 0) {
-        separatedListItems.push(currentList);
-        currentList = [];
-      }
+    if (/^\d+\./.exec(currentItem) && currentList.length > 0) {
+      separatedListItems.push(currentList);
+      currentList = [];
     }
-
     if (currentItem) currentList.push(currentItem);
   }
 
@@ -24,20 +31,17 @@ export function chunkWithListConsideration<T extends string>(arr: T[], totalLeng
   }
 
   if (separatedListItems.length === 1) {
-    separatedListItems = separatedListItems[0]?.map((item) => [item]) ?? [];
+    return separatedListItems[0]?.map((item) => [item]) ?? [];
   }
 
-  if (separatedListItems.length <= totalLength) {
-    return separatedListItems;
-  }
+  return separatedListItems;
+}
 
-  // Create chunks based on the desired total chunk size
+function createChunks<T>(separatedListItems: T[][], totalLength: number): T[][] {
   const chunks: T[][] = [];
   let currentChunk: T[] = [];
   let currentChunkLength = 0;
-
-  // get chunk size based on the total length and the number of lists
-  const chunkSize = Math.ceil(arr.length / totalLength);
+  const chunkSize = Math.ceil(separatedListItems.flat().length / totalLength);
 
   for (const currentListItem of separatedListItems) {
     if (currentChunkLength + currentListItem.length > chunkSize) {
@@ -61,8 +65,6 @@ export function chunkWithListConsideration<T extends string>(arr: T[], totalLeng
       chunks[chunks.length - 1]?.push(...currentChunk);
     }
   }
-
-  ensureChunkLength(chunks, totalLength);
 
   return chunks;
 }
@@ -95,8 +97,7 @@ function ensureChunkLength<T>(chunks: T[][], totalLength: number) {
 
 export const addPeriod = (str: string) => {
   const punctuationAtEndRegex = /[.,?!;:()"'[\]{}\-—/\\&*%$#@+<>=|~]+$/;
-  const emojiAtEndRegex =
-    /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F900}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]+$/u;
+  const emojiAtEndRegex = /\p{Emoji_Presentation}+$/u;
 
   if (punctuationAtEndRegex.test(str) || emojiAtEndRegex.test(str) || !str.trim()) {
     return str;

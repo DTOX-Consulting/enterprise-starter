@@ -51,8 +51,8 @@ const build = async () => {
     }
 
     console.info('Build Public Iframe success');
-  } catch (e) {
-    console.error('Build Public Iframe error', e);
+  } catch (err) {
+    console.error('Build Public Iframe error', err);
   }
 };
 
@@ -65,8 +65,8 @@ const watch = async () => {
       console.info(`File ${file} changed. Rebuilding...`);
       await build();
     });
-  } catch (e) {
-    console.error('Build Public Iframe error', e);
+  } catch (err) {
+    console.error('Build Public Iframe error', err);
   }
 };
 

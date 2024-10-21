@@ -2,9 +2,7 @@
 
 import { Command as CommandPrimitive, useCommandState } from 'cmdk';
 import { X } from 'lucide-react';
-// eslint-disable-next-line import-x/no-namespace
-import * as React from 'react';
-import { useEffect, forwardRef } from 'react';
+import React, { useEffect, forwardRef } from 'react';
 import { stringify } from 'safe-stable-stringify';
 
 import { Badge } from '@/components/ui/atoms/badge';

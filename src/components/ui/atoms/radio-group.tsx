@@ -6,22 +6,21 @@ import {
   Indicator as RadioGroupIndicator
 } from '@radix-ui/react-radio-group';
 import { Circle } from 'lucide-react';
-// eslint-disable-next-line import-x/no-namespace
-import * as React from 'react';
+import { forwardRef, ElementRef, ComponentPropsWithoutRef } from 'react';
 
 import { cn } from '@/lib/utils';
 
-const RadioGroup = React.forwardRef<
-  React.ElementRef<typeof RadioGroupRoot>,
-  React.ComponentPropsWithoutRef<typeof RadioGroupRoot>
+const RadioGroup = forwardRef<
+  ElementRef<typeof RadioGroupRoot>,
+  ComponentPropsWithoutRef<typeof RadioGroupRoot>
 >(({ className, ...props }, ref) => (
   <RadioGroupRoot className={cn('grid gap-2', className)} {...props} ref={ref} />
 ));
 RadioGroup.displayName = RadioGroupRoot.displayName;
 
-const RadioGroupItemComponent = React.forwardRef<
-  React.ElementRef<typeof RadioGroupItem>,
-  React.ComponentPropsWithoutRef<typeof RadioGroupItem>
+const RadioGroupItemComponent = forwardRef<
+  ElementRef<typeof RadioGroupItem>,
+  ComponentPropsWithoutRef<typeof RadioGroupItem>
 >(({ className, ...props }, ref) => (
   <RadioGroupItem
     ref={ref}

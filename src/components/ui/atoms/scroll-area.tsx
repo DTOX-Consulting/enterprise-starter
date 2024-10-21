@@ -7,14 +7,13 @@ import {
   ScrollAreaThumb,
   Corner as ScrollAreaCorner
 } from '@radix-ui/react-scroll-area';
-// eslint-disable-next-line import-x/no-namespace
-import * as React from 'react';
+import { forwardRef, ElementRef, ComponentPropsWithoutRef } from 'react';
 
 import { cn } from '@/lib/utils';
 
-const ScrollArea = React.forwardRef<
-  React.ElementRef<typeof ScrollAreaRoot>,
-  React.ComponentPropsWithoutRef<typeof ScrollAreaRoot>
+const ScrollArea = forwardRef<
+  ElementRef<typeof ScrollAreaRoot>,
+  ComponentPropsWithoutRef<typeof ScrollAreaRoot>
 >(({ className, children, ...props }, ref) => (
   <ScrollAreaRoot ref={ref} className={cn('relative overflow-hidden', className)} {...props}>
     <ScrollAreaViewport className="size-full rounded-[inherit]">{children}</ScrollAreaViewport>
@@ -24,9 +23,9 @@ const ScrollArea = React.forwardRef<
 ));
 ScrollArea.displayName = ScrollAreaRoot.displayName;
 
-const ScrollBar = React.forwardRef<
-  React.ElementRef<typeof ScrollAreaScrollbar>,
-  React.ComponentPropsWithoutRef<typeof ScrollAreaScrollbar>
+const ScrollBar = forwardRef<
+  ElementRef<typeof ScrollAreaScrollbar>,
+  ComponentPropsWithoutRef<typeof ScrollAreaScrollbar>
 >(({ className, orientation = 'vertical', ...props }, ref) => (
   <ScrollAreaScrollbar
     ref={ref}

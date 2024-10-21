@@ -2,8 +2,7 @@
 
 import { Root } from '@radix-ui/react-toggle';
 import { cva, type VariantProps } from 'class-variance-authority';
-// eslint-disable-next-line import-x/no-namespace
-import * as React from 'react';
+import { forwardRef, ElementRef, ComponentPropsWithoutRef } from 'react';
 
 import { cn } from '@/lib/utils';
 
@@ -28,9 +27,9 @@ const toggleVariants = cva(
   }
 );
 
-const Toggle = React.forwardRef<
-  React.ElementRef<typeof Root>,
-  React.ComponentPropsWithoutRef<typeof Root> & VariantProps<typeof toggleVariants>
+const Toggle = forwardRef<
+  ElementRef<typeof Root>,
+  ComponentPropsWithoutRef<typeof Root> & VariantProps<typeof toggleVariants>
 >(({ className, variant, size, ...props }, ref) => (
   <Root ref={ref} className={cn(toggleVariants({ variant, size, className }))} {...props} />
 ));

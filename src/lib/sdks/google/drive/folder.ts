@@ -63,25 +63,27 @@ export const createOrOverwriteFolder = async (
 };
 
 export const findFolderByName = async (name: string, parent?: string) => {
+  const query = `mimeType = "application/vnd.google-apps.folder" and trashed = false and name = "${name}"${
+    parent ? `and '${parent}' in parents` : ''
+  }`;
   const response = await drive.files.list({
     corpora: 'allDrives',
     supportsAllDrives: true,
     includeItemsFromAllDrives: true,
     fields: config.drive.fields.folders,
-    q: `mimeType = "application/vnd.google-apps.folder" and trashed = false and name = "${name}"${
-      parent ? `and '${parent}' in parents` : ''
-    }`
+    q: query
   });
   return fromPromise(Promise.resolve(response.data));
 };
 
 export const listFolders = async () => {
+  const query = 'mimeType = "application/vnd.google-apps.folder"';
   const response = await drive.files.list({
     corpora: 'allDrives',
     supportsAllDrives: true,
     includeItemsFromAllDrives: true,
     fields: config.drive.fields.folders,
-    q: 'mimeType = "application/vnd.google-apps.folder"'
+    q: query
   });
   return fromPromise(Promise.resolve(response.data));
 };
@@ -104,5 +106,9 @@ export const moveFolder = async (fileId: string, toAdd: string[], toRemove: stri
 
 export const deleteAllFolders = async () => {
   const { data } = unboxR(await listFolders());
-  return pMap(data?.files ?? [], async (file) => file.id && deleteFolder(file.id));
+  return pMap(data?.files ?? [], async (file) => {
+    if (file.id) {
+      return deleteFolder(file.id);
+    }
+  });
 };

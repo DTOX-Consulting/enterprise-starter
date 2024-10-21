@@ -2,8 +2,7 @@
 
 import { Provider, Root, Trigger, Content } from '@radix-ui/react-tooltip';
 import { Info } from 'lucide-react';
-// eslint-disable-next-line import-x/no-namespace
-import * as React from 'react';
+import { forwardRef, ElementRef, ComponentPropsWithoutRef, ReactNode, PropsWithChildren } from 'react';
 
 import { cn } from '@/lib/utils';
 
@@ -13,9 +12,9 @@ const Tooltip = Root;
 
 const TooltipTrigger = Trigger;
 
-const TooltipContent = React.forwardRef<
-  React.ElementRef<typeof Content>,
-  React.ComponentPropsWithoutRef<typeof Content>
+const TooltipContent = forwardRef<
+  ElementRef<typeof Content>,
+  ComponentPropsWithoutRef<typeof Content>
 >(({ className, sideOffset = 4, ...props }, ref) => (
   <Content
     ref={ref}
@@ -33,7 +32,7 @@ const Tip = ({
   content,
   children,
   className
-}: React.PropsWithChildren<{ content: string | React.ReactNode; className?: string }>) => (
+}: PropsWithChildren<{ content: string | ReactNode; className?: string }>) => (
   <TooltipProvider>
     <Tooltip>
       <TooltipTrigger className={className} asChild>
@@ -49,11 +48,11 @@ const Tip = ({
 const InverseTip = ({
   children,
   content
-}: React.PropsWithChildren<{ content: string | React.ReactNode }>) => (
+}: PropsWithChildren<{ content: string | ReactNode }>) => (
   <Tip content={children}>{content}</Tip>
 );
 
-const InfoTip = ({ children, className }: React.PropsWithChildren<{ className?: string }>) => (
+const InfoTip = ({ children, className }: PropsWithChildren<{ className?: string }>) => (
   <Tip content={children}>
     <Info className={cn('ml-2 size-4 text-neutral-400 hover:text-neutral-200', className)} />
   </Tip>

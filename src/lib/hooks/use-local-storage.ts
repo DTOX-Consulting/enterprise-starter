@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { stringify } from 'safe-stable-stringify';
 
 const useLocalStorage = <T>(key: string, initialValue: T): [T, (value: T) => void] => {
   const [storedValue, setStoredValue] = useState(initialValue);
@@ -15,7 +16,7 @@ const useLocalStorage = <T>(key: string, initialValue: T): [T, (value: T) => voi
     // Save state
     setStoredValue(value);
     // Save to localStorage
-    window.localStorage.setItem(key, JSON.stringify(value));
+    window.localStorage.setItem(key, stringify(value as string | ''));
   };
 
   return [storedValue, setValue];

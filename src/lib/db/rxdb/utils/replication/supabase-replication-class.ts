@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { RxReplicationState } from 'rxdb/plugins/replication';
 import { Subject } from 'rxjs';
+import { stringify } from 'safe-stable-stringify';
 
 import { hash } from '@/lib/utils/string';
 import { stringifyDeterministic } from '@/lib/utils/stringify';
@@ -167,9 +168,9 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
         batchSize: 1, // TODO: support batch insertion
         handler: async (rows) => this.pushHandler(rows)
       },
-      typeof options.live === 'undefined' ? true : options.live,
-      typeof options.retryTime === 'undefined' ? 5000 : options.retryTime,
-      typeof options.autoStart === 'undefined' ? true : options.autoStart
+      options.live ?? true,
+      options.retryTime ?? 5000,
+      options.autoStart ?? true
     );
 
     this.realtimeChanges = realtimeChanges;
@@ -180,7 +181,7 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
 
     this.keyMapping = options.keyMapping ?? {};
     this.reverseKeyMapping = Object.fromEntries(
-      Object.entries(this.keyMapping).map(([k, v]) => [v, k])
+      Object.entries(this.keyMapping).map(([key, value]) => [value, key])
     );
 
     if (this.autoStart) {
@@ -216,8 +217,8 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
     if (lastCheckpoint?.modified) {
       // Construct the PostgREST query for the following condition:
       // WHERE _modified > lastModified OR (_modified = lastModified AND primaryKey > lastPrimaryKey)
-      const lastModified = JSON.stringify(lastCheckpoint.modified);
-      const lastPrimaryKey = JSON.stringify(lastCheckpoint.primaryKeyValue); // TODO: Add test for a integer primary key
+      const lastModified = stringify(lastCheckpoint.modified);
+      const lastPrimaryKey = stringify(lastCheckpoint.primaryKeyValue); // TODO: Add test for a integer primary key
       const isNewer = `${this.lastModifiedFieldName}.gt.${lastModified}`;
       const isSameAge = `${this.lastModifiedFieldName}.eq.${lastModified}`;
       query = query.or(`${isNewer},and(${isSameAge},${this.primaryKey}.gt.${lastPrimaryKey})`);

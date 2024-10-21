@@ -12,7 +12,8 @@ import { useForceState } from '@/lib/hooks/use-force-rerender';
 
 import type { NavigationItem } from '@/config/navigation/types';
 
-export const standardizePath = (path: string) => path.replace(/^\/+|\/+$/g, '');
+export const standardizePath = (path: string) => path.replace(/^(\/+)|(\/+)$/g, '');
+// Updated regex to avoid super-linear runtime and make precedence explicit
 
 export const isInPages = (path: string, navigationItems: NavigationItem[]) => {
   const pages = getPages(navigationItems);
@@ -21,13 +22,13 @@ export const isInPages = (path: string, navigationItems: NavigationItem[]) => {
 
 export const getPages = (navigationItems: NavigationItem[]) =>
   navigationItems.reduce((acc, item) => {
-    if (!item.disabled) {
+    if (item.disabled === false) { // Handle nullable boolean explicitly
       acc.push(item);
     }
 
     if (item.isAccordion && item.items) {
       item.items.forEach((subItem) => {
-        if (!subItem.disabled) {
+        if (subItem.disabled === false) { // Handle nullable boolean explicitly
           acc.push(subItem);
         }
       });
