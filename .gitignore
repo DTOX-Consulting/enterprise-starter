@@ -60,3 +60,4 @@ public/sw.*
 analyze
 
 .trigger
+storybook-static

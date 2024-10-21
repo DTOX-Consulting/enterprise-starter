@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 
-import { defineAbilitiesFor, subjects } from '@/config/permissions/abilities';
+import { defineAbilitiesFor } from '@/config/permissions/abilities';
 
 import type { AbilityUser } from '@/config/permissions/abilities';
 
@@ -64,8 +64,8 @@ const setupTest = () => {
 
 describe('User abilities', () => {
   it('Creating a ENTITY', () => {
-    const { abilities1, abilities2, abilities3, abilities4, testUser1 } = setupTest();
-    expect(abilities1.can('create', subjects.createEntity('Team', testUser1))).toBe(true);
-    expect(abilities2.can('create', 'Entity')).toBe(true);
+    const { abilities1 } = setupTest();
+    expect(abilities1.can('create', 'Entity')).toBe(true);
+    expect(abilities1.can('edit', 'Entity')).toBe(false);
   });
 });
