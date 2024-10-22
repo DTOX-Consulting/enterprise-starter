@@ -78,7 +78,7 @@ export const createOrOverwriteFile = async (
   const { data: maybeFile } = unboxR(await findFileByName(name, parent));
   const fileId = maybeFile?.files?.[0]?.id;
 
-  if (fileId !== undefined && fileId !== null) { // Handle nullable string explicitly
+  if (fileId && fileId.length > 0) {
     if (shouldDelete) {
       await deleteFile(fileId);
     } else {
@@ -98,6 +98,7 @@ export const findFileByName = async (name: string, parent?: string) => {
     supportsAllDrives: true,
     includeItemsFromAllDrives: true,
     fields: config.drive.fields.folders,
+    // eslint-disable-next-line id-length
     q: query
   });
   return fromPromise(Promise.resolve(response.data));
@@ -109,6 +110,7 @@ export const listFiles = async (_path?: string) => {
     supportsAllDrives: true,
     includeItemsFromAllDrives: true,
     fields: config.drive.fields.folders,
+    // eslint-disable-next-line id-length
     q: 'mimeType != "application/vnd.google-apps.folder"'
   });
   return fromPromise(Promise.resolve(response.data));
@@ -135,5 +137,9 @@ export const moveFile = async (fileId: string, toAdd: string[], toRemove: string
 
 export const deleteAllFiles = async () => {
   const { data } = unboxR(await listFiles());
-  return pMap(data?.files ?? [], async (file) => file.id && deleteFile(file.id));
+  return pMap(data?.files ?? [], async (file) => {
+    if (file.id && file.id.length > 0) {
+      return deleteFile(file.id);
+    }
+  });
 };

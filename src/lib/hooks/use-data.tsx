@@ -40,7 +40,8 @@ export function useLocalData<T extends MinimalData>(storageKeyPrefix?: string) {
   const getLocalItems = useCallback(
     async () => {
       if (!storageKey) return null;
-      return await localForage.getItem<T[]>(storageKey);
+      const items = await localForage.getItem<T[]>(storageKey);
+      return items ?? null;
     },
     [storageKey]
   );
@@ -207,7 +208,7 @@ export function useData<T extends MinimalData>({
               onClick={() => {
                 setData((prevData) => {
                   const updatedData = prevData.filter((item) => item.id !== dataToDelete.id);
-                  danglingPromise(runCBData(updatedData, cbdata));
+                  void runCBData(updatedData, cbdata);
                   return updatedData;
                 });
               }}
@@ -223,8 +224,8 @@ export function useData<T extends MinimalData>({
   useDebounceEffect(
     `retrieve-data-on-mount-${storageKeyPrefix}`,
     () => {
-      if (retrieveOnMount) {
-        danglingPromise(retrieveData());
+      if (retrieveOnMount === true) {
+        void retrieveData();
       }
     },
     [retrieveData, retrieveOnMount]

@@ -55,8 +55,8 @@ export default function Modal({
           className="animate-fade-in fixed inset-0 z-40 bg-gray-100/50 backdrop-blur-md"
         />
         <DialogContent
-          onOpenAutoFocus={(e) => e.preventDefault()}
-          onCloseAutoFocus={(e) => e.preventDefault()}
+          onOpenAutoFocus={(err) => err.preventDefault()}
+          onCloseAutoFocus={(err) => err.preventDefault()}
           className={cn(
             'animate-scale-in fixed inset-0 z-40 m-auto max-h-fit w-full max-w-md overflow-hidden border border-gray-200 bg-white p-0 shadow-xl md:rounded-2xl',
             className

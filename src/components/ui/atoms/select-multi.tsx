@@ -2,7 +2,7 @@
 
 import { Command as CommandPrimitive, useCommandState } from 'cmdk';
 import { X } from 'lucide-react';
-import React, { useEffect, forwardRef } from 'react';
+import { useEffect, forwardRef, useState, useImperativeHandle, useCallback, useRef, ReactNode, ComponentPropsWithoutRef, ComponentProps, Ref, useMemo } from 'react';
 import { stringify } from 'safe-stable-stringify';
 
 import { Badge } from '@/components/ui/atoms/badge';
@@ -29,9 +29,9 @@ type SelectMultiProps = {
   options?: Option[];
   placeholder?: string;
   /** Loading component. */
-  loadingIndicator?: React.ReactNode;
+  loadingIndicator?: ReactNode;
   /** Empty component. */
-  emptyIndicator?: React.ReactNode;
+  emptyIndicator?: ReactNode;
   /** Debounce time for async search. Only work with `onSearch`. */
   delay?: number;
   /**
@@ -63,10 +63,10 @@ type SelectMultiProps = {
   /** Allow user to create option when there is no option matched. */
   creatable?: boolean;
   /** Props of `Command` */
-  commandProps?: React.ComponentPropsWithoutRef<typeof Command>;
+  commandProps?: ComponentPropsWithoutRef<typeof Command>;
   /** Props of `CommandInput` */
   inputProps?: Omit<
-    React.ComponentPropsWithoutRef<typeof CommandPrimitive.Input>,
+    ComponentPropsWithoutRef<typeof CommandPrimitive.Input>,
     'value' | 'placeholder' | 'disabled'
   >;
 };
@@ -77,7 +77,7 @@ export type SelectMultiRef = {
 };
 
 export function useDebounce<T>(value: T, delay?: number): T {
-  const [debouncedValue, setDebouncedValue] = React.useState<T>(value);
+  const [debouncedValue, setDebouncedValue] = useState<T>(value);
 
   useEffect(() => {
     const timer = setTimeout(() => setDebouncedValue(value), delay ?? 500);
@@ -128,7 +128,7 @@ function removePickedOption(groupOption: GroupOption, picked: Option[]) {
  **/
 const CommandEmpty = forwardRef<
   HTMLDivElement,
-  React.ComponentProps<typeof CommandPrimitive.Empty>
+  ComponentProps<typeof CommandPrimitive.Empty>
 >(({ className, ...props }, forwardedRef) => {
   const render = useCommandState((state) => state.filtered.count === 0);
 
@@ -147,7 +147,7 @@ const CommandEmpty = forwardRef<
 
 CommandEmpty.displayName = 'CommandEmpty';
 
-const SelectMulti = React.forwardRef<SelectMultiRef, SelectMultiProps>(
+const SelectMulti = forwardRef<SelectMultiRef, SelectMultiProps>(
   (
     {
       value,
@@ -172,20 +172,20 @@ const SelectMulti = React.forwardRef<SelectMultiRef, SelectMultiProps>(
       commandProps,
       inputProps
     }: SelectMultiProps,
-    ref: React.Ref<SelectMultiRef>
+    ref: Ref<SelectMultiRef>
   ) => {
-    const inputRef = React.useRef<HTMLInputElement>(null);
-    const [open, setOpen] = React.useState(false);
-    const [isLoading, setIsLoading] = React.useState(false);
+    const inputRef = useRef<HTMLInputElement>(null);
+    const [open, setOpen] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
-    const [selected, setSelected] = React.useState<Option[]>(value ?? []);
-    const [options, setOptions] = React.useState<GroupOption>(
+    const [selected, setSelected] = useState<Option[]>(value ?? []);
+    const [options, setOptions] = useState<GroupOption>(
       transToGroupOption(arrayDefaultOptions, groupBy)
     );
-    const [inputValue, setInputValue] = React.useState('');
+    const [inputValue, setInputValue] = useState('');
     const debouncedSearchTerm = useDebounce(inputValue, delay ?? 500);
 
-    React.useImperativeHandle(
+    useImperativeHandle(
       ref,
       () => ({
         selectedValue: [...selected],
@@ -194,7 +194,7 @@ const SelectMulti = React.forwardRef<SelectMultiRef, SelectMultiProps>(
       [selected]
     );
 
-    const handleUnselect = React.useCallback(
+    const handleUnselect = useCallback(
       (option: Option) => {
         const newOptions = selected.filter((select) => select.value !== option.value);
         setSelected(newOptions);
@@ -203,8 +203,8 @@ const SelectMulti = React.forwardRef<SelectMultiRef, SelectMultiProps>(
       [onChange, selected]
     );
 
-    const handleKeyDown = React.useCallback(
-      (event: React.KeyboardEvent<HTMLDivElement>) => {
+    const handleKeyDown = useCallback(
+      (event: KeyboardEvent<HTMLDivElement>) => {
         const input = inputRef.current;
         if (input) {
           if (event.key === 'Delete' || event.key === 'Backspace') {
@@ -299,7 +299,7 @@ const SelectMulti = React.forwardRef<SelectMultiRef, SelectMultiProps>(
       return undefined;
     };
 
-    const emptyItem = React.useCallback(() => {
+    const emptyItem = useCallback(() => {
       if (emptyIndicator === undefined || emptyIndicator === null) return undefined;
 
       // For async search that showing emptyIndicator
@@ -314,13 +314,13 @@ const SelectMulti = React.forwardRef<SelectMultiRef, SelectMultiProps>(
       return <CommandEmpty>{emptyIndicator}</CommandEmpty>;
     }, [creatable, emptyIndicator, onSearch, options]);
 
-    const selectables = React.useMemo<GroupOption>(
+    const selectables = useMemo<GroupOption>(
       () => removePickedOption(options, selected),
       [options, selected]
     );
 
     /** Avoid Creatable Selector freezing or lagging when paste a long string. */
-    const commandFilter = React.useCallback(() => {
+    const commandFilter = useCallback(() => {
       if (commandProps?.filter) {
         return commandProps.filter;
       }

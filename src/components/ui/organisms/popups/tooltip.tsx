@@ -28,8 +28,8 @@ export default function Tooltip({
       <Drawer.Root>
         <Drawer.Trigger
           className={`${fullWidth ? 'w-full' : 'inline-flex'} md:hidden`}
-          onClick={(e) => {
-            e.stopPropagation();
+          onClick={(err) => {
+            err.stopPropagation();
           }}
         >
           {children}

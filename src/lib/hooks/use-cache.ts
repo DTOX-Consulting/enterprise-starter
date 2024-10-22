@@ -7,8 +7,8 @@ export const createCachedHook = <I, O>(processor: (arg: I) => O) => {
   const cachedResults = new Map<string, O>();
   const cachedExecutions = new Map<string, () => O | undefined>();
 
-  return (cacheKey: string, i: I) => {
-    const stringified = stringifyDeterministic(i);
+  return (cacheKey: string, index: I) => {
+    const stringified = stringifyDeterministic(index);
     const argsHash = stringified ? hash(stringified) : '';
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: Purposefully not exhaustive
@@ -16,7 +16,7 @@ export const createCachedHook = <I, O>(processor: (arg: I) => O) => {
       cachedExecutions.set(cacheKey, () => {
         if (cachedResults.has(cacheKey)) return cachedResults.get(cacheKey) as O;
 
-        const result = processor(i);
+        const result = processor(index);
         cachedResults.set(cacheKey, result);
         return result;
       });

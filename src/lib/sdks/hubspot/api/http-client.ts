@@ -72,7 +72,7 @@ export class HttpClient<SecurityDataType = unknown> {
 
   protected encodeQueryParam(key: string, value: string | number | boolean) {
     const encodedKey = encodeURIComponent(key);
-    return `${encodedKey}=${encodeURIComponent(typeof value === 'number' ? value : `${value}`)}`;
+    return `${encodedKey}=${encodeURIComponent(typeof value === 'number' ? value : String(value))}`;
   }
 
   protected addQueryParam(query: QueryParamsType, key: string) {
@@ -80,8 +80,8 @@ export class HttpClient<SecurityDataType = unknown> {
   }
 
   protected addArrayQueryParam(query: QueryParamsType, key: string) {
-    const value: string[] = (query[key] as string[]) ?? [];
-    return value.map((val) => this.encodeQueryParam(key, val)).join('&');
+    const value = query[key] as string[] | undefined;
+    return value ? value.map((val) => this.encodeQueryParam(key, val)).join('&') : '';
   }
 
   protected toQueryString(rawQuery?: QueryParamsType): string {
@@ -116,17 +116,18 @@ export class HttpClient<SecurityDataType = unknown> {
         return input as string;
       },
       [ContentType.FormData]: (input: unknown) => {
+        if (input === null || typeof input !== 'object') {
+          return new FormData();
+        }
         const formData = new FormData();
-        Object.keys((input as object) || {}).forEach((key) => {
-          const property = (input as Record<string, unknown>)[key];
-          formData.append(
-            key,
-            property instanceof Blob
-              ? property
-              : typeof property === 'object' && property !== null
-              ? stringify(property)
-              : `${property as string}`
-          );
+        Object.entries(input as Record<string, unknown>).forEach(([key, property]) => {
+          if (property instanceof Blob) {
+            formData.append(key, property);
+          } else if (typeof property === 'object' && property !== null) {
+            formData.append(key, stringify(property));
+          } else {
+            formData.append(key, String(property));
+          }
         });
         return formData;
       },
@@ -180,14 +181,15 @@ export class HttpClient<SecurityDataType = unknown> {
     cancelToken,
     ...params
   }: FullRequestParams): Promise<T> => {
-    const secureParams = (secure && this.securityWorker && (await this.securityWorker(this.securityData))) ?? {};
+    const secureParams =
+      secure && this.securityWorker ? await this.securityWorker(this.securityData) : {};
     const requestParams = this.mergeRequestParams(params, secureParams as RequestParams);
     const queryString = query ? this.toQueryString(query) : '';
     const payloadFormatter = this.contentFormatters[type ?? ContentType.Json];
-    const responseFormat = format ?? requestParams.format;
-    const url = `${baseUrl ?? this.baseUrl}${path}${queryString ? `?${queryString}` : ''}`;
+    const responseFormat = (format ?? requestParams.format ?? 'json');
+    const requestUrl = `${baseUrl ?? this.baseUrl}${path}${queryString ? `?${queryString}` : ''}`;
 
-    const response = await this.customFetch(url, {
+    const response = await this.customFetch(requestUrl, {
       ...requestParams,
       headers: {
         ...requestParams.headers,
@@ -206,7 +208,7 @@ export class HttpClient<SecurityDataType = unknown> {
       if (response.ok) {
         res.data = data;
       } else {
-        res.error = data;
+        res.error = data as E;
       }
     } catch (err) {
       res.error = err as E;

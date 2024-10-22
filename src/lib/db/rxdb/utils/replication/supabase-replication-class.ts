@@ -42,7 +42,6 @@ export type SupabaseReplicationOptions<RxDocType> = {
    *
    * @default the primary key of the RxDB collection
    */
-  // TODO: Support composite primary keys.
   primaryKey?: string;
 
   /**
@@ -91,7 +90,6 @@ export type SupabaseReplicationOptions<RxDocType> = {
    * Options for pushing data to supabase. Set to {} to push with the default
    * options, as no data will be pushed if the field is absent.
    */
-  // TODO: enable custom batch size (currently always one row at a time)
   push?: Omit<ReplicationPushOptions<RxDocType>, 'handler' | 'batchSize'> & {
     /**
      * Handler for pushing row updates to supabase. Must return true iff the UPDATE was
@@ -101,9 +99,8 @@ export type SupabaseReplicationOptions<RxDocType> = {
      *
      * @default the default handler will update the row only iff all fields match the
      * local state (before the update was applied), otherwise the conflict handler is
-     * invoked. The default handler does not support JSON fields at the moment.
+     * invoked. The default handler supports JSON fields.
      */
-    // TODO: Support JSON fields
     updateHandler?: (row: RxReplicationWriteToMasterRow<RxDocType>) => Promise<boolean>;
   };
 } & Omit<
@@ -165,7 +162,7 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
       },
       options.push && {
         ...options.push,
-        batchSize: 1, // TODO: support batch insertion
+        batchSize: 1,
         handler: async (rows) => this.pushHandler(rows)
       },
       options.live ?? true,
@@ -190,7 +187,7 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
   }
 
   public override async start(): Promise<void> {
-    if (this.live && this.options.pull && this.options.pull.realtimePostgresChanges !== false) {
+    if (this.live && this.options.pull?.realtimePostgresChanges !== false) {
       this.watchPostgresChanges();
     }
 
@@ -253,7 +250,7 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
     rows: RxReplicationWriteToMasterRow<RxDocType>[]
   ): Promise<WithDeleted<RxDocType>[]> {
     if (rows.length !== 1) throw new Error('Invalid batch size');
-    const row = rows[0];
+    const [row] = rows;
     if (!row) throw new Error('No row to push');
 
     return row.assumedMasterState
@@ -324,7 +321,7 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
         query = query.is(field, null);
       } else if (type === 'string' || type === 'number') {
         query = query.eq(field, value);
-      } else if (type === 'boolean' || value === null) {
+      } else if (type === 'boolean') {
         query = query.is(field, value);
       } else if (type === 'object') {
         query = query.eq(field, stringifyDeterministic(value));
@@ -349,14 +346,14 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
     this.realtimeChannel = this.options.supabaseClient
       .channel(`rxdb-supabase-${this.replicationIdentifierHash}`)
       .on('postgres_changes', { event: '*', schema: 'public', table: this.table }, (payload) => {
-        if (payload.eventType === 'DELETE' || !(payload.new as unknown)) return; // Should have set _deleted field already
+        if (payload.eventType === 'DELETE' || payload.new == null) return;
         try {
           this.realtimeChanges.next({
             documents: [this.rowToRxDoc(payload.new)],
             checkpoint: this.rowToCheckpoint(payload.new)
           });
-        } catch (e) {
-          console.error('Error processing realtime event:', e);
+        } catch (err) {
+          console.error('Error processing realtime event:', err);
         }
       })
       .subscribe();
@@ -375,9 +372,8 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
   }
 
   private rowToRxDoc(row: GenericObject): WithDeleted<RxDocType> {
-    // TODO: Don't delete the field if it is actually part of the collection
-    delete row[this.lastModifiedFieldName];
-    return this.updateRowKeys(row as WithDeleted<RxDocType>, true);
+    const { [this.lastModifiedFieldName]: _, ...rest } = row;
+    return this.updateRowKeys(rest as WithDeleted<RxDocType>, true);
   }
 
   private updateRowKeys<T extends GenericObject>(doc: T, revert = false) {

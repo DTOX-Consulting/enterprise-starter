@@ -48,7 +48,7 @@ export const getOrCreateFolder = async (
 ) => {
   const { data: maybeFolder } = unboxR(await findFolderByName(name, parent));
   const folder = maybeFolder?.files?.[0];
-  return folder ? folder : unboxR(await createFolder(name, parent)).data;
+  return folder ?? unboxR(await createFolder(name, parent)).data;
 };
 
 export const createOrOverwriteFolder = async (
@@ -58,19 +58,22 @@ export const createOrOverwriteFolder = async (
   const { data: maybeFolder } = unboxR(await findFolderByName(name, parent));
   const folderId = maybeFolder?.files?.[0]?.id;
 
-  if (folderId) unboxR(await deleteFolder(folderId));
+  if (folderId && folderId.length > 0) {
+    unboxR(await deleteFolder(folderId));
+  }
   return unboxR(await createFolder(name, parent)).data;
 };
 
 export const findFolderByName = async (name: string, parent?: string) => {
   const query = `mimeType = "application/vnd.google-apps.folder" and trashed = false and name = "${name}"${
-    parent ? `and '${parent}' in parents` : ''
+    parent && parent.length > 0 ? ` and '${parent}' in parents` : ''
   }`;
   const response = await drive.files.list({
     corpora: 'allDrives',
     supportsAllDrives: true,
     includeItemsFromAllDrives: true,
     fields: config.drive.fields.folders,
+    // eslint-disable-next-line id-length
     q: query
   });
   return fromPromise(Promise.resolve(response.data));
@@ -83,6 +86,7 @@ export const listFolders = async () => {
     supportsAllDrives: true,
     includeItemsFromAllDrives: true,
     fields: config.drive.fields.folders,
+    // eslint-disable-next-line id-length
     q: query
   });
   return fromPromise(Promise.resolve(response.data));
@@ -107,7 +111,7 @@ export const moveFolder = async (fileId: string, toAdd: string[], toRemove: stri
 export const deleteAllFolders = async () => {
   const { data } = unboxR(await listFolders());
   return pMap(data?.files ?? [], async (file) => {
-    if (file.id) {
+    if (file.id && file.id.length > 0) {
       return deleteFolder(file.id);
     }
   });

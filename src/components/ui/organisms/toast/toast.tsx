@@ -122,6 +122,7 @@ export {
   RadixToastProvider,
   RadixToastViewport,
   Toast,
+  ToastAction,
   RadixToastTitle,
   RadixToastDescription,
   RadixToastClose,
