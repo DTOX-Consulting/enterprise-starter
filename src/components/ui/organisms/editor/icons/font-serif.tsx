@@ -1,4 +1,4 @@
-export default function FontSerif({ className }: { className?: string }) {
+export default function FontSerif({ className }: Readonly<{ className?: string }>) {
   return (
     <svg
       width="31"

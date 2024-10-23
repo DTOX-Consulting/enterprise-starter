@@ -3,7 +3,7 @@ import { getDefaultOrgCode, getUserByEmail } from '@/lib/sdks/kinde/api/utils';
 
 export const findPermission = async (permission: string) => {
   const { permissions } = await permissionsApi.getPermissions();
-  const foundPermission = permissions?.find((p) => p.key === permission);
+  const foundPermission = permissions?.find((perm) => perm.key === permission);
   if (!foundPermission) throw new Error('Permission not found');
   return foundPermission as NonNullable<typeof foundPermission> & { id: string };
 };

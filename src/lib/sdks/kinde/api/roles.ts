@@ -3,7 +3,7 @@ import { getDefaultOrgCode, getUserByEmail } from '@/lib/sdks/kinde/api/utils';
 
 export const findRole = async (role: string) => {
   const { roles } = await rolesApi.getRoles();
-  const foundRole = roles?.find((r) => r.key === role);
+  const foundRole = roles?.find((rol) => rol.key === role);
   if (!foundRole) throw new Error('Role not found');
   return foundRole as NonNullable<typeof foundRole> & { id: string };
 };

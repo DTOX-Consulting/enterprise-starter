@@ -67,8 +67,8 @@ export const NotificationContent = ({
           className="group relative -mx-2 flex cursor-pointer flex-col border-b px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-500"
         >
           <X
-            onClick={(e) => {
-              e.stopPropagation();
+            onClick={(event) => {
+              event.stopPropagation();
               onClick(notification, true);
             }}
             className={cn(

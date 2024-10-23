@@ -29,7 +29,6 @@ export const initialize = async (userSession: UserSession, clearFirst = true) =>
     await clearDbs();
   }
   const db = await create(DB_NAME);
-  // await db.waitForLeadership();
 
   try {
     const collections = await addCollections(db);
@@ -37,8 +36,8 @@ export const initialize = async (userSession: UserSession, clearFirst = true) =>
 
     const replication = await replicate(userSession, collections);
     return { db, collections, replication };
-  } catch (e) {
-    console.error(e);
+  } catch (err) {
+    console.error(err);
   }
 
   return { db };

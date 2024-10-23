@@ -71,7 +71,7 @@ const getConflictHandler = <
      * - newDocumentState: The new document state of the fork branch (=client) that RxDB want to write to the master
      * - realMasterState: The real master state of the document
      */
-    i: RxConflictHandlerInput<V>
+    input: RxConflictHandlerInput<V>
   ): Promise<RxConflictHandlerOutput<V>> => {
     /**
      * Here we detect if a conflict exists in the first place.
@@ -82,7 +82,7 @@ const getConflictHandler = <
      * to compare specific properties of the document, like the updatedAt time,
      * for better performance because deepEqual() is expensive.
      */
-    if (isDeepEqual(i.newDocumentState, i.realMasterState)) {
+    if (isDeepEqual(input.newDocumentState, input.realMasterState)) {
       return Promise.resolve({
         isEqual: true
       });
@@ -98,7 +98,7 @@ const getConflictHandler = <
      */
     return Promise.resolve({
       isEqual: false,
-      documentData: i.realMasterState
+      documentData: input.realMasterState
     });
   };
 

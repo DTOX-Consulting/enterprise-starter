@@ -42,9 +42,9 @@ const onUpload = async (file: File) => {
     toast.promise(promiseFn(), {
       loading: 'Uploading image...',
       success: 'Image uploaded successfully.',
-      error: (e: Error) => {
-        reject(e);
-        return e.message;
+      error: (err: Error) => {
+        reject(err);
+        return err.message;
       }
     });
   });

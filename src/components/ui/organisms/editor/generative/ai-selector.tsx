@@ -24,7 +24,7 @@ type AISelectorProps = {
   onOpenChange: (open: boolean) => void;
 };
 
-export function AISelector({ onOpenChange, completionApi }: AISelectorProps) {
+export function AISelector({ onOpenChange, completionApi }: Readonly<AISelectorProps>) {
   const { editor } = useEditor() as { editor: Editor | null };
   const [inputValue, setInputValue] = useState('');
 
@@ -35,8 +35,8 @@ export function AISelector({ onOpenChange, completionApi }: AISelectorProps) {
         toast.error('You have reached your request limit for the day.');
       }
     },
-    onError: (e) => {
-      toast.error(e.message);
+    onError: (err) => {
+      toast.error(err.message);
     }
   });
 

@@ -24,7 +24,7 @@ export const UserMenu = ({ user, noMinimize }: { user?: SessionUser; noMinimize?
   const [open, setOpen] = useState(false);
   const [isMinimized] = useAtom('sidebarMinimizedAtom');
 
-  const UserComponent = isMinimized && !noMinimize ? UserImage : UserImageWithDetails;
+  const UserComponent = Boolean(isMinimized) && !Boolean(noMinimize) ? UserImage : UserImageWithDetails;
 
   const handleClick = useCallback(() => {
     closeSideBar();
@@ -35,7 +35,7 @@ export const UserMenu = ({ user, noMinimize }: { user?: SessionUser; noMinimize?
     <DropdownMenu open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger
         className={cn('flex focus-visible:outline-none', {
-          'justify-center': isMinimized && !noMinimize
+          'justify-center': Boolean(isMinimized) && !Boolean(noMinimize)
         })}
       >
         <UserComponent user={user} />

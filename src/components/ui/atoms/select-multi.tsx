@@ -369,7 +369,8 @@ const SelectMulti = forwardRef<SelectMultiRef, SelectMultiProps>(
                   type="button"
                   className={cn(
                     'ml-1 rounded-full outline-none ring-offset-background focus:ring-2 focus:ring-ring focus:ring-offset-2',
-                    (disabled === true || (disabled == null && option.fixed)) && 'hidden'
+                    (Boolean(disabled) || (Boolean(disabled) === null && Boolean(option.fixed))) &&
+                      'hidden'
                   )}
                   onKeyDown={(event) => {
                     if (event.key === 'Enter') {
@@ -407,7 +408,9 @@ const SelectMulti = forwardRef<SelectMultiRef, SelectMultiProps>(
                 }
                 inputProps?.onFocus?.(event);
               }}
-              placeholder={hidePlaceholderWhenSelected && selected.length !== 0 ? '' : placeholder}
+              placeholder={
+                Boolean(hidePlaceholderWhenSelected) && Boolean(selected.length) ? '' : placeholder
+              }
               className={cn(
                 'flex-1 border-0 bg-transparent placeholder:text-muted-foreground focus:border-0 focus:outline-none focus:ring-0',
                 inputProps?.className

@@ -32,10 +32,10 @@ export function SidebarLinks({
   const activeParent = navigationProps.getActiveParent()?.name;
 
   return navigationProps.items.map((item) => {
-    if (item.authenticated && !user) return null;
-    if (item.unauthenticated && user) return null;
+    if (Boolean(item.authenticated) && !Boolean(user)) return null;
+    if (Boolean(item.unauthenticated) && Boolean(user)) return null;
 
-    if (item.bottom) bottomValue = bottomValue === 0 ? 4 : bottomValue + 10;
+    if (Boolean(item.bottom)) bottomValue = bottomValue === 0 ? 4 : bottomValue + 10;
     const bottomClass = `bottom-${bottomValue}`;
 
     if (item.tier && item.tier !== tier) return null;
@@ -72,15 +72,15 @@ function SidebarLink({
   return (
     <li
       key={item.name}
-      className={cn(item.bottom ? `${bottomClass} absolute w-full pr-12 md:pr-8` : '')}
+      className={cn(Boolean(item.bottom) ? `${bottomClass} absolute w-full pr-12 md:pr-8` : '')}
     >
       <Tip content={isMinimized ? item.name : ''} className="w-full">
         <Link
           href={item.href}
-          onClick={(e) => {
+          onClick={(event) => {
             navigationProps.setActive(item.name);
-            if (item.disabled ?? item.isAccordion) {
-              e.preventDefault();
+            if (Boolean(item.disabled) || Boolean(item.isAccordion)) {
+              event.preventDefault();
             }
             if (item.items) {
               setIsOpen(!isOpen, true);

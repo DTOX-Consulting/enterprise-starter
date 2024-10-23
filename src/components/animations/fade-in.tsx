@@ -18,7 +18,7 @@ export function FadeIn({
     <motion.div
       key={key}
       variants={{
-        hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 24 },
+        hidden: { opacity: 0, y: Boolean(shouldReduceMotion) ? 0 : 24 },
         visible: { opacity: 1, y: 0 }
       }}
       transition={{ duration: 0.5 }}

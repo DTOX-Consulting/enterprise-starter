@@ -13,7 +13,6 @@ import { useForceState } from '@/lib/hooks/use-force-rerender';
 import type { NavigationItem } from '@/config/navigation/types';
 
 export const standardizePath = (path: string) => path.replace(/^(\/+)|(\/+)$/g, '');
-// Updated regex to avoid super-linear runtime and make precedence explicit
 
 export const isInPages = (path: string, navigationItems: NavigationItem[]) => {
   const pages = getPages(navigationItems);
@@ -22,18 +21,19 @@ export const isInPages = (path: string, navigationItems: NavigationItem[]) => {
 
 export const getPages = (navigationItems: NavigationItem[]) =>
   navigationItems.reduce((acc, item) => {
-    if (item.disabled === false) { // Handle nullable boolean explicitly
+    if (item.disabled === false) {
       acc.push(item);
     }
 
-    if (item.isAccordion && item.items) {
+    if (item.isAccordion === true && item.items && Array.isArray(item.items)) {
       item.items.forEach((subItem) => {
-        if (subItem.disabled === false) { // Handle nullable boolean explicitly
+        if (subItem.disabled === false) {
           acc.push(subItem);
         }
       });
       return acc;
     }
+
 
     return acc;
   }, [] as NavigationItem[]);
@@ -71,7 +71,7 @@ export function getParent(navigationItems: NavigationItem[], path: string) {
   let currentParent: NavigationItem | undefined;
 
   navigationItems.forEach((item) => {
-    if (item.isAccordion && item.items) {
+    if (item.isAccordion === true && item.items && Array.isArray(item.items)) {
       item.items.forEach((subItem) => {
         if (standardizePath(subItem.href) === standardizePath(path)) {
           currentParent = item;

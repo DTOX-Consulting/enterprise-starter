@@ -18,7 +18,7 @@ export function useForceState<T>(initialValue: T) {
   const setState = useCallback(
     (value: T | ((prev: T) => T), rerender?: boolean) => {
       stateRef.current = G.isFunction(value) ? value(stateRef.current) : value;
-      if (rerender) forceRerender();
+      if (Boolean(rerender)) forceRerender();
     },
     [forceRerender]
   );

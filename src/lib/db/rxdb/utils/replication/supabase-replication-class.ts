@@ -181,13 +181,13 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
       Object.entries(this.keyMapping).map(([key, value]) => [value, key])
     );
 
-    if (this.autoStart) {
+    if (Boolean(this.autoStart)) {
       void this.start();
     }
   }
 
   public override async start(): Promise<void> {
-    if (this.live && this.options.pull?.realtimePostgresChanges !== false) {
+    if (Boolean(this.live) && Boolean(this.options.pull?.realtimePostgresChanges)) {
       this.watchPostgresChanges();
     }
 

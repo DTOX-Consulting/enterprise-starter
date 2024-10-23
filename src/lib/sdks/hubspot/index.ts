@@ -91,7 +91,7 @@ export const createContact = async (input: ClientData) => {
             email: input.email,
             lastName: input.lastName,
             firstName: input.firstName,
-            notify_me: input.notifyMe ? 'true' : 'false',
+            notify_me: Boolean(input.notifyMe) ? 'true' : 'false',
             subscription_plan: input.subscriptionPlan ?? defaultSubscriptionPermissionsKey
           }
         }
@@ -112,7 +112,7 @@ export const updateContact = async (input: ClientData, id: string) => {
             email: input.email,
             lastName: input.lastName,
             firstName: input.firstName,
-            notify_me: input.notifyMe ? 'true' : 'false',
+            notify_me: Boolean(input.notifyMe) ? 'true' : 'false',
             subscription_plan: input.subscriptionPlan ?? defaultSubscriptionPermissionsKey
           }
         }

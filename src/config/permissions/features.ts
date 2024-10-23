@@ -212,7 +212,7 @@ export const isPaidTier = (key?: TierName) => isProTier(key) || isTeamTier(key);
 
 export const isFreeTier = (key?: TierName) => isNoneTier(key) || isStarterTier(key);
 
-export const isValidTier = (key?: string): key is TierName => (key ? key in tiers : false);
+export const isValidTier = (key?: string): key is TierName => typeof key === 'string' && key !== '' && key in tiers;
 
 export const getSubscriptionPermissionsKey = (key: TierName) =>
   tiers[key].kinde.subscriptionPermissionsKey;
@@ -231,7 +231,7 @@ export const getSubscriptionPermissionsKeyFromPermissions = (permissions: string
 };
 
 export const convertPermissionsToArray = (roles?: { key?: string }[]) =>
-  roles?.map((p) => p.key).filter(Boolean) ?? [];
+  roles?.map((permission) => permission.key).filter(Boolean) ?? [];
 
 export const defaultTier = 'none' as TierName;
 export const tierOrderUI = ['starter', 'team', 'pro'] as TierName[];

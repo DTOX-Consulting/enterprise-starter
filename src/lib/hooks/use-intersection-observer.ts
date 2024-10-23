@@ -10,7 +10,7 @@ function useIntersectionObserver(
 ): IntersectionObserverEntry | undefined {
   const [entry, setEntry] = useState<IntersectionObserverEntry>();
 
-  const frozen = entry?.isIntersecting && freezeOnceVisible;
+  const frozen = Boolean(entry?.isIntersecting) && Boolean(freezeOnceVisible);
 
   // Use useCallback to memoize updateEntry
   const updateEntry = useCallback(([entry]: IntersectionObserverEntry[]): void => {

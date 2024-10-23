@@ -1,4 +1,8 @@
-export default function FontDefault({ className }: { className?: string }) {
+type FontDefaultProps = {
+  readonly className?: string;
+}
+
+export default function FontDefault({ className }: FontDefaultProps) {
   return (
     <svg
       width="27"

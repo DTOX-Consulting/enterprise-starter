@@ -27,7 +27,7 @@ export default function Tooltip({
     return (
       <Drawer.Root>
         <Drawer.Trigger
-          className={`${fullWidth ? 'w-full' : 'inline-flex'} md:hidden`}
+          className={`${Boolean(fullWidth) ? 'w-full' : 'inline-flex'} md:hidden`}
           onClick={(err) => {
             err.stopPropagation();
           }}

@@ -1,4 +1,4 @@
-export default function FontMono({ className }: { className?: string }) {
+export default function FontMono({ className }: Readonly<{ className?: string }>) {
   return (
     <svg
       width="28"
