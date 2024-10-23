@@ -9,7 +9,7 @@ type ChatScrollAnchorProps = {
   trackVisibility?: boolean;
 };
 
-export function ChatScrollAnchor({ trackVisibility }: ChatScrollAnchorProps) {
+export function ChatScrollAnchor({ trackVisibility }: Readonly<ChatScrollAnchorProps>) {
   const isAtBottom = useAtBottom();
 
   const { ref, entry, inView } = useInView({

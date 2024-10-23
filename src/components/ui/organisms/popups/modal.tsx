@@ -17,12 +17,12 @@ export default function Modal({
   className,
   showModal,
   setShowModal
-}: {
+}: Readonly<{
   children: ReactNode;
   className?: string;
   showModal: boolean;
   setShowModal: Dispatch<SetStateAction<boolean>>;
-}) {
+}>) {
   const { isMobile } = useMediaQuery();
 
   if (isMobile) {

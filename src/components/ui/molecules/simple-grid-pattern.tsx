@@ -1,6 +1,6 @@
 import { useId } from 'react';
 
-export function SimpleGridPattern(props: Omit<React.ComponentPropsWithoutRef<'pattern'>, 'id'>) {
+export function SimpleGridPattern(props: Readonly<Omit<React.ComponentPropsWithoutRef<'pattern'>, 'id'>>) {
   const patternId = useId();
 
   return (

@@ -32,7 +32,7 @@ const exampleMessages = [
 
 type EmptyScreenProps = Pick<UseChatHelpers, 'setInput'>;
 
-export function EmptyScreen({ setInput }: EmptyScreenProps) {
+export function EmptyScreen({ setInput }: Readonly<EmptyScreenProps>) {
   return (
     <div className="mx-auto max-w-5xl px-4">
       <div className="rounded-lg border bg-background p-8">

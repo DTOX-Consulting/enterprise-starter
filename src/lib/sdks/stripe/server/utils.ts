@@ -122,7 +122,7 @@ export async function getCustomerEmail(
 
   const { email } = customerData;
 
-  if (!email || email.trim() === '') {
+  if (!Boolean(email) || email?.trim() === '') {
     throw new Error('Customer email not found');
   }
 

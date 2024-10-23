@@ -3,6 +3,6 @@
 const adminUsers: string[] = [];
 
 export const isAdminUser = async (email?: string) => {
-  const value = email ? adminUsers.includes(email) : false;
+  const value = Boolean(email) && adminUsers.includes(email as string);
   return Promise.resolve(value);
 };

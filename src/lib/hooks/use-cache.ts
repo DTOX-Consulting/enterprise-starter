@@ -9,7 +9,7 @@ export const createCachedHook = <I, O>(processor: (arg: I) => O) => {
 
   return (cacheKey: string, index: I) => {
     const stringified = stringifyDeterministic(index);
-    const argsHash = stringified ? hash(stringified) : '';
+    const argsHash = Boolean(stringified) ? hash(stringified as string) : '';
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: Purposefully not exhaustive
     return useCallback(() => {

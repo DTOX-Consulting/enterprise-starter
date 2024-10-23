@@ -61,7 +61,7 @@ export const shareFiles = async (emailAddress: string, role = 'reader') => {
 
   return pMap(
     data?.files ?? [],
-    async (file) => file.id ? createPermissions(file.id, emailAddress, role) : undefined
+    async (file) => Boolean(file.id) && createPermissions(file.id as string, emailAddress, role)
   );
 };
 
@@ -70,6 +70,6 @@ export const shareFolders = async (emailAddress: string, role = 'reader') => {
 
   return pMap(
     data?.files ?? [],
-    async (file) => file.id ? createPermissions(file.id, emailAddress, role) : undefined
+    async (file) => Boolean(file.id) && createPermissions(file.id as string, emailAddress, role)
   );
 };

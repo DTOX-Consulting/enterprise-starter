@@ -10,7 +10,7 @@ import type { ReactNode } from 'react';
 export async function AdminBlock({
   children,
   noBlock = false
-}: { children?: ReactNode; noBlock?: boolean }) {
+}: Readonly<{ children?: ReactNode; noBlock?: boolean }>) {
   const { isAdmin } = noBlock ? { isAdmin: true } : await getUserSession();
 
   if (isAdmin && G.isNotNullable(children)) return <>{children}</>;

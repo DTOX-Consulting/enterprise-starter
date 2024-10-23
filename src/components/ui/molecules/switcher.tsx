@@ -63,7 +63,7 @@ export function Switcher<T extends BasicChoice>({
   disabled,
   newAction,
   namePlaceholder
-}: SwitcherProps<T>) {
+}: Readonly<SwitcherProps<T>>) {
   const [open, setOpen] = useState(false);
 
   if (isMobile) {
@@ -132,11 +132,11 @@ function SwitcherNewButton({
   onClick,
   setOpen,
   canCreate
-}: {
+}: Readonly<{
   canCreate?: boolean;
   onClick: () => void;
   setOpen: (value: boolean) => void;
-}) {
+}>) {
   return (
     <Upgrade hasAccess={canCreate ?? false}>
       <Button
@@ -171,12 +171,12 @@ function SwitcherModal({
   onSubmit,
   toCreate,
   canCreate
-}: {
+}: Readonly<{
   toCreate?: string;
   canCreate?: boolean;
   setOpen: (value: boolean) => void;
   onSubmit?: (value: string) => void;
-}) {
+}>) {
   type FormType = z.infer<typeof FormSchema>;
 
   const FormSchema = z.object({

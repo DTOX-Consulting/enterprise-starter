@@ -18,14 +18,14 @@ export default function Popover({
   openPopover,
   setOpenPopover,
   align = 'center'
-}: {
+}: Readonly<{
   children: ReactNode;
   mobileOnly?: boolean;
   openPopover: boolean;
   content: ReactNode | string;
   align?: 'center' | 'start' | 'end';
   setOpenPopover: Dispatch<SetStateAction<boolean>>;
-}) {
+}>) {
   const { isMobile } = useMediaQuery();
 
   if (isMobile) {

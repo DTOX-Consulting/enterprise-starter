@@ -1,4 +1,4 @@
-export default function BuyMeACoffee({ className }: { className?: string }) {
+export default function BuyMeACoffee({ className }: Readonly<{ className?: string }>) {
   return (
     <svg
       width="35"

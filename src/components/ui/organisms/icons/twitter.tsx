@@ -1,4 +1,4 @@
-export default function Twitter({ className }: { className?: string }) {
+export default function Twitter({ className }: Readonly<{ className?: string }>) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 248 204" className={className}>
       <title>Twitter</title>

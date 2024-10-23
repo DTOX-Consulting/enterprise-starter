@@ -117,7 +117,7 @@ type MdxProps = {
   code: string;
 };
 
-export function Mdx({ code }: MdxProps) {
+export function Mdx({ code }: Readonly<MdxProps>) {
   const Component = useMDXComponent(code);
 
   return (

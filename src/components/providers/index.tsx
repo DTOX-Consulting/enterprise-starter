@@ -5,7 +5,7 @@ import { TRPCReactProvider } from '@/trpc/react';
 
 import type { ThemeProviderProps } from 'next-themes/dist/types';
 
-export function Providers({ children, ...props }: ThemeProviderProps) {
+export function Providers({ children, ...props }: Readonly<ThemeProviderProps>) {
   return (
     <TRPCReactProvider headers={headers()}>
       <ClientProviders {...props}>{children}</ClientProviders>

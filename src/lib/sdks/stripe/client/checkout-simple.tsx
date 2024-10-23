@@ -28,12 +28,12 @@ export const CheckoutButton = ({ tier }: { tier: TierName }) => {
   const { user } = useAuth();
   const email = user?.email;
 
-  if (!email) {
+  if (!Boolean(email)) {
     return '';
   }
 
   return (
-    <Button size="lg" className="w-full" onClick={async () => handleCheckout(tier, email)}>
+    <Button size="lg" className="w-full" onClick={async () => handleCheckout(tier, email as string)}>
       Subscribe
     </Button>
   );

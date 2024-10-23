@@ -7,12 +7,12 @@ export default function CountingNumbers({
   className,
   start = 0,
   duration = 800
-}: {
+}: Readonly<{
   value: number;
   className: string;
   start?: number;
   duration?: number;
-}) {
+}>) {
   const [count, setCount] = useState(start);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export default function CountingNumbers({
 
   return <p className={className}>{Intl.NumberFormat().format(count)}</p>;
 }
-const easeOutQuad = (t: number, b: number, c: number, d: number) => {
-  const time = t > d ? d : t / d;
-  return Math.round(-c * time * (time - 2) + b);
+const easeOutQuad = (timing: number, begin: number, change: number, duration: number) => {
+  const time = timing > duration ? duration : timing / duration;
+  return Math.round(-change * time * (time - 2) + begin);
 };

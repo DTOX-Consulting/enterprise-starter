@@ -7,7 +7,7 @@ import { RXDBProvider } from '@/lib/db/rxdb/provider';
 
 import type { ThemeProviderProps } from 'next-themes/dist/types';
 
-export function ClientProviders({ children, ...props }: ThemeProviderProps) {
+export function ClientProviders({ children, ...props }: Readonly<ThemeProviderProps>) {
   return (
     <JotaiProvider>
       <RXDBProvider>

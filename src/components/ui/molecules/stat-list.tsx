@@ -18,7 +18,7 @@ export function StatList({
   );
 }
 
-export function StatListItem({ label, value }: { label: string; value: string }) {
+export function StatListItem({ label, value }: Readonly<{ label: string; value: string }>) {
   return (
     <Border as={FadeIn} position="left" className="flex flex-col-reverse pl-8">
       <dt className="mt-2 text-base text-gray-500 dark:text-neutral-400">{label}</dt>

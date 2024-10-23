@@ -29,7 +29,7 @@ type ClearHistoryProps = {
   clearChats: () => ServerActionResult<void>;
 };
 
-export function ClearHistory({ clearChats }: ClearHistoryProps) {
+export function ClearHistory({ clearChats }: Readonly<ClearHistoryProps>) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition();

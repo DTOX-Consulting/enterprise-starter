@@ -61,10 +61,10 @@ export const removeAllRoles = async (email: string, orgId?: string) => {
 
   await Promise.all(
     roles.map(async (role) => {
-      if (!role.id) return;
+      if (!Boolean(role.id)) return;
       return organizationsApi.deleteOrganizationUserRole({
         userId: user.id,
-        roleId: role.id,
+        roleId: role.id as string,
         orgCode
       });
     })

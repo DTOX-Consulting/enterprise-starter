@@ -7,12 +7,12 @@ export default function Card({
   description,
   demo,
   large
-}: {
+}: Readonly<{
   title: string;
   description: string;
   demo: ReactNode;
   large?: boolean;
-}) {
+}>) {
   return (
     <div
       className={`relative col-span-1 h-96 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-md ${

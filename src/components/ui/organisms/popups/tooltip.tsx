@@ -16,11 +16,11 @@ export default function Tooltip({
   children,
   content,
   fullWidth
-}: {
+}: Readonly<{
   children: ReactNode;
   content: ReactNode | string;
   fullWidth?: boolean;
-}) {
+}>) {
   const { isMobile } = useMediaQuery();
 
   if (isMobile) {

@@ -57,7 +57,7 @@ function SidebarLink({
   activeParent,
   navigationProps,
   contentClassName
-}: {
+}: Readonly<{
   user?: SessionUser;
   className?: string;
   bottomClass: string;
@@ -65,7 +65,7 @@ function SidebarLink({
   contentClassName?: string;
   navigationProps: NavigationProps;
   item: NavigationProps['items'][0];
-}) {
+}>) {
   const [isMinimized] = useAtom('sidebarMinimizedAtom');
   const [isOpen, setIsOpen] = useForceState(item.name === activeParent);
 

@@ -15,7 +15,7 @@ import { routes } from '@/config/navigation/routes';
 
 import type { PropsWithChildren } from 'react';
 
-export function UpgradeModal({ children }: PropsWithChildren) {
+export function UpgradeModal({ children }: Readonly<PropsWithChildren>) {
   return (
     <Dialog>
       <DialogTrigger asChild>

@@ -1,8 +1,13 @@
-export default function LoadingCircle() {
-  return (
+import React from 'react';
+
+type LoadingCircleProps = Readonly<{
+  className?: string;
+}>;
+
+export const LoadingCircle: React.FC<LoadingCircleProps> = ({ className = '' }) => (
     <svg
       aria-hidden="true"
-      className="size-4 animate-spin fill-gray-600 text-gray-200"
+      className={`size-4 animate-spin fill-gray-600 text-gray-200 ${className}`}
       viewBox="0 0 100 101"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -16,5 +21,6 @@ export default function LoadingCircle() {
         fill="currentFill"
       />
     </svg>
-  );
-}
+  )
+
+export default LoadingCircle;

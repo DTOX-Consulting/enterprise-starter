@@ -211,11 +211,11 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
   ): Promise<ReplicationPullHandlerResult<RxDocType, SupabaseReplicationCheckpoint>> {
     let query = this.options.supabaseClient.from(this.table).select();
 
-    if (lastCheckpoint?.modified) {
+    if (Boolean(lastCheckpoint?.modified)) {
       // Construct the PostgREST query for the following condition:
       // WHERE _modified > lastModified OR (_modified = lastModified AND primaryKey > lastPrimaryKey)
-      const lastModified = stringify(lastCheckpoint.modified);
-      const lastPrimaryKey = stringify(lastCheckpoint.primaryKeyValue); // TODO: Add test for a integer primary key
+      const lastModified = stringify(lastCheckpoint?.modified);
+      const lastPrimaryKey = stringify(lastCheckpoint?.primaryKeyValue);
       const isNewer = `${this.lastModifiedFieldName}.gt.${lastModified}`;
       const isSameAge = `${this.lastModifiedFieldName}.eq.${lastModified}`;
       query = query.or(`${isNewer},and(${isSameAge},${this.primaryKey}.gt.${lastPrimaryKey})`);

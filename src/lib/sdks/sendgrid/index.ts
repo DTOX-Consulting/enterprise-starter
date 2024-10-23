@@ -24,7 +24,7 @@ export const sendMail = async ({
   dynamicTemplateData,
   from = config.emails.noreply
 }: SendArgs) => {
-  if (!body || !templateId) {
+  if (!Boolean(body) || !Boolean(templateId)) {
     throw new Error('Missing body or templateId');
   }
 
@@ -47,11 +47,11 @@ export const sendMail = async ({
     }
   } as MailDataRequired;
 
-  if (!body) {
+  if (Boolean(!body)) {
     Reflect.deleteProperty(msg, 'html');
   }
 
-  if (!templateId) {
+  if (!Boolean(templateId)) {
     Reflect.deleteProperty(msg, 'templateId');
     Reflect.deleteProperty(msg, 'dynamicTemplateData');
   }
