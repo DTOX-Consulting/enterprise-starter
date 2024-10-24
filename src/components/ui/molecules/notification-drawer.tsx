@@ -135,7 +135,7 @@ export const NotificationDrawer = ({
   onNotificationClick?: (notification: DCS<Notification>, isRemoved?: boolean) => void;
 }) => {
   const unreadNotifications = notifications
-    .filter(({ removedAt, readAt }) => !Boolean(removedAt) && !Boolean(readAt))
+    .filter(({ removedAt, readAt }) => !removedAt && !readAt)
     .reverse();
 
   const count = unreadNotifications.length;

@@ -19,7 +19,12 @@ import {
   ItemIndicator
 } from '@radix-ui/react-menubar';
 import { Check, ChevronRight, Circle } from 'lucide-react';
-import { forwardRef, ElementRef, ComponentPropsWithoutRef, HTMLAttributes } from 'react';
+import {
+  forwardRef,
+  type ElementRef,
+  type ComponentPropsWithoutRef,
+  type HTMLAttributes
+} from 'react';
 
 import { cn } from '@/lib/utils';
 
@@ -33,19 +38,18 @@ const MenubarSub = Sub;
 
 const MenubarRadioGroup = RadioGroup;
 
-const Menubar = forwardRef<
-  ElementRef<typeof Root>,
-  ComponentPropsWithoutRef<typeof Root>
->(({ className, ...props }, ref) => (
-  <Root
-    ref={ref}
-    className={cn(
-      'flex h-10 items-center space-x-1 rounded-md border bg-background p-1',
-      className
-    )}
-    {...props}
-  />
-));
+const Menubar = forwardRef<ElementRef<typeof Root>, ComponentPropsWithoutRef<typeof Root>>(
+  ({ className, ...props }, ref) => (
+    <Root
+      ref={ref}
+      className={cn(
+        'flex h-10 items-center space-x-1 rounded-md border bg-background p-1',
+        className
+      )}
+      {...props}
+    />
+  )
+);
 Menubar.displayName = Root.displayName;
 
 const MenubarTrigger = forwardRef<

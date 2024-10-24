@@ -12,7 +12,12 @@ import {
 } from '@radix-ui/react-dialog';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { X } from 'lucide-react';
-import { forwardRef, ElementRef, ComponentPropsWithoutRef, HTMLAttributes } from 'react';
+import {
+  forwardRef,
+  type ElementRef,
+  type ComponentPropsWithoutRef,
+  type HTMLAttributes
+} from 'react';
 
 import { cn } from '@/lib/utils';
 
@@ -90,12 +95,15 @@ const SheetFooter = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) =>
 );
 SheetFooter.displayName = 'SheetFooter';
 
-const SheetTitle = forwardRef<
-  ElementRef<typeof Title>,
-  ComponentPropsWithoutRef<typeof Title>
->(({ className, ...props }, ref) => (
-  <Title ref={ref} className={cn('text-lg font-semibold text-foreground', className)} {...props} />
-));
+const SheetTitle = forwardRef<ElementRef<typeof Title>, ComponentPropsWithoutRef<typeof Title>>(
+  ({ className, ...props }, ref) => (
+    <Title
+      ref={ref}
+      className={cn('text-lg font-semibold text-foreground', className)}
+      {...props}
+    />
+  )
+);
 SheetTitle.displayName = Title.displayName;
 
 const SheetDescription = forwardRef<

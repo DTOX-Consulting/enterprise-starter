@@ -96,7 +96,7 @@ const CustomLink: FC<LinkProps> = ({ href, text, isNew }) => (
       'group flex w-full items-center rounded-md border border-transparent px-2 py-1 hover:underline',
       {
         'font-medium text-foreground': Boolean(isNew),
-        'text-muted-foreground': !Boolean(isNew)
+        'text-muted-foreground': !isNew
       }
     )}
   >

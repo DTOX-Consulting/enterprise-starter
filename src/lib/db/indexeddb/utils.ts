@@ -6,8 +6,8 @@ export const deleteDbs = async () => {
   const deletePromises = dbs.map(
     async (db) =>
       new Promise<void>((resolve, reject) => {
-        if (!Boolean(db.name)) return resolve(); // Skip if no name
-        const request = indexedDB.deleteDatabase(db.name as string);
+        if (!db.name) return resolve(); // Skip if no name
+        const request = indexedDB.deleteDatabase(db.name);
         request.onsuccess = () => {
           console.log(`Deleted database: ${db.name}`);
           resolve();
@@ -31,8 +31,8 @@ export const clearDbs = async () => {
   const clearPromises = dbs.map(
     async (db) =>
       new Promise<void>((resolve, reject) => {
-        if (!Boolean(db.name)) return resolve(); // Skip if no name
-        const request = indexedDB.open(db.name as string);
+        if (!db.name) return resolve(); // Skip if no name
+        const request = indexedDB.open(db.name);
         request.onerror = () => reject(request.error as Error);
         request.onsuccess = () => {
           const database = request.result;

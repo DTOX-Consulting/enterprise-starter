@@ -1,6 +1,6 @@
 type FontDefaultProps = {
   readonly className?: string;
-}
+};
 
 export default function FontDefault({ className }: FontDefaultProps) {
   return (

@@ -1,25 +1,24 @@
 'use client';
 
 import { Root, List, Trigger, Content } from '@radix-ui/react-tabs';
-import { forwardRef, ElementRef, ComponentPropsWithoutRef } from 'react';
+import { forwardRef, type ElementRef, type ComponentPropsWithoutRef } from 'react';
 
 import { cn } from '@/lib/utils';
 
 const Tabs = Root;
 
-const TabsList = forwardRef<
-  ElementRef<typeof List>,
-  ComponentPropsWithoutRef<typeof List>
->(({ className, ...props }, ref) => (
-  <List
-    ref={ref}
-    className={cn(
-      'inline-flex h-10 items-center justify-center rounded-md bg-muted p-1 text-muted-foreground',
-      className
-    )}
-    {...props}
-  />
-));
+const TabsList = forwardRef<ElementRef<typeof List>, ComponentPropsWithoutRef<typeof List>>(
+  ({ className, ...props }, ref) => (
+    <List
+      ref={ref}
+      className={cn(
+        'inline-flex h-10 items-center justify-center rounded-md bg-muted p-1 text-muted-foreground',
+        className
+      )}
+      {...props}
+    />
+  )
+);
 TabsList.displayName = List.displayName;
 
 const TabsTrigger = forwardRef<

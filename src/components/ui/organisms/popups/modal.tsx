@@ -6,11 +6,12 @@ import {
   Overlay as DialogOverlay,
   Content as DialogContent
 } from '@radix-ui/react-dialog';
-import { ReactNode, Dispatch, SetStateAction } from 'react';
 import { Drawer } from 'vaul';
 
 import useMediaQuery from '@/lib/hooks/use-media-query';
 import { cn } from '@/lib/utils';
+
+import type { ReactNode, Dispatch, SetStateAction } from 'react';
 
 export default function Modal({
   children,

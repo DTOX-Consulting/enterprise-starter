@@ -2,7 +2,13 @@
 
 import { Provider, Root, Trigger, Content } from '@radix-ui/react-tooltip';
 import { Info } from 'lucide-react';
-import { forwardRef, ElementRef, ComponentPropsWithoutRef, ReactNode, PropsWithChildren } from 'react';
+import {
+  forwardRef,
+  type ElementRef,
+  type ComponentPropsWithoutRef,
+  type ReactNode,
+  type PropsWithChildren
+} from 'react';
 
 import { cn } from '@/lib/utils';
 
@@ -45,10 +51,7 @@ const Tip = ({
   </TooltipProvider>
 );
 
-const InverseTip = ({
-  children,
-  content
-}: PropsWithChildren<{ content: string | ReactNode }>) => (
+const InverseTip = ({ children, content }: PropsWithChildren<{ content: string | ReactNode }>) => (
   <Tip content={children}>{content}</Tip>
 );
 

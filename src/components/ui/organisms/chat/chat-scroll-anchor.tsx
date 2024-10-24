@@ -19,7 +19,7 @@ export function ChatScrollAnchor({ trackVisibility }: Readonly<ChatScrollAnchorP
   });
 
   useEffect(() => {
-    if (Boolean(isAtBottom) && Boolean(trackVisibility) && !Boolean(inView)) {
+    if (Boolean(isAtBottom) && Boolean(trackVisibility) && !inView) {
       entry?.target.scrollIntoView({
         block: 'start'
       });

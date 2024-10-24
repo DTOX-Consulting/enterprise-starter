@@ -2,7 +2,19 @@
 
 import { Command as CommandPrimitive, useCommandState } from 'cmdk';
 import { X } from 'lucide-react';
-import { useEffect, forwardRef, useState, useImperativeHandle, useCallback, useRef, ReactNode, ComponentPropsWithoutRef, ComponentProps, Ref, useMemo } from 'react';
+import {
+  useEffect,
+  forwardRef,
+  useState,
+  useImperativeHandle,
+  useCallback,
+  useRef,
+  type ReactNode,
+  type ComponentPropsWithoutRef,
+  type ComponentProps,
+  type Ref,
+  useMemo
+} from 'react';
 import { stringify } from 'safe-stable-stringify';
 
 import { Badge } from '@/components/ui/atoms/badge';
@@ -126,24 +138,23 @@ function removePickedOption(groupOption: GroupOption, picked: Option[]) {
  *
  * @reference: https://github.com/hsuanyi-chou/shadcn-ui-expansions/issues/34#issuecomment-1949561607
  **/
-const CommandEmpty = forwardRef<
-  HTMLDivElement,
-  ComponentProps<typeof CommandPrimitive.Empty>
->(({ className, ...props }, forwardedRef) => {
-  const render = useCommandState((state) => state.filtered.count === 0);
+const CommandEmpty = forwardRef<HTMLDivElement, ComponentProps<typeof CommandPrimitive.Empty>>(
+  ({ className, ...props }, forwardedRef) => {
+    const render = useCommandState((state) => state.filtered.count === 0);
 
-  if (!render) return null;
+    if (!render) return null;
 
-  return (
-    <div
-      ref={forwardedRef}
-      className={cn('py-6 text-center text-sm', className)}
-      data-cmdk-empty=""
-      role="presentation"
-      {...props}
-    />
-  );
-});
+    return (
+      <div
+        ref={forwardedRef}
+        className={cn('py-6 text-center text-sm', className)}
+        data-cmdk-empty=""
+        role="presentation"
+        {...props}
+      />
+    );
+  }
+);
 
 CommandEmpty.displayName = 'CommandEmpty';
 

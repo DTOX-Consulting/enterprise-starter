@@ -88,7 +88,7 @@ export function formatCreatedAt(createdAt: string | Date): string {
 
 export const timeAgo = (timestamp: Date | undefined, timeOnly: boolean | undefined): string => {
   if (!timestamp) return 'never';
-  return `${ms(Date.now() - new Date(timestamp).getTime())}${Boolean(timeOnly) ? '' : 'ago'}`;
+  return `${ms(Date.now() - new Date(timestamp).getTime())}${timeOnly ? '' : 'ago'}`;
 };
 
 export function formatDateLocal(input: string | number | Date): string {

@@ -62,8 +62,12 @@ export const LinkSelector = ({ open, onOpenChange }: LinkSelectorProps) => {
             event.preventDefault();
             const input = target[0] as HTMLInputElement;
             const url = getUrlFromString(input.value);
-            if (Boolean(url)) {
-              editor.chain().focus().setLink({ href: url as string }).run();
+            if (url) {
+              editor
+                .chain()
+                .focus()
+                .setLink({ href: url })
+                .run();
             }
           }}
           className="flex p-1 "

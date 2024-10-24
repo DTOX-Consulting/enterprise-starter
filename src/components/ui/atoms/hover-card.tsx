@@ -6,7 +6,7 @@ import {
   Portal as HoverCardPortal,
   Content as RadixHoverCardContent
 } from '@radix-ui/react-hover-card';
-import { forwardRef, ElementRef, ComponentPropsWithoutRef } from 'react';
+import { forwardRef, type ElementRef, type ComponentPropsWithoutRef } from 'react';
 
 import { cn } from '@/lib/utils';
 
@@ -29,8 +29,4 @@ const HoverCardContent = forwardRef<
 ));
 HoverCardContent.displayName = 'HoverCardContent';
 
-export {
-  HoverCardRoot as HoverCard,
-  HoverCardTrigger,
-  HoverCardContent
-};
+export { HoverCardRoot as HoverCard, HoverCardTrigger, HoverCardContent };

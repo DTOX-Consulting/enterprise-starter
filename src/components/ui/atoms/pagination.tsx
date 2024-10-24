@@ -1,6 +1,6 @@
 import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react';
 import Link from 'next/link';
-import { forwardRef, ComponentProps } from 'react';
+import { forwardRef, type ComponentProps } from 'react';
 
 import { type ButtonProps, buttonVariants } from '@/components/ui/atoms/button';
 import { cn } from '@/lib/utils';
@@ -33,10 +33,10 @@ type PaginationLinkProps = {
 
 const PaginationLink = ({ className, isActive, size = 'icon', ...props }: PaginationLinkProps) => (
   <Link
-    aria-current={Boolean(isActive) ? 'page' : undefined}
+    aria-current={isActive ? 'page' : undefined}
     className={cn(
       buttonVariants({
-        variant: Boolean(isActive) ? 'outline' : 'ghost',
+        variant: isActive ? 'outline' : 'ghost',
         size
       }),
       className
@@ -46,10 +46,7 @@ const PaginationLink = ({ className, isActive, size = 'icon', ...props }: Pagina
 );
 PaginationLink.displayName = 'PaginationLink';
 
-const PaginationPrevious = ({
-  className,
-  ...props
-}: ComponentProps<typeof PaginationLink>) => (
+const PaginationPrevious = ({ className, ...props }: ComponentProps<typeof PaginationLink>) => (
   <PaginationLink
     aria-label="Go to previous page"
     size="default"

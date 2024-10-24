@@ -6,7 +6,7 @@ import {
   Content as PopoverContentPrimitive,
   Portal as PopoverPortalPrimitive
 } from '@radix-ui/react-popover';
-import { forwardRef, ElementRef, ComponentPropsWithoutRef } from 'react';
+import { forwardRef, type ElementRef, type ComponentPropsWithoutRef } from 'react';
 
 import { cn } from '@/lib/utils';
 

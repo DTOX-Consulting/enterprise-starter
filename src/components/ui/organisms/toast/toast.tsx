@@ -11,7 +11,12 @@ import {
 } from '@radix-ui/react-toast';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { X } from 'lucide-react';
-import { forwardRef, ElementRef, ComponentPropsWithoutRef, ReactElement } from 'react';
+import {
+  forwardRef,
+  type ElementRef,
+  type ComponentPropsWithoutRef,
+  type ReactElement
+} from 'react';
 
 import { cn } from '@/lib/utils';
 
@@ -51,11 +56,7 @@ const Toast = forwardRef<
   ElementRef<typeof RadixToastRoot>,
   ComponentPropsWithoutRef<typeof RadixToastRoot> & VariantProps<typeof toastVariants>
 >(({ className, variant, ...props }, ref) => (
-  <RadixToastRoot
-    ref={ref}
-    className={cn(toastVariants({ variant }), className)}
-    {...props}
-  />
+  <RadixToastRoot ref={ref} className={cn(toastVariants({ variant }), className)} {...props} />
 ));
 Toast.displayName = RadixToastRoot.displayName;
 
@@ -104,11 +105,7 @@ const ToastDescription = forwardRef<
   ElementRef<typeof RadixToastDescription>,
   ComponentPropsWithoutRef<typeof RadixToastDescription>
 >(({ className, ...props }, ref) => (
-  <RadixToastDescription
-    ref={ref}
-    className={cn('text-sm opacity-90', className)}
-    {...props}
-  />
+  <RadixToastDescription ref={ref} className={cn('text-sm opacity-90', className)} {...props} />
 ));
 ToastDescription.displayName = RadixToastDescription.displayName;
 
