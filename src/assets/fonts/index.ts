@@ -1,3 +1,4 @@
+/* eslint-disable new-cap */
 import {
   Lora,
   Inter,
@@ -44,3 +45,4 @@ export const fontMontAlt = Montserrat_Alternates({
   variable: '--font-mont-alt',
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900']
 });
+/* eslint-enable new-cap */

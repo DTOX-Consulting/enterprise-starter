@@ -112,8 +112,8 @@ export const NodeSelector = ({ open, onOpenChange }: NodeSelectorProps) => {
         {items.map((item) => (
           <EditorBubbleItem
             key={item.name}
-            onSelect={(editor) => {
-              item.command(editor);
+            onSelect={(editorParam) => {
+              item.command(editorParam);
               onOpenChange(false);
             }}
             className="flex cursor-pointer items-center justify-between rounded-sm px-2 py-1 text-sm hover:bg-accent"

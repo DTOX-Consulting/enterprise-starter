@@ -217,9 +217,9 @@ module.exports = {
     typography,
     aspectRatio,
     containerQueries,
-    plugin((plugin) => {
-      plugin.addVariant('radix-side-top', '&[data-side="top"]');
-      plugin.addVariant('radix-side-bottom', '&[data-side="bottom"]');
+    plugin((pluginParam) => {
+      pluginParam.addVariant('radix-side-top', '&[data-side="top"]');
+      pluginParam.addVariant('radix-side-bottom', '&[data-side="bottom"]');
     })
   ]
 };

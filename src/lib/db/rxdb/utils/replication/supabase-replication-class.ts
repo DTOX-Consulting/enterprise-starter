@@ -19,7 +19,6 @@ import type {
   RxReplicationWriteToMasterRow
 } from 'rxdb';
 
-// const DEFAULT_REV_FIELD = '_rev';
 const DEFAULT_DELETED_FIELD = '_deleted';
 const DEFAULT_LAST_MODIFIED_FIELD = '_modified';
 const POSTGRES_DUPLICATE_KEY_ERROR_CODE = '23505';

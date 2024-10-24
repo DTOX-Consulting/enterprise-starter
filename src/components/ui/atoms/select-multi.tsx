@@ -326,8 +326,8 @@ const SelectMulti = forwardRef<SelectMultiRef, SelectMultiProps>(
       }
 
       if (creatable) {
-        return (value: string, search: string) =>
-          value.toLowerCase().includes(search.toLowerCase()) ? 1 : -1;
+        return (itemValue: string, search: string) =>
+          itemValue.toLowerCase().includes(search.toLowerCase()) ? 1 : -1;
       }
       // Using default filter in `cmdk`. We don't have to provide it.
       return undefined;
@@ -393,9 +393,9 @@ const SelectMulti = forwardRef<SelectMultiRef, SelectMultiProps>(
               ref={inputRef}
               value={inputValue}
               disabled={disabled}
-              onValueChange={(value) => {
-                setInputValue(value);
-                inputProps?.onValueChange?.(value);
+              onValueChange={(itemValue) => {
+                setInputValue(itemValue);
+                inputProps?.onValueChange?.(itemValue);
               }}
               onBlur={(event) => {
                 setOpen(false);

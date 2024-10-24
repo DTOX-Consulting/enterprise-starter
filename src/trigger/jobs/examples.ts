@@ -42,8 +42,3 @@ export const example = client.defineJob({
     // To learn how to write much more complex (and probably funnier) Jobs, check out our docs: https://trigger.dev/docs/documentation/guides/create-a-job
   }
 });
-
-// setTimeout(() => {
-//   void example.invoke({}); // This will trigger the Job immediately
-//   void client.sendEvent({ name: 'example.event', payload: {} });
-// }, 1000);

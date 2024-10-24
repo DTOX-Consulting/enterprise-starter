@@ -45,15 +45,15 @@ export const useRxDB = () => {
   const getReplicates = useCallback(() => replicates, [replicates]);
 
   const getDbOrThrow = useCallback(() => {
-    const db = getDb();
-    if (db) return db;
+    const database = getDb();
+    if (database) return database;
     throw new Error('DB not initialized');
   }, [getDb]);
 
   const getReplicatesOrThrow = useCallback(() => {
-    const replicates = getReplicates();
-    if (replicates) return replicates;
-    throw new Error('Replicates not initialized');
+    const replication = getReplicates();
+    if (replication) return replication;
+    throw new Error('Replication not initialized');
   }, [getReplicates]);
 
   const resyncDb = useCallback(
@@ -65,7 +65,7 @@ export const useRxDB = () => {
         return;
       }
 
-      if (forceResync || (previous !== undefined && previous !== isOnline && isOnline)) {
+      if (forceResync || (previous !== isOnline && Boolean(isOnline))) {
         devLog('Resyncing DB', { isOnline });
         const replicatesLocal = getReplicatesOrThrow();
         Object.values(replicatesLocal).forEach((replicate) => replicate.reSync());

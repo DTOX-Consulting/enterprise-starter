@@ -109,7 +109,11 @@ export const handleManageSubscription =
     }
 
     finish();
-    router.push(details.hasSubscription ? details.billing.url : routes.pricing);
+    if (details.billing.url) {
+      router.push(details.billing.url);
+    } else {
+      router.push(routes.pricing);
+    }
   };
 
 export const ManageSubscriptionButton = ({ tier }: { tier: TierName }) => {

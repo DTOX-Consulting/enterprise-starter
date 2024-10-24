@@ -6,11 +6,9 @@ import { RxDBQueryBuilderPlugin } from 'rxdb/plugins/query-builder';
 import { RxDBUpdatePlugin } from 'rxdb/plugins/update';
 import { observeNewCollections } from 'rxdb-hooks';
 
-// import { setPremiumFlag } from 'rxdb-premium/plugins/shared';
 import { isProd } from '@/lib/env/env.mjs';
 
 export const setupPlugins = async () => {
-  // setPremiumFlag();
   addRxPlugin(RxDBUpdatePlugin);
   // addRxPlugin(RxDBBackupPlugin); // needs node:fs
   addRxPlugin(RxDBCleanupPlugin);

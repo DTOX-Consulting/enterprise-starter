@@ -1,10 +1,10 @@
+/* eslint-disable n/no-process-env */
 import { defineConfig, devices } from '@playwright/test';
 
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
-// require('dotenv').config();
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -75,3 +75,4 @@ export default defineConfig({
     reuseExistingServer: !Boolean(process.env.CI)
   }
 });
+/* eslint-enable n/no-process-env */

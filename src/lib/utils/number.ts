@@ -13,6 +13,6 @@ export function numberFormatter(num: number, digits?: number) {
   const item = lookup
     .slice()
     .reverse()
-    .find((item) => num >= item.value);
+    .find((itemParam) => num >= itemParam.value);
   return item ? (num / item.value).toFixed(digits ?? 1).replace(rx, '$1') + item.symbol : '0';
 }

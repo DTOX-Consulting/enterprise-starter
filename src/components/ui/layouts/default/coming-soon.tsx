@@ -2,7 +2,6 @@ import Link from 'next/link';
 
 import { GridPattern } from '@/components/animations/grid-pattern';
 import { ContainerAnimated } from '@/components/ui/atoms/container';
-// import { ComingSoonCheckbox } from '@/components/ui/layouts/default/coming-soon-checkbox';
 import { routes } from '@/config/navigation/routes';
 
 export default function ComingSoon() {

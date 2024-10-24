@@ -35,17 +35,17 @@ export const clearDbs = async () => {
         const request = indexedDB.open(db.name as string);
         request.onerror = () => reject(request.error as Error);
         request.onsuccess = () => {
-          const db = request.result;
+          const database = request.result;
           // Check if there are any object stores to clear
-          if (db.objectStoreNames.length > 0) {
-            const transaction = db.transaction(db.objectStoreNames, 'readwrite');
+          if (database.objectStoreNames.length > 0) {
+            const transaction = database.transaction(database.objectStoreNames, 'readwrite');
             transaction.oncomplete = () => {
               console.log(`Cleared database: ${db.name}`);
               resolve();
             };
             transaction.onerror = () => reject(transaction.error as Error);
 
-            const { objectStoreNames } = db;
+          const { objectStoreNames } = database;
             for (const name of objectStoreNames) {
               const objectStore = transaction.objectStore(name);
               objectStore.clear(); // Clear each object store

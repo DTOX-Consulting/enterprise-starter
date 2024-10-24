@@ -61,9 +61,7 @@ export const Editor = ({
   const [openColor, setOpenColor] = useState(false);
 
   const defaultValue = '{}';
-  const [initialContent, setInitialContent] = useState<JSONContent>(
-    defaultValue ? (JSON.parse(defaultValue) as JSONContent) : {}
-  );
+  const [initialContent, setInitialContent] = useState<JSONContent>(JSON.parse(defaultValue) as JSONContent);
 
   const debouncedUpdates = useDebounceCallback((editor: EditorType) => {
     const json = editor.getJSON();

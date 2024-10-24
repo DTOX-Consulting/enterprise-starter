@@ -226,21 +226,13 @@ async function CurrentSubscriptionInformation() {
 }
 
 export default function SettingsAccountPage() {
-  const showPersonalInformation = true;
-  const allowChangePassword = false;
-  const showCurrentSubscription = true;
-  const allowLogoutOtherSessions = false;
-  const allowDeleteAccount = true;
-
   return (
     <ContainerAnimated size="no-padding" className="flex grow flex-col">
       <h1 className="sr-only">Account Settings</h1>
       <div className="divide-y divide-white/5">
-        {showPersonalInformation && <PersonalInformationForm />}
-        {allowChangePassword && <ChangePasswordForm />}
-        {allowLogoutOtherSessions && <LogoutOtherSessionsForm />}
-        {showCurrentSubscription && <CurrentSubscriptionInformation />}
-        {allowDeleteAccount && <DeleteAccountForm />}
+        {<PersonalInformationForm />}
+        {<CurrentSubscriptionInformation />}
+        {<DeleteAccountForm />}
       </div>
     </ContainerAnimated>
   );

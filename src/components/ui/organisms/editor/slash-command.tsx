@@ -124,7 +124,7 @@ export const suggestionItems = createSuggestionItems([
       input.accept = 'image/*';
       input.onchange = () => {
         if (input.files && input.files.length > 0) {
-          const file = input.files[0];
+          const [file] = input.files;
           if (!file) return;
           const pos = editor.view.state.selection.from;
           uploadFn(file, editor.view, pos);
@@ -144,7 +144,7 @@ export const suggestionItems = createSuggestionItems([
 
       // From https://regexr.com/3dj5t
       const ytregex = new RegExp(
-        /^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w-]+\?v=|embed\/|v\/)?)([\w-]+)(\S+)?$/
+        /^(https?:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)[\w-]{11}$/
       );
 
       if (ytregex.test(videoLink as string)) {

@@ -10,6 +10,14 @@ import type * as React from 'react';
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
+const IconLeft = (props: React.SVGProps<SVGSVGElement>) => (
+  <ChevronLeft className="size-4" {...props} />
+);
+
+const IconRight = (props: React.SVGProps<SVGSVGElement>) => (
+  <ChevronRight className="size-4" {...props} />
+);
+
 function Calendar({ className, classNames, showOutsideDays = true, ...props }: CalendarProps) {
   return (
     <DayPicker
@@ -46,8 +54,8 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }: C
         ...classNames
       }}
       components={{
-        IconLeft: ({ ...props }) => <ChevronLeft className="size-4" {...props} />,
-        IconRight: ({ ...props }) => <ChevronRight className="size-4" {...props} />
+        IconLeft,
+        IconRight
       }}
       {...props}
     />

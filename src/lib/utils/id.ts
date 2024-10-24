@@ -18,7 +18,7 @@ export const slugify = (name: string) => {
   const text = name
     .toLowerCase()
     .replace(/[^a-z0-9]+/gi, '-')
-    .replace(/^-+|-+$/g, '');
+    .replace(/^-|-$/g, '');
 
   const id = nanoid(4);
   return `${text}-${id}`.toLowerCase().trim();

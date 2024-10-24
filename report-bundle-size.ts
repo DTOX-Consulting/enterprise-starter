@@ -88,9 +88,6 @@ const _allPageSizes = Object.keys(buildMeta.pages).reduce(
 
 // Get the size of the global app directory bundle
 const globalAppDirBundle = buildMeta.rootMainFiles ?? [];
-// if (!globalAppDirBundle) {
-//   throw new Error("Global app dir bundle not found in buildMeta.");
-// }
 const globalAppDirBundleSizes = getScriptSizes(globalAppDirBundle);
 
 // Calculate the size of each app directory page's scripts
@@ -173,6 +170,6 @@ function getOptions(pathPrefix = process.cwd()): { buildOutputDirectory?: string
 }
 
 // Gets the output build directory, defaults to `.next`
-function getBuildOutputDirectory(options: { buildOutputDirectory?: string }): string {
-  return options.buildOutputDirectory ?? '.next';
+function getBuildOutputDirectory(opts: { buildOutputDirectory?: string }): string {
+  return opts.buildOutputDirectory ?? '.next';
 }

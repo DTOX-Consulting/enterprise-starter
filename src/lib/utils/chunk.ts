@@ -96,8 +96,8 @@ function ensureChunkLength<T>(chunks: T[][], totalLength: number) {
 }
 
 export const addPeriod = (str: string) => {
-  const punctuationAtEndRegex = /[.,?!;:()"'[\]{}\-—/\\&*%$#@+<>=|~]+$/;
-  const emojiAtEndRegex = /\p{Emoji_Presentation}+$/u;
+  const punctuationAtEndRegex = /[.,?!;:()"'[\]{}\-—/\\&*%$#@+<>=|~]$/;
+  const emojiAtEndRegex = /\p{Emoji_Presentation}$/u;
 
   if (punctuationAtEndRegex.test(str) || emojiAtEndRegex.test(str) || !str.trim()) {
     return str;
