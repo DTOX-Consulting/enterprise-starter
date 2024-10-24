@@ -10,11 +10,10 @@ export const transformer = superjson;
 function getBaseUrl() {
   if (typeof window !== 'undefined') return '';
   const vercelUrl = getEnv('VERCEL_URL', '');
-  if (Boolean(vercelUrl)) return `https://${vercelUrl}`;
+  if (vercelUrl) return `https://${vercelUrl}`;
   const port = getEnv('PORT') ?? 3000;
   return `http://localhost:${port}`;
 }
-
 
 export function getUrl() {
   return `${getBaseUrl()}/api/trpc`;

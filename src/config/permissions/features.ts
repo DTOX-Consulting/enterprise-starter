@@ -212,7 +212,8 @@ export const isPaidTier = (key?: TierName) => isProTier(key) || isTeamTier(key);
 
 export const isFreeTier = (key?: TierName) => isNoneTier(key) || isStarterTier(key);
 
-export const isValidTier = (key?: string): key is TierName => typeof key === 'string' && key !== '' && key in tiers;
+export const isValidTier = (key?: string): key is TierName =>
+  typeof key === 'string' && key !== '' && key in tiers;
 
 export const getSubscriptionPermissionsKey = (key: TierName) =>
   tiers[key].kinde.subscriptionPermissionsKey;

@@ -56,7 +56,7 @@ export const UserImageLink = (props: UserImageProps) => (
 
 export const UserImageSession = async (props: UserImageProps & { link?: boolean }) => {
   const newProps = { ...props, user: props.user ?? (await getUserSession()).user };
-  return Boolean(props.link) ? <UserImageLink {...newProps} /> : <UserImageWithDetails {...newProps} />;
+  return props.link ? <UserImageLink {...newProps} /> : <UserImageWithDetails {...newProps} />;
 };
 
 export function UserAvatar(props: UserAvatarProps = {}) {

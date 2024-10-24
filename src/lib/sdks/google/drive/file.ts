@@ -78,11 +78,11 @@ export const createOrOverwriteFile = async (
   const { data: maybeFile } = unboxR(await findFileByName(name, parent));
   const fileId = maybeFile?.files?.[0]?.id;
 
-  if (Boolean(fileId)) {
+  if (fileId) {
     if (shouldDelete) {
-      await deleteFile(fileId as string);
+      await deleteFile(fileId);
     } else {
-      return unboxR(await updateFile(fileId as string, body, mimeType)).data;
+      return unboxR(await updateFile(fileId, body, mimeType)).data;
     }
   }
 
@@ -91,7 +91,7 @@ export const createOrOverwriteFile = async (
 
 export const findFileByName = async (name: string, parent?: string) => {
   const query = `mimeType != "application/vnd.google-apps.folder" and trashed = false and name = "${name}"${
-    Boolean(parent) ? `and '${parent}' in parents` : ''
+    parent ? `and '${parent}' in parents` : ''
   }`;
   const response = await drive.files.list({
     corpora: 'allDrives',
@@ -138,8 +138,8 @@ export const moveFile = async (fileId: string, toAdd: string[], toRemove: string
 export const deleteAllFiles = async () => {
   const { data } = unboxR(await listFiles());
   return pMap(data?.files ?? [], async (file) => {
-    if (Boolean(file.id)) {
-      return deleteFile(file.id as string);
+    if (file.id) {
+      return deleteFile(file.id);
     }
   });
 };

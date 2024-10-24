@@ -14,11 +14,11 @@ export default defineConfig({
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
-  forbidOnly: !!Boolean(process.env.CI),
+  forbidOnly: !!process.env.CI,
   /* Retry on CI only */
-  retries: Boolean(process.env.CI) ? 2 : 0,
+  retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
-  workers: Boolean(process.env.CI) ? 1 : undefined,
+  workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
@@ -72,6 +72,6 @@ export default defineConfig({
   webServer: {
     command: 'pnpm dev:app',
     url: 'http://127.0.0.1:3000',
-    reuseExistingServer: !Boolean(process.env.CI)
+    reuseExistingServer: !process.env.CI
   }
 });

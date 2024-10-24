@@ -34,7 +34,6 @@ export const getPages = (navigationItems: NavigationItem[]) =>
       return acc;
     }
 
-
     return acc;
   }, [] as NavigationItem[]);
 

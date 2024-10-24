@@ -181,7 +181,7 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
       Object.entries(this.keyMapping).map(([key, value]) => [value, key])
     );
 
-    if (Boolean(this.autoStart)) {
+    if (this.autoStart) {
       void this.start();
     }
   }
@@ -211,11 +211,11 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
   ): Promise<ReplicationPullHandlerResult<RxDocType, SupabaseReplicationCheckpoint>> {
     let query = this.options.supabaseClient.from(this.table).select();
 
-    if (Boolean(lastCheckpoint?.modified)) {
+    if (lastCheckpoint?.modified) {
       // Construct the PostgREST query for the following condition:
       // WHERE _modified > lastModified OR (_modified = lastModified AND primaryKey > lastPrimaryKey)
-      const lastModified = stringify(lastCheckpoint?.modified);
-      const lastPrimaryKey = stringify(lastCheckpoint?.primaryKeyValue);
+      const lastModified = stringify(lastCheckpoint.modified);
+      const lastPrimaryKey = stringify(lastCheckpoint.primaryKeyValue);
       const isNewer = `${this.lastModifiedFieldName}.gt.${lastModified}`;
       const isSameAge = `${this.lastModifiedFieldName}.eq.${lastModified}`;
       query = query.or(`${isNewer},and(${isSameAge},${this.primaryKey}.gt.${lastPrimaryKey})`);

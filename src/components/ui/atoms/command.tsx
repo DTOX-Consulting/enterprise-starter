@@ -2,7 +2,12 @@
 
 import { Command as CommandPrimitive } from 'cmdk';
 import { Search } from 'lucide-react';
-import { forwardRef, ElementRef, ComponentPropsWithoutRef, HTMLAttributes } from 'react';
+import {
+  forwardRef,
+  type ElementRef,
+  type ComponentPropsWithoutRef,
+  type HTMLAttributes
+} from 'react';
 
 import { Dialog, DialogContent } from '@/components/ui/atoms/dialog';
 import { cn } from '@/lib/utils';

@@ -15,7 +15,7 @@ export function chunkWithListConsideration<T extends string>(arr: T[], totalLeng
 }
 
 function separateLists<T extends string>(arr: T[]): T[][] {
-  let separatedListItems: T[][] = [];
+  const separatedListItems: T[][] = [];
   let currentList: T[] = [];
 
   for (const currentItem of arr) {

@@ -10,7 +10,7 @@ import { getCurrentUser } from '@/lib/auth/session';
 import type { Chat } from '@/lib/types';
 
 export async function getChats(userId?: string | null) {
-  if (!Boolean(userId)) {
+  if (!userId) {
     return [];
   }
 
@@ -95,7 +95,7 @@ export async function clearChats() {
 export async function getSharedChat(id: string) {
   const chat = await kv.hgetall<Chat>(`chat:${id}`);
 
-  if (!Boolean(chat?.sharePath)) {
+  if (!chat?.sharePath) {
     return null;
   }
 

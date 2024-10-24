@@ -58,15 +58,15 @@ export const createOrOverwriteFolder = async (
   const { data: maybeFolder } = unboxR(await findFolderByName(name, parent));
   const folderId = maybeFolder?.files?.[0]?.id;
 
-  if (Boolean(folderId)) {
-    unboxR(await deleteFolder(folderId as string));
+  if (folderId) {
+    unboxR(await deleteFolder(folderId));
   }
   return unboxR(await createFolder(name, parent)).data;
 };
 
 export const findFolderByName = async (name: string, parent?: string) => {
   const query = `mimeType = "application/vnd.google-apps.folder" and trashed = false and name = "${name}"${
-    Boolean(parent) ? ` and '${parent}' in parents` : ''
+    parent ? ` and '${parent}' in parents` : ''
   }`;
   const response = await drive.files.list({
     corpora: 'allDrives',
@@ -111,8 +111,8 @@ export const moveFolder = async (fileId: string, toAdd: string[], toRemove: stri
 export const deleteAllFolders = async () => {
   const { data } = unboxR(await listFolders());
   return pMap(data?.files ?? [], async (file) => {
-    if (Boolean(file.id)) {
-      return deleteFolder(file.id as string);
+    if (file.id) {
+      return deleteFolder(file.id);
     }
   });
 };

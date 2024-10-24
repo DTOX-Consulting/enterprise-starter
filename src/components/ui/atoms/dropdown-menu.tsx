@@ -18,7 +18,12 @@ import {
   ItemIndicator as RadixDropdownMenuItemIndicator
 } from '@radix-ui/react-dropdown-menu';
 import { Check, ChevronRight, Circle } from 'lucide-react';
-import { forwardRef, ElementRef, ComponentPropsWithoutRef, HTMLAttributes } from 'react';
+import {
+  forwardRef,
+  type ElementRef,
+  type ComponentPropsWithoutRef,
+  type HTMLAttributes
+} from 'react';
 
 import { cn } from '@/lib/utils';
 

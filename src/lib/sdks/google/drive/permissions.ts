@@ -43,7 +43,10 @@ export const listPermissions = async (fileId: string) => {
 export const hasPermissions = async (fileId: string, emailAddress: string) => {
   const { data: permissions } = unboxR(await listPermissions(fileId));
 
-  return permissions?.permissions?.some((permission) => permission.emailAddress === emailAddress) ?? false;
+  return (
+    permissions?.permissions?.some((permission) => permission.emailAddress === emailAddress) ??
+    false
+  );
 };
 
 export const createPermissionsIfNotExists = async (

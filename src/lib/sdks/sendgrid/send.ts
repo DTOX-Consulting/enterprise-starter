@@ -25,7 +25,7 @@ export const send = async ({
 
   logger.info('Sending Email', { to, subject });
 
-  if (!Boolean(to) || Boolean(!body && !templateKey)) {
+  if (!to || Boolean(!body && !templateKey)) {
     throw new Error('Missing email or body');
   }
 

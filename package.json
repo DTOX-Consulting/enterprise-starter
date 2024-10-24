@@ -21,7 +21,7 @@
     "e2e": "playwright test",
     "e2e:ui": "playwright test --ui",
     "start": "next start",
-    "add:component": "pnpm shadcn-ui add",
+    "add:component": "pnpx shadcn@latest add",
     "docker:build": "IS_DOCKER=true docker build -t enterprise-starter . --dockerfile=docker/prod.Dockerfile",
     "db:push": "prisma db push",
     "db:studio": "prisma studio",

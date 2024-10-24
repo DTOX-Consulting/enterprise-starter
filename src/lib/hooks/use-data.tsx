@@ -35,21 +35,18 @@ type MinimalData = {
 export function useLocalData<T extends MinimalData>(storageKeyPrefix?: string) {
   const { getStorageKey } = useAuth();
 
-  const storageKey = Boolean(storageKeyPrefix) ? getStorageKey(storageKeyPrefix as string) : null;
+  const storageKey = storageKeyPrefix ? getStorageKey(storageKeyPrefix) : null;
 
-  const getLocalItems = useCallback(
-    async () => {
-      if (!Boolean(storageKey)) return null;
-      const items = await localForage.getItem<T[]>(storageKey as string);
-      return items ?? null;
-    },
-    [storageKey]
-  );
+  const getLocalItems = useCallback(async () => {
+    if (!storageKey) return null;
+    const items = await localForage.getItem<T[]>(storageKey);
+    return items ?? null;
+  }, [storageKey]);
 
   const setLocalItems = useCallback(
     async (items: T[]) => {
-      if (Boolean(storageKey)) {
-        await localForage.setItem(storageKey as string, items);
+      if (storageKey) {
+        await localForage.setItem(storageKey, items);
       }
     },
     [storageKey]

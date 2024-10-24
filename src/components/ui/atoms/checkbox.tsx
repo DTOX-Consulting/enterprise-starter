@@ -2,7 +2,7 @@
 
 import { Root as CheckboxRoot, Indicator as CheckboxIndicator } from '@radix-ui/react-checkbox';
 import { Check } from 'lucide-react';
-import { forwardRef, ElementRef, ComponentPropsWithoutRef } from 'react';
+import { forwardRef, type ElementRef, type ComponentPropsWithoutRef } from 'react';
 
 import { cn } from '@/lib/utils';
 

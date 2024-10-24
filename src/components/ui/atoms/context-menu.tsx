@@ -18,7 +18,12 @@ import {
   ItemIndicator
 } from '@radix-ui/react-context-menu';
 import { Check, ChevronRight, Circle } from 'lucide-react';
-import { forwardRef, ElementRef, ComponentPropsWithoutRef, HTMLAttributes } from 'react';
+import {
+  forwardRef,
+  type ElementRef,
+  type ComponentPropsWithoutRef,
+  type HTMLAttributes
+} from 'react';
 
 import { cn } from '@/lib/utils';
 
@@ -146,7 +151,11 @@ const ContextMenuLabel = forwardRef<
 >(({ className, inset = false, ...props }, ref) => (
   <RadixContextMenuLabel
     ref={ref}
-    className={cn('px-2 py-1.5 text-sm font-semibold text-foreground', inset ? 'pl-8' : '', className)}
+    className={cn(
+      'px-2 py-1.5 text-sm font-semibold text-foreground',
+      inset ? 'pl-8' : '',
+      className
+    )}
     {...props}
   />
 ));

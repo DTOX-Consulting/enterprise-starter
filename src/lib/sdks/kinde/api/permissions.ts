@@ -63,9 +63,9 @@ export const removeAllPermissions = async (email: string, orgId?: string) => {
 
   await Promise.all(
     permissions.map(async (permission) => {
-      if (!Boolean(permission.id)) return;
+      if (!permission.id) return;
       return organizationsApi.deleteOrganizationUserPermission({
-        permissionId: permission.id as string,
+        permissionId: permission.id,
         userId: user.id,
         orgCode
       });

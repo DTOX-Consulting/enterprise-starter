@@ -25,7 +25,7 @@ export function MdxCard({ href, className, children, disabled, ...props }: CardP
         </div>
       </div>
       {href && (
-        <Link href={Boolean(disabled) ? '#' : href} className="absolute inset-0">
+        <Link href={disabled ? '#' : href} className="absolute inset-0">
           <span className="sr-only">View</span>
         </Link>
       )}
