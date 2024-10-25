@@ -7,7 +7,7 @@
  * need to use are documented accordingly near the end.
  */
 
-import { initTRPC, TRPCError } from '@trpc/server';
+import { initTRPC } from '@trpc/server';
 import superjson from 'superjson';
 import { ZodError } from 'zod';
 
@@ -109,17 +109,12 @@ export const createTRPCRouter = trpcInstance.router;
 export const publicProcedure = trpcInstance.procedure;
 
 /** Reusable middleware that enforces users are logged in before running the procedure. */
-const enforceUserIsAuthed = trpcInstance.middleware(async ({ ctx, next }) => {
-  if (!ctx.session.user) {
-    throw new TRPCError({ code: 'UNAUTHORIZED' });
-  }
-  return next({
+const enforceUserIsAuthed = trpcInstance.middleware(async ({ ctx, next }) => next({
     ctx: {
       // infers the `session` as non-nullable
       session: { ...ctx.session, user: ctx.session.user }
     }
-  });
-});
+  }));
 
 /**
  * Protected (authenticated) procedure

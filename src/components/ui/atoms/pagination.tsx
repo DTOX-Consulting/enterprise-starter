@@ -1,3 +1,4 @@
+import { G } from '@mobily/ts-belt';
 import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react';
 import Link from 'next/link';
 import { forwardRef, type ComponentProps } from 'react';
@@ -33,10 +34,10 @@ type PaginationLinkProps = {
 
 const PaginationLink = ({ className, isActive, size = 'icon', ...props }: PaginationLinkProps) => (
   <Link
-    aria-current={isActive ? 'page' : undefined}
+    aria-current={G.isNotNullable(isActive) && isActive ? 'page' : undefined}
     className={cn(
       buttonVariants({
-        variant: isActive ? 'outline' : 'ghost',
+        variant: G.isNotNullable(isActive) && isActive ? 'outline' : 'ghost',
         size
       }),
       className

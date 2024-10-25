@@ -1,5 +1,6 @@
 'use client';
 
+import { G } from '@mobily/ts-belt';
 import { ChevronDownIcon, ChevronRightIcon } from 'lucide-react';
 import Link from 'next/link';
 
@@ -32,10 +33,10 @@ export function SidebarLinks({
   const activeParent = navigationProps.getActiveParent()?.name;
 
   return navigationProps.items.map((item) => {
-    if (Boolean(item.authenticated) && !user) return null;
-    if (Boolean(item.unauthenticated) && Boolean(user)) return null;
+    if (G.isNotNullable(item.authenticated) && !user) return null;
+    if (G.isNotNullable(item.unauthenticated) && G.isNotNullable(user)) return null;
 
-    if (item.bottom) bottomValue = bottomValue === 0 ? 4 : bottomValue + 10;
+    if (G.isNotNullable(item.bottom)) bottomValue = bottomValue === 0 ? 4 : bottomValue + 10;
     const bottomClass = `bottom-${bottomValue}`;
 
     if (item.tier && item.tier !== tier) return null;
@@ -72,7 +73,7 @@ function SidebarLink({
   return (
     <li
       key={item.name}
-      className={cn(item.bottom ? `${bottomClass} absolute w-full pr-12 md:pr-8` : '')}
+      className={cn(G.isNotNullable(item.bottom) && item.bottom ? `${bottomClass} absolute w-full pr-12 md:pr-8` : '')}
     >
       <Tip content={isMinimized ? item.name : ''} className="w-full">
         <Link

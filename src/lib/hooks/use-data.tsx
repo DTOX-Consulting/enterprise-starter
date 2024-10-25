@@ -1,5 +1,6 @@
 'use client';
 
+import { G } from '@mobily/ts-belt';
 import { type atom, useAtom } from 'jotai';
 import localForage from 'localforage';
 import { useCallback, type MouseEventHandler } from 'react';
@@ -35,17 +36,17 @@ type MinimalData = {
 export function useLocalData<T extends MinimalData>(storageKeyPrefix?: string) {
   const { getStorageKey } = useAuth();
 
-  const storageKey = storageKeyPrefix ? getStorageKey(storageKeyPrefix) : null;
+  const storageKey = G.isNotNullable(storageKeyPrefix) ? getStorageKey(storageKeyPrefix) : null;
 
   const getLocalItems = useCallback(async () => {
-    if (!storageKey) return null;
+    if (!G.isNotNullable(storageKey)) return null;
     const items = await localForage.getItem<T[]>(storageKey);
     return items ?? null;
   }, [storageKey]);
 
   const setLocalItems = useCallback(
     async (items: T[]) => {
-      if (storageKey) {
+      if (G.isNotNullable(storageKey)) {
         await localForage.setItem(storageKey, items);
       }
     },

@@ -50,9 +50,11 @@ const components: MDXComponents = {
   a: ({ className, ...props }) => (
     <a className={cn('font-medium underline underline-offset-4', className)} {...props} />
   ),
+  // eslint-disable-next-line id-length
   p: ({ className, ...props }) => (
     <p className={cn('leading-7 [&:not(:first-child)]:mt-6', className)} {...props} />
   ),
+  // eslint-enable-next-line id-length
   ul: ({ className, ...props }) => (
     <ul className={cn('my-6 ml-6 list-disc', className)} {...props} />
   ),

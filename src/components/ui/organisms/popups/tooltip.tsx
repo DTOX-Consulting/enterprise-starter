@@ -1,5 +1,6 @@
 'use client';
 
+import { G } from '@mobily/ts-belt';
 import {
   Provider as TooltipProvider,
   Root as TooltipRoot,
@@ -9,6 +10,7 @@ import {
 import { Drawer } from 'vaul';
 
 import useMediaQuery from '@/lib/hooks/use-media-query';
+import { cn } from '@/lib/utils';
 
 import type { ReactNode } from 'react';
 
@@ -27,7 +29,9 @@ export default function Tooltip({
     return (
       <Drawer.Root>
         <Drawer.Trigger
-          className={`${fullWidth ? 'w-full' : 'inline-flex'} md:hidden`}
+           className={cn(`${G.isNotNullable(fullWidth) && fullWidth ? 'w-full' : 'inline-flex'} md:hidden`, {
+            'justify-center': G.isNotNullable(isMinimized) && isMinimized && G.isNotNullable(noMinimize) && !noMinimize
+          })}
           onClick={(err) => {
             err.stopPropagation();
           }}

@@ -3,6 +3,7 @@
 
 'use client';
 
+import { G } from '@mobily/ts-belt';
 import { type FC, memo } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { coldarkDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
@@ -65,7 +66,7 @@ const CodeBlock: FC<Props> = memo(({ language, value }) => {
     const suggestedFileName = `file-${generateRandomString(3, true)}${fileExtension}`;
     const fileName = window.prompt('Enter file name', suggestedFileName);
 
-    if (!fileName) {
+    if (!G.isNotNullable(fileName)) {
       // User pressed cancel on prompt.
       return;
     }

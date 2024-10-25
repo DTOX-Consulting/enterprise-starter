@@ -1,3 +1,4 @@
+import { G } from '@mobily/ts-belt';
 import {
   // MessageSquarePlus,
   CheckSquare,
@@ -140,7 +141,7 @@ export const suggestionItems = createSuggestionItems([
     icon: <Youtube size={18} />,
     command: ({ editor, range }) => {
       const videoLink = prompt('Please enter Youtube Video Link');
-      if (!videoLink) return;
+      if (!G.isNotNullable(videoLink)) return;
 
       // From https://regexr.com/3dj5t
       const ytregex = new RegExp(

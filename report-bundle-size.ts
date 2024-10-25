@@ -141,17 +141,17 @@ function getScriptSizes(scriptPaths: string[]): { raw: number; gzip: number } {
 // Given an individual path to a script, return its file size
 function getScriptSize(scriptPath: string): [number, number] {
   const encoding = 'utf8';
-  const p = path.join(nextMetaRoot, scriptPath);
+  const filePath = path.join(nextMetaRoot, scriptPath);
 
-  if (memoryCache[p]) {
-    return memoryCache[p];
+  if (memoryCache[filePath]) {
+    return memoryCache[filePath];
   }
 
   const textContent = fs.readFileSync(p, encoding);
   const rawSize = Buffer.byteLength(textContent, encoding);
   const gzipSize = zlib.gzipSync(textContent).length;
 
-  memoryCache[p] = [rawSize, gzipSize];
+  memoryCache[filePath] = [rawSize, gzipSize];
   return [rawSize, gzipSize];
 }
 

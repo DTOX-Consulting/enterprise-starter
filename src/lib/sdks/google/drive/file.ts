@@ -1,3 +1,4 @@
+import { G } from '@mobily/ts-belt';
 import { map as pMap } from 'already';
 
 import { fromPromise, unboxR } from '@/lib/route/utils';
@@ -78,7 +79,7 @@ export const createOrOverwriteFile = async (
   const { data: maybeFile } = unboxR(await findFileByName(name, parent));
   const fileId = maybeFile?.files?.[0]?.id;
 
-  if (fileId) {
+  if (G.isNotNullable(fileId) && fileId !== '') {
     if (shouldDelete) {
       await deleteFile(fileId);
     } else {
@@ -91,7 +92,7 @@ export const createOrOverwriteFile = async (
 
 export const findFileByName = async (name: string, parent?: string) => {
   const query = `mimeType != "application/vnd.google-apps.folder" and trashed = false and name = "${name}"${
-    parent ? `and '${parent}' in parents` : ''
+    G.isNotNullable(parent) && parent !== '' ? `and '${parent}' in parents` : ''
   }`;
   const response = await drive.files.list({
     corpora: 'allDrives',
@@ -138,7 +139,7 @@ export const moveFile = async (fileId: string, toAdd: string[], toRemove: string
 export const deleteAllFiles = async () => {
   const { data } = unboxR(await listFiles());
   return pMap(data?.files ?? [], async (file) => {
-    if (file.id) {
+    if (G.isNotNullable(file.id) && file.id !== '') {
       return deleteFile(file.id);
     }
   });

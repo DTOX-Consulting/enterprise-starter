@@ -1,3 +1,4 @@
+import { G } from '@mobily/ts-belt';
 import { useCallback } from 'react';
 
 import { hash } from '@/lib/utils/string';
@@ -9,7 +10,7 @@ export const createCachedHook = <I, O>(processor: (arg: I) => O) => {
 
   return (cacheKey: string, index: I) => {
     const stringified = stringifyDeterministic(index);
-    const argsHash = stringified ? hash(stringified) : '';
+    const argsHash = G.isNotNullable(stringified) ? hash(stringified) : '';
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: Purposefully not exhaustive
     return useCallback(() => {

@@ -1,5 +1,6 @@
 'use client';
 
+import { G } from '@mobily/ts-belt';
 import { X, Bell, type LucideIcon, icons } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -135,7 +136,7 @@ export const NotificationDrawer = ({
   onNotificationClick?: (notification: DCS<Notification>, isRemoved?: boolean) => void;
 }) => {
   const unreadNotifications = notifications
-    .filter(({ removedAt, readAt }) => !removedAt && !readAt)
+    .filter(({ removedAt, readAt }) => G.isNullable(removedAt) && G.isNullable(readAt))
     .reverse();
 
   const count = unreadNotifications.length;

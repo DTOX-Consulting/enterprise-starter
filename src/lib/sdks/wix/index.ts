@@ -56,7 +56,7 @@ export const createContact = async (input: ClientData) => {
       name: { first: input.firstName, last: input.lastName },
       extendedFields: {
         items: {
-          'custom.notify': input.notifyMe ? 'yes' : 'no',
+          'custom.notify': G.isNotNullable(input.notifyMe) && input.notifyMe ? 'yes' : 'no',
           'custom.subscription': input.subscriptionPlan ?? defaultSubscriptionPermissionsKey
         }
       }
@@ -75,7 +75,7 @@ export const updateContact = async (input: ClientData, id: string, revision: num
         name: { first: input.firstName, last: input.lastName },
         extendedFields: {
           items: {
-            'custom.notify': input.notifyMe ? 'yes' : 'no',
+            'custom.notify': G.isNotNullable(input.notifyMe) && input.notifyMe ? 'yes' : 'no',
             'custom.subscription': input.subscriptionPlan ?? defaultSubscriptionPermissionsKey
           }
         }

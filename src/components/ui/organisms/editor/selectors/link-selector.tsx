@@ -1,3 +1,4 @@
+import { G } from '@mobily/ts-belt';
 import { Popover, PopoverTrigger } from '@radix-ui/react-popover';
 import { Check, Trash } from 'lucide-react';
 import { useEditor } from 'novel';
@@ -62,7 +63,7 @@ export const LinkSelector = ({ open, onOpenChange }: LinkSelectorProps) => {
             event.preventDefault();
             const input = target[0] as HTMLInputElement;
             const url = getUrlFromString(input.value);
-            if (url) {
+            if (G.isNotNullable(url)) {
               editor
                 .chain()
                 .focus()

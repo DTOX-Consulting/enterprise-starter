@@ -215,6 +215,6 @@ export function isEmptyObject(obj: Readonly<Record<string, unknown>>): boolean {
   return Object.keys(obj).length === 0 && obj.constructor === Object;
 }
 
-export function tuple<T, U extends T[]>(...u: U): U {
-  return u;
+export function tuple<T, U extends T[]>(...uParams: U): U {
+  return uParams;
 }

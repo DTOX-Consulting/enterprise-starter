@@ -1,3 +1,4 @@
+import { G } from '@mobily/ts-belt';
 import Link from 'next/link';
 
 import { ScrollArea } from '@/components/ui/atoms/scroll-area';
@@ -95,8 +96,8 @@ const CustomLink: FC<LinkProps> = ({ href, text, isNew }) => (
     className={cn(
       'group flex w-full items-center rounded-md border border-transparent px-2 py-1 hover:underline',
       {
-        'font-medium text-foreground': Boolean(isNew),
-        'text-muted-foreground': !isNew
+        'font-medium text-foreground': G.isNotNullable(isNew),
+        'text-muted-foreground': !G.isNotNullable(isNew)
       }
     )}
   >

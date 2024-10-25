@@ -1,5 +1,6 @@
 import { rm as fsRm, copyFile as fsCopy, mkdir as fsMkdir } from 'node:fs/promises';
 
+import { G } from '@mobily/ts-belt';
 import { each } from 'already';
 import { build as bunBuild, type BuildConfig } from 'bun';
 import { glob } from 'glob';
@@ -29,7 +30,7 @@ const copy = async () => {
   const outDir = opts.outdir;
   const files = await glob(['src/iframe/*.html', 'src/iframe/*.css']);
 
-  if (!outDir) return;
+  if (G.isNullable(outDir)) return;
 
   await fsMkdir(outDir, { recursive: true });
 

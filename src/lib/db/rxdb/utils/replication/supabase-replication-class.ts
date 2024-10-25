@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+import { G } from '@mobily/ts-belt';
 import { RxReplicationState } from 'rxdb/plugins/replication';
 import { Subject } from 'rxjs';
 import { stringify } from 'safe-stable-stringify';
@@ -180,7 +181,7 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
       Object.entries(this.keyMapping).map(([key, value]) => [value, key])
     );
 
-    if (this.autoStart) {
+    if (G.isNotNullable(this.autoStart) && this.autoStart) {
       void this.start();
     }
   }
@@ -210,7 +211,7 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
   ): Promise<ReplicationPullHandlerResult<RxDocType, SupabaseReplicationCheckpoint>> {
     let query = this.options.supabaseClient.from(this.table).select();
 
-    if (lastCheckpoint?.modified) {
+    if (G.isNotNullable(lastCheckpoint?.modified)) {
       // Construct the PostgREST query for the following condition:
       // WHERE _modified > lastModified OR (_modified = lastModified AND primaryKey > lastPrimaryKey)
       const lastModified = stringify(lastCheckpoint.modified);

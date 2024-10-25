@@ -28,7 +28,7 @@ export const CheckoutButton = ({ tier }: { tier: TierName }) => {
   const { user } = useAuth();
   const email = user?.email;
 
-  if (!email) {
+  if (!Boolean(email)) {
     return '';
   }
 

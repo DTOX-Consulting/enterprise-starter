@@ -1,3 +1,4 @@
+import { G } from '@mobily/ts-belt';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -56,7 +57,11 @@ export const UserImageLink = (props: UserImageProps) => (
 
 export const UserImageSession = async (props: UserImageProps & { link?: boolean }) => {
   const newProps = { ...props, user: props.user ?? (await getUserSession()).user };
-  return props.link ? <UserImageLink {...newProps} /> : <UserImageWithDetails {...newProps} />;
+  return G.isNotNullable(props.link) && props.link ? (
+    <UserImageLink {...newProps} />
+  ) : (
+    <UserImageWithDetails {...newProps} />
+  );
 };
 
 export function UserAvatar(props: UserAvatarProps = {}) {

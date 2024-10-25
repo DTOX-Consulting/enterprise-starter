@@ -380,7 +380,7 @@ const SelectMulti = forwardRef<SelectMultiRef, SelectMultiProps>(
                   type="button"
                   className={cn(
                     'ml-1 rounded-full outline-none ring-offset-background focus:ring-2 focus:ring-ring focus:ring-offset-2',
-                    (Boolean(disabled) || (Boolean(disabled) === null && Boolean(option.fixed))) &&
+                    (Boolean(disabled) || (Boolean(disabled) == null && Boolean(option.fixed))) &&
                       'hidden'
                   )}
                   onKeyDown={(event) => {
