@@ -24,7 +24,8 @@ export function useNavigatorOnline(state: IState = {}) {
 
   useEffect(() => {
     if (window.navigator.onLine !== value) {
-      return handleOnlineStatus();
+      handleOnlineStatus();
+      return;
     }
 
     window.addEventListener('online', handleOnlineStatus);

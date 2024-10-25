@@ -7,7 +7,10 @@ export const deleteDbs = async () => {
   const deletePromises = dbs.map(
     async (db) =>
       new Promise<void>((resolve, reject) => {
-        if (!G.isNotNullable(db.name)) return resolve(); // Skip if no name
+        if (!G.isNotNullable(db.name)) {
+          resolve();
+          return;
+        }
         const request = indexedDB.deleteDatabase(db.name);
         request.onsuccess = () => {
           console.log(`Deleted database: ${db.name}`);
@@ -32,7 +35,10 @@ export const clearDbs = async () => {
   const clearPromises = dbs.map(
     async (db) =>
       new Promise<void>((resolve, reject) => {
-        if (!G.isNotNullable(db.name)) return resolve(); // Skip if no name
+        if (!G.isNotNullable(db.name)) {
+          resolve();
+          return;
+        }
         const request = indexedDB.open(db.name);
         request.onerror = () => reject(request.error as Error);
         request.onsuccess = () => {

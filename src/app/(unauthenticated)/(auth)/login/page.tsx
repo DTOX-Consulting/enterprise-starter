@@ -11,6 +11,6 @@ export default async function LoginPage() {
     redirect(routes.dashboard);
   }
 
-  const redirectPath = generateRoutes(routes.authCallback).generated.url ?? routes.dashboard;
+  const redirectPath = generateRoutes(routes.authCallback).generated.url || routes.dashboard;
   redirect(`${apiRoutes.auth.login}?post_login_redirect_url=${redirectPath}`);
 }

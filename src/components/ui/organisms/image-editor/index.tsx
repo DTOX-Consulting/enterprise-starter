@@ -97,10 +97,20 @@ export const ImageEditor = ({ options }: { options: Options }) => {
     <div className="flex size-full flex-col">
       <ReactImageEditor ref={editorRef} {...fullOptions} />
       <div className="mt-4 flex flex-col justify-end space-y-2 md:flex-row md:space-x-4 md:space-y-0">
-        <Button onClick={downloadImage} disabled={!options.actions?.download}>
+        <Button
+          onClick={() => {
+            downloadImage().catch(console.error);
+          }}
+          disabled={!options.actions?.download}
+        >
           Download Image
         </Button>
-        <Button onClick={saveImage} disabled={!options.actions?.upload}>
+        <Button
+          onClick={() => {
+            saveImage().catch(console.error);
+          }}
+          disabled={!options.actions?.upload}
+        >
           Save Image
         </Button>
       </div>

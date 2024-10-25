@@ -40,7 +40,7 @@ export const CheckoutButton = ({ tier }: { tier: TierName }) => {
       data-tier={tier}
       className="w-full"
       disabled={loading}
-      onClick={handleCheckout(tier, setLoading, mutateAsync, router)}
+      onClick={() => handleCheckout(tier, setLoading, mutateAsync, router)}
     >
       {!loading ? 'Subscribe' : <LoadingDots color="hsl(var(--background))" />}
     </Button>
@@ -111,9 +111,8 @@ export const handleManageSubscription =
     finish();
     if (details.billing.url) {
       router.push(details.billing.url);
-    } else {
-      router.push(routes.pricing);
     }
+    router.push(routes.pricing);
   };
 
 export const ManageSubscriptionButton = ({ tier }: { tier: TierName }) => {
@@ -125,7 +124,7 @@ export const ManageSubscriptionButton = ({ tier }: { tier: TierName }) => {
     <Button
       className="w-48"
       disabled={managing || isNoneTier(tier)}
-      onClick={handleManageSubscription(tier, setManaging, mutateAsync, router)}
+      onClick={() => handleManageSubscription(tier, setManaging, mutateAsync, router)}
     >
       {!managing ? 'Manage Subscription' : <LoadingDots color="hsl(var(--background))" />}
     </Button>

@@ -1,5 +1,7 @@
 'use client';
 
+import { G } from '@mobily/ts-belt';
+
 import { Button } from '@/components/ui/atoms/button';
 import { useAuth } from '@/lib/hooks/use-auth';
 import { getStripe } from '@/lib/sdks/stripe/client/auth';
@@ -28,7 +30,7 @@ export const CheckoutButton = ({ tier }: { tier: TierName }) => {
   const { user } = useAuth();
   const email = user?.email;
 
-  if (!Boolean(email)) {
+  if (G.isNullable(email)) {
     return '';
   }
 
@@ -36,7 +38,9 @@ export const CheckoutButton = ({ tier }: { tier: TierName }) => {
     <Button
       size="lg"
       className="w-full"
-      onClick={async () => handleCheckout(tier, email)}
+      onClick={() => {
+        void handleCheckout(tier, email);
+      }}
     >
       Subscribe
     </Button>

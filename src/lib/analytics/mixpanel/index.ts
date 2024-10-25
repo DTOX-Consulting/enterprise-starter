@@ -25,7 +25,7 @@ const knownSpecialProperties = new Set([
 ]);
 
 export class MixpanelAnalytics implements AnalyticsService {
-  private isOptedOut = isLocalOrExternal() ?? false;
+  private isOptedOut = isLocalOrExternal() || false;
 
   constructor(private readonly config: AnalyticsConfig) {
     this.config = config;

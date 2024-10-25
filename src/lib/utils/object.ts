@@ -177,7 +177,7 @@ export function assertCondition(
   message?: string,
   context?: Readonly<Record<string, unknown>>
 ): asserts condition {
-  if (!condition) {
+  if (!G.isNotNullable(condition)) {
     throwError(message ?? 'The condition evaluated to false', context);
   }
 }

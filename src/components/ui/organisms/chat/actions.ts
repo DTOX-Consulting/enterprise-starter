@@ -63,7 +63,8 @@ export async function removeChat({ id, path }: { id: string; path: string }) {
   await kv.zrem(`user:chat:${currentUser.id}`, `chat:${id}`);
 
   revalidatePath('/');
-  return revalidatePath(path);
+  revalidatePath(path);
+  
 }
 
 export async function clearChats() {

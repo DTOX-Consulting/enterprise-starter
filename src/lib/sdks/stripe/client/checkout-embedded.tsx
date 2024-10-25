@@ -77,9 +77,9 @@ const CheckoutForm = ({ tier }: { tier: TierName }) => {
 
   return (
     <form
-      onSubmit={async (event: FormEvent<HTMLFormElement>) => {
+      onSubmit={(event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        await confirmPayment({ tier, stripe, elements });
+        confirmPayment({ tier, stripe, elements }).catch(console.error);
       }}
     >
       <div className="h-80 space-y-4">

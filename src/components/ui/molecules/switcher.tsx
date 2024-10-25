@@ -211,7 +211,7 @@ function SwitcherModal({
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input {...field} value={field.value ?? ''} placeholder="Enter name..." />
+                    <Input {...field} value={field.value || ''} placeholder="Enter name..." />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

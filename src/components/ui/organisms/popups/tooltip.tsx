@@ -29,9 +29,13 @@ export default function Tooltip({
     return (
       <Drawer.Root>
         <Drawer.Trigger
-           className={cn(`${G.isNotNullable(fullWidth) && fullWidth ? 'w-full' : 'inline-flex'} md:hidden`, {
-            'justify-center': G.isNotNullable(isMinimized) && isMinimized && G.isNotNullable(noMinimize) && !noMinimize
-          })}
+           className={cn(
+            `${G.isNotNullable(fullWidth) && Boolean(fullWidth) ? 'w-full' : 'inline-flex'} md:hidden`,
+            {
+              'justify-center': Boolean(G.isNotNullable(isMinimized) && isMinimized) &&
+                                Boolean(G.isNotNullable(noMinimize) && !noMinimize)
+            }
+          )}
           onClick={(err) => {
             err.stopPropagation();
           }}

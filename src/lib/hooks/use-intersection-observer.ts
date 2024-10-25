@@ -23,7 +23,7 @@ function useIntersectionObserver(
       | typeof window.IntersectionObserver
       | undefined);
 
-    if ((!hasIOSupport || frozen) ?? !node) return;
+    if ((!hasIOSupport || frozen) || !node) return;
 
     const observerParams = { threshold, root, rootMargin };
     const observer = new IntersectionObserver(updateEntry, observerParams);

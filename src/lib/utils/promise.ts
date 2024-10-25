@@ -82,6 +82,7 @@ export async function retry<T>(times: number, fn: () => Promise<T>): Promise<T> 
 
   for (let index = 0; index < times; index++) {
     try {
+      // eslint-disable-next-line no-await-in-loop
       return await fn();
     } catch (err) {
       error = err as Error;
@@ -144,8 +145,10 @@ export async function each<T>(
   arr: T[],
   fn: (item: T, index: number, array: T[]) => Promise<void>
 ): Promise<void> {
+
   for (let index = 0; index < arr.length; index++) {
     const item = arr[index] as T;
+    // eslint-disable-next-line no-await-in-loop
     await fn(item, index, arr);
   }
 }

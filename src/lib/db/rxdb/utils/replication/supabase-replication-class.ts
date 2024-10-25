@@ -314,7 +314,7 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
 
     console.log('[SUPABASE REPLICATION] Updating row:', { state, toTest });
 
-    Object.entries(this.updateRowKeys(toTest ?? state)).forEach(([field, value]) => {
+    Object.entries(this.updateRowKeys(toTest)).forEach(([field, value]) => {
       const type = typeof value;
 
       if (type === 'undefined' || value === null) {
