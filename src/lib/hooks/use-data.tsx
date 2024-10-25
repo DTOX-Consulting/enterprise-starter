@@ -190,6 +190,14 @@ export function useData<T extends MinimalData>({
     [data, setData, setCurrentData, runCBData]
   );
 
+  function handleDeleteData(dataToDeleteId: string, cbdata?: (data: T[]) => Promise<void>) {
+    setData((prevData) => {
+      const updatedData = prevData.filter((item) => item.id !== dataToDeleteId);
+      void runCBData(updatedData, cbdata);
+      return updatedData;
+    });
+  }
+
   const deleteData = useCallback(
     (dataToDelete: T, cbdata?: (data: T[]) => Promise<void>): MouseEventHandler<SVGSVGElement> =>
       (event) => {
@@ -203,13 +211,7 @@ export function useData<T extends MinimalData>({
           action: (
             <ToastAction
               altText="Delete"
-              onClick={() => {
-                setData((prevData) => {
-                  const updatedData = prevData.filter((item) => item.id !== dataToDelete.id);
-                  void runCBData(updatedData, cbdata);
-                  return updatedData;
-                });
-              }}
+              onClick={() => handleDeleteData(dataToDelete.id, cbdata)}
             >
               Delete
             </ToastAction>

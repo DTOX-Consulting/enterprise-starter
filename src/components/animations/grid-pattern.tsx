@@ -42,6 +42,16 @@ export function GridPattern({
     [5, 5]
   ] as const;
 
+  function filterBlocks(prevBlocks: [number, number, number][], x: number, y: number, key: number) {
+    return prevBlocks.filter(
+      (block) => !(block[0] === x && block[1] === y && block[2] !== key)
+    );
+  }
+
+  function handleAnimationComplete(blockKey: number) {
+    setHoveredBlocks((blocks) => blocks.filter((b) => b[2] !== blockKey));
+  }
+
   useEffect(() => {
     if (!interactive) {
       return;
@@ -74,9 +84,7 @@ export function GridPattern({
       setHoveredBlocks((prevBlocks) => {
         const key = counter.current++;
         const newBlock = [x, y, key] as (typeof hoveredBlocks)[number];
-        return [...prevBlocks, newBlock].filter(
-          (block) => !(block[0] === x && block[1] === y && block[2] !== key)
-        );
+        return filterBlocks([...prevBlocks, newBlock], x, y, key);
       });
     }
 
@@ -102,9 +110,7 @@ export function GridPattern({
             y={block[1]}
             animate={{ opacity: [0, 1, 0] }}
             transition={{ duration: 1, times: [0, 0, 1] }}
-            onAnimationComplete={() => {
-              setHoveredBlocks((blocks) => blocks.filter((b) => b[2] !== block[2]));
-            }}
+            onAnimationComplete={() => handleAnimationComplete(block[2])}
           />
         ))}
       </svg>

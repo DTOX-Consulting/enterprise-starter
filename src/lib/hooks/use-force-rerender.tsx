@@ -2,7 +2,7 @@ import { G } from '@mobily/ts-belt';
 import { useState, useCallback, useRef } from 'react';
 
 export function useForceRerender() {
-  const [, setTick] = useState(0);
+  const [_tick, setTick] = useState(0);
 
   return useCallback(() => {
     setTick((tick) => tick + 1);

@@ -29,50 +29,53 @@ export const deleteDbs = async () => {
   return test.length === 0;
 };
 
+function handleTransactionComplete(dbName: string, resolveFn: () => void) {
+  console.log(`Cleared database: ${dbName}`);
+  resolveFn();
+}
+
+function handleTransactionError(rejectFn: (reason?: any) => void, error: DOMException | null) {
+  rejectFn(error as Error);
+}
+
+function clearObjectStores(database: IDBDatabase, resolveFn: () => void, rejectFn: (reason?: any) => void) {
+  if (database.objectStoreNames.length > 0) {
+    const transaction = database.transaction(database.objectStoreNames, 'readwrite');
+    transaction.oncomplete = () => handleTransactionComplete(database.name, resolveFn);
+    transaction.onerror = () => handleTransactionError(rejectFn, transaction.error);
+
+    for (const name of database.objectStoreNames) {
+      const objectStore = transaction.objectStore(name);
+      objectStore.clear();
+    }
+  } else {
+    console.log(`No object stores to clear in database: ${database.name}`);
+    resolveFn();
+  }
+}
+
+function openDatabase(db: IDBDatabaseInfo, resolveFn: () => void, rejectFn: (reason?: any) => void) {
+  if (!G.isNotNullable(db.name)) {
+    resolveFn();
+    return;
+  }
+  const request = indexedDB.open(db.name);
+  request.onerror = () => rejectFn(request.error as Error);
+  request.onsuccess = () => clearObjectStores(request.result, resolveFn, rejectFn);
+}
+
 export const clearDbs = async () => {
   const dbs = await indexedDB.databases();
 
   const clearPromises = dbs.map(
     async (db) =>
       new Promise<void>((resolve, reject) => {
-        if (!G.isNotNullable(db.name)) {
-          resolve();
-          return;
-        }
-        const request = indexedDB.open(db.name);
-        request.onerror = () => reject(request.error as Error);
-        request.onsuccess = () => {
-          const database = request.result;
-          // Check if there are any object stores to clear
-          if (database.objectStoreNames.length > 0) {
-            const transaction = database.transaction(database.objectStoreNames, 'readwrite');
-            transaction.oncomplete = () => {
-              console.log(`Cleared database: ${db.name}`);
-              resolve();
-            };
-            transaction.onerror = () => reject(transaction.error as Error);
-
-          const { objectStoreNames } = database;
-            for (const name of objectStoreNames) {
-              const objectStore = transaction.objectStore(name);
-              objectStore.clear(); // Clear each object store
-            }
-          } else {
-            console.log(`No object stores to clear in database: ${db.name}`);
-            resolve(); // Resolve the promise if there are no object stores
-          }
-        };
-        request.onupgradeneeded = () => {
-          // This event is triggered if the database is being created or upgraded.
-          // It's an opportunity to create object stores if needed.
-          // const db = request.result;
-          // Example: Create an object store if none exist (not shown here)
-        };
+        openDatabase(db, resolve, reject);
       })
   );
 
   await Promise.all(clearPromises);
-  await delay(1000); // Wait for the databases to be cleared
+  await delay(1000);
   const test = await indexedDB.databases();
   return test.length === dbs.length;
 };

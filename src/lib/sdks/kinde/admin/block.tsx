@@ -13,7 +13,7 @@ export async function AdminBlock({
 }: Readonly<{ children?: ReactNode; noBlock?: boolean }>) {
   const { isAdmin } = noBlock ? { isAdmin: true } : await getUserSession();
 
-  if (isAdmin && G.isNotNullable(children)) return <>{children}</>;
+  if (isAdmin && G.isNotNullable(children)) return children;
   if (!isAdmin) return <ComingSoon />;
 
   return null;

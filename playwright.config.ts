@@ -1,6 +1,6 @@
 /* eslint-disable n/no-process-env */
 import { G } from '@mobily/ts-belt';
-import { defineConfig } from '@playwright/test';
+import { defineConfig, devices } from '@playwright/test';
 
 /**
  * Read environment variables from file.

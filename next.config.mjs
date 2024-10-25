@@ -114,15 +114,13 @@ const nextConfig = {
  * @returns A function that applies Highlight config
  */
 const nextHighlight =
-  (highlightConfig) =>
-  /**
-   * Applies Highlight configuration to Next.js config.
-   *
-   * @param config - Next.js configuration
-   * @returns Updated Next.js configuration
-   */
-  async (config) =>
-    withHighlightConfig(config, highlightConfig);
+  (highlightConfig) => 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+     async (config) => 
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+       withHighlightConfig(config, highlightConfig)
+    
+  ;
 
 /** @type {((config: import('next').NextConfig) => import('next').NextConfig)[]} */
 const plugins = [

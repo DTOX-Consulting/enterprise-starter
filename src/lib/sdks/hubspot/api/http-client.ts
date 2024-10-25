@@ -187,7 +187,8 @@ export class HttpClient<SecurityDataType = unknown> {
     const queryString = query ? this.toQueryString(query) : '';
     const payloadFormatter = this.contentFormatters[type ?? ContentType.Json];
     const responseFormat = format ?? requestParams.format ?? 'json';
-    const requestUrl = `${baseUrl ?? this.baseUrl}${path}${queryString ? `?${queryString}` : ''}`;
+    const queryPrefix = queryString ? '?' : '';
+    const requestUrl = `${baseUrl ?? this.baseUrl}${path}${queryPrefix}${queryString ? `?${queryString}` : ''}`;
 
     const response = await this.customFetch(requestUrl, {
       ...requestParams,

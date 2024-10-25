@@ -15,7 +15,8 @@ export const usePersistQueryClient = () => {
     const localStoragePersister = createSyncStoragePersister({
       throttleTime: 1000,
       retry: removeOldestQuery,
-      storage: window.sessionStorage,
+      // eslint-disable-next-line n/no-unsupported-features/node-builtins
+      storage: window.localStorage,
       serialize: (data) => stringify(data),
       deserialize: (data) => JSON.parse(data) as PersistedClient
     });
