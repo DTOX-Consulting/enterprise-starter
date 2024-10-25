@@ -79,7 +79,7 @@ const CheckoutForm = ({ tier }: { tier: TierName }) => {
     <form
       onSubmit={(event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        confirmPayment({ tier, stripe, elements }).catch(console.error);
+        void confirmPayment({ tier, stripe, elements });
       }}
     >
       <div className="h-80 space-y-4">

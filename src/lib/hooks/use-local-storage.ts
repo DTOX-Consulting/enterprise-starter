@@ -7,7 +7,7 @@ const useLocalStorage = <T>(key: string, initialValue: T): [T, (value: T) => voi
 
   useEffect(() => {
     // Retrieve from localStorage
-    const item = window.localStorage.getItem(key);
+    const item = window.sessionStorage.getItem(key);
     if (G.isNotNullable(item)) {
       setStoredValue(JSON.parse(item) as T);
     }
@@ -17,7 +17,7 @@ const useLocalStorage = <T>(key: string, initialValue: T): [T, (value: T) => voi
     // Save state
     setStoredValue(value);
     // Save to localStorage
-    window.localStorage.setItem(key, stringify(value as string | ''));
+    window.sessionStorage.setItem(key, stringify(value as string));
   };
 
   return [storedValue, setValue];

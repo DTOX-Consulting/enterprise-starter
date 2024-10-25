@@ -99,7 +99,7 @@ export const ImageEditor = ({ options }: { options: Options }) => {
       <div className="mt-4 flex flex-col justify-end space-y-2 md:flex-row md:space-x-4 md:space-y-0">
         <Button
           onClick={() => {
-            downloadImage().catch(console.error);
+            void downloadImage();
           }}
           disabled={!options.actions?.download}
         >
@@ -107,7 +107,7 @@ export const ImageEditor = ({ options }: { options: Options }) => {
         </Button>
         <Button
           onClick={() => {
-            saveImage().catch(console.error);
+            void saveImage();
           }}
           disabled={!options.actions?.upload}
         >

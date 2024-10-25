@@ -5,7 +5,7 @@ import { MdxCard } from '@/components/ui/molecules/mdx-card';
 import { cn } from '@/lib/utils';
 
 import type { MDXComponents } from 'mdx/types';
-import type * as React from 'react';
+import type { ImgHTMLAttributes, HTMLAttributes } from 'react';
 
 const components: MDXComponents = {
   h1: ({ className, ...props }) => (
@@ -47,8 +47,10 @@ const components: MDXComponents = {
       {...props}
     />
   ),
-  a: ({ className, ...props }) => (
-    <a className={cn('font-medium underline underline-offset-4', className)} {...props} />
+  a: ({ className, children, ...props }) => (
+    <a className={cn('font-medium underline underline-offset-4', className)} {...props}>
+      {children}
+    </a>
   ),
   // eslint-disable-next-line id-length
   p: ({ className, ...props }) => (
@@ -68,17 +70,17 @@ const components: MDXComponents = {
       {...props}
     />
   ),
-  img: ({ className, alt, ...props }: React.ImgHTMLAttributes<HTMLImageElement>) => (
+  img: ({ className, alt, ...props }: ImgHTMLAttributes<HTMLImageElement>) => (
     // eslint-disable-next-line @next/next/no-img-element
     <img className={cn('rounded-md border', className)} alt={alt} {...props} aria-label={alt} />
   ),
   hr: ({ ...props }) => <hr className="my-4 md:my-8" {...props} />,
-  table: ({ className, ...props }: React.HTMLAttributes<HTMLTableElement>) => (
+  table: ({ className, ...props }: HTMLAttributes<HTMLTableElement>) => (
     <div className="my-6 w-full overflow-y-auto">
       <table className={cn('w-full', className)} {...props} />
     </div>
   ),
-  tr: ({ className, ...props }: React.HTMLAttributes<HTMLTableRowElement>) => (
+  tr: ({ className, ...props }: HTMLAttributes<HTMLTableRowElement>) => (
     <tr className={cn('m-0 border-t p-0 even:bg-muted', className)} {...props} />
   ),
   th: ({ className, ...props }) => (

@@ -4,11 +4,11 @@ import { cn } from '@/lib/utils';
 
 type ButtonProps = {
   invert?: boolean;
-  type?: 'button' | 'submit' | 'reset' | undefined;
+  type?: 'button' | 'submit' | 'reset';
 } & (
   | React.ComponentPropsWithoutRef<typeof Link>
   | (React.ComponentPropsWithoutRef<'button'> & {
-      href?: undefined;
+      href?: string;
     })
 );
 

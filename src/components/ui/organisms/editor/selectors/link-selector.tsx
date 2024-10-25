@@ -80,7 +80,7 @@ export const LinkSelector = ({ open, onOpenChange }: LinkSelectorProps) => {
             className="flex-1 bg-background p-1 text-sm outline-none"
             defaultValue={(editor.getAttributes('link').href as string) || ''}
           />
-          {editor.getAttributes('link').href ? (
+          {G.isNotNullable(editor.getAttributes('link').href) ? (
             <Button
               size="icon"
               variant="outline"

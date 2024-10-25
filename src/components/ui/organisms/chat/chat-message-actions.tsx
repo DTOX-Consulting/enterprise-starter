@@ -31,7 +31,7 @@ export function ChatMessageActions({ message, className, ...props }: ChatMessage
       )}
       {...props}
     >
-      <Button variant="ghost" size="icon" onClick={onCopy}>
+      <Button variant="ghost" size="icon" onClick={() => void onCopy()}>
         {isCopied ? <IconCheck /> : <IconCopy />}
         <span className="sr-only">Copy message</span>
       </Button>

@@ -28,13 +28,15 @@ export default function Card({
         <div className="prose-sm mt-3 leading-normal text-gray-500 [text-wrap:balance] md:prose">
           <ReactMarkdown
             components={{
-              a: ({ ...props }) => (
+              a: ({ children, ...props }: { children: ReactNode }) => (
                 <a
                   target="_blank"
                   rel="noopener noreferrer"
                   {...props}
                   className="font-medium text-gray-800 underline transition-colors"
-                />
+                >
+                  {children}
+                </a>
               ),
               code: ({ ...props }) => (
                 <code

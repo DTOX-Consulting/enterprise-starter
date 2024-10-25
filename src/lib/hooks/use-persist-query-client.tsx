@@ -15,12 +15,12 @@ export const usePersistQueryClient = () => {
     const localStoragePersister = createSyncStoragePersister({
       throttleTime: 1000,
       retry: removeOldestQuery,
-      storage: window.localStorage,
+      storage: window.sessionStorage,
       serialize: (data) => stringify(data),
       deserialize: (data) => JSON.parse(data) as PersistedClient
     });
 
-    void persistQueryClient({
+    persistQueryClient({
       queryClient: queryClient as unknown as Parameters<
         typeof persistQueryClient
       >[0]['queryClient'],

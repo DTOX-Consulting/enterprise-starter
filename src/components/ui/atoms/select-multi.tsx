@@ -1,5 +1,6 @@
 'use client';
 
+import { G } from '@mobily/ts-belt';
 import { Command as CommandPrimitive, useCommandState } from 'cmdk';
 import { X } from 'lucide-react';
 import {
@@ -360,7 +361,7 @@ const SelectMulti = forwardRef<SelectMultiRef, SelectMultiProps>(
       >
         <div
           className={cn(
-            'group rounded-md border border-input px-3 py-2 text-sm ring-offset-background focus-within:ring-2 focus-within:ring-offset-2',
+            'group rounded-md border border-input px-3 py-2 text-sm ring-offset-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2',
             className
           )}
         >
@@ -381,7 +382,7 @@ const SelectMulti = forwardRef<SelectMultiRef, SelectMultiProps>(
                   type="button"
                   className={cn(
                     'ml-1 rounded-full outline-none ring-offset-background focus:ring-2 focus:ring-ring focus:ring-offset-2',
-                    (Boolean(disabled) || (Boolean(disabled) == null && Boolean(option.fixed))) &&
+                    (G.isNotNullable(disabled)) &&
                       'hidden'
                   )}
                   onKeyDown={(event) => {

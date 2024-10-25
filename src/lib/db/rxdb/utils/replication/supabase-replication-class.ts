@@ -346,7 +346,7 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
     this.realtimeChannel = this.options.supabaseClient
       .channel(`rxdb-supabase-${this.replicationIdentifierHash}`)
       .on('postgres_changes', { event: '*', schema: 'public', table: this.table }, (payload) => {
-        if (payload.eventType === 'DELETE' || payload.new == null) return;
+        if (payload.eventType === 'DELETE') return;
         try {
           this.realtimeChanges.next({
             documents: [this.rowToRxDoc(payload.new)],
@@ -372,7 +372,7 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
   }
 
   private rowToRxDoc(row: GenericObject): WithDeleted<RxDocType> {
-    const { [this.lastModifiedFieldName]: _, ...rest } = row;
+    const { [this.lastModifiedFieldName]: unused, ...rest } = row;
     return this.updateRowKeys(rest as WithDeleted<RxDocType>, true);
   }
 

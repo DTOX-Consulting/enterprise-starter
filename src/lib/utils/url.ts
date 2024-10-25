@@ -44,12 +44,15 @@ export const downloadResponse = async (response: Response, fileName: string, ext
   createAndClickAnchor(url, finalFileName);
 };
 
-export const downloadUrl = async (url: string, fileName: string, ext = 'png', cors = false) =>
-  url.startsWith('blob:')
-    ? downloadBlob(url, fileName, ext)
-    : url.startsWith('data:')
-      ? createAndClickAnchor(url, fileName)
-      : downloadUrlProxy(url, fileName, ext, cors);
+export const downloadUrl = async (url: string, fileName: string, ext = 'png', cors = false) => {
+  if (url.startsWith('blob:')) {
+    downloadBlob(url, fileName, ext);
+  } else if (url.startsWith('data:')) {
+    createAndClickAnchor(url, fileName);
+  } else {
+    return downloadUrlProxy(url, fileName, ext, cors);
+  }
+};
 
 export const parseDataURL = (dataURL: string) => {
   const matches = /^data:(.+);base64,(.+)$/.exec(dataURL);

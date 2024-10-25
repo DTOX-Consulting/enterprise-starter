@@ -32,8 +32,8 @@ export default function Tooltip({
            className={cn(
             `${G.isNotNullable(fullWidth) && Boolean(fullWidth) ? 'w-full' : 'inline-flex'} md:hidden`,
             {
-              'justify-center': Boolean(G.isNotNullable(isMinimized) && isMinimized) &&
-                                Boolean(G.isNotNullable(noMinimize) && !noMinimize)
+              'justify-center': Boolean(G.isNotNullable(isMinimized) && Boolean(isMinimized)) &&
+                                Boolean(G.isNotNullable(noMinimize) && !Boolean(noMinimize))
             }
           )}
           onClick={(err) => {

@@ -6,7 +6,7 @@ export const getUser = async () => {
     const response = await drive.about.get({
       fields: 'user,storageQuota'
     });
-    return fromPromise(Promise.resolve(response.data));
+    return await fromPromise(Promise.resolve(response.data));
   } catch (error) {
     console.error('Error getting user:', error);
     throw error; // Rethrow or handle the error appropriately

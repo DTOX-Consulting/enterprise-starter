@@ -1,3 +1,5 @@
+import { randomInt } from 'node:crypto';
+
 import { G } from '@mobily/ts-belt';
 
 import { throwError } from '@/lib/utils/error';
@@ -56,7 +58,7 @@ export function keysExist<T, K extends (keyof T)[]>(
 
 export function shuffle<T>(arr: T[]) {
   for (let index = arr.length - 1; index > 0; index--) {
-    const secondIndex = Math.floor(Math.random() * (index + 1));
+    const secondIndex = randomInt(0, index + 1);
     [arr[index], arr[secondIndex]] = [arr[secondIndex], arr[index]] as [T, T];
   }
 

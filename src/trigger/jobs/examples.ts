@@ -1,3 +1,5 @@
+import { randomInt } from 'node:crypto';
+
 import { eventTrigger } from '@trigger.dev/sdk';
 
 import { client } from '@/lib/sdks/trigger/client';
@@ -17,7 +19,7 @@ export const example = client.defineJob({
     // Use a Task to generate a random number. Using a Tasks means it only runs once.
     const result = await io.runTask('generate-random-number', async () =>
       Promise.resolve({
-        num: Math.floor(Math.random() * 10000)
+        num: randomInt(0, 10000)
       })
     );
 

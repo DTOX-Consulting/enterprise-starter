@@ -106,10 +106,12 @@ function SidebarLink({
           {!isMinimized && (
             <>
               <span className="ml-4">{item.name}</span>
-              {!item.items ? null : isOpen ? (
-                <ChevronDownIcon className="ml-auto size-5" />
-              ) : (
-                <ChevronRightIcon className="ml-auto size-5" />
+              {item.items && (
+                isOpen ? (
+                  <ChevronDownIcon className="ml-auto size-5" />
+                ) : (
+                  <ChevronRightIcon className="ml-auto size-5" />
+                )
               )}
             </>
           )}

@@ -82,7 +82,7 @@ async function PersonalInformationForm() {
   );
 }
 
-function ChangePasswordForm() {
+function _ChangePasswordForm() {
   return (
     <div className="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 py-16 pt-8 md:grid-cols-3">
       <div>
@@ -144,7 +144,7 @@ function ChangePasswordForm() {
   );
 }
 
-function LogoutOtherSessionsForm() {
+function _LogoutOtherSessionsForm() {
   return (
     <div className="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 py-16 pt-8 md:grid-cols-3">
       <div>

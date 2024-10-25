@@ -32,13 +32,13 @@ export function PromptForm({ onSubmit, input, setInput, isLoading }: PromptProps
 
   return (
     <form
-      onSubmit={async (event) => {
+      onSubmit={(event) => {
         event.preventDefault();
         if (!input.trim()) {
           return;
         }
         setInput('');
-        await onSubmit(input);
+        void onSubmit(input);
       }}
       ref={formRef}
     >

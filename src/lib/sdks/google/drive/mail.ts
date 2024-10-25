@@ -28,7 +28,7 @@ export const sendMail = async ({ body, subject, to, from = config.auth.subject }
       }
     });
 
-    return fromPromise(Promise.resolve(response.data));
+    return await fromPromise(Promise.resolve(response.data));
   } catch (error) {
     console.error('Error sending email:', error);
     throw error;

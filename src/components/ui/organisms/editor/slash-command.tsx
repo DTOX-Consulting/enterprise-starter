@@ -11,7 +11,7 @@ import {
   ListOrdered,
   Text,
   TextQuote,
-  Youtube
+  Video
 } from 'lucide-react';
 import { createSuggestionItems, Command, renderItems } from 'novel/extensions';
 
@@ -138,7 +138,7 @@ export const suggestionItems = createSuggestionItems([
     title: 'Youtube',
     description: 'Embed a Youtube video.',
     searchTerms: ['video', 'youtube', 'embed'],
-    icon: <Youtube size={18} />,
+    icon: <Video size={18} />,
     command: ({ editor, range }) => {
       const videoLink = prompt('Please enter Youtube Video Link');
       if (!G.isNotNullable(videoLink)) return;
@@ -157,7 +157,7 @@ export const suggestionItems = createSuggestionItems([
             src: videoLink
           })
           .run();
-      } else if (videoLink !== null) {
+      } else {
         alert('Please enter a correct Youtube Video Link');
       }
     }

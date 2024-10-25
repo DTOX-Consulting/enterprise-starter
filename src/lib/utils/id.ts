@@ -12,7 +12,7 @@ export const nanoid = customAlphabet(
 );
 
 export const isNanoId = (id: string, length = 12) =>
-  new RegExp(`^[0-9A-Za-z]{${length}}$`).test(id);
+  new RegExp(`^([0-9A-Za-z]{${length}})$`).test(id);
 
 export const slugify = (name: string) => {
   const text = name

@@ -3,6 +3,8 @@
 
 'use client';
 
+import { randomInt } from 'node:crypto';
+
 import { G } from '@mobily/ts-belt';
 import { type FC, memo } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -17,12 +19,13 @@ type Props = {
   value: string;
 };
 
-type languageMap = Record<string, string | undefined>;
+type LanguageMap = Record<string, string | undefined>;
 
-export const programmingLanguages: languageMap = {
+export const programmingLanguages: LanguageMap = {
   javascript: '.js',
   python: '.py',
   java: '.java',
+  // eslint-disable-next-line id-length
   c: '.c',
   cpp: '.cpp',
   'c++': '.cpp',
@@ -50,7 +53,7 @@ export const generateRandomString = (length: number, lowercase = false) => {
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXY3456789'; // excluding similar looking characters like Z, 2, I, 1, O, 0
   let result = '';
   for (let index = 0; index < length; index++) {
-    result += chars.charAt(Math.floor(Math.random() * chars.length));
+    result += chars.charAt(randomInt(0, chars.length));
   }
   return lowercase ? result.toLowerCase() : result;
 };
@@ -106,7 +109,7 @@ const CodeBlock: FC<Props> = memo(({ language, value }) => {
             variant="ghost"
             size="icon"
             className="text-xs hover:bg-zinc-800 focus-visible:ring-1 focus-visible:ring-slate-700 focus-visible:ring-offset-0"
-            onClick={onCopy}
+            onClick={() => void onCopy()}
           >
             {isCopied ? <IconCheck /> : <IconCopy />}
             <span className="sr-only">Copy code</span>

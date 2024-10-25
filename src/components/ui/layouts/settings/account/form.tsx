@@ -54,7 +54,7 @@ const profileFormSchema = z.object({
 
 type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
-function ProfileForm() {
+function _ProfileForm() {
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     mode: 'onChange'
@@ -78,7 +78,7 @@ function ProfileForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={() => form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
           name="username"
@@ -148,14 +148,14 @@ function ProfileForm() {
               control={form.control}
               key={field.id}
               name={`urls.${index}.value`}
-              render={({ field }) => (
+              render={({ field: fieldParam }) => (
                 <FormItem>
                   <FormLabel className={cn(index !== 0 && 'sr-only')}>URLs</FormLabel>
                   <FormDescription className={cn(index !== 0 && 'sr-only')}>
                     Add links to your website, blog, or social media profiles.
                   </FormDescription>
                   <FormControl>
-                    <Input {...field} />
+                    <Input {...fieldParam} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

@@ -219,7 +219,13 @@ function SwitcherModal({
             />
 
             <DialogFooter>
-              <form onSubmit={form.handleSubmit((data) => onSubmit?.(data.name))}>
+              <form
+                onSubmit={form.handleSubmit((data) => {
+                  if (onSubmit) {
+                    onSubmit(data.name);
+                  }
+                })}
+              >
                 <Button
                   type="submit"
                   className="w-full"

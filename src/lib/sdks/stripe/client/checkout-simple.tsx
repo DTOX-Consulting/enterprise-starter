@@ -9,11 +9,11 @@ import { createStripeLineItems, getStripeUrls } from '@/lib/sdks/stripe/client/u
 
 import type { TierName } from '@/config/permissions/features';
 
-export const handleCheckout = async (tier: TierName, email: string) => {
+export const handleCheckout = async (tier: TierName, email: string): Promise<Error | null> => {
   const stripe = await getStripe();
 
   if (!stripe) {
-    return;
+    return null;
   }
 
   const { error } = await stripe.redirectToCheckout({
@@ -31,7 +31,7 @@ export const CheckoutButton = ({ tier }: { tier: TierName }) => {
   const email = user?.email;
 
   if (G.isNullable(email)) {
-    return '';
+    return null;
   }
 
   return (
