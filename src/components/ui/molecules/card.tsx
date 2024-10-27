@@ -3,6 +3,24 @@ import ReactMarkdown from 'react-markdown';
 
 import type { ReactNode } from 'react';
 
+const LinkComponent = ({ children, ...props }: { children: ReactNode }) => (
+  <a
+    target="_blank"
+    rel="noopener noreferrer"
+    {...props}
+    className="font-medium text-gray-800 underline transition-colors"
+  >
+    {children}
+  </a>
+);
+
+const CodeComponent = (props: any) => (
+  <code
+    {...props}
+    className="rounded-sm bg-gray-100 px-1 py-0.5 font-mono font-medium text-gray-800"
+  />
+);
+
 export default function Card({
   title,
   description,
@@ -28,22 +46,8 @@ export default function Card({
         <div className="prose-sm mt-3 leading-normal text-gray-500 [text-wrap:balance] md:prose">
           <ReactMarkdown
             components={{
-              a: ({ children, ...props }: { children: ReactNode }) => (
-                <a
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  {...props}
-                  className="font-medium text-gray-800 underline transition-colors"
-                >
-                  {children}
-                </a>
-              ),
-              code: ({ ...props }) => (
-                <code
-                  {...props}
-                  className="rounded-sm bg-gray-100 px-1 py-0.5 font-mono font-medium text-gray-800"
-                />
-              )
+              a: LinkComponent,
+              code: CodeComponent
             }}
           >
             {description}

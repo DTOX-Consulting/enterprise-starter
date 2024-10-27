@@ -92,7 +92,7 @@ const nextConfig = {
 
     if (isServer) {
       config.devtool = 'source-map';
-      config.ignoreWarnings = config.ignoreWarnings || [];
+      config.ignoreWarnings = config.ignoreWarnings;
       config.ignoreWarnings.push({ module: /highlight-(run\/)?node/ });
     }
 
@@ -114,12 +114,12 @@ const nextConfig = {
  * @returns A function that applies Highlight config
  */
 const nextHighlight =
-  (highlightConfig) => 
+  (highlightConfig) =>
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-     async (config) => 
+     async (config) =>
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
        withHighlightConfig(config, highlightConfig)
-    
+
   ;
 
 /** @type {((config: import('next').NextConfig) => import('next').NextConfig)[]} */

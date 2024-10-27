@@ -16,26 +16,40 @@ type ClientData = {
 
 type Contact = Awaited<ReturnType<typeof wix.contacts.getContact>>;
 
+const createDefaultContact = (email: string): ClientData => ({
+  email,
+  lastName: '',
+  firstName: '',
+  notifyMe: false,
+  subscriptionPlan: ''
+});
+
+const getContactName = (contact: Contact) => ({
+  lastName: contact.info?.name?.last ?? '',
+  firstName: contact.info?.name?.first ?? ''
+});
+
+const getNotifyMeStatus = (contact: Contact): boolean =>
+  contact.info?.extendedFields?.items?.['custom.notify'] === 'yes';
+
+const getSubscriptionPlan = (contact: Contact): string =>
+  (contact.info?.extendedFields?.items?.['custom.subscription'] as string) || '';
+
+const extractContactDetails = (email: string, contact: Contact): ClientData => ({
+  email,
+  id: contact._id,
+  revision: contact.revision,
+  ...getContactName(contact),
+  notifyMe: getNotifyMeStatus(contact),
+  subscriptionPlan: getSubscriptionPlan(contact)
+});
+
 const returnContact = (email: string, input?: ClientData, contact?: Contact): ClientData | null => {
   if (G.isNullable(contact)) {
-    return {
-      email,
-      lastName: '',
-      firstName: '',
-      notifyMe: false,
-      subscriptionPlan: ''
-    };
+    return createDefaultContact(email);
   }
 
-  return {
-    email,
-    id: contact._id,
-    revision: contact.revision,
-    lastName: contact.info?.name?.last ?? '',
-    firstName: contact.info?.name?.first ?? '',
-    notifyMe: contact.info?.extendedFields?.items?.['custom.notify'] === 'yes',
-    subscriptionPlan: (contact.info?.extendedFields?.items?.['custom.subscription'] as string) || ''
-  };
+  return extractContactDetails(email, contact);
 };
 
 const returnData = (input: ClientData, data?: object) => {

@@ -170,6 +170,46 @@ export class HttpClient<SecurityDataType = unknown> {
     }
   };
 
+  private getSecureParams = async (secure: boolean): Promise<RequestParams> => {
+    const secureParams = secure && this.securityWorker ? await this.securityWorker(this.securityData) : {};
+    return secureParams ?? {};
+  };
+
+  private buildRequestUrl = (baseUrl: string | undefined, path: string, query?: QueryParamsType): string => {
+    const queryString = query ? this.toQueryString(query) : '';
+    const queryPrefix = queryString ? '?' : '';
+    return `${baseUrl ?? this.baseUrl}${path}${queryPrefix}${queryString}`;
+  };
+
+  private getRequestHeaders = (type?: ContentType, headers: HeadersInit = {}): HeadersInit => ({
+      ...headers,
+      ...(type && type !== ContentType.FormData ? { 'Content-Type': type } : {})
+    });
+
+  private async fetchAndProcessResponse<T, E>(
+    url: string,
+    options: RequestInit,
+    format: string
+  ): Promise<HttpResponse<T, E>> {
+    const response = await this.customFetch(url, options);
+    const res = response.clone() as HttpResponse<T, E>;
+    res.data = null as unknown as T;
+    res.error = null as unknown as E;
+
+    try {
+      const data = await (response[format as keyof Response] as () => Promise<unknown>)();
+      if (response.ok) {
+        res.data = data as T;
+      } else {
+        res.error = data as E;
+      }
+    } catch (err) {
+      res.error = err as E;
+    }
+
+    return res;
+  }
+
   public request = async <T = unknown, E = Error>({
     body,
     secure,
@@ -181,46 +221,31 @@ export class HttpClient<SecurityDataType = unknown> {
     cancelToken,
     ...params
   }: FullRequestParams): Promise<T> => {
-    const secureParams =
-      secure && this.securityWorker ? await this.securityWorker(this.securityData) : {};
-    const requestParams = this.mergeRequestParams(params, secureParams as RequestParams);
-    const queryString = query ? this.toQueryString(query) : '';
+    const secureParams = await this.getSecureParams(secure as boolean);
+    const requestParams = this.mergeRequestParams(params, secureParams);
+    const requestUrl = this.buildRequestUrl(baseUrl, path, query);
+
+    const headers = this.getRequestHeaders(type, requestParams.headers);
     const payloadFormatter = this.contentFormatters[type ?? ContentType.Json];
-    const responseFormat = format ?? requestParams.format ?? 'json';
-    const queryPrefix = queryString ? '?' : '';
-    const requestUrl = `${baseUrl ?? this.baseUrl}${path}${queryPrefix}${queryString ? `?${queryString}` : ''}`;
+    const requestBody = body ? (payloadFormatter(body as QueryParamsType) as BodyInit) : null;
 
-    const response = await this.customFetch(requestUrl, {
+    const response = await this.fetchAndProcessResponse<T, E>(requestUrl, {
       ...requestParams,
-      headers: {
-        ...requestParams.headers,
-        ...(type && type !== ContentType.FormData ? { 'Content-Type': type } : {})
-      },
+      headers,
       signal: cancelToken ? this.createAbortSignal(cancelToken) : requestParams.signal,
-      body: body ? (payloadFormatter(body as QueryParamsType) as BodyInit) : null
-    });
-
-    const res = response.clone() as HttpResponse<T, E>;
-    res.data = null as unknown as T;
-    res.error = null as unknown as E;
-
-    try {
-      const data = await response[responseFormat]();
-      if (response.ok) {
-        res.data = data;
-      } else {
-        res.error = data as E;
-      }
-    } catch (err) {
-      res.error = err as E;
-    }
+      body: requestBody
+    }, format ?? requestParams.format ?? 'json');
 
     if (cancelToken) {
       this.abortControllers.delete(cancelToken);
     }
 
-    if (!response.ok) throw new Error(`Request failed with status ${response.status}`);
-    return res.data;
+    if (!response.data && response.error) {
+      throw new Error(`Request failed with status ${String(response.error)}`); // Ensure error is a string
+    }
+
+    return response.data;
   };
+
 }
 /* eslint-enable promise/prefer-await-to-then, @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-unsafe-assignment -- SDK */

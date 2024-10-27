@@ -372,7 +372,8 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
   }
 
   private rowToRxDoc(row: GenericObject): WithDeleted<RxDocType> {
-    const { [this.lastModifiedFieldName]: unused, ...rest } = row;
+    const rest = { ...row };
+    delete rest[this.lastModifiedFieldName];
     return this.updateRowKeys(rest as WithDeleted<RxDocType>, true);
   }
 

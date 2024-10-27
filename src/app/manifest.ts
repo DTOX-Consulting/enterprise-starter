@@ -73,10 +73,10 @@ export default function manifest(): Manifest {
 
 const generateManifestImages = () => {
   const icons = sizes.map((sizeParam) => {
-    const sizes = `${sizeParam}x${sizeParam}`;
+    const sizeMapped = `${sizeParam}x${sizeParam}`;
 
     const result: IconType = {
-      sizes,
+      size: sizeMapped,
       type: 'image/png',
       // purpose: 'maskable',
       src: `/${logoRoot}/icon-${sizeParam}.png`,
@@ -200,6 +200,13 @@ const generateScreenshots = async () => {
       .resize(...(screenshotSizes2.split('x').map(Number) as [number, number]))
       .png()
       .toFile(output, logError);
+
+    return {
+      formFactor,
+      screenshotSizes2,
+      input,
+      output
+    };
   });
 };
 const logError = (err?: Error) => {

@@ -88,10 +88,14 @@ export function AISelector({ onOpenChange, completionApi }: Readonly<AISelectorP
                   setInputValue('');
                 };
 
-                if (G.isNotNullable(completion)) return afterCompletion(completion);
+                if (G.isNotNullable(completion)) {
+                  afterCompletion(completion);
+                  return;
+                }
                 const slice = editor.state.selection.content();
                 const text = editor.storage.markdown.serializer.serialize(slice.content);
-                return afterCompletion(text);
+                afterCompletion(text);
+
               }}
             >
               <ArrowUp className="size-4" />

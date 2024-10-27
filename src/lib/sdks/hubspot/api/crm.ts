@@ -229,6 +229,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * @request PUT:/crm/v4/objects/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}
    * @secure
    */
+  // eslint-disable-next-line max-params
   v4ObjectsAssociationsUpdate = async (
     objectType: string,
     objectId: string,
@@ -277,6 +278,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * @request PUT:/crm/v4/objects/{fromObjectType}/{fromObjectId}/associations/default/{toObjectType}/{toObjectId}
    * @secure
    */
+  // eslint-disable-next-line max-params
   v4ObjectsAssociationsDefaultUpdate = async (
     fromObjectType: string,
     fromObjectId: string,
