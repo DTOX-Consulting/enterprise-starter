@@ -112,7 +112,7 @@ export function useData<T extends MinimalData>({
   );
 
   const createData = useCallback(
-    async (
+    (
       newData: PartialWithoutKeys<T, 'id' | 'createdAt' | 'lastUpdated'>,
       cbdata?: (data: T[]) => Promise<void>
     ) => {
