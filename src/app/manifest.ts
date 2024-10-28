@@ -79,7 +79,7 @@ const generateManifestImages = () => {
       size: sizeMapped,
       type: 'image/png',
       // purpose: 'maskable',
-      src: `/${logoRoot}/icon-${sizeParam}.png`,
+    src: `/${logoRoot}/icon-${sizeParam}.png`,
       targets: ['manifest', 'apple', 'android']
     };
 
@@ -90,7 +90,7 @@ const generateManifestImages = () => {
 
     if ([150, 310].includes(sizeParam)) {
       result.targets = ['ms'];
-      result.element = `square${sizes}logo`;
+      result.element = `square${sizeParam}logo`;
     }
 
     return result;

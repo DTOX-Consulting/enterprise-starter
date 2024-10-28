@@ -21,13 +21,23 @@ export const usePersistQueryClient = () => {
       deserialize: (data) => JSON.parse(data) as PersistedClient
     });
 
-    persistQueryClient({
-      queryClient: queryClient as unknown as Parameters<
-        typeof persistQueryClient
-      >[0]['queryClient'],
-      maxAge: 60 * 60 * 24,
-      persister: localStoragePersister
-    });
+    const initPersistence = async () => {
+      try {
+        await Promise.all([
+          persistQueryClient({
+            queryClient: queryClient as unknown as Parameters<
+              typeof persistQueryClient
+            >[0]['queryClient'],
+            maxAge: 60 * 60 * 24,
+            persister: localStoragePersister
+          })
+        ]);
+      } catch (error) {
+        console.error('Failed to persist query client:', error);
+      }
+    };
+
+    void initPersistence();
   }, [queryClient]);
 };
 

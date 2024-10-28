@@ -35,7 +35,6 @@ export function SidebarLinks({
   return navigationProps.items.map((item) => {
     if (G.isNotNullable(item.authenticated) && !user) return null;
     if (G.isNotNullable(item.unauthenticated) && G.isNotNullable(user)) return null;
-
     if (G.isNotNullable(item.bottom)) bottomValue = bottomValue === 0 ? 4 : bottomValue + 10;
     const bottomClass = `bottom-${bottomValue}`;
 

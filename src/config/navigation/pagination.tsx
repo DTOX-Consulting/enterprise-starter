@@ -12,7 +12,19 @@ import { useForceState } from '@/lib/hooks/use-force-rerender';
 
 import type { NavigationItem } from '@/config/navigation/types';
 
-export const standardizePath = (path: string) => path.replace(/^\/+|\/+$/g, '');
+export const standardizePath = (path: string) => {
+  let start = 0;
+  let end = path.length;
+
+  while (start < end && path[start] === '/') {
+    start++;
+  }
+  while (end > start && path[end - 1] === '/') {
+    end--;
+  }
+
+  return path.slice(start, end);
+};
 
 export const isInPages = (path: string, navigationItems: NavigationItem[]) => {
   const pages = getPages(navigationItems);

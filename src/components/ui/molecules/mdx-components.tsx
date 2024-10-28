@@ -74,9 +74,13 @@ const components: MDXComponents = {
     <img className={cn('rounded-md border', className)} alt={alt} {...props} aria-label={alt} />
   ),
   hr: ({ ...props }) => <hr className="my-4 md:my-8" {...props} />,
-  table: ({ className, ...props }: HTMLAttributes<HTMLTableElement>) => (
+  table: ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => (
     <div className="my-6 w-full overflow-y-auto">
-      <table className={cn('w-full', className)} {...props} />
+      <div
+        className={cn('w-full grid', className)}
+        role="grid"
+        {...props}
+      />
     </div>
   ),
   tr: ({ className, ...props }: HTMLAttributes<HTMLTableRowElement>) => (
