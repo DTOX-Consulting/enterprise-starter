@@ -220,13 +220,10 @@ const SelectMulti = forwardRef<SelectMultiRef, SelectMultiProps>(
       (event: KeyboardEvent<HTMLDivElement>) => {
         const input = inputRef.current;
         if (input) {
-          if (event.key === 'Delete' || event.key === 'Backspace') {
-            if (input.value === '' && selected.length > 0) {
-              const option = selected[selected.length - 1] as unknown as Option;
-              handleUnselect(option);
-            }
+          if ((event.key === 'Delete' || event.key === 'Backspace') && input.value === '' && selected.length > 0) {
+            const option = selected[selected.length - 1] as unknown as Option;
+            handleUnselect(option);
           }
-          // This is not a default behaviour of the <input /> field
           if (event.key === 'Escape') {
             input.blur();
           }

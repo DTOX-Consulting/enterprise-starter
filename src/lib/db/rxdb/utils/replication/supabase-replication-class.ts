@@ -145,45 +145,56 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
   private realtimeChannel?: RealtimeChannel;
 
   constructor(private options: SupabaseReplicationOptions<RxDocType>) {
-    const realtimeChanges = new Subject<
-      RxReplicationPullStreamItem<RxDocType, SupabaseReplicationCheckpoint>
-    >();
-
     const replicationIdentifierHash = hash(options.replicationIdentifier);
+    const pullOptions = options.pull ? {
+      ...options.pull,
+      stream$: new Subject<RxReplicationPullStreamItem<RxDocType, SupabaseReplicationCheckpoint>>(),
+      handler: async (lastCheckpoint: SupabaseReplicationCheckpoint | undefined, batchSize: number) =>
+        this.pullHandler(lastCheckpoint, batchSize)
+    } : undefined;
+    const pushOptions = options.push ? {
+      ...options.push,
+      batchSize: 1,
+      handler: async (rows: RxReplicationWriteToMasterRow<RxDocType>[]) => this.pushHandler(rows)
+    } : undefined;
 
     super(
       replicationIdentifierHash,
       options.collection,
       options.deletedField ?? DEFAULT_DELETED_FIELD,
-      options.pull && {
-        ...options.pull,
-        stream$: realtimeChanges,
-        handler: async (lastCheckpoint, batchSize) => this.pullHandler(lastCheckpoint, batchSize)
-      },
-      options.push && {
-        ...options.push,
-        batchSize: 1,
-        handler: async (rows) => this.pushHandler(rows)
-      },
+      pullOptions,
+      pushOptions,
       options.live ?? true,
       options.retryTime ?? 5000,
       options.autoStart ?? true
     );
 
-    this.realtimeChanges = realtimeChanges;
+    this.initializeInstanceVariables(options, replicationIdentifierHash);
+
+    if (options.autoStart === true) {
+      queueMicrotask(() => {
+        void this.start();
+      });
+    }
+  }
+
+  private generateReplicationIdentifierHash(replicationIdentifier: string): string {
+    return hash(replicationIdentifier);
+  }
+
+  private initializeInstanceVariables(options: SupabaseReplicationOptions<RxDocType>, replicationIdentifierHash: string) {
     this.table = options.table ?? options.collection.name;
     this.replicationIdentifierHash = replicationIdentifierHash;
     this.primaryKey = options.primaryKey ?? options.collection.schema.primaryPath;
     this.lastModifiedFieldName = options.pull?.lastModifiedField ?? DEFAULT_LAST_MODIFIED_FIELD;
-
     this.keyMapping = options.keyMapping ?? {};
-    this.reverseKeyMapping = Object.fromEntries(
-      Object.entries(this.keyMapping).map(([key, value]) => [value, key])
-    );
+    this.reverseKeyMapping = this.createReverseKeyMapping(this.keyMapping);
+  }
 
-    if (G.isNotNullable(this.autoStart) && this.autoStart) {
-      void this.start();
-    }
+  private createReverseKeyMapping(keyMapping: Record<string, string>): Record<string, string> {
+    return Object.fromEntries(
+      Object.entries(keyMapping).map(([key, value]) => [value, key])
+    );
   }
 
   public override async start(): Promise<void> {

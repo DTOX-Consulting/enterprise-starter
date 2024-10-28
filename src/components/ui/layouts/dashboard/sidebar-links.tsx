@@ -69,51 +69,30 @@ function SidebarLink({
   const [isMinimized] = useAtom('sidebarMinimizedAtom');
   const [isOpen, setIsOpen] = useForceState(item.name === activeParent);
 
+  const handleClick = (event: React.MouseEvent) => {
+    navigationProps.setActive(item.name);
+    if (Boolean(item.disabled) || Boolean(item.isAccordion)) {
+      event.preventDefault();
+    }
+    if (item.items) {
+      setIsOpen(!isOpen, true);
+    } else {
+      danglingPromise(triggerElementAction('click', 'button', '.absolute.right-4.top-4'));
+    }
+  };
+
   return (
     <li
       key={item.name}
-      className={cn(G.isNotNullable(item.bottom) && item.bottom ? `${bottomClass} absolute w-full pr-12 md:pr-8` : '')}
+      className={cn(
+        G.isNotNullable(item.bottom) && item.bottom
+          ? `${bottomClass} absolute w-full pr-12 md:pr-8`
+          : ''
+      )}
     >
       <Tip content={isMinimized ? item.name : ''} className="w-full">
-        <Link
-          href={item.href}
-          onClick={(event) => {
-            navigationProps.setActive(item.name);
-            if (Boolean(item.disabled) || Boolean(item.isAccordion)) {
-              event.preventDefault();
-            }
-            if (item.items) {
-              setIsOpen(!isOpen, true);
-            } else {
-              danglingPromise(triggerElementAction('click', 'button', '.absolute.right-4.top-4'));
-            }
-          }}
-          className={cn(
-            'flex	h-16 flex-row items-center whitespace-nowrap rounded-r-md border-l-2 border-transparent px-3 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-700',
-            className,
-            {
-              'h-10': item.bottom,
-              'rounded-full border-2': isMinimized,
-              'mx-0 h-10': navigationProps.isSubLink,
-              'bg-gray-100 text-gray-700 dark:text-gray-700': navigationProps.isActive(item),
-              'px-0': isMinimized && navigationProps.isSubLink
-            }
-          )}
-        >
-          {item.icon ? <item.icon className="size-5" /> : null}
-
-          {!isMinimized && (
-            <>
-              <span className="ml-4">{item.name}</span>
-              {item.items && (
-                isOpen ? (
-                  <ChevronDownIcon className="ml-auto size-5" />
-                ) : (
-                  <ChevronRightIcon className="ml-auto size-5" />
-                )
-              )}
-            </>
-          )}
+        <Link href={item.href} onClick={handleClick} className={getLinkClassNames(item, isMinimized, navigationProps, className)}>
+          <LinkContent item={item} isMinimized={isMinimized} isOpen={isOpen} />
         </Link>
       </Tip>
 
@@ -133,3 +112,51 @@ function SidebarLink({
     </li>
   );
 }
+
+function getLinkClassNames(
+  item: NavigationProps['items'][0],
+  isMinimized: boolean,
+  navigationProps: NavigationProps,
+  className?: string
+) {
+  return cn(
+    'flex h-16 flex-row items-center whitespace-nowrap rounded-r-md border-l-2 border-transparent px-3 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-700',
+    className,
+    {
+      'h-10': item.bottom,
+      'rounded-full border-2': isMinimized,
+      'mx-0 h-10': navigationProps.isSubLink,
+      'bg-gray-100 text-gray-700 dark:text-gray-700': navigationProps.isActive(item),
+      'px-0': isMinimized && navigationProps.isSubLink
+    }
+  );
+}
+
+function LinkContent({
+  item,
+  isMinimized,
+  isOpen
+}: Readonly<{
+  item: NavigationProps['items'][0];
+  isMinimized: boolean;
+  isOpen: boolean;
+}>) {
+  return (
+    <>
+      {item.icon ? <item.icon className="size-5" /> : null}
+      {!isMinimized && (
+        <>
+          <span className="ml-4">{item.name}</span>
+          {item.items && (
+            isOpen ? (
+              <ChevronDownIcon className="ml-auto size-5" />
+            ) : (
+              <ChevronRightIcon className="ml-auto size-5" />
+            )
+          )}
+        </>
+      )}
+    </>
+  );
+}
+
