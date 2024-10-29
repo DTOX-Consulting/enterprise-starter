@@ -176,14 +176,16 @@ export function useData<T extends MinimalData>({
 
       Object.assign(currentItem, mergedData);
 
-      debounce(id, () => {
-        setCurrentData(mergedData);
-        setData((prevData) => {
-          const updatedData = prevData.map((item) => (item.id === id ? mergedData : item));
-          danglingPromise(runCBData(updatedData, cbdata));
-          return updatedData;
-        });
-      });
+      const updateDataState = (merged: T) => {
+        const updatedData = data.map((item) => (item.id === id ? merged : item));
+        setCurrentData(merged);
+        setData(updatedData);
+        danglingPromise(runCBData(updatedData, cbdata));
+      };
+
+      const debouncedUpdate = () => updateDataState(mergedData);
+
+      debounce(id, debouncedUpdate);
 
       return Promise.resolve();
     },

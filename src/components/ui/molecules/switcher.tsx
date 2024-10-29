@@ -220,11 +220,14 @@ function SwitcherModal({
 
             <DialogFooter>
               <form
-                onSubmit={form.handleSubmit((data) => {
-                  if (onSubmit) {
-                    onSubmit(data.name);
-                  }
-                })}
+                onSubmit={(event) => {
+                  event.preventDefault();
+                  void form.handleSubmit((data) => {
+                    if (onSubmit) {
+                      onSubmit(data.name);
+                    }
+                  })(event);
+                }}
               >
                 <Button
                   type="submit"
