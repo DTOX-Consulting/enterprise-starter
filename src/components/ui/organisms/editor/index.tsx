@@ -40,7 +40,7 @@ type EditorToolbarProps = {
   openColor: boolean;
   setOpenColor: (open: boolean) => void;
   completionApi?: string;
-}
+};
 
 const extensions = [...defaultExtensions, slashCommand];
 
@@ -52,9 +52,7 @@ const highlightCodeblocks = (content: string) => {
 
 const EditorCommands = () => (
   <EditorCommand className="z-50 h-auto max-h-[330px] overflow-y-auto rounded-md border border-muted bg-background px-1 py-2 shadow-md transition-all">
-    <EditorCommandEmpty className="px-2 text-muted-foreground">
-      No results
-    </EditorCommandEmpty>
+    <EditorCommandEmpty className="px-2 text-muted-foreground">No results</EditorCommandEmpty>
     <EditorCommandList>
       {suggestionItems.map((item) => (
         <EditorCommandItem
@@ -87,11 +85,7 @@ const EditorToolbar = ({
   setOpenColor,
   completionApi
 }: EditorToolbarProps) => (
-  <GenerativeMenuSwitch
-    open={openAI}
-    onOpenChange={setOpenAI}
-    completionApi={completionApi}
-  >
+  <GenerativeMenuSwitch open={openAI} onOpenChange={setOpenAI} completionApi={completionApi}>
     <Separator orientation="vertical" />
     <NodeSelector open={openNode} onOpenChange={setOpenNode} />
     <Separator orientation="vertical" />
@@ -105,9 +99,7 @@ const EditorToolbar = ({
 
 const StatusBar = ({ saveStatus, charsCount }) => (
   <div className="absolute right-5 top-5 z-10 mb-5 flex gap-2">
-    <div className="rounded-lg bg-accent px-2 py-1 text-sm text-muted-foreground">
-      {saveStatus}
-    </div>
+    <div className="rounded-lg bg-accent px-2 py-1 text-sm text-muted-foreground">{saveStatus}</div>
     <div
       className={
         G.isNotNullable(charsCount) && charsCount > 0
@@ -140,7 +132,9 @@ export const Editor = ({
   const [openColor, setOpenColor] = useState(false);
 
   const defaultValue = '{}';
-  const [initialContent, setInitialContent] = useState<JSONContent>(JSON.parse(defaultValue) as JSONContent);
+  const [initialContent, setInitialContent] = useState<JSONContent>(
+    JSON.parse(defaultValue) as JSONContent
+  );
 
   const debouncedUpdates = useDebounceCallback((editor: EditorType) => {
     const json = editor.getJSON();
@@ -170,7 +164,8 @@ export const Editor = ({
             handleDrop: (view, event, _slice, moved) =>
               handleImageDrop(view, event, moved, uploadFn),
             attributes: {
-              class: 'prose prose-lg dark:prose-invert prose-headings:font-title font-default focus:outline-none w-full h-full'
+              class:
+                'prose prose-lg dark:prose-invert prose-headings:font-title font-default focus:outline-none w-full h-full'
             }
           }}
           onUpdate={({ editor }) => {

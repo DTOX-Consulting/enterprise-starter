@@ -25,7 +25,7 @@ export const sendMail = async ({
   dynamicTemplateData,
   from = config.emails.noreply
 }: SendArgs) => {
-  if (!Boolean(body) || !Boolean(templateId)) {
+  if (!body || !templateId) {
     throw new Error('Missing body or templateId');
   }
 

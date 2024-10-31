@@ -64,7 +64,6 @@ export async function removeChat({ id, path }: { id: string; path: string }) {
 
   revalidatePath('/');
   revalidatePath(path);
-  
 }
 
 export async function clearChats() {

@@ -38,7 +38,11 @@ function handleTransactionError(rejectFn: (reason?: any) => void, error: DOMExce
   rejectFn(error as Error);
 }
 
-function clearObjectStores(database: IDBDatabase, resolveFn: () => void, rejectFn: (reason?: any) => void) {
+function clearObjectStores(
+  database: IDBDatabase,
+  resolveFn: () => void,
+  rejectFn: (reason?: any) => void
+) {
   if (database.objectStoreNames.length > 0) {
     const transaction = database.transaction(database.objectStoreNames, 'readwrite');
     transaction.oncomplete = () => handleTransactionComplete(database.name, resolveFn);
@@ -54,7 +58,11 @@ function clearObjectStores(database: IDBDatabase, resolveFn: () => void, rejectF
   }
 }
 
-function openDatabase(db: IDBDatabaseInfo, resolveFn: () => void, rejectFn: (reason?: any) => void) {
+function openDatabase(
+  db: IDBDatabaseInfo,
+  resolveFn: () => void,
+  rejectFn: (reason?: any) => void
+) {
   if (!G.isNotNullable(db.name)) {
     resolveFn();
     return;

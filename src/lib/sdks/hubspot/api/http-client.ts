@@ -171,20 +171,25 @@ export class HttpClient<SecurityDataType = unknown> {
   };
 
   private getSecureParams = async (secure: boolean): Promise<RequestParams> => {
-    const secureParams = secure && this.securityWorker ? await this.securityWorker(this.securityData) : {};
+    const secureParams =
+      secure && this.securityWorker ? await this.securityWorker(this.securityData) : {};
     return secureParams ?? {};
   };
 
-  private buildRequestUrl = (baseUrl: string | undefined, path: string, query?: QueryParamsType): string => {
+  private buildRequestUrl = (
+    baseUrl: string | undefined,
+    path: string,
+    query?: QueryParamsType
+  ): string => {
     const queryString = query ? this.toQueryString(query) : '';
     const queryPrefix = queryString ? '?' : '';
     return `${baseUrl ?? this.baseUrl}${path}${queryPrefix}${queryString}`;
   };
 
   private getRequestHeaders = (type?: ContentType, headers: HeadersInit = {}): HeadersInit => ({
-      ...headers,
-      ...(type && type !== ContentType.FormData ? { 'Content-Type': type } : {})
-    });
+    ...headers,
+    ...(type && type !== ContentType.FormData ? { 'Content-Type': type } : {})
+  });
 
   private async fetchAndProcessResponse<T, E>(
     url: string,
@@ -229,12 +234,16 @@ export class HttpClient<SecurityDataType = unknown> {
     const payloadFormatter = this.contentFormatters[type ?? ContentType.Json];
     const requestBody = body ? (payloadFormatter(body as QueryParamsType) as BodyInit) : null;
 
-    const response = await this.fetchAndProcessResponse<T, E>(requestUrl, {
-      ...requestParams,
-      headers,
-      signal: cancelToken ? this.createAbortSignal(cancelToken) : requestParams.signal,
-      body: requestBody
-    }, format ?? requestParams.format ?? 'json');
+    const response = await this.fetchAndProcessResponse<T, E>(
+      requestUrl,
+      {
+        ...requestParams,
+        headers,
+        signal: cancelToken ? this.createAbortSignal(cancelToken) : requestParams.signal,
+        body: requestBody
+      },
+      format ?? requestParams.format ?? 'json'
+    );
 
     if (cancelToken) {
       this.abortControllers.delete(cancelToken);
@@ -246,6 +255,5 @@ export class HttpClient<SecurityDataType = unknown> {
 
     return response.data;
   };
-
 }
 /* eslint-enable promise/prefer-await-to-then, @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-unsafe-assignment -- SDK */

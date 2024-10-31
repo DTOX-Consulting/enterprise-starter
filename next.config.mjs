@@ -115,12 +115,10 @@ const nextConfig = {
  */
 const nextHighlight =
   (highlightConfig) =>
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+  async (config) =>
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-     async (config) =>
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-       withHighlightConfig(config, highlightConfig)
-
-  ;
+    withHighlightConfig(config, highlightConfig);
 
 /** @type {((config: import('next').NextConfig) => import('next').NextConfig)[]} */
 const plugins = [

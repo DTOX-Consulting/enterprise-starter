@@ -1,5 +1,4 @@
 import { G } from '@mobily/ts-belt';
-import React from 'react';
 
 import { Button } from '@/components/ui/atoms/button';
 import {
@@ -17,6 +16,7 @@ import { cn } from '@/lib/utils';
 import { noopSync } from '@/lib/utils/function';
 
 import type { ButtonVariants } from '@/components/ui/atoms/button';
+import type React from 'react';
 import type { PropsWithChildren, ReactNode, MouseEventHandler, ButtonHTMLAttributes } from 'react';
 
 const variants = {
@@ -42,6 +42,7 @@ type ModalConfig = {
 
 type SimpleModalProps = {
   title: string;
+  children?: ReactNode;
   description?: ReactNode;
   variant?: keyof typeof variants;
   showClose: boolean;
@@ -130,7 +131,24 @@ const ModalFooterButton = ({
   );
 };
 
+type ModalFooterProps = {
+  showClose: boolean;
+  showConfirm: boolean;
+  closeButtonProps?: ButtonHTMLAttributes<HTMLButtonElement>;
+  closeButtonContent?: ReactNode;
+  closeButtonVariant?: ButtonVariants;
+  closeButtonOnClick?: MouseEventHandler<HTMLButtonElement>;
+  closeButtonDisabled?: boolean;
+  confirmButtonProps?: ButtonHTMLAttributes<HTMLButtonElement>;
+  confirmButtonContent?: ReactNode;
+  confirmButtonVariant?: ButtonVariants;
+  confirmButtonOnClick?: MouseEventHandler<HTMLButtonElement>;
+  confirmButtonDisabled?: boolean;
+  variant?: keyof typeof variants;
+};
+
 const ModalFooter = ({
+  variant,
   showClose,
   showConfirm,
   closeButtonProps,
@@ -142,9 +160,8 @@ const ModalFooter = ({
   confirmButtonContent,
   confirmButtonVariant,
   confirmButtonOnClick,
-  confirmButtonDisabled,
-  variant
-}: SimpleModalProps) =>
+  confirmButtonDisabled
+}: ModalFooterProps) =>
   showClose || showConfirm ? (
     <DialogFooter
       className={cn('mt-4 w-full space-y-2 self-end sm:w-fit sm:space-x-2 sm:space-y-0', {
@@ -193,16 +210,20 @@ const ModalContent = ({
 }: SimpleModalProps) => (
   <DialogContent
     {...dialogContentProps}
-    className={cn({
-      [variants.small]: variant === 'small',
-      [variants.large]: variant === 'large'
-    })}
+    className={cn(
+      {
+        [variants.small]: variant === 'small',
+        [variants.large]: variant === 'large'
+      },
+      dialogContentProps?.className
+    )}
   >
     {title && <ModalHeader title={title} />}
     <ModalDescription description={description} />
     {G.isNotNullable(children) && children}
     {showActions && (
       <ModalFooter
+        variant={variant}
         showClose={showClose}
         showConfirm={showConfirm}
         closeButtonProps={closeButtonProps}
@@ -215,13 +236,15 @@ const ModalContent = ({
         confirmButtonVariant={confirmButtonVariant}
         confirmButtonOnClick={confirmButtonOnClick}
         confirmButtonDisabled={confirmButtonDisabled}
-        variant={variant}
       />
     )}
   </DialogContent>
 );
 
-const getDefaultConfigs = (): Record<'defaultTrigger' | 'defaultClose' | 'defaultConfirm', ButtonConfig> => {
+const getDefaultConfigs = (): Record<
+  'defaultTrigger' | 'defaultClose' | 'defaultConfirm',
+  ButtonConfig
+> => {
   const defaultTrigger: ButtonConfig = {
     content: 'Open',
     variant: 'default',
@@ -280,13 +303,8 @@ export function Modal({
   triggerContent,
   config = {}
 }: SimpleModalProps) {
-  const {
-    dialogProps,
-    dialogContentProps,
-    triggerConfig,
-    closeConfig,
-    confirmConfig
-  } = getMergedConfigs(config);
+  const { dialogProps, dialogContentProps, triggerConfig, closeConfig, confirmConfig } =
+    getMergedConfigs(config);
 
   return (
     <Dialog {...dialogProps}>
@@ -301,7 +319,6 @@ export function Modal({
       <ModalContent
         title={title}
         description={description}
-        children={children}
         variant={variant}
         dialogContentProps={dialogContentProps}
         showActions={Boolean(showActions)}
@@ -317,7 +334,9 @@ export function Modal({
         confirmButtonVariant={confirmConfig.variant}
         confirmButtonOnClick={confirmConfig.onClick}
         confirmButtonDisabled={confirmConfig.disabled}
-      />
+      >
+        {children}
+      </ModalContent>
     </Dialog>
   );
 }

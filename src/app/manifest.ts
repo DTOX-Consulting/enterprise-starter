@@ -79,7 +79,7 @@ const generateManifestImages = () => {
       size: sizeMapped,
       type: 'image/png',
       // purpose: 'maskable',
-    src: `/${logoRoot}/icon-${sizeParam}.png`,
+      src: `/${logoRoot}/icon-${sizeParam}.png`,
       targets: ['manifest', 'apple', 'android']
     };
 

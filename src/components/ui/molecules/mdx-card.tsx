@@ -26,7 +26,10 @@ export function MdxCard({ href, className, children, disabled, ...props }: CardP
         </div>
       </div>
       {G.isNotNullable(href) && (
-        <Link href={G.isNotNullable(disabled) && disabled ? '#' : href} className="absolute inset-0">
+        <Link
+          href={G.isNotNullable(disabled) && disabled ? '#' : href}
+          className="absolute inset-0"
+        >
           <span className="sr-only">View</span>
         </Link>
       )}

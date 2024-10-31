@@ -145,7 +145,6 @@ export async function each<T>(
   arr: T[],
   fn: (item: T, index: number, array: T[]) => Promise<void>
 ): Promise<void> {
-
   for (let index = 0; index < arr.length; index++) {
     const item = arr[index] as T;
     // eslint-disable-next-line no-await-in-loop

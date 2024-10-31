@@ -91,7 +91,11 @@ function SidebarLink({
       )}
     >
       <Tip content={isMinimized ? item.name : ''} className="w-full">
-        <Link href={item.href} onClick={handleClick} className={getLinkClassNames(item, isMinimized, navigationProps, className)}>
+        <Link
+          href={item.href}
+          onClick={handleClick}
+          className={getLinkClassNames(item, isMinimized, navigationProps, className)}
+        >
           <LinkContent item={item} isMinimized={isMinimized} isOpen={isOpen} />
         </Link>
       </Tip>
@@ -147,16 +151,14 @@ function LinkContent({
       {!isMinimized && (
         <>
           <span className="ml-4">{item.name}</span>
-          {item.items && (
-            isOpen ? (
+          {item.items &&
+            (isOpen ? (
               <ChevronDownIcon className="ml-auto size-5" />
             ) : (
               <ChevronRightIcon className="ml-auto size-5" />
-            )
-          )}
+            ))}
         </>
       )}
     </>
   );
 }
-

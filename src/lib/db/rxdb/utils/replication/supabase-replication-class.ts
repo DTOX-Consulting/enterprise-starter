@@ -146,17 +146,26 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
 
   constructor(private options: SupabaseReplicationOptions<RxDocType>) {
     const replicationIdentifierHash = hash(options.replicationIdentifier);
-    const pullOptions = options.pull ? {
-      ...options.pull,
-      stream$: new Subject<RxReplicationPullStreamItem<RxDocType, SupabaseReplicationCheckpoint>>(),
-      handler: async (lastCheckpoint: SupabaseReplicationCheckpoint | undefined, batchSize: number) =>
-        this.pullHandler(lastCheckpoint, batchSize)
-    } : undefined;
-    const pushOptions = options.push ? {
-      ...options.push,
-      batchSize: 1,
-      handler: async (rows: RxReplicationWriteToMasterRow<RxDocType>[]) => this.pushHandler(rows)
-    } : undefined;
+    const pullOptions = options.pull
+      ? {
+          ...options.pull,
+          stream$: new Subject<
+            RxReplicationPullStreamItem<RxDocType, SupabaseReplicationCheckpoint>
+          >(),
+          handler: async (
+            lastCheckpoint: SupabaseReplicationCheckpoint | undefined,
+            batchSize: number
+          ) => this.pullHandler(lastCheckpoint, batchSize)
+        }
+      : undefined;
+    const pushOptions = options.push
+      ? {
+          ...options.push,
+          batchSize: 1,
+          handler: async (rows: RxReplicationWriteToMasterRow<RxDocType>[]) =>
+            this.pushHandler(rows)
+        }
+      : undefined;
 
     super(
       replicationIdentifierHash,
@@ -182,7 +191,10 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
     return hash(replicationIdentifier);
   }
 
-  private initializeInstanceVariables(options: SupabaseReplicationOptions<RxDocType>, replicationIdentifierHash: string) {
+  private initializeInstanceVariables(
+    options: SupabaseReplicationOptions<RxDocType>,
+    replicationIdentifierHash: string
+  ) {
     this.table = options.table ?? options.collection.name;
     this.replicationIdentifierHash = replicationIdentifierHash;
     this.primaryKey = options.primaryKey ?? options.collection.schema.primaryPath;
@@ -192,9 +204,7 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
   }
 
   private createReverseKeyMapping(keyMapping: Record<string, string>): Record<string, string> {
-    return Object.fromEntries(
-      Object.entries(keyMapping).map(([key, value]) => [value, key])
-    );
+    return Object.fromEntries(Object.entries(keyMapping).map(([key, value]) => [value, key]));
   }
 
   public override async start(): Promise<void> {

@@ -29,11 +29,12 @@ export default function Tooltip({
     return (
       <Drawer.Root>
         <Drawer.Trigger
-           className={cn(
+          className={cn(
             `${G.isNotNullable(fullWidth) && Boolean(fullWidth) ? 'w-full' : 'inline-flex'} md:hidden`,
             {
-              'justify-center': Boolean(G.isNotNullable(isMinimized) && Boolean(isMinimized)) &&
-                                Boolean(G.isNotNullable(noMinimize) && !Boolean(noMinimize))
+              'justify-center':
+                Boolean(G.isNotNullable(isMinimized) && Boolean(isMinimized)) &&
+                Boolean(G.isNotNullable(noMinimize) && !noMinimize)
             }
           )}
           onClick={(err) => {

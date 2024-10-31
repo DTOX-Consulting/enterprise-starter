@@ -10,9 +10,7 @@ import type { ComponentProps, SVGProps } from 'react';
 
 export type CalendarProps = ComponentProps<typeof DayPicker>;
 
-const IconLeft = (props: SVGProps<SVGSVGElement>) => (
-  <ChevronLeft className="size-4" {...props} />
-);
+const IconLeft = (props: SVGProps<SVGSVGElement>) => <ChevronLeft className="size-4" {...props} />;
 
 const IconRight = (props: SVGProps<SVGSVGElement>) => (
   <ChevronRight className="size-4" {...props} />

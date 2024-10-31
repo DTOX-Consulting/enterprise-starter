@@ -220,7 +220,11 @@ const SelectMulti = forwardRef<SelectMultiRef, SelectMultiProps>(
       (event: KeyboardEvent<HTMLDivElement>) => {
         const input = inputRef.current;
         if (input) {
-          if ((event.key === 'Delete' || event.key === 'Backspace') && input.value === '' && selected.length > 0) {
+          if (
+            (event.key === 'Delete' || event.key === 'Backspace') &&
+            input.value === '' &&
+            selected.length > 0
+          ) {
             const option = selected[selected.length - 1] as unknown as Option;
             handleUnselect(option);
           }
@@ -379,8 +383,7 @@ const SelectMulti = forwardRef<SelectMultiRef, SelectMultiProps>(
                   type="button"
                   className={cn(
                     'ml-1 rounded-full outline-none ring-offset-background focus:ring-2 focus:ring-ring focus:ring-offset-2',
-                    (G.isNotNullable(disabled)) &&
-                      'hidden'
+                    G.isNotNullable(disabled) && 'hidden'
                   )}
                   onKeyDown={(event) => {
                     if (event.key === 'Enter') {

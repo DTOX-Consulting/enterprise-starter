@@ -211,10 +211,7 @@ export function useData<T extends MinimalData>({
           title: `Deleting ${dataToDelete.name}`,
           description: 'Are you sure you want to delete?',
           action: (
-            <ToastAction
-              altText="Delete"
-              onClick={() => handleDeleteData(dataToDelete.id, cbdata)}
-            >
+            <ToastAction altText="Delete" onClick={() => handleDeleteData(dataToDelete.id, cbdata)}>
               Delete
             </ToastAction>
           )

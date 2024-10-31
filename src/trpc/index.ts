@@ -109,12 +109,14 @@ export const createTRPCRouter = trpcInstance.router;
 export const publicProcedure = trpcInstance.procedure;
 
 /** Reusable middleware that enforces users are logged in before running the procedure. */
-const enforceUserIsAuthed = trpcInstance.middleware(async ({ ctx, next }) => next({
+const enforceUserIsAuthed = trpcInstance.middleware(async ({ ctx, next }) =>
+  next({
     ctx: {
       // infers the `session` as non-nullable
       session: { ...ctx.session, user: ctx.session.user }
     }
-  }));
+  })
+);
 
 /**
  * Protected (authenticated) procedure

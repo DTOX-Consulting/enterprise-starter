@@ -15,7 +15,7 @@ export default defineConfig({
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
-  forbidOnly: G.isNotNullable(process.env.CI) && process.env.CI !== '' ? true : false,
+  forbidOnly: !!(G.isNotNullable(process.env.CI) && process.env.CI !== ''),
   /* Retry on CI only */
   retries: G.isNotNullable(process.env.CI) && process.env.CI !== '' ? 2 : 0,
   /* Opt out of parallel tests on CI. */
@@ -73,7 +73,7 @@ export default defineConfig({
   webServer: {
     command: 'pnpm dev:app',
     url: 'http://127.0.0.1:3000',
-    reuseExistingServer: G.isNullable(process.env.CI) || process.env.CI === '' ? true : false
+    reuseExistingServer: !!(G.isNullable(process.env.CI) || process.env.CI === '')
   }
 });
 /* eslint-enable n/no-process-env */

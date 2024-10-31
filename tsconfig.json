@@ -51,7 +51,7 @@
     ".storybook/**/*.ts",
     ".next/types/**/*.ts",
     ".contentlayer/generated",
-     ".ncurc.js"
+    ".ncurc.js"
   ],
   "exclude": ["node_modules", "dist"]
 }

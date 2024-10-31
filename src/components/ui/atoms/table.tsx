@@ -10,11 +10,7 @@ import { cn } from '@/lib/utils';
 const Table = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
     <div className="relative w-full overflow-auto">
-      <div
-        ref={ref}
-        className={cn('w-full caption-bottom text-sm grid', className)}
-        {...props}
-      />
+      <div ref={ref} className={cn('w-full caption-bottom text-sm grid', className)} {...props} />
     </div>
   )
 );

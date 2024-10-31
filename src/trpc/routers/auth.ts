@@ -22,15 +22,15 @@ type User = {
   email: string;
   lastName: string;
   firstName: string;
-}
+};
 
 type Subscription = {
   key: string;
-}
+};
 
 type StripeDetails = {
   key?: string;
-}
+};
 
 async function handleStripeDetails(user: User): Promise<{ data: StripeDetails | undefined }> {
   if (syncConfig.stripe) {
@@ -41,7 +41,12 @@ async function handleStripeDetails(user: User): Promise<{ data: StripeDetails | 
   return { data: undefined };
 }
 
-async function handleAuth(user: User, subscriptionKey: string, stripeDetails: StripeDetails, subscription: Subscription): Promise<void> {
+async function handleAuth(
+  user: User,
+  subscriptionKey: string,
+  stripeDetails: StripeDetails,
+  subscription: Subscription
+): Promise<void> {
   if (syncConfig.auth) {
     logger.info('Setting Permissions', {
       email: user.email,
