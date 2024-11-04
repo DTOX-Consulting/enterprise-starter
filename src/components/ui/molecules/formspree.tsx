@@ -34,7 +34,12 @@ export function Formspree({
 
   return (
     <FadeIn>
-      <form onSubmit={() => void handleSubmit()}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          void handleSubmit(e);
+        }}
+      >
         <h2 className="font-display text-base font-semibold text-neutral-950 dark:text-neutral-200">
           {heading}
         </h2>

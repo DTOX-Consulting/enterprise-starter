@@ -116,12 +116,11 @@ type ToastActionElement = ReactElement<typeof ToastAction>;
 export {
   type ToastProps,
   type ToastActionElement,
-  RadixToastProvider,
-  RadixToastViewport,
+  RadixToastProvider as ToastProvider,
+  ToastViewport,
   Toast,
   ToastAction,
-  RadixToastTitle,
-  RadixToastDescription,
-  RadixToastClose,
-  RadixToastAction
+  ToastTitle,
+  ToastDescription,
+  ToastClose
 };

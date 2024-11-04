@@ -76,7 +76,7 @@ const generateManifestImages = () => {
     const sizeMapped = `${sizeParam}x${sizeParam}`;
 
     const result: IconType = {
-      size: sizeMapped,
+      sizes: sizeMapped,
       type: 'image/png',
       // purpose: 'maskable',
       src: `/${logoRoot}/icon-${sizeParam}.png`,

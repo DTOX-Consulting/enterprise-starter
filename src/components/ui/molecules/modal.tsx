@@ -25,19 +25,19 @@ const variants = {
 };
 
 type ButtonConfig = {
-  props: ButtonHTMLAttributes<HTMLButtonElement>;
+  disabled: boolean;
   content: ReactNode;
   variant: ButtonVariants;
   onClick: MouseEventHandler<HTMLButtonElement>;
-  disabled: boolean;
+  props: ButtonHTMLAttributes<HTMLButtonElement>;
 };
 
 type ModalConfig = {
+  close?: Partial<ButtonConfig>;
+  trigger?: Partial<ButtonConfig>;
+  confirm?: Partial<ButtonConfig>;
   dialog?: React.ComponentProps<typeof Dialog>;
   dialogContent?: React.ComponentProps<typeof DialogContent>;
-  trigger?: Partial<ButtonConfig>;
-  close?: Partial<ButtonConfig>;
-  confirm?: Partial<ButtonConfig>;
 };
 
 type SimpleModalProps = {

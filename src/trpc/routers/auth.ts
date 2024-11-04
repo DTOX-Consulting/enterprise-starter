@@ -4,7 +4,7 @@ import { unbox } from 'unbox-js';
 import { db } from '@/lib/db/prisma';
 import { logger } from '@/lib/logger/console';
 import { setPermission } from '@/lib/sdks/kinde/api/permissions';
-import { getUserSession } from '@/lib/sdks/kinde/api/session';
+import { getUserSession, type SessionUser } from '@/lib/sdks/kinde/api/session';
 import { getStripeDetailsNoCreate } from '@/lib/sdks/stripe/server/utils';
 import { getOrUpsertContact, upsertContact } from '@/lib/sdks/wix';
 import { isDeepEqual } from '@/lib/utils/deep-equal';
@@ -17,13 +17,6 @@ const syncConfig = {
   stripe: false
 };
 
-type User = {
-  id: string;
-  email: string;
-  lastName: string;
-  firstName: string;
-};
-
 type Subscription = {
   key: string;
 };
@@ -32,7 +25,9 @@ type StripeDetails = {
   key?: string;
 };
 
-async function handleStripeDetails(user: User): Promise<{ data: StripeDetails | undefined }> {
+async function handleStripeDetails(
+  user: SessionUser
+): Promise<{ data: StripeDetails | undefined }> {
   if (syncConfig.stripe) {
     const result = await unbox(getStripeDetailsNoCreate(user));
     const stripeDetails: StripeDetails = { key: result.data?.key };
@@ -42,7 +37,7 @@ async function handleStripeDetails(user: User): Promise<{ data: StripeDetails | 
 }
 
 async function handleAuth(
-  user: User,
+  user: SessionUser,
   subscriptionKey: string,
   stripeDetails: StripeDetails,
   subscription: Subscription
@@ -58,7 +53,7 @@ async function handleAuth(
   }
 }
 
-async function handleCRM(user: User, subscriptionKey: string): Promise<void> {
+async function handleCRM(user: SessionUser, subscriptionKey: string): Promise<void> {
   if (syncConfig.crm) {
     const data = await getOrUpsertContact({
       notifyMe: false,
@@ -82,7 +77,7 @@ async function handleCRM(user: User, subscriptionKey: string): Promise<void> {
   }
 }
 
-async function handleDB(user: User): Promise<void> {
+async function handleDB(user: SessionUser): Promise<void> {
   if (syncConfig.db) {
     const dbUser = await db.user.findFirst({
       where: {

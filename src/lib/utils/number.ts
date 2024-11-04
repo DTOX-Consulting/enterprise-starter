@@ -13,13 +13,14 @@ export function numberFormatter(num: number, digits?: number) {
 
   const item = findLookupItem(num, lookup);
 
-  return (num / item?.value).toFixed(digits ?? 1).replace(rx, '$1') + item?.symbol;
+  return item ? (num / item.value).toFixed(digits ?? 1).replace(rx, '$1') + item.symbol : '0';
 }
 
 function findLookupItem(num: number, lookup: { value: number; symbol: string }[]) {
   for (let i = lookup.length - 1; i >= 0; i--) {
-    if (num >= lookup[i].value) {
-      return lookup[i];
+    const item = lookup[i];
+    if (item && num >= item.value) {
+      return item;
     }
   }
   return lookup[0];

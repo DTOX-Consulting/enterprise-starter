@@ -8,8 +8,12 @@ import { getStripe } from '@/lib/sdks/stripe/client/auth';
 import { createStripeLineItems, getStripeUrls } from '@/lib/sdks/stripe/client/utils';
 
 import type { TierName } from '@/config/permissions/features';
+import type { StripeError } from '@stripe/stripe-js';
 
-export const handleCheckout = async (tier: TierName, email: string): Promise<Error | null> => {
+export const handleCheckout = async (
+  tier: TierName,
+  email: string
+): Promise<StripeError | null> => {
   const stripe = await getStripe();
 
   if (!stripe) {

@@ -97,7 +97,7 @@ const EditorToolbar = ({
   </GenerativeMenuSwitch>
 );
 
-const StatusBar = ({ saveStatus, charsCount }) => (
+const StatusBar = ({ saveStatus, charsCount }: { saveStatus: string; charsCount: number }) => (
   <div className="absolute right-5 top-5 z-10 mb-5 flex gap-2">
     <div className="rounded-lg bg-accent px-2 py-1 text-sm text-muted-foreground">{saveStatus}</div>
     <div

@@ -132,14 +132,14 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
   RxDocType,
   SupabaseReplicationCheckpoint
 > {
-  private readonly table: string;
-  private readonly primaryKey: string;
-  private readonly lastModifiedFieldName: string;
-  private readonly replicationIdentifierHash: string;
-  private readonly keyMapping: Record<string, string>;
-  private readonly reverseKeyMapping: Record<string, string>;
+  private table!: string;
+  private primaryKey!: string;
+  private lastModifiedFieldName!: string;
+  private replicationIdentifierHash!: string;
+  private keyMapping!: Record<string, string>;
+  private reverseKeyMapping!: Record<string, string>;
 
-  private readonly realtimeChanges: Subject<
+  private readonly realtimeChanges!: Subject<
     RxReplicationPullStreamItem<RxDocType, SupabaseReplicationCheckpoint>
   >;
   private realtimeChannel?: RealtimeChannel;
@@ -187,10 +187,6 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
     }
   }
 
-  private generateReplicationIdentifierHash(replicationIdentifier: string): string {
-    return hash(replicationIdentifier);
-  }
-
   private initializeInstanceVariables(
     options: SupabaseReplicationOptions<RxDocType>,
     replicationIdentifierHash: string
@@ -199,6 +195,7 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
     this.replicationIdentifierHash = replicationIdentifierHash;
     this.primaryKey = options.primaryKey ?? options.collection.schema.primaryPath;
     this.lastModifiedFieldName = options.pull?.lastModifiedField ?? DEFAULT_LAST_MODIFIED_FIELD;
+
     this.keyMapping = options.keyMapping ?? {};
     this.reverseKeyMapping = this.createReverseKeyMapping(this.keyMapping);
   }

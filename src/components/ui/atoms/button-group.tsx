@@ -2,14 +2,18 @@ import Link from 'next/link';
 
 import { cn } from '@/lib/utils';
 
+import type { ButtonHTMLAttributes } from 'react';
+
 type ButtonProps = {
   invert?: boolean;
-  type?: 'button' | 'submit' | 'reset';
+  className?: string;
+  children: React.ReactNode;
 } & (
-  | React.ComponentPropsWithoutRef<typeof Link>
-  | (React.ComponentPropsWithoutRef<'button'> & {
+  | ({ href: string } & React.ComponentPropsWithoutRef<typeof Link>)
+  | ({
       href?: string;
-    })
+      type?: 'button' | 'submit' | 'reset';
+    } & React.ComponentPropsWithoutRef<'button'>)
 );
 
 export function Button({
@@ -17,6 +21,7 @@ export function Button({
   type = 'button',
   className,
   children,
+  href,
   ...props
 }: ButtonProps) {
   className = cn(
@@ -29,16 +34,20 @@ export function Button({
 
   const inner = <span className="relative top-px">{children}</span>;
 
-  if (typeof props.href === 'undefined') {
+  if (typeof href === 'undefined') {
     return (
-      <button type={type} className={className} {...props}>
+      <button
+        className={className}
+        type={type as ButtonHTMLAttributes<'button'>['type']}
+        {...(props as React.ComponentPropsWithoutRef<'button'>)}
+      >
         {inner}
       </button>
     );
   }
 
   return (
-    <Link className={className} {...props}>
+    <Link href={href} className={className}>
       {inner}
     </Link>
   );

@@ -3,7 +3,7 @@ import ReactMarkdown from 'react-markdown';
 
 import type { ReactNode } from 'react';
 
-const LinkComponent = ({ children, ...props }: { children: ReactNode }) => (
+const LinkComponent = ({ children, ...props }: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
   <a
     target="_blank"
     rel="noopener noreferrer"
@@ -14,7 +14,7 @@ const LinkComponent = ({ children, ...props }: { children: ReactNode }) => (
   </a>
 );
 
-const CodeComponent = (props: any) => (
+const CodeComponent = (props: React.HTMLAttributes<HTMLElement>) => (
   <code
     {...props}
     className="rounded-sm bg-gray-100 px-1 py-0.5 font-mono font-medium text-gray-800"

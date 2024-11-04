@@ -1,6 +1,7 @@
 'use client';
 
 import { Root, Item, Trigger, Content, Header } from '@radix-ui/react-accordion';
+import { ChevronDown } from 'lucide-react';
 import { forwardRef } from 'react';
 
 import { cn } from '@/lib/utils';
