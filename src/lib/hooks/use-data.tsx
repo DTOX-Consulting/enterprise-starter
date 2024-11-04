@@ -59,7 +59,7 @@ function useDataState<T extends MinimalData>(
   dataAtom: ReturnType<typeof atom<T[]>>,
   currentDataAtom: ReturnType<typeof atom<T | null>>
 ) {
-  const [data, setData] = useAtom<T[]>(dataAtom);
+  const [data, setData] = useAtom(dataAtom);
   const [currentData, setCurrentData] = useAtom(currentDataAtom);
 
   const setCurrentDataByName = useCallback(
@@ -75,7 +75,7 @@ function useDataState<T extends MinimalData>(
 
 function useDataBasicOperations<T extends MinimalData>(
   data: T[],
-  setData: (data: T[]) => void,
+  setData: (fn: (prevData: T[]) => T[]) => void,
   setCurrentData: (data: T | null) => void,
   setItems: (items: T[]) => Promise<void>
 ) {
