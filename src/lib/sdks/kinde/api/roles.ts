@@ -1,3 +1,5 @@
+import { G } from '@mobily/ts-belt';
+
 import { rolesApi, organizationsApi } from '@/lib/sdks/kinde/api/client';
 import { getDefaultOrgCode, getUserByEmail } from '@/lib/sdks/kinde/api/utils';
 
@@ -61,7 +63,7 @@ export const removeAllRoles = async (email: string, orgId?: string) => {
 
   await Promise.all(
     roles.map(async (role) => {
-      if (!role.id) return;
+      if (G.isNullable(role.id)) return;
       return organizationsApi.deleteOrganizationUserRole({
         userId: user.id,
         roleId: role.id,

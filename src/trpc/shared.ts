@@ -1,3 +1,4 @@
+import { G } from '@mobily/ts-belt';
 import superjson from 'superjson';
 
 import { getEnv } from '@/lib/env/env.mjs';
@@ -10,7 +11,7 @@ export const transformer = superjson;
 function getBaseUrl() {
   if (typeof window !== 'undefined') return '';
   const vercelUrl = getEnv('VERCEL_URL', '');
-  if (vercelUrl) return `https://${vercelUrl}`;
+  if (G.isNotNullable(vercelUrl)) return `https://${vercelUrl}`;
   const port = getEnv('PORT') ?? 3000;
   return `http://localhost:${port}`;
 }

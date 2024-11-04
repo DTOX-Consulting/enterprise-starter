@@ -5,6 +5,7 @@ const config = [
     ignores: [
       '**/dist/**',
       '**/build/**',
+      '**/.trigger/**',
       '**/coverage/**',
       '**/node_modules/**',
       'src/iframe/',

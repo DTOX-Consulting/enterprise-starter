@@ -1,3 +1,5 @@
+import { G } from '@mobily/ts-belt';
+
 import { permissionsApi, organizationsApi } from '@/lib/sdks/kinde/api/client';
 import { getDefaultOrgCode, getUserByEmail } from '@/lib/sdks/kinde/api/utils';
 
@@ -63,7 +65,7 @@ export const removeAllPermissions = async (email: string, orgId?: string) => {
 
   await Promise.all(
     permissions.map(async (permission) => {
-      if (!permission.id) return;
+      if (G.isNullable(permission.id)) return;
       return organizationsApi.deleteOrganizationUserPermission({
         permissionId: permission.id,
         userId: user.id,

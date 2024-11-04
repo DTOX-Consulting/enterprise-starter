@@ -47,9 +47,8 @@ function useGridPattern(
   const [hoveredBlocks, setHoveredBlocks] = useState<[x: number, y: number, key: number][]>([]);
 
   const filterBlocks = useCallback(
-    (prevBlocks: [number, number, number][], x: number, y: number, key: number) => {
-      return prevBlocks.filter((block) => !(block[0] === x && block[1] === y && block[2] !== key));
-    },
+    (prevBlocks: [number, number, number][], x: number, y: number, key: number) =>
+      prevBlocks.filter((block) => !(block[0] === x && block[1] === y && block[2] !== key)),
     []
   );
 

@@ -1,3 +1,5 @@
+import { G } from '@mobily/ts-belt';
+
 import {
   tiers,
   defaultTier,
@@ -122,7 +124,7 @@ export async function getCustomerEmail(
 
   const { email } = customerData;
 
-  if (!email || email.trim() === '') {
+  if (G.isNullable(email) || email.trim() === '') {
     throw new Error('Customer email not found');
   }
 

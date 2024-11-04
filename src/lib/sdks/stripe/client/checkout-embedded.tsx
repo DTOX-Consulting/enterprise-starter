@@ -50,7 +50,7 @@ export const CheckoutElement = ({ tier }: { tier: TierName }) => {
     [data?.intent.client_secret]
   );
 
-  if (!data?.intent.client_secret) {
+  if (G.isNullable(data?.intent.client_secret)) {
     return <CheckoutLoader />;
   }
 

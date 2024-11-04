@@ -161,6 +161,7 @@ const CommandEmpty = forwardRef<HTMLDivElement, ComponentProps<typeof CommandPri
 CommandEmpty.displayName = 'CommandEmpty';
 
 const SelectMulti = forwardRef<SelectMultiRef, SelectMultiProps>(
+  // eslint-disable-next-line max-lines-per-function, complexity
   (
     {
       value,

@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 /*
  * ---------------------------------------------------------------
  * ## THIS FILE WAS GENERATED VIA SWAGGER-TYPESCRIPT-API        ##
@@ -6853,3 +6854,5 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
 }
+
+/* eslint-enable max-lines */
