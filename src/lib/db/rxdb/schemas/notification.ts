@@ -1,13 +1,5 @@
 import { createSchema } from '@/lib/db/rxdb/utils/schema';
 
-import type { Option } from '@/components/ui/atoms/select-multi';
-import type { BusinessChangeKeys } from '@/data/guards';
-
-export type Similarity = {
-  value: number;
-  label: string;
-};
-
 export type Notification = {
   image?: string;
   icon?: 'Sparkles';
@@ -19,14 +11,7 @@ export type Notification = {
   readAt?: string;
   removedAt?: string;
   meta?: {
-    suggestion?: {
-      businessId: string;
-      organizationId: string;
-      similarity: Similarity;
-      key: BusinessChangeKeys;
-      current: string | Option[];
-      updated: string | Option[];
-    };
+    [key: string]: unknown;
   };
 };
 

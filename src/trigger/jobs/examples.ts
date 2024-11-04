@@ -1,3 +1,5 @@
+import { randomInt } from 'node:crypto';
+
 import { eventTrigger } from '@trigger.dev/sdk';
 
 import { client } from '@/lib/sdks/trigger/client';
@@ -17,7 +19,7 @@ export const example = client.defineJob({
     // Use a Task to generate a random number. Using a Tasks means it only runs once.
     const result = await io.runTask('generate-random-number', async () =>
       Promise.resolve({
-        num: Math.floor(Math.random() * 10000)
+        num: randomInt(0, 10000)
       })
     );
 
@@ -42,8 +44,3 @@ export const example = client.defineJob({
     // To learn how to write much more complex (and probably funnier) Jobs, check out our docs: https://trigger.dev/docs/documentation/guides/create-a-job
   }
 });
-
-// setTimeout(() => {
-//   void example.invoke({}); // This will trigger the Job immediately
-//   void client.sendEvent({ name: 'example.event', payload: {} });
-// }, 1000);

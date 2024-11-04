@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 /*
  * ---------------------------------------------------------------
  * ## THIS FILE WAS GENERATED VIA SWAGGER-TYPESCRIPT-API        ##
@@ -11,7 +12,7 @@ import { ContentType, HttpClient, type RequestParams } from '@/lib/sdks/hubspot/
 
 export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
   /**
-   * @description Associate all pairs of objects identified in the request body.
+   * Associate all pairs of objects identified in the request body.
    *
    * @tags Associations V3 API > Batch
    * @name V3AssociationsBatchCreateCreate
@@ -35,7 +36,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Get the IDs of all `{toObjectType}` objects associated with those specified in the request body.
+   *  Get the IDs of all `{toObjectType}` objects associated with those specified in the request body.
    *
    * @tags Associations V3 API > Batch
    * @name V3AssociationsBatchReadCreate
@@ -59,7 +60,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Remove the associations between all pairs of objects identified in the request body.
+   *  Remove the associations between all pairs of objects identified in the request body.
    *
    * @tags Associations V3 API > Batch
    * @name V3AssociationsBatchArchiveCreate
@@ -82,7 +83,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description List all the valid association types available between two object types
+   *  List all the valid association types available between two object types
    *
    * @tags Associations V3 Schema API > Types
    * @name V3AssociationsTypesDetail
@@ -103,7 +104,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Batch delete specific association labels for objects. Deleting an unlabeled association will also delete all labeled associations between those two objects
+   *  Batch delete specific association labels for objects. Deleting an unlabeled association will also delete all labeled associations between those two objects
    *
    * @tags Flexible Associations V4 API > Batch
    * @name V4AssociationsBatchLabelsArchiveCreate
@@ -126,7 +127,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Batch read associations for objects to specific object type. The 'after' field in a returned paging object  can be added alongside the 'id' to retrieve the next page of associations from that objectId. The 'link' field is deprecated and should be ignored.
+   *  Batch read associations for objects to specific object type. The 'after' field in a returned paging object  can be added alongside the 'id' to retrieve the next page of associations from that objectId. The 'link' field is deprecated and should be ignored.
    *
    * @tags Flexible Associations V4 API > Batch
    * @name V4AssociationsBatchReadCreate
@@ -150,7 +151,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Batch create associations for objects
+   *  Batch create associations for objects
    *
    * @tags Flexible Associations V4 API > Batch
    * @name V4AssociationsBatchCreateCreate
@@ -174,7 +175,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Batch delete associations for objects
+   *  Batch delete associations for objects
    *
    * @tags Flexible Associations V4 API > Batch
    * @name V4AssociationsBatchArchiveCreate
@@ -197,7 +198,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Create the default (most generic) association type between two object types
+   *  Create the default (most generic) association type between two object types
    *
    * @tags Flexible Associations V4 API > Batch
    * @name V4AssociationsBatchAssociateDefaultCreate
@@ -221,7 +222,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Set association labels between two records.
+   *  Set association labels between two records.
    *
    * @tags Flexible Associations V4 API > Associations
    * @name V4ObjectsAssociationsUpdate
@@ -229,6 +230,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * @request PUT:/crm/v4/objects/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}
    * @secure
    */
+  // eslint-disable-next-line max-params
   v4ObjectsAssociationsUpdate = async (
     objectType: string,
     objectId: string,
@@ -247,7 +249,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description deletes all associations between two records.
+   *  deletes all associations between two records.
    *
    * @tags Flexible Associations V4 API > Associations
    * @name V4ObjectsAssociationsDelete
@@ -269,7 +271,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Create the default (most generic) association type between two object types
+   *  Create the default (most generic) association type between two object types
    *
    * @tags Flexible Associations V4 API > Associations
    * @name V4ObjectsAssociationsDefaultUpdate
@@ -277,6 +279,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
    * @request PUT:/crm/v4/objects/{fromObjectType}/{fromObjectId}/associations/default/{toObjectType}/{toObjectId}
    * @secure
    */
+  // eslint-disable-next-line max-params
   v4ObjectsAssociationsDefaultUpdate = async (
     fromObjectType: string,
     fromObjectId: string,
@@ -294,7 +297,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description List all associations of an object by object type. Limit 1000 per call.
+   *  List all associations of an object by object type. Limit 1000 per call.
    *
    * @tags Flexible Associations V4 API > Associations
    * @name V4ObjectsAssociationsDetail
@@ -331,7 +334,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Returns all association types between two object types
+   *  Returns all association types between two object types
    *
    * @tags Associations V4 Schema API > Definitions
    * @name V4AssociationsLabelsDetail
@@ -352,7 +355,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Update a user defined association definition
+   *  Update a user defined association definition
    *
    * @tags Associations V4 Schema API > Definitions
    * @name V4AssociationsLabelsUpdate
@@ -375,7 +378,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Create a user defined association definition
+   *  Create a user defined association definition
    *
    * @tags Associations V4 Schema API > Definitions
    * @name V4AssociationsLabelsCreate
@@ -399,7 +402,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Deletes an association definition
+   *  Deletes an association definition
    *
    * @tags Associations V4 Schema API > Definitions
    * @name V4AssociationsLabelsDelete
@@ -507,7 +510,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Read an Object identified by `{cartId}`. `{cartId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.
+   *  Read an Object identified by `{cartId}`. `{cartId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.
    *
    * @tags Carts API > Basic
    * @name V3ObjectsCartsDetail
@@ -560,7 +563,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Move an Object identified by `{cartId}` to the recycling bin.
+   *  Move an Object identified by `{cartId}` to the recycling bin.
    *
    * @tags Carts API > Basic
    * @name V3ObjectsCartsDelete
@@ -576,7 +579,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Perform a partial update of an Object identified by `{cartId}`. `{cartId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param. Provided property values will be overwritten. Read-only and non-existent properties will be ignored. Properties values can be cleared by passing an empty string.
+   *  Perform a partial update of an Object identified by `{cartId}`. `{cartId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param. Provided property values will be overwritten. Read-only and non-existent properties will be ignored. Properties values can be cleared by passing an empty string.
    *
    * @tags Carts API > Basic
    * @name V3ObjectsCartsPartialUpdate
@@ -608,7 +611,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Read a page of carts. Control what is returned via the `properties` query param.
+   *  Read a page of carts. Control what is returned via the `properties` query param.
    *
    * @tags Carts API > Basic
    * @name V3ObjectsCartsList
@@ -666,7 +669,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Create a cart with the given properties and return a copy of the object, including the ID. Documentation and examples for creating standard carts is provided.
+   *  Create a cart with the given properties and return a copy of the object, including the ID. Documentation and examples for creating standard carts is provided.
    *
    * @tags Carts API > Basic
    * @name V3ObjectsCartsCreate
@@ -785,7 +788,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Read a payment identified by its ID. Include an optional `properties` query parameter to control the properties that are returned.
+   *  Read a payment identified by its ID. Include an optional `properties` query parameter to control the properties that are returned.
    *
    * @tags Commerce Payments API > Basic
    * @name V3ObjectsCommercePaymentsDetail
@@ -838,7 +841,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Move an Object identified by `{commercePaymentId}` to the recycling bin.
+   *  Move an Object identified by `{commercePaymentId}` to the recycling bin.
    *
    * @tags Commerce Payments API > Basic
    * @name V3ObjectsCommercePaymentsDelete
@@ -852,7 +855,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Perform a partial update of an Object identified by `{commercePaymentId}`. `{commercePaymentId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param. Provided property values will be overwritten. Read-only and non-existent properties will be ignored. Properties values can be cleared by passing an empty string.
+   *  Perform a partial update of an Object identified by `{commercePaymentId}`. `{commercePaymentId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param. Provided property values will be overwritten. Read-only and non-existent properties will be ignored. Properties values can be cleared by passing an empty string.
    *
    * @tags Commerce Payments API > Basic
    * @name V3ObjectsCommercePaymentsPartialUpdate
@@ -882,7 +885,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Read a page of commerce payments. Control what is returned via the `properties` query param.
+   *  Read a page of commerce payments. Control what is returned via the `properties` query param.
    *
    * @tags Commerce Payments API > Basic
    * @name V3ObjectsCommercePaymentsList
@@ -940,7 +943,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Create a commerce payment with the given properties and return a copy of the object, including the ID. Documentation and examples for creating standard commerce payments is provided.
+   *  Create a commerce payment with the given properties and return a copy of the object, including the ID. Documentation and examples for creating standard commerce payments is provided.
    *
    * @tags Commerce Payments API > Basic
    * @name V3ObjectsCommercePaymentsCreate
@@ -1005,7 +1008,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Read an Object identified by `{subscriptionId}`. `{subscriptionId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.
+   *  Read an Object identified by `{subscriptionId}`. `{subscriptionId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.
    *
    * @tags Commerce Subscriptions API > Basic
    * @name V3ObjectsSubscriptionsDetail
@@ -1056,7 +1059,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Read a page of subscriptions. Control what is returned via the `properties` query param.
+   *  Read a page of subscriptions. Control what is returned via the `properties` query param.
    *
    * @tags Commerce Subscriptions API > Basic
    * @name V3ObjectsSubscriptionsList
@@ -1215,7 +1218,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Read a page of companies. Control what is returned via the `properties` query param.
+   *  Read a page of companies. Control what is returned via the `properties` query param.
    *
    * @tags Companies API > Basic
    * @name V3ObjectsCompaniesList
@@ -1273,7 +1276,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Create a company with the given properties and return a copy of the object, including the ID. Documentation and examples for creating standard companies is provided.
+   *  Create a company with the given properties and return a copy of the object, including the ID. Documentation and examples for creating standard companies is provided.
    *
    * @tags Companies API > Basic
    * @name V3ObjectsCompaniesCreate
@@ -1292,7 +1295,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Read an Object identified by `{companyId}`. `{companyId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.
+   *  Read an Object identified by `{companyId}`. `{companyId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.
    *
    * @tags Companies API > Basic
    * @name V3ObjectsCompaniesDetail
@@ -1345,7 +1348,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Move an Object identified by `{companyId}` to the recycling bin.
+   *  Move an Object identified by `{companyId}` to the recycling bin.
    *
    * @tags Companies API > Basic
    * @name V3ObjectsCompaniesDelete
@@ -1361,7 +1364,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Perform a partial update of an Object identified by `{companyId}`. `{companyId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param. Provided property values will be overwritten. Read-only and non-existent properties will be ignored. Properties values can be cleared by passing an empty string.
+   *  Perform a partial update of an Object identified by `{companyId}`. `{companyId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param. Provided property values will be overwritten. Read-only and non-existent properties will be ignored. Properties values can be cleared by passing an empty string.
    *
    * @tags Companies API > Basic
    * @name V3ObjectsCompaniesPartialUpdate
@@ -1497,7 +1500,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Read a page of contacts. Control what is returned via the `properties` query param.
+   *  Read a page of contacts. Control what is returned via the `properties` query param.
    *
    * @tags Contacts API > Basic
    * @name V3ObjectsContactsList
@@ -1555,7 +1558,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Create a contact with the given properties and return a copy of the object, including the ID. Documentation and examples for creating standard contacts is provided.
+   *  Create a contact with the given properties and return a copy of the object, including the ID. Documentation and examples for creating standard contacts is provided.
    *
    * @tags Contacts API > Basic
    * @name V3ObjectsContactsCreate
@@ -1574,7 +1577,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Read an Object identified by `{contactId}`. `{contactId}` refers to the internal object ID.  Control what is returned via the `properties` query param.
+   *  Read an Object identified by `{contactId}`. `{contactId}` refers to the internal object ID.  Control what is returned via the `properties` query param.
    *
    * @tags Contacts API > Basic
    * @name V3ObjectsContactsDetail
@@ -1621,7 +1624,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Move an Object identified by `{contactId}` to the recycling bin.
+   *  Move an Object identified by `{contactId}` to the recycling bin.
    *
    * @tags Contacts API > Basic
    * @name V3ObjectsContactsDelete
@@ -1637,7 +1640,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Perform a partial update of an Object identified by `{contactId}`. `{contactId}` refers to the internal object ID. Provided property values will be overwritten. Read-only and non-existent properties will be ignored. Properties values can be cleared by passing an empty string.
+   *  Perform a partial update of an Object identified by `{contactId}`. `{contactId}` refers to the internal object ID. Provided property values will be overwritten. Read-only and non-existent properties will be ignored. Properties values can be cleared by passing an empty string.
    *
    * @tags Contacts API > Basic
    * @name V3ObjectsContactsPartialUpdate
@@ -1678,7 +1681,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Returns a list of cards for a given app.
+   *  Returns a list of cards for a given app.
    *
    * @tags CRM Cards API > Cards
    * @name V3ExtensionsCardsDevDetail
@@ -1695,7 +1698,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Defines a new card that will become active on an account when this app is installed.
+   *  Defines a new card that will become active on an account when this app is installed.
    *
    * @tags CRM Cards API > Cards
    * @name V3ExtensionsCardsDevCreate
@@ -1714,7 +1717,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Returns the definition for a card with the given ID.
+   *  Returns the definition for a card with the given ID.
    *
    * @tags CRM Cards API > Cards
    * @name V3ExtensionsCardsDevDetail2
@@ -1733,7 +1736,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Permanently deletes a card definition with the given ID. Once deleted, data fetch requests for this card will no longer be sent to your service. This can't be undone.
+   *  Permanently deletes a card definition with the given ID. Once deleted, data fetch requests for this card will no longer be sent to your service. This can't be undone.
    *
    * @tags CRM Cards API > Cards
    * @name V3ExtensionsCardsDevDelete
@@ -1749,7 +1752,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Update a card definition with new details.
+   *  Update a card definition with new details.
    *
    * @tags CRM Cards API > Cards
    * @name V3ExtensionsCardsDevPartialUpdate
@@ -1773,7 +1776,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Returns an example card detail response. This is the payload with displayed details for a card that will be shown to a user. An app should send this in response to the data fetch request.
+   *  Returns an example card detail response. This is the payload with displayed details for a card that will be shown to a user. An app should send this in response to the data fetch request.
    *
    * @tags CRM Cards API > SampleResponse
    * @name V3ExtensionsCardsDevSampleResponseList
@@ -1883,7 +1886,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Read an Object identified by `{objectId}`. `{objectId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.
+   *  Read an Object identified by `{objectId}`. `{objectId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.
    *
    * @tags Objects API > Basic
    * @name V3ObjectsDetail
@@ -1937,7 +1940,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Move an Object identified by `{objectId}` to the recycling bin.
+   *  Move an Object identified by `{objectId}` to the recycling bin.
    *
    * @tags Objects API > Basic
    * @name V3ObjectsDelete
@@ -1953,7 +1956,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Perform a partial update of an Object identified by `{objectId}`. `{objectId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param. Provided property values will be overwritten. Read-only and non-existent properties will be ignored. Properties values can be cleared by passing an empty string.
+   *  Perform a partial update of an Object identified by `{objectId}`. `{objectId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param. Provided property values will be overwritten. Read-only and non-existent properties will be ignored. Properties values can be cleared by passing an empty string.
    *
    * @tags Objects API > Basic
    * @name V3ObjectsPartialUpdate
@@ -1986,7 +1989,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Read a page of objects. Control what is returned via the `properties` query param.
+   *  Read a page of objects. Control what is returned via the `properties` query param.
    *
    * @tags Objects API > Basic
    * @name V3ObjectsDetail2
@@ -2047,7 +2050,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Create a CRM object with the given properties and return a copy of the object, including the ID. Documentation and examples for creating standard objects is provided.
+   *  Create a CRM object with the given properties and return a copy of the object, including the ID. Documentation and examples for creating standard objects is provided.
    *
    * @tags Objects API > Basic
    * @name V3ObjectsCreate
@@ -2171,7 +2174,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Read a page of deals. Control what is returned via the `properties` query param.
+   *  Read a page of deals. Control what is returned via the `properties` query param.
    *
    * @tags Deals API > Basic
    * @name V3ObjectsDealsList
@@ -2229,7 +2232,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Create a deal with the given properties and return a copy of the object, including the ID. Documentation and examples for creating standard deals is provided.
+   *  Create a deal with the given properties and return a copy of the object, including the ID. Documentation and examples for creating standard deals is provided.
    *
    * @tags Deals API > Basic
    * @name V3ObjectsDealsCreate
@@ -2248,7 +2251,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Read an Object identified by `{dealId}`. `{dealId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.
+   *  Read an Object identified by `{dealId}`. `{dealId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.
    *
    * @tags Deals API > Basic
    * @name V3ObjectsDealsDetail
@@ -2301,7 +2304,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Move an Object identified by `{dealId}` to the recycling bin.
+   *  Move an Object identified by `{dealId}` to the recycling bin.
    *
    * @tags Deals API > Basic
    * @name V3ObjectsDealsDelete
@@ -2317,7 +2320,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Perform a partial update of an Object identified by `{dealId}`. `{dealId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param. Provided property values will be overwritten. Read-only and non-existent properties will be ignored. Properties values can be cleared by passing an empty string.
+   *  Perform a partial update of an Object identified by `{dealId}`. `{dealId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param. Provided property values will be overwritten. Read-only and non-existent properties will be ignored. Properties values can be cleared by passing an empty string.
    *
    * @tags Deals API > Basic
    * @name V3ObjectsDealsPartialUpdate
@@ -2492,7 +2495,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Read an Object identified by `{discountId}`. `{discountId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.
+   *  Read an Object identified by `{discountId}`. `{discountId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.
    *
    * @tags Discounts API > Basic
    * @name V3ObjectsDiscountsDetail
@@ -2545,7 +2548,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Move an Object identified by `{discountId}` to the recycling bin.
+   *  Move an Object identified by `{discountId}` to the recycling bin.
    *
    * @tags Discounts API > Basic
    * @name V3ObjectsDiscountsDelete
@@ -2561,7 +2564,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Perform a partial update of an Object identified by `{discountId}`. `{discountId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param. Provided property values will be overwritten. Read-only and non-existent properties will be ignored. Properties values can be cleared by passing an empty string.
+   *  Perform a partial update of an Object identified by `{discountId}`. `{discountId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param. Provided property values will be overwritten. Read-only and non-existent properties will be ignored. Properties values can be cleared by passing an empty string.
    *
    * @tags Discounts API > Basic
    * @name V3ObjectsDiscountsPartialUpdate
@@ -2593,7 +2596,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Read a page of discounts. Control what is returned via the `properties` query param.
+   *  Read a page of discounts. Control what is returned via the `properties` query param.
    *
    * @tags Discounts API > Basic
    * @name V3ObjectsDiscountsList
@@ -2651,7 +2654,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Create a discount with the given properties and return a copy of the object, including the ID. Documentation and examples for creating standard discounts is provided.
+   *  Create a discount with the given properties and return a copy of the object, including the ID. Documentation and examples for creating standard discounts is provided.
    *
    * @tags Discounts API > Basic
    * @name V3ObjectsDiscountsCreate
@@ -2706,7 +2709,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Begins exporting CRM data for the portal as specified in the request body
+   *  Begins exporting CRM data for the portal as specified in the request body
    *
    * @tags Exports API > Core
    * @name V3ExportsExportAsyncCreate
@@ -2809,7 +2812,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Read an Object identified by `{feedbackSubmissionId}`. `{feedbackSubmissionId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.
+   *  Read an Object identified by `{feedbackSubmissionId}`. `{feedbackSubmissionId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.
    *
    * @tags Feedback Submissions API > Basic
    * @name V3ObjectsFeedbackSubmissionsDetail
@@ -2860,7 +2863,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Move an Object identified by `{feedbackSubmissionId}` to the recycling bin.
+   *  Move an Object identified by `{feedbackSubmissionId}` to the recycling bin.
    *
    * @tags Feedback Submissions API > Basic
    * @name V3ObjectsFeedbackSubmissionsDelete
@@ -2877,7 +2880,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Perform a partial update of an Object identified by `{feedbackSubmissionId}`. `{feedbackSubmissionId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param. Provided property values will be overwritten. Read-only and non-existent properties will be ignored. Properties values can be cleared by passing an empty string.
+   *  Perform a partial update of an Object identified by `{feedbackSubmissionId}`. `{feedbackSubmissionId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param. Provided property values will be overwritten. Read-only and non-existent properties will be ignored. Properties values can be cleared by passing an empty string.
    *
    * @tags Feedback Submissions API > Basic
    * @name V3ObjectsFeedbackSubmissionsPartialUpdate
@@ -2907,7 +2910,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Read a page of feedback submissions. Control what is returned via the `properties` query param.
+   *  Read a page of feedback submissions. Control what is returned via the `properties` query param.
    *
    * @tags Feedback Submissions API > Basic
    * @name V3ObjectsFeedbackSubmissionsList
@@ -2963,7 +2966,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Create a feedback submission with the given properties and return a copy of the object, including the ID. Documentation and examples for creating standard feedback submissions is provided.
+   *  Create a feedback submission with the given properties and return a copy of the object, including the ID. Documentation and examples for creating standard feedback submissions is provided.
    *
    * @tags Feedback Submissions API > Basic
    * @name V3ObjectsFeedbackSubmissionsCreate
@@ -3083,7 +3086,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Read an Object identified by `{feeId}`. `{feeId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.
+   *  Read an Object identified by `{feeId}`. `{feeId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.
    *
    * @tags Fees API > Basic
    * @name V3ObjectsFeesDetail
@@ -3136,7 +3139,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Move an Object identified by `{feeId}` to the recycling bin.
+   *  Move an Object identified by `{feeId}` to the recycling bin.
    *
    * @tags Fees API > Basic
    * @name V3ObjectsFeesDelete
@@ -3152,7 +3155,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Perform a partial update of an Object identified by `{feeId}`. `{feeId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param. Provided property values will be overwritten. Read-only and non-existent properties will be ignored. Properties values can be cleared by passing an empty string.
+   *  Perform a partial update of an Object identified by `{feeId}`. `{feeId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param. Provided property values will be overwritten. Read-only and non-existent properties will be ignored. Properties values can be cleared by passing an empty string.
    *
    * @tags Fees API > Basic
    * @name V3ObjectsFeesPartialUpdate
@@ -3184,7 +3187,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Read a page of fees. Control what is returned via the `properties` query param.
+   *  Read a page of fees. Control what is returned via the `properties` query param.
    *
    * @tags Fees API > Basic
    * @name V3ObjectsFeesList
@@ -3242,7 +3245,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Create a fee with the given properties and return a copy of the object, including the ID. Documentation and examples for creating standard fees is provided.
+   *  Create a fee with the given properties and return a copy of the object, including the ID. Documentation and examples for creating standard fees is provided.
    *
    * @tags Fees API > Basic
    * @name V3ObjectsFeesCreate
@@ -3280,7 +3283,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Permanently delete a contact and all associated content to follow GDPR. Use optional property 'idProperty' set to 'email' to identify contact by email address. If email address is not found, the email address will be added to a blocklist and prevent it from being used in the future.
+   *  Permanently delete a contact and all associated content to follow GDPR. Use optional property 'idProperty' set to 'email' to identify contact by email address. If email address is not found, the email address will be added to a blocklist and prevent it from being used in the future.
    *
    * @tags Fees API > GDPR
    * @name V3ObjectsFeesGdprDeleteCreate
@@ -3346,7 +3349,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Read an Object identified by `{goalTargetId}`. `{goalTargetId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.
+   *  Read an Object identified by `{goalTargetId}`. `{goalTargetId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.
    *
    * @tags Goals API > Basic
    * @name V3ObjectsGoalTargetsDetail
@@ -3397,7 +3400,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Read a page of goal targets. Control what is returned via the `properties` query param.
+   *  Read a page of goal targets. Control what is returned via the `properties` query param.
    *
    * @tags Goals API > Basic
    * @name V3ObjectsGoalTargetsList
@@ -3469,7 +3472,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description A complete summary of an import record, including any updates.
+   *  A complete summary of an import record, including any updates.
    *
    * @tags Imports API > Core
    * @name V3ImportsDetail
@@ -3486,7 +3489,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description This allows a developer to cancel an active import.
+   *  This allows a developer to cancel an active import.
    *
    * @tags Imports API > Core
    * @name V3ImportsCancelCreate
@@ -3504,7 +3507,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Returns a paged list of active imports for this account.
+   *  Returns a paged list of active imports for this account.
    *
    * @tags Imports API > Core
    * @name V3ImportsList
@@ -3540,7 +3543,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Begins importing data from the specified file resources. This uploads the corresponding file and uses the import request object to convert rows in the files to objects.
+   *  Begins importing data from the specified file resources. This uploads the corresponding file and uses the import request object to convert rows in the files to objects.
    *
    * @tags Imports API > Core
    * @name V3ImportsCreate
@@ -3697,7 +3700,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Read an Object identified by `{leadsId}`. `{leadsId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.
+   *  Read an Object identified by `{leadsId}`. `{leadsId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.
    *
    * @tags Leads API > Basic
    * @name V3ObjectsLeadsDetail
@@ -3750,7 +3753,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Move an Object identified by `{leadsId}` to the recycling bin.
+   *  Move an Object identified by `{leadsId}` to the recycling bin.
    *
    * @tags Leads API > Basic
    * @name V3ObjectsLeadsDelete
@@ -3766,7 +3769,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Perform a partial update of an Object identified by `{leadsId}`. `{leadsId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param. Provided property values will be overwritten. Read-only and non-existent properties will be ignored. Properties values can be cleared by passing an empty string.
+   *  Perform a partial update of an Object identified by `{leadsId}`. `{leadsId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param. Provided property values will be overwritten. Read-only and non-existent properties will be ignored. Properties values can be cleared by passing an empty string.
    *
    * @tags Leads API > Basic
    * @name V3ObjectsLeadsPartialUpdate
@@ -3798,7 +3801,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Read a page of leads. Control what is returned via the `properties` query param.
+   *  Read a page of leads. Control what is returned via the `properties` query param.
    *
    * @tags Leads API > Basic
    * @name V3ObjectsLeadsList
@@ -3856,7 +3859,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Create a lead with the given properties and return a copy of the object, including the ID. Documentation and examples for creating standard leads is provided.
+   *  Create a lead with the given properties and return a copy of the object, including the ID. Documentation and examples for creating standard leads is provided.
    *
    * @tags Leads API > Basic
    * @name V3ObjectsLeadsCreate
@@ -3980,7 +3983,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Read a page of line items. Control what is returned via the `properties` query param.
+   *  Read a page of line items. Control what is returned via the `properties` query param.
    *
    * @tags Line Items API > Basic
    * @name V3ObjectsLineItemsList
@@ -4038,7 +4041,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Create a line item with the given properties and return a copy of the object, including the ID. Documentation and examples for creating standard line items is provided.
+   *  Create a line item with the given properties and return a copy of the object, including the ID. Documentation and examples for creating standard line items is provided.
    *
    * @tags Line Items API > Basic
    * @name V3ObjectsLineItemsCreate
@@ -4057,7 +4060,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Read an Object identified by `{lineItemId}`. `{lineItemId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.
+   *  Read an Object identified by `{lineItemId}`. `{lineItemId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.
    *
    * @tags Line Items API > Basic
    * @name V3ObjectsLineItemsDetail
@@ -4110,7 +4113,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Move an Object identified by `{lineItemId}` to the recycling bin.
+   *  Move an Object identified by `{lineItemId}` to the recycling bin.
    *
    * @tags Line Items API > Basic
    * @name V3ObjectsLineItemsDelete
@@ -4126,7 +4129,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Perform a partial update of an Object identified by `{lineItemId}`. `{lineItemId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param. Provided property values will be overwritten. Read-only and non-existent properties will be ignored. Properties values can be cleared by passing an empty string.
+   *  Perform a partial update of an Object identified by `{lineItemId}`. `{lineItemId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param. Provided property values will be overwritten. Read-only and non-existent properties will be ignored. Properties values can be cleared by passing an empty string.
    *
    * @tags Line Items API > Basic
    * @name V3ObjectsLineItemsPartialUpdate
@@ -4176,7 +4179,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Add and/or remove records that have already been created in the system to and/or from a list. This endpoint only works for lists that have a `processingType` of `MANUAL` or `SNAPSHOT`.
+   *  Add and/or remove records that have already been created in the system to and/or from a list. This endpoint only works for lists that have a `processingType` of `MANUAL` or `SNAPSHOT`.
    *
    * @tags Lists API > Memberships
    * @name V3ListsMembershipsAddAndRemoveUpdate
@@ -4199,7 +4202,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Add the records provided to the list. Records that do not exist or that are already members of the list are ignored. This endpoint only works for lists that have a `processingType` of `MANUAL` or `SNAPSHOT`.
+   *  Add the records provided to the list. Records that do not exist or that are already members of the list are ignored. This endpoint only works for lists that have a `processingType` of `MANUAL` or `SNAPSHOT`.
    *
    * @tags Lists API > Memberships
    * @name V3ListsMembershipsAddUpdate
@@ -4218,7 +4221,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Add all of the records from a *source list* (specified by the `sourceListId`) to a *destination list* (specified by the `listId`). Records that are already members of the *destination list* will be ignored. The *destination* and *source list* IDs must be different. The *destination* and *source lists* must contain records of the same type (e.g. contacts, companies, etc.). This endpoint only works for *destination lists* that have a `processingType` of `MANUAL` or `SNAPSHOT`. The *source list* can have any `processingType`.
+   *  Add all of the records from a *source list* (specified by the `sourceListId`) to a *destination list* (specified by the `listId`). Records that are already members of the *destination list* will be ignored. The *destination* and *source list* IDs must be different. The *destination* and *source lists* must contain records of the same type (e.g. contacts, companies, etc.). This endpoint only works for *destination lists* that have a `processingType` of `MANUAL` or `SNAPSHOT`. The *source list* can have any `processingType`.
    *
    * @tags Lists API > Memberships
    * @name V3ListsMembershipsAddFromUpdate
@@ -4240,7 +4243,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Fetch the memberships of a list in order sorted by the `recordId` of the records in the list. The `recordId`s are sorted in *ascending* order if an `after` offset or no offset is provided. If only a `before` offset is provided, then the records are sorted in *descending* order. The `after` offset parameter will take precedence over the `before` offset in a case where both are provided.
+   *  Fetch the memberships of a list in order sorted by the `recordId` of the records in the list. The `recordId`s are sorted in *ascending* order if an `after` offset or no offset is provided. If only a `before` offset is provided, then the records are sorted in *descending* order. The `after` offset parameter will take precedence over the `before` offset in a case where both are provided.
    *
    * @tags Lists API > Memberships
    * @name V3ListsMembershipsDetail
@@ -4285,7 +4288,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Remove **all** of the records from a list. ***Note:*** *The list is not deleted.* This endpoint only works for lists that have a `processingType` of `MANUAL` or `SNAPSHOT`.
+   *  Remove **all** of the records from a list. ***Note:*** *The list is not deleted.* This endpoint only works for lists that have a `processingType` of `MANUAL` or `SNAPSHOT`.
    *
    * @tags Lists API > Memberships
    * @name V3ListsMembershipsDelete
@@ -4301,7 +4304,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Remove the records provided from the list. Records that do not exist or that are not members of the list are ignored. This endpoint only works for lists that have a `processingType` of `MANUAL` or `SNAPSHOT`.
+   *  Remove the records provided from the list. Records that do not exist or that are not members of the list are ignored. This endpoint only works for lists that have a `processingType` of `MANUAL` or `SNAPSHOT`.
    *
    * @tags Lists API > Memberships
    * @name V3ListsMembershipsRemoveUpdate
@@ -4324,7 +4327,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Search lists by list name or page through all lists by providing an empty `query` value.
+   *  Search lists by list name or page through all lists by providing an empty `query` value.
    *
    * @tags Lists API > Lists
    * @name V3ListsSearchCreate
@@ -4343,7 +4346,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Update the name of a list. The name must be globally unique relative to all other public lists in the portal.
+   *  Update the name of a list. The name must be globally unique relative to all other public lists in the portal.
    *
    * @tags Lists API
    * @name V3ListsUpdateListNameUpdate
@@ -4379,7 +4382,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Fetch a single list by **ILS list ID**.
+   *  Fetch a single list by **ILS list ID**.
    *
    * @tags Lists API
    * @name V3ListsDetail
@@ -4407,7 +4410,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Delete a list by **ILS list ID**. Lists deleted through this endpoint can be restored up to 90-days following the delete. After 90-days, the list is purged and can no longer be restored.
+   *  Delete a list by **ILS list ID**. Lists deleted through this endpoint can be restored up to 90-days following the delete. After 90-days, the list is purged and can no longer be restored.
    *
    * @tags Lists API
    * @name V3ListsDelete
@@ -4423,7 +4426,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Update the filter branch definition of a `DYNAMIC` list. Once updated, the list memberships will be re-evaluated and updated to match the new definition.
+   *  Update the filter branch definition of a `DYNAMIC` list. Once updated, the list memberships will be re-evaluated and updated to match the new definition.
    *
    * @tags Lists API
    * @name V3ListsUpdateListFiltersUpdate
@@ -4454,7 +4457,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Fetch a single list by list name and object type.
+   *  Fetch a single list by list name and object type.
    *
    * @tags Lists API
    * @name V3ListsObjectTypeIdNameDetail
@@ -4483,7 +4486,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Fetch multiple lists in a single request by **ILS list ID**. The response will include the definitions of all lists that exist for the `listIds` provided.
+   *  Fetch multiple lists in a single request by **ILS list ID**. The response will include the definitions of all lists that exist for the `listIds` provided.
    *
    * @tags Lists API
    * @name V3ListsList
@@ -4516,7 +4519,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Create a new list with the provided object list definition.
+   *  Create a new list with the provided object list definition.
    *
    * @tags Lists API
    * @name V3ListsCreate
@@ -4534,7 +4537,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Restore a previously deleted list by **ILS list ID**. Deleted lists are eligible to be restored up-to 90-days after the list has been deleted.
+   *  Restore a previously deleted list by **ILS list ID**. Deleted lists are eligible to be restored up-to 90-days after the list has been deleted.
    *
    * @tags Lists API
    * @name V3ListsRestoreUpdate
@@ -4551,7 +4554,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Given a list and a folder, the list will be moved to that folder.
+   *  Given a list and a folder, the list will be moved to that folder.
    *
    * @tags Lists API
    * @name V3ListsFoldersMoveListUpdate
@@ -4569,7 +4572,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description This moves the folder from its current location to a new location. It updates the parent of this folder to the new Id given.
+   *  This moves the folder from its current location to a new location. It updates the parent of this folder to the new Id given.
    *
    * @tags Lists API
    * @name V3ListsFoldersMoveUpdate
@@ -4592,7 +4595,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Renames the given folderId with a new name.
+   *  Renames the given folderId with a new name.
    *
    * @tags Lists API
    * @name V3ListsFoldersRenameUpdate
@@ -4619,7 +4622,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description For given record provide lists this record is member of.
+   *  For given record provide lists this record is member of.
    *
    * @tags Lists API
    * @name V3ListsRecordsMembershipsDetail
@@ -4640,7 +4643,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Retrieves a folder and recursively includes all folders via the childNodes attribute.  The child lists field will be empty in all child nodes. Only the folder retrieved will include the child lists in that folder.
+   *  Retrieves a folder and recursively includes all folders via the childNodes attribute.  The child lists field will be empty in all child nodes. Only the folder retrieved will include the child lists in that folder.
    *
    * @tags Lists API
    * @name V3ListsFoldersList
@@ -4668,7 +4671,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Creates a folder with the given information.
+   *  Creates a folder with the given information.
    *
    * @tags Lists API
    * @name V3ListsFoldersCreate
@@ -4687,7 +4690,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Deletes the folder with the given Id.
+   *  Deletes the folder with the given Id.
    *
    * @tags Lists API
    * @name V3ListsFoldersDelete
@@ -4809,7 +4812,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Read an Object identified by `{orderId}`. `{orderId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.
+   *  Read an Object identified by `{orderId}`. `{orderId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.
    *
    * @tags Orders API > Basic
    * @name V3ObjectsOrdersDetail
@@ -4862,7 +4865,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Move an Object identified by `{orderId}` to the recycling bin.
+   *  Move an Object identified by `{orderId}` to the recycling bin.
    *
    * @tags Orders API > Basic
    * @name V3ObjectsOrdersDelete
@@ -4878,7 +4881,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Perform a partial update of an Object identified by `{orderId}`. `{orderId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param. Provided property values will be overwritten. Read-only and non-existent properties will be ignored. Properties values can be cleared by passing an empty string.
+   *  Perform a partial update of an Object identified by `{orderId}`. `{orderId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param. Provided property values will be overwritten. Read-only and non-existent properties will be ignored. Properties values can be cleared by passing an empty string.
    *
    * @tags Orders API > Basic
    * @name V3ObjectsOrdersPartialUpdate
@@ -4910,7 +4913,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Read a page of orders. Control what is returned via the `properties` query param.
+   *  Read a page of orders. Control what is returned via the `properties` query param.
    *
    * @tags Orders API > Basic
    * @name V3ObjectsOrdersList
@@ -4968,7 +4971,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Create a order with the given properties and return a copy of the object, including the ID. Documentation and examples for creating standard orders is provided.
+   *  Create a order with the given properties and return a copy of the object, including the ID. Documentation and examples for creating standard orders is provided.
    *
    * @tags Orders API > Basic
    * @name V3ObjectsOrdersCreate
@@ -5112,7 +5115,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Read an Object identified by `{paymentsId}`. `{paymentsId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.
+   *  Read an Object identified by `{paymentsId}`. `{paymentsId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.
    *
    * @tags Payments API > Basic
    * @name V3ObjectsPaymentsDetail
@@ -5163,7 +5166,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Read a page of payments. Control what is returned via the `properties` query param.
+   *  Read a page of payments. Control what is returned via the `properties` query param.
    *
    * @tags Payments API > Basic
    * @name V3ObjectsPaymentsList
@@ -5236,7 +5239,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Return a single pipeline object identified by its unique `{pipelineId}`.
+   *  Return a single pipeline object identified by its unique `{pipelineId}`.
    *
    * @tags Pipelines API > Pipelines
    * @name V3PipelinesDetail
@@ -5253,7 +5256,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Replace all the properties of an existing pipeline with the values provided. This will overwrite any existing pipeline stages. The updated pipeline will be returned in the response.
+   *  Replace all the properties of an existing pipeline with the values provided. This will overwrite any existing pipeline stages. The updated pipeline will be returned in the response.
    *
    * @tags Pipelines API > Pipelines
    * @name V3PipelinesUpdate
@@ -5284,7 +5287,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Delete the pipeline identified by `{pipelineId}`.
+   *  Delete the pipeline identified by `{pipelineId}`.
    *
    * @tags Pipelines API > Pipelines
    * @name V3PipelinesDelete
@@ -5311,7 +5314,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Perform a partial update of the pipeline identified by `{pipelineId}`. The updated pipeline will be returned in the response.
+   *  Perform a partial update of the pipeline identified by `{pipelineId}`. The updated pipeline will be returned in the response.
    *
    * @tags Pipelines API > Pipelines
    * @name V3PipelinesPartialUpdate
@@ -5342,7 +5345,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Return all pipelines for the object type specified by `{objectType}`.
+   *  Return all pipelines for the object type specified by `{objectType}`.
    *
    * @tags Pipelines API > Pipelines
    * @name V3PipelinesDetail2
@@ -5361,7 +5364,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Create a new pipeline with the provided property values. The entire pipeline object, including its unique ID, will be returned in the response.
+   *  Create a new pipeline with the provided property values. The entire pipeline object, including its unique ID, will be returned in the response.
    *
    * @tags Pipelines API > Pipelines
    * @name V3PipelinesCreate
@@ -5380,7 +5383,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Return a reverse chronological list of all mutations that have occurred on the pipeline identified by `{pipelineId}`.
+   *  Return a reverse chronological list of all mutations that have occurred on the pipeline identified by `{pipelineId}`.
    *
    * @tags Pipelines API > Pipeline Audits
    * @name V3PipelinesAuditDetail
@@ -5401,7 +5404,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Return all the stages associated with the pipeline identified by `{pipelineId}`.
+   *  Return all the stages associated with the pipeline identified by `{pipelineId}`.
    *
    * @tags Pipelines API > Pipeline Stages
    * @name V3PipelinesStagesDetail
@@ -5422,7 +5425,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Create a new stage associated with the pipeline identified by `{pipelineId}`. The entire stage object, including its unique ID, will be returned in the response.
+   *  Create a new stage associated with the pipeline identified by `{pipelineId}`. The entire stage object, including its unique ID, will be returned in the response.
    *
    * @tags Pipelines API > Pipeline Stages
    * @name V3PipelinesStagesCreate
@@ -5446,7 +5449,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Return the stage identified by `{stageId}` associated with the pipeline identified by `{pipelineId}`.
+   *  Return the stage identified by `{stageId}` associated with the pipeline identified by `{pipelineId}`.
    *
    * @tags Pipelines API > Pipeline Stages
    * @name V3PipelinesStagesDetail2
@@ -5470,7 +5473,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Replace all the properties of an existing pipeline stage with the values provided. The updated stage will be returned in the response.
+   *  Replace all the properties of an existing pipeline stage with the values provided. The updated stage will be returned in the response.
    *
    * @tags Pipelines API > Pipeline Stages
    * @name V3PipelinesStagesUpdate
@@ -5495,7 +5498,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Delete the pipeline stage identified by `{stageId}` associated with the pipeline identified by `{pipelineId}`.
+   *  Delete the pipeline stage identified by `{stageId}` associated with the pipeline identified by `{pipelineId}`.
    *
    * @tags Pipelines API > Pipeline Stages
    * @name V3PipelinesStagesDelete
@@ -5516,7 +5519,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Perform a partial update of the pipeline stage identified by `{stageId}` associated with the pipeline identified by `{pipelineId}`. Any properties not included in this update will keep their existing values. The updated stage will be returned in the response.
+   *  Perform a partial update of the pipeline stage identified by `{stageId}` associated with the pipeline identified by `{pipelineId}`. Any properties not included in this update will keep their existing values. The updated stage will be returned in the response.
    *
    * @tags Pipelines API > Pipeline Stages
    * @name V3PipelinesStagesPartialUpdate
@@ -5541,7 +5544,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Return a reverse chronological list of all mutations that have occurred on the pipeline stage identified by `{stageId}`.
+   *  Return a reverse chronological list of all mutations that have occurred on the pipeline stage identified by `{stageId}`.
    *
    * @tags Pipelines API
    * @name V3PipelinesStagesAuditDetail
@@ -5641,7 +5644,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Read a page of products. Control what is returned via the `properties` query param.
+   *  Read a page of products. Control what is returned via the `properties` query param.
    *
    * @tags Products API > Basic
    * @name V3ObjectsProductsList
@@ -5697,7 +5700,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Create a product with the given properties and return a copy of the object, including the ID. Documentation and examples for creating standard products is provided.
+   *  Create a product with the given properties and return a copy of the object, including the ID. Documentation and examples for creating standard products is provided.
    *
    * @tags Products API > Basic
    * @name V3ObjectsProductsCreate
@@ -5714,7 +5717,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Read an Object identified by `{productId}`. `{productId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.
+   *  Read an Object identified by `{productId}`. `{productId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.
    *
    * @tags Products API > Basic
    * @name V3ObjectsProductsDetail
@@ -5765,7 +5768,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Move an Object identified by `{productId}` to the recycling bin.
+   *  Move an Object identified by `{productId}` to the recycling bin.
    *
    * @tags Products API > Basic
    * @name V3ObjectsProductsDelete
@@ -5779,7 +5782,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Perform a partial update of an Object identified by `{productId}`. `{productId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param. Provided property values will be overwritten. Read-only and non-existent properties will be ignored. Properties values can be cleared by passing an empty string.
+   *  Perform a partial update of an Object identified by `{productId}`. `{productId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param. Provided property values will be overwritten. Read-only and non-existent properties will be ignored. Properties values can be cleared by passing an empty string.
    *
    * @tags Products API > Basic
    * @name V3ObjectsProductsPartialUpdate
@@ -5911,7 +5914,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Read a page of quotes. Control what is returned via the `properties` query param.
+   *  Read a page of quotes. Control what is returned via the `properties` query param.
    *
    * @tags Quotes API > Basic
    * @name V3ObjectsQuotesList
@@ -5969,7 +5972,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Create a quote with the given properties and return a copy of the object, including the ID. Documentation and examples for creating standard quotes is provided.
+   *  Create a quote with the given properties and return a copy of the object, including the ID. Documentation and examples for creating standard quotes is provided.
    *
    * @tags Quotes API > Basic
    * @name V3ObjectsQuotesCreate
@@ -5988,7 +5991,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Read an Object identified by `{quoteId}`. `{quoteId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.
+   *  Read an Object identified by `{quoteId}`. `{quoteId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.
    *
    * @tags Quotes API > Basic
    * @name V3ObjectsQuotesDetail
@@ -6041,7 +6044,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Move an Object identified by `{quoteId}` to the recycling bin.
+   *  Move an Object identified by `{quoteId}` to the recycling bin.
    *
    * @tags Quotes API > Basic
    * @name V3ObjectsQuotesDelete
@@ -6057,7 +6060,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Perform a partial update of an Object identified by `{quoteId}`. `{quoteId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param. Provided property values will be overwritten. Read-only and non-existent properties will be ignored. Properties values can be cleared by passing an empty string.
+   *  Perform a partial update of an Object identified by `{quoteId}`. `{quoteId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param. Provided property values will be overwritten. Read-only and non-existent properties will be ignored. Properties values can be cleared by passing an empty string.
    *
    * @tags Quotes API > Basic
    * @name V3ObjectsQuotesPartialUpdate
@@ -6194,7 +6197,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Read a page of taxes. Control what is returned via the `properties` query param.
+   *  Read a page of taxes. Control what is returned via the `properties` query param.
    *
    * @tags Taxes API > Basic
    * @name V3ObjectsTaxesList
@@ -6252,7 +6255,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Create a tax with the given properties and return a copy of the object, including the ID. Documentation and examples for creating standard taxes is provided.
+   *  Create a tax with the given properties and return a copy of the object, including the ID. Documentation and examples for creating standard taxes is provided.
    *
    * @tags Taxes API > Basic
    * @name V3ObjectsTaxesCreate
@@ -6271,7 +6274,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Read an Object identified by `{taxId}`. `{taxId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.
+   *  Read an Object identified by `{taxId}`. `{taxId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.
    *
    * @tags Taxes API > Basic
    * @name V3ObjectsTaxesDetail
@@ -6324,7 +6327,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Move an Object identified by `{taxId}` to the recycling bin.
+   *  Move an Object identified by `{taxId}` to the recycling bin.
    *
    * @tags Taxes API > Basic
    * @name V3ObjectsTaxesDelete
@@ -6340,7 +6343,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Perform a partial update of an Object identified by `{taxId}`. `{taxId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param. Provided property values will be overwritten. Read-only and non-existent properties will be ignored. Properties values can be cleared by passing an empty string.
+   *  Perform a partial update of an Object identified by `{taxId}`. `{taxId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param. Provided property values will be overwritten. Read-only and non-existent properties will be ignored. Properties values can be cleared by passing an empty string.
    *
    * @tags Taxes API > Basic
    * @name V3ObjectsTaxesPartialUpdate
@@ -6391,7 +6394,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Permanently delete a contact and all associated content to follow GDPR. Use optional property 'idProperty' set to 'email' to identify contact by email address. If email address is not found, the email address will be added to a blocklist and prevent it from being used in the future.
+   *  Permanently delete a contact and all associated content to follow GDPR. Use optional property 'idProperty' set to 'email' to identify contact by email address. If email address is not found, the email address will be added to a blocklist and prevent it from being used in the future.
    *
    * @tags Taxes API > GDPR
    * @name V3ObjectsTaxesGdprDeleteCreate
@@ -6506,7 +6509,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Read an Object identified by `{ticketId}`. `{ticketId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.
+   *  Read an Object identified by `{ticketId}`. `{ticketId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.
    *
    * @tags Tickets API > Basic
    * @name V3ObjectsTicketsDetail
@@ -6557,7 +6560,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Move an Object identified by `{ticketId}` to the recycling bin.
+   *  Move an Object identified by `{ticketId}` to the recycling bin.
    *
    * @tags Tickets API > Basic
    * @name V3ObjectsTicketsDelete
@@ -6571,7 +6574,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Perform a partial update of an Object identified by `{ticketId}`. `{ticketId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param. Provided property values will be overwritten. Read-only and non-existent properties will be ignored. Properties values can be cleared by passing an empty string.
+   *  Perform a partial update of an Object identified by `{ticketId}`. `{ticketId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param. Provided property values will be overwritten. Read-only and non-existent properties will be ignored. Properties values can be cleared by passing an empty string.
    *
    * @tags Tickets API > Basic
    * @name V3ObjectsTicketsPartialUpdate
@@ -6601,7 +6604,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Read a page of tickets. Control what is returned via the `properties` query param.
+   *  Read a page of tickets. Control what is returned via the `properties` query param.
    *
    * @tags Tickets API > Basic
    * @name V3ObjectsTicketsList
@@ -6657,7 +6660,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Create a ticket with the given properties and return a copy of the object, including the ID. Documentation and examples for creating standard tickets is provided.
+   *  Create a ticket with the given properties and return a copy of the object, including the ID. Documentation and examples for creating standard tickets is provided.
    *
    * @tags Tickets API > Basic
    * @name V3ObjectsTicketsCreate
@@ -6721,7 +6724,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Read an Object identified by `{invoiceId}`. `{invoiceId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.
+   *  Read an Object identified by `{invoiceId}`. `{invoiceId}` refers to the internal object ID by default, or optionally any unique property value as specified by the `idProperty` query param.  Control what is returned via the `properties` query param.
    *
    * @tags Invoices API > Basic
    * @name V3ObjectsInvoicesDetail
@@ -6774,7 +6777,7 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
   /**
-   * @description Read a page of invoices. Control what is returned via the `properties` query param.
+   *  Read a page of invoices. Control what is returned via the `properties` query param.
    *
    * @tags Invoices API > Basic
    * @name V3ObjectsInvoicesList
@@ -6851,3 +6854,5 @@ export class Crm<SecurityDataType = unknown> extends HttpClient<SecurityDataType
       ...params
     });
 }
+
+/* eslint-enable max-lines */

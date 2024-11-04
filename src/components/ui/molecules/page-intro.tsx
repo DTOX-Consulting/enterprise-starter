@@ -7,12 +7,12 @@ export function PageIntro({
   title,
   children,
   centered = false
-}: {
+}: Readonly<{
   title: string;
   eyebrow?: string;
   children?: React.ReactNode;
   centered?: boolean;
-}) {
+}>) {
   return (
     <Container className={cn('mt-24 sm:mt-32 lg:mt-40', centered && 'text-center')}>
       <FadeIn>

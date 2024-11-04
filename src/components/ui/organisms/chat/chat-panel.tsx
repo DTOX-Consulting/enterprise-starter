@@ -41,7 +41,7 @@ export function ChatPanel({
             </Button>
           ) : (
             nonSystemMessages.length > 0 && (
-              <Button variant="outline" onClick={async () => reload()} className="bg-background">
+              <Button variant="outline" onClick={() => void reload()} className="bg-background">
                 <IconRefresh className="mr-2" />
                 Regenerate response
               </Button>

@@ -1,3 +1,4 @@
+import { G } from '@mobily/ts-belt';
 import { FlaskConical, LogOut, User } from 'lucide-react';
 import Link from 'next/link';
 import { useCallback, useState } from 'react';
@@ -24,7 +25,10 @@ export const UserMenu = ({ user, noMinimize }: { user?: SessionUser; noMinimize?
   const [open, setOpen] = useState(false);
   const [isMinimized] = useAtom('sidebarMinimizedAtom');
 
-  const UserComponent = isMinimized && !noMinimize ? UserImage : UserImageWithDetails;
+  const UserComponent =
+    G.isNotNullable(isMinimized) && isMinimized && G.isNotNullable(noMinimize) && !noMinimize
+      ? UserImage
+      : UserImageWithDetails;
 
   const handleClick = useCallback(() => {
     closeSideBar();
@@ -35,7 +39,11 @@ export const UserMenu = ({ user, noMinimize }: { user?: SessionUser; noMinimize?
     <DropdownMenu open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger
         className={cn('flex focus-visible:outline-none', {
-          'justify-center': isMinimized && !noMinimize
+          'justify-center':
+            G.isNotNullable(isMinimized) &&
+            isMinimized &&
+            G.isNotNullable(noMinimize) &&
+            !noMinimize
         })}
       >
         <UserComponent user={user} />

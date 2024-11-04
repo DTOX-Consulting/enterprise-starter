@@ -46,7 +46,6 @@ module.exports = {
         85: '.85'
       },
       colors: {
-        pulse: 'hsl(var(--pulse))',
         ring: 'hsl(var(--ring))',
         input: 'hsl(var(--input))',
         border: 'hsl(var(--border))',
@@ -218,9 +217,9 @@ module.exports = {
     typography,
     aspectRatio,
     containerQueries,
-    plugin((plugin) => {
-      plugin.addVariant('radix-side-top', '&[data-side="top"]');
-      plugin.addVariant('radix-side-bottom', '&[data-side="bottom"]');
+    plugin((pluginParam) => {
+      pluginParam.addVariant('radix-side-top', '&[data-side="top"]');
+      pluginParam.addVariant('radix-side-bottom', '&[data-side="bottom"]');
     })
   ]
 };

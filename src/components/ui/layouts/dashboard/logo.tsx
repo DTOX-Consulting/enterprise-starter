@@ -36,7 +36,7 @@ function SidebarMinimizer() {
 export function Logo({
   className,
   navigationProps
-}: { className?: string; showMinimizer?: boolean; navigationProps: NavigationProps }) {
+}: Readonly<{ className?: string; showMinimizer?: boolean; navigationProps: NavigationProps }>) {
   const { tier, abilitiesReady } = useAbilities();
 
   return (
@@ -58,7 +58,7 @@ export function Logo({
 export function LogoWithMinimizer({
   className,
   navigationProps
-}: { className?: string; showMinimizer?: boolean; navigationProps: NavigationProps }) {
+}: Readonly<{ className?: string; showMinimizer?: boolean; navigationProps: NavigationProps }>) {
   const { tier, abilitiesReady } = useAbilities();
   const [isMinimized, setMinimized] = useAtom('sidebarMinimizedAtom');
 
@@ -68,9 +68,9 @@ export function LogoWithMinimizer({
         <Link
           href={routes.dashboard}
           className="ml-4 inline-flex flex-row"
-          onClick={(e) => {
+          onClick={(event) => {
             if (isMinimized) {
-              e.preventDefault();
+              event.preventDefault();
               setMinimized(!isMinimized);
               return;
             }

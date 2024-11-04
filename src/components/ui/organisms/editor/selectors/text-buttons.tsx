@@ -14,32 +14,32 @@ export const TextButtons = () => {
   const items: SelectorItem[] = [
     {
       name: 'bold',
-      isActive: (editor) => editor.isActive('bold'),
-      command: (editor) => editor.chain().focus().toggleBold().run(),
+      isActive: (ed) => ed.isActive('bold'),
+      command: (ed) => ed.chain().focus().toggleBold().run(),
       icon: BoldIcon
     },
     {
       name: 'italic',
-      isActive: (editor) => editor.isActive('italic'),
-      command: (editor) => editor.chain().focus().toggleItalic().run(),
+      isActive: (ed) => ed.isActive('italic'),
+      command: (ed) => ed.chain().focus().toggleItalic().run(),
       icon: ItalicIcon
     },
     {
       name: 'underline',
-      isActive: (editor) => editor.isActive('underline'),
-      command: (editor) => editor.chain().focus().toggleUnderline().run(),
+      isActive: (ed) => ed.isActive('underline'),
+      command: (ed) => ed.chain().focus().toggleUnderline().run(),
       icon: UnderlineIcon
     },
     {
       name: 'strike',
-      isActive: (editor) => editor.isActive('strike'),
-      command: (editor) => editor.chain().focus().toggleStrike().run(),
+      isActive: (ed) => ed.isActive('strike'),
+      command: (ed) => ed.chain().focus().toggleStrike().run(),
       icon: StrikethroughIcon
     },
     {
       name: 'code',
-      isActive: (editor) => editor.isActive('code'),
-      command: (editor) => editor.chain().focus().toggleCode().run(),
+      isActive: (ed) => ed.isActive('code'),
+      command: (ed) => ed.chain().focus().toggleCode().run(),
       icon: CodeIcon
     }
   ];
@@ -48,7 +48,7 @@ export const TextButtons = () => {
       {items.map((item) => (
         <EditorBubbleItem
           key={item.name}
-          onSelect={(editor) => {
+          onSelect={() => {
             item.command(editor);
           }}
         >

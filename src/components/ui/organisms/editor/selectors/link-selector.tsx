@@ -1,3 +1,4 @@
+import { G } from '@mobily/ts-belt';
 import { Popover, PopoverTrigger } from '@radix-ui/react-popover';
 import { Check, Trash } from 'lucide-react';
 import { useEditor } from 'novel';
@@ -57,12 +58,12 @@ export const LinkSelector = ({ open, onOpenChange }: LinkSelectorProps) => {
       </PopoverTrigger>
       <PopoverContent align="start" className="w-60 p-0" sideOffset={10}>
         <form
-          onSubmit={(e) => {
-            const target = e.currentTarget as HTMLFormElement;
-            e.preventDefault();
+          onSubmit={(event) => {
+            const target = event.currentTarget as HTMLFormElement;
+            event.preventDefault();
             const input = target[0] as HTMLInputElement;
             const url = getUrlFromString(input.value);
-            if (url) {
+            if (G.isNotNullable(url)) {
               editor.chain().focus().setLink({ href: url }).run();
             }
           }}
@@ -73,9 +74,9 @@ export const LinkSelector = ({ open, onOpenChange }: LinkSelectorProps) => {
             type="text"
             placeholder="Paste a link"
             className="flex-1 bg-background p-1 text-sm outline-none"
-            defaultValue={(editor.getAttributes('link').href as string) ?? ''}
+            defaultValue={(editor.getAttributes('link').href as string) || ''}
           />
-          {editor.getAttributes('link').href ? (
+          {G.isNotNullable(editor.getAttributes('link').href) ? (
             <Button
               size="icon"
               variant="outline"

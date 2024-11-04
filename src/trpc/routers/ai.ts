@@ -1,3 +1,4 @@
+import { G } from '@mobily/ts-belt';
 import { z } from 'zod';
 
 import {
@@ -8,7 +9,7 @@ import {
 } from '@/lib/sdks/openai/api';
 import { publicProcedure } from '@/trpc';
 
-import type { ChatCompletionRequestMessage } from 'openai-edge';
+import type { ChatCompletionMessageParam } from 'openai/resources/chat/completions.mjs';
 
 export const aiRouter = {
   generator: publicProcedure
@@ -21,14 +22,14 @@ export const aiRouter = {
     .mutation(async ({ input }) => {
       const { topic, model } = input as GenerateParams;
 
-      if (!topic) {
+      if (G.isNullable(topic)) {
         return {
           success: false,
           error: 'Missing topic'
         };
       }
       try {
-        const messages: ChatCompletionRequestMessage[] = [
+        const messages: ChatCompletionMessageParam[] = [
           {
             role: 'user',
             content: topic
@@ -40,8 +41,8 @@ export const aiRouter = {
         });
 
         return { success: true, data };
-      } catch (e) {
-        const error = e as Error;
+      } catch (err) {
+        const error = err as Error;
         return { success: false, error: error.message };
       }
     }),
@@ -63,8 +64,8 @@ export const aiRouter = {
       try {
         const data = await createImageCompletion(imageOptions);
         return { success: true, data };
-      } catch (e) {
-        const error = e as Error;
+      } catch (err) {
+        const error = err as Error;
         return { success: false, error: error.message };
       }
     })

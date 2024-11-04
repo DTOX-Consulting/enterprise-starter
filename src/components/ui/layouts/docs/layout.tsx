@@ -7,7 +7,7 @@ type LayoutProps = {
   children: React.ReactNode;
 };
 
-export default function Layout({ children }: LayoutProps) {
+export default function Layout({ children }: Readonly<LayoutProps>) {
   return (
     <ContainerAnimated className="mt-8 flex size-full gap-8">
       <Sidebar />

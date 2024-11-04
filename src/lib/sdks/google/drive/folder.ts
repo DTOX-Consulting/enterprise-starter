@@ -1,3 +1,4 @@
+import { G } from '@mobily/ts-belt';
 import { map as pMap } from 'already';
 
 import { fromPromise, unboxR } from '@/lib/route/utils';
@@ -48,7 +49,7 @@ export const getOrCreateFolder = async (
 ) => {
   const { data: maybeFolder } = unboxR(await findFolderByName(name, parent));
   const folder = maybeFolder?.files?.[0];
-  return folder ? folder : unboxR(await createFolder(name, parent)).data;
+  return folder ?? unboxR(await createFolder(name, parent)).data;
 };
 
 export const createOrOverwriteFolder = async (
@@ -58,30 +59,36 @@ export const createOrOverwriteFolder = async (
   const { data: maybeFolder } = unboxR(await findFolderByName(name, parent));
   const folderId = maybeFolder?.files?.[0]?.id;
 
-  if (folderId) unboxR(await deleteFolder(folderId));
+  if (G.isNotNullable(folderId) && folderId !== '') {
+    unboxR(await deleteFolder(folderId));
+  }
   return unboxR(await createFolder(name, parent)).data;
 };
 
 export const findFolderByName = async (name: string, parent?: string) => {
+  const query = `mimeType = "application/vnd.google-apps.folder" and trashed = false and name = "${name}"${
+    G.isNotNullable(parent) && parent !== '' ? ` and '${parent}' in parents` : ''
+  }`;
   const response = await drive.files.list({
     corpora: 'allDrives',
     supportsAllDrives: true,
     includeItemsFromAllDrives: true,
     fields: config.drive.fields.folders,
-    q: `mimeType = "application/vnd.google-apps.folder" and trashed = false and name = "${name}"${
-      parent ? `and '${parent}' in parents` : ''
-    }`
+    // eslint-disable-next-line id-length
+    q: query
   });
   return fromPromise(Promise.resolve(response.data));
 };
 
 export const listFolders = async () => {
+  const query = 'mimeType = "application/vnd.google-apps.folder"';
   const response = await drive.files.list({
     corpora: 'allDrives',
     supportsAllDrives: true,
     includeItemsFromAllDrives: true,
     fields: config.drive.fields.folders,
-    q: 'mimeType = "application/vnd.google-apps.folder"'
+    // eslint-disable-next-line id-length
+    q: query
   });
   return fromPromise(Promise.resolve(response.data));
 };
@@ -104,5 +111,9 @@ export const moveFolder = async (fileId: string, toAdd: string[], toRemove: stri
 
 export const deleteAllFolders = async () => {
   const { data } = unboxR(await listFolders());
-  return pMap(data?.files ?? [], async (file) => file.id && deleteFolder(file.id));
+  return pMap(data?.files ?? [], async (file) => {
+    if (G.isNotNullable(file.id) && file.id !== '') {
+      return deleteFolder(file.id);
+    }
+  });
 };

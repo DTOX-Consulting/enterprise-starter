@@ -1,3 +1,4 @@
+import { G } from '@mobily/ts-belt';
 import ms from 'ms';
 
 const formats = {
@@ -67,7 +68,7 @@ export function formatDate(date: string | Date, short?: boolean): string {
   const difference = getDifference(date);
 
   for (const unit of units) {
-    const format = unit && formats[unit];
+    const format = formats[unit];
 
     if (difference < format.ms * format.max) {
       return formatter(difference, unit, short);
@@ -86,9 +87,10 @@ export function formatCreatedAt(createdAt: string | Date): string {
   return `${formatDate(createdAt, true)} ago`;
 }
 
-export const timeAgo = (timestamp?: Date, timeOnly?: boolean): string => {
-  if (!timestamp) return 'never';
-  return `${ms(Date.now() - new Date(timestamp).getTime())}${timeOnly ? '' : ' ago'}`;
+export const timeAgo = (timestamp: Date | undefined, timeOnly: boolean | undefined): string => {
+  if (G.isNullable(timestamp)) return 'never';
+  const timeAgoString = ms(Date.now() - new Date(timestamp).getTime());
+  return `${timeAgoString}${G.isNotNullable(timeOnly) && !timeOnly ? ' ago' : ''}`;
 };
 
 export function formatDateLocal(input: string | number | Date): string {

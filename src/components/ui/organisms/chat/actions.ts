@@ -10,7 +10,7 @@ import { getCurrentUser } from '@/lib/auth/session';
 import type { Chat } from '@/lib/types';
 
 export async function getChats(userId?: string | null) {
-  if (!userId) {
+  if (G.isNullable(userId)) {
     return [];
   }
 
@@ -63,7 +63,7 @@ export async function removeChat({ id, path }: { id: string; path: string }) {
   await kv.zrem(`user:chat:${currentUser.id}`, `chat:${id}`);
 
   revalidatePath('/');
-  return revalidatePath(path);
+  revalidatePath(path);
 }
 
 export async function clearChats() {
@@ -95,7 +95,7 @@ export async function clearChats() {
 export async function getSharedChat(id: string) {
   const chat = await kv.hgetall<Chat>(`chat:${id}`);
 
-  if (!chat?.sharePath) {
+  if (G.isNullable(chat?.sharePath)) {
     return null;
   }
 

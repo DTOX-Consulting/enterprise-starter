@@ -50,7 +50,7 @@ export const CheckoutElement = ({ tier }: { tier: TierName }) => {
     [data?.intent.client_secret]
   );
 
-  if (!data?.intent.client_secret) {
+  if (G.isNullable(data?.intent.client_secret)) {
     return <CheckoutLoader />;
   }
 
@@ -77,9 +77,9 @@ const CheckoutForm = ({ tier }: { tier: TierName }) => {
 
   return (
     <form
-      onSubmit={async (event: FormEvent<HTMLFormElement>) => {
+      onSubmit={(event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        await confirmPayment({ tier, stripe, elements });
+        void confirmPayment({ tier, stripe, elements });
       }}
     >
       <div className="h-80 space-y-4">

@@ -11,7 +11,6 @@ import { rewrites } from './config/rewrites.config.mjs';
 import { headers, images } from './config/security.config.mjs';
 import { env } from './src/lib/env/env.mjs';
 
-// eslint-disable-next-line no-console
 console.table({ isDev, isDocker, isVercel, isCloudflare });
 
 /** @type {import("next").NextConfig} */
@@ -92,7 +91,7 @@ const nextConfig = {
 
     if (isServer) {
       config.devtool = 'source-map';
-      config.ignoreWarnings = config.ignoreWarnings || [];
+      config.ignoreWarnings = config.ignoreWarnings ?? [];
       config.ignoreWarnings.push({ module: /highlight-(run\/)?node/ });
     }
 
@@ -113,16 +112,9 @@ const nextConfig = {
  * @param highlightConfig - Highlight configuration options
  * @returns A function that applies Highlight config
  */
-const nextHighlight =
-  (highlightConfig) =>
-  /**
-   * Applies Highlight configuration to Next.js config.
-   *
-   * @param config - Next.js configuration
-   * @returns Updated Next.js configuration
-   */
-  async (config) =>
-    withHighlightConfig(config, highlightConfig);
+const nextHighlight = (highlightConfig) => async (config) =>
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+  withHighlightConfig(config, highlightConfig);
 
 /** @type {((config: import('next').NextConfig) => import('next').NextConfig)[]} */
 const plugins = [

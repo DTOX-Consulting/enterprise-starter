@@ -55,17 +55,21 @@ const returnContact = (
 
   return {
     id: contact.id,
-    email: contact.properties.email ?? email,
+    email: contact.properties.email || email,
     notifyMe: contact.properties.notify_me === 'true',
-    subscriptionPlan: contact.properties.subscription_plan ?? '',
-    lastName: contact.properties.lastName ?? input?.lastName ?? '',
-    firstName: contact.properties.firstName ?? input?.firstName ?? ''
+    subscriptionPlan: contact.properties.subscription_plan || '',
+    lastName: contact.properties.lastName || (input ? input.lastName : ''),
+    firstName: contact.properties.firstName || (input ? input.firstName : '')
   };
 };
 
 const returnData = (input: ClientData, data?: object) => {
-  const contact = (data as { results: SimplePublicObject[] }).results[0];
-  const contactError = (data as { errors: SimplePublicObjectError[] }).errors[0];
+  const {
+    results: [contact]
+  } = data as { results: SimplePublicObject[] };
+  const {
+    errors: [contactError]
+  } = data as { errors: SimplePublicObjectError[] };
   return returnContact(input.email, input, contact, contactError);
 };
 
@@ -91,7 +95,7 @@ export const createContact = async (input: ClientData) => {
             email: input.email,
             lastName: input.lastName,
             firstName: input.firstName,
-            notify_me: input.notifyMe ? 'true' : 'false',
+            notify_me: G.isNotNullable(input.notifyMe) && input.notifyMe ? 'true' : 'false',
             subscription_plan: input.subscriptionPlan ?? defaultSubscriptionPermissionsKey
           }
         }
@@ -112,7 +116,7 @@ export const updateContact = async (input: ClientData, id: string) => {
             email: input.email,
             lastName: input.lastName,
             firstName: input.firstName,
-            notify_me: input.notifyMe ? 'true' : 'false',
+            notify_me: G.isNotNullable(input.notifyMe) && input.notifyMe ? 'true' : 'false',
             subscription_plan: input.subscriptionPlan ?? defaultSubscriptionPermissionsKey
           }
         }

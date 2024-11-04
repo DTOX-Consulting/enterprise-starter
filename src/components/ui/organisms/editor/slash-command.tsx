@@ -1,3 +1,4 @@
+import { G } from '@mobily/ts-belt';
 import {
   // MessageSquarePlus,
   CheckSquare,
@@ -10,7 +11,7 @@ import {
   ListOrdered,
   Text,
   TextQuote,
-  Youtube
+  Video
 } from 'lucide-react';
 import { createSuggestionItems, Command, renderItems } from 'novel/extensions';
 
@@ -124,7 +125,7 @@ export const suggestionItems = createSuggestionItems([
       input.accept = 'image/*';
       input.onchange = () => {
         if (input.files && input.files.length > 0) {
-          const file = input.files[0];
+          const [file] = input.files;
           if (!file) return;
           const pos = editor.view.state.selection.from;
           uploadFn(file, editor.view, pos);
@@ -137,14 +138,14 @@ export const suggestionItems = createSuggestionItems([
     title: 'Youtube',
     description: 'Embed a Youtube video.',
     searchTerms: ['video', 'youtube', 'embed'],
-    icon: <Youtube size={18} />,
+    icon: <Video size={18} />,
     command: ({ editor, range }) => {
       const videoLink = prompt('Please enter Youtube Video Link');
-      if (!videoLink) return;
+      if (!G.isNotNullable(videoLink)) return;
 
       // From https://regexr.com/3dj5t
       const ytregex = new RegExp(
-        /^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w-]+\?v=|embed\/|v\/)?)([\w-]+)(\S+)?$/
+        /^(https?:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)[\w-]{11}$/
       );
 
       if (ytregex.test(videoLink)) {
@@ -156,7 +157,7 @@ export const suggestionItems = createSuggestionItems([
             src: videoLink
           })
           .run();
-      } else if (videoLink !== null) {
+      } else {
         alert('Please enter a correct Youtube Video Link');
       }
     }

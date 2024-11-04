@@ -1,3 +1,4 @@
+import { G } from '@mobily/ts-belt';
 import { headers } from 'next/headers';
 import { redirect as nextRedirect, RedirectType } from 'next/navigation';
 
@@ -40,7 +41,7 @@ export function generateRoutes(
     }
   };
 
-  if (path && redirectPath) {
+  if (G.isNotNullable(path) && G.isNotNullable(redirectPath)) {
     url.searchParams.set('next', redirectPath);
     paths.generated.url = url.toString();
   }

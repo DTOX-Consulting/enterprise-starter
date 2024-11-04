@@ -1,3 +1,5 @@
+import { G } from '@mobily/ts-belt';
+
 import {
   tiers,
   defaultTier,
@@ -20,7 +22,7 @@ export const getTierNameFromSubscription = (subscription?: Stripe.Subscription) 
 
   const tier = Object.entries(tiers)
     .reverse()
-    .find(([, { stripe }]) => stripe[mode].priceId === priceId);
+    .find(([, { stripe: stripeConfig }]) => stripeConfig[mode].priceId === priceId);
 
   return tier ? (tier[0] as TierName) : defaultTier;
 };
@@ -28,24 +30,24 @@ export const getTierNameFromSubscription = (subscription?: Stripe.Subscription) 
 export const findStripeCustomer = async (user?: SessionUser) => {
   const { email } = user ?? (await getUserSession(true)).user;
 
-  const customers = await stripe.customers.list({
+  const { data: customers } = await stripe.customers.list({
     email
   });
 
-  return customers.data[0];
+  return customers[0];
 };
 
 export const upsertStripeCustomer = async (user?: SessionUser) => {
   const { email, name } = user ?? (await getUserSession()).user;
 
-  const customers = await stripe.customers.list({
+  const { data: customers } = await stripe.customers.list({
     email
   });
 
   let customer: Stripe.Customer | undefined;
 
-  if (customers.data.length > 0) {
-    customer = customers.data[0];
+  if (customers.length > 0) {
+    [customer] = customers;
   } else {
     customer = await stripe.customers.create({
       email,
@@ -67,7 +69,7 @@ export const getStripeDetails = async (user?: SessionUser) => {
     customer: customer.id
   });
 
-  const subscription = subscriptions.data[0];
+  const [subscription] = subscriptions.data;
   const tier = getTierNameFromSubscription(subscription);
   const key = getSubscriptionPermissionsKey(tier);
 
@@ -93,7 +95,7 @@ export const getStripeDetailsNoCreate = async (user?: SessionUser) => {
     customer: customer.id
   });
 
-  const subscription = subscriptions.data[0];
+  const [subscription] = subscriptions.data;
   const tier = getTierNameFromSubscription(subscription);
   const key = getSubscriptionPermissionsKey(tier);
 
@@ -122,7 +124,7 @@ export async function getCustomerEmail(
 
   const { email } = customerData;
 
-  if (!email) {
+  if (G.isNullable(email) || email.trim() === '') {
     throw new Error('Customer email not found');
   }
 

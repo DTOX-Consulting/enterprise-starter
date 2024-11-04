@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 
 import type { PropsWithChildren } from 'react';
 
-export function HeaderContainer({ children }: PropsWithChildren) {
+export function HeaderContainer({ children }: Readonly<PropsWithChildren>) {
   const pathname = usePathname();
 
   const brightness = pathname === '/' ? 'brightness-80' : 'brightness-100';

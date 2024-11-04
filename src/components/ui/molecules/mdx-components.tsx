@@ -5,7 +5,7 @@ import { MdxCard } from '@/components/ui/molecules/mdx-card';
 import { cn } from '@/lib/utils';
 
 import type { MDXComponents } from 'mdx/types';
-import type * as React from 'react';
+import type { ImgHTMLAttributes, HTMLAttributes } from 'react';
 
 const components: MDXComponents = {
   h1: ({ className, ...props }) => (
@@ -47,12 +47,16 @@ const components: MDXComponents = {
       {...props}
     />
   ),
-  a: ({ className, ...props }) => (
-    <a className={cn('font-medium underline underline-offset-4', className)} {...props} />
+  a: ({ className, children, ...props }) => (
+    <a className={cn('font-medium underline underline-offset-4', className)} {...props}>
+      {children}
+    </a>
   ),
+  // eslint-disable-next-line id-length
   p: ({ className, ...props }) => (
     <p className={cn('leading-7 [&:not(:first-child)]:mt-6', className)} {...props} />
   ),
+  // eslint-enable-next-line id-length
   ul: ({ className, ...props }) => (
     <ul className={cn('my-6 ml-6 list-disc', className)} {...props} />
   ),
@@ -66,17 +70,16 @@ const components: MDXComponents = {
       {...props}
     />
   ),
-  img: ({ className, alt, ...props }: React.ImgHTMLAttributes<HTMLImageElement>) => (
-    // eslint-disable-next-line @next/next/no-img-element
+  img: ({ className, alt, ...props }: ImgHTMLAttributes<HTMLImageElement>) => (
     <img className={cn('rounded-md border', className)} alt={alt} {...props} aria-label={alt} />
   ),
   hr: ({ ...props }) => <hr className="my-4 md:my-8" {...props} />,
-  table: ({ className, ...props }: React.HTMLAttributes<HTMLTableElement>) => (
+  table: ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => (
     <div className="my-6 w-full overflow-y-auto">
-      <table className={cn('w-full', className)} {...props} />
+      <div className={cn('w-full grid', className)} role="grid" {...props} />
     </div>
   ),
-  tr: ({ className, ...props }: React.HTMLAttributes<HTMLTableRowElement>) => (
+  tr: ({ className, ...props }: HTMLAttributes<HTMLTableRowElement>) => (
     <tr className={cn('m-0 border-t p-0 even:bg-muted', className)} {...props} />
   ),
   th: ({ className, ...props }) => (
@@ -117,7 +120,7 @@ type MdxProps = {
   code: string;
 };
 
-export function Mdx({ code }: MdxProps) {
+export function Mdx({ code }: Readonly<MdxProps>) {
   const Component = useMDXComponent(code);
 
   return (

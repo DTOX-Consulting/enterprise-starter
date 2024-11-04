@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 
 import type { ComponentPropsWithoutRef } from 'react';
 
-function FacebookIcon(props: ComponentPropsWithoutRef<'svg'>) {
+function FacebookIcon(props: Readonly<ComponentPropsWithoutRef<'svg'>>) {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
       <title>Facebook</title>
@@ -18,7 +18,7 @@ function FacebookIcon(props: ComponentPropsWithoutRef<'svg'>) {
   );
 }
 
-function DribbleIcon(props: ComponentPropsWithoutRef<'svg'>) {
+function DribbleIcon(props: Readonly<ComponentPropsWithoutRef<'svg'>>) {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
       <title>Dribble</title>
@@ -31,7 +31,7 @@ function DribbleIcon(props: ComponentPropsWithoutRef<'svg'>) {
   );
 }
 
-function InstagramIcon(props: ComponentPropsWithoutRef<'svg'>) {
+function InstagramIcon(props: Readonly<ComponentPropsWithoutRef<'svg'>>) {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
       <title>Instagram</title>
@@ -44,7 +44,7 @@ function InstagramIcon(props: ComponentPropsWithoutRef<'svg'>) {
   );
 }
 
-function TwitterIcon(props: ComponentPropsWithoutRef<'svg'>) {
+function TwitterIcon(props: Readonly<ComponentPropsWithoutRef<'svg'>>) {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
       <title>Twitter</title>
@@ -53,7 +53,7 @@ function TwitterIcon(props: ComponentPropsWithoutRef<'svg'>) {
   );
 }
 
-function GitHubIcon(props: ComponentPropsWithoutRef<'svg'>) {
+function GitHubIcon(props: Readonly<ComponentPropsWithoutRef<'svg'>>) {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
       <title>Github</title>
@@ -66,7 +66,7 @@ function GitHubIcon(props: ComponentPropsWithoutRef<'svg'>) {
   );
 }
 
-function LinkedinIcon(props: ComponentPropsWithoutRef<'svg'>) {
+function LinkedinIcon(props: Readonly<ComponentPropsWithoutRef<'svg'>>) {
   return (
     <svg
       aria-hidden="true"
@@ -100,7 +100,7 @@ function LinkedinIcon(props: ComponentPropsWithoutRef<'svg'>) {
   );
 }
 
-function RSSIcon(props: ComponentPropsWithoutRef<'svg'>) {
+function RSSIcon(props: Readonly<ComponentPropsWithoutRef<'svg'>>) {
   return (
     <svg
       x="0px"
@@ -142,10 +142,10 @@ export const socialMediaProfiles = Object.entries(socialMedia).map(([title, href
 export function SocialMedia({
   className,
   invert = false
-}: {
+}: Readonly<{
   className?: string;
   invert?: boolean;
-}) {
+}>) {
   return (
     <ul
       className={cn(

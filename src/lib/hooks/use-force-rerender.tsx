@@ -2,6 +2,7 @@ import { G } from '@mobily/ts-belt';
 import { useState, useCallback, useRef } from 'react';
 
 export function useForceRerender() {
+  // eslint-disable-next-line sonarjs/hook-use-state
   const [, setTick] = useState(0);
 
   return useCallback(() => {
@@ -18,7 +19,7 @@ export function useForceState<T>(initialValue: T) {
   const setState = useCallback(
     (value: T | ((prev: T) => T), rerender?: boolean) => {
       stateRef.current = G.isFunction(value) ? value(stateRef.current) : value;
-      if (rerender) forceRerender();
+      if (G.isNotNullable(rerender) && rerender) forceRerender();
     },
     [forceRerender]
   );

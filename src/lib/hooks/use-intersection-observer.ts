@@ -10,11 +10,11 @@ function useIntersectionObserver(
 ): IntersectionObserverEntry | undefined {
   const [entry, setEntry] = useState<IntersectionObserverEntry>();
 
-  const frozen = entry?.isIntersecting && freezeOnceVisible;
+  const frozen = Boolean(entry?.isIntersecting) && Boolean(freezeOnceVisible);
 
   // Use useCallback to memoize updateEntry
-  const updateEntry = useCallback(([entry]: IntersectionObserverEntry[]): void => {
-    setEntry(entry);
+  const updateEntry = useCallback(([entryParam]: IntersectionObserverEntry[]): void => {
+    setEntry(entryParam);
   }, []);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ function useIntersectionObserver(
       | typeof window.IntersectionObserver
       | undefined);
 
-    if ((!hasIOSupport || frozen) ?? !node) return;
+    if (!hasIOSupport || frozen || !node) return;
 
     const observerParams = { threshold, root, rootMargin };
     const observer = new IntersectionObserver(updateEntry, observerParams);

@@ -32,13 +32,13 @@ export function PromptForm({ onSubmit, input, setInput, isLoading }: PromptProps
 
   return (
     <form
-      onSubmit={async (e) => {
-        e.preventDefault();
+      onSubmit={(event) => {
+        event.preventDefault();
         if (!input.trim()) {
           return;
         }
         setInput('');
-        await onSubmit(input);
+        void onSubmit(input);
       }}
       ref={formRef}
     >
@@ -50,8 +50,8 @@ export function PromptForm({ onSubmit, input, setInput, isLoading }: PromptProps
                 size="icon"
                 variant="outline"
                 className="absolute left-0 top-4 size-8 rounded-full bg-background p-0 sm:left-4"
-                onClick={(e) => {
-                  e.preventDefault();
+                onClick={(event) => {
+                  event.preventDefault();
                   router.refresh();
                 }}
               >
@@ -69,7 +69,7 @@ export function PromptForm({ onSubmit, input, setInput, isLoading }: PromptProps
           maxHeight={120}
           spellCheck={true}
           onKeyDown={onKeyDown}
-          onChange={(e) => setInput(e.target.value)}
+          onChange={(event) => setInput(event.target.value)}
           placeholder="Send a message."
           className="w-full resize-none border-none bg-transparent px-4 py-[1.3rem] focus-visible:ring-0 focus-visible:ring-offset-0 sm:text-sm"
         />

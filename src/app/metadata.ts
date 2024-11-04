@@ -22,7 +22,8 @@ export const twitterImage = `${url}/images/logos/og/twitter.png`;
 export const description =
   'Your company description goes here. Provide a brief overview of what your company does and stands for.';
 
-export const socialDescription = `Your company description for social media goes here. Customize it to convey your brand's message and values. #YourHashtagsHere #YourBrand`;
+export const socialDescription =
+  "Your company description for social media goes here. Customize it to convey your brand's message and values. #YourHashtagsHere #YourBrand";
 
 export const longDescription =
   'Your detailed company description goes here. Discuss your values, mission, and what sets your company apart. Highlight the unique aspects of your products or services. Customize this section to showcase your brand personality and engage your audience.';

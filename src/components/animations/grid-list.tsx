@@ -6,10 +6,10 @@ import { FadeInStagger, FadeIn } from '@/components/animations/fade-in';
 export function GridList({
   children,
   className
-}: {
+}: Readonly<{
   children: React.ReactNode;
   className?: string;
-}) {
+}>) {
   return (
     <FadeInStagger>
       <ul className={clsx('grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3', className)}>
@@ -24,12 +24,12 @@ export function GridListItem({
   children,
   className,
   invert = false
-}: {
+}: Readonly<{
   title: string;
   children: React.ReactNode;
   className?: string;
   invert?: boolean;
-}) {
+}>) {
   return (
     <li
       className={clsx(

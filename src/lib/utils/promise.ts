@@ -40,7 +40,10 @@ export function danglingPromise<T>(promise: Promise<T> | (() => Promise<T>)): vo
     const { error } = await unbox(G.isFunction(promise) ? promise() : promise);
 
     if (error) {
-      error.stack = `${error.stack ?? `Error: ${error.message}`}\n${originalStack}`;
+      const errorMessage =
+        error.stack != null && error.stack !== '' ? error.stack : `Error: ${error.message}`;
+
+      error.stack = `${errorMessage}\n${originalStack}`;
       console.error(error);
     }
   }
@@ -77,11 +80,12 @@ export async function delay(time: number): Promise<void> {
 export async function retry<T>(times: number, fn: () => Promise<T>): Promise<T> {
   let error: Error | undefined;
 
-  for (let i = 0; i < times; i++) {
+  for (let index = 0; index < times; index++) {
     try {
+      // eslint-disable-next-line no-await-in-loop
       return await fn();
-    } catch (e) {
-      error = e as Error;
+    } catch (err) {
+      error = err as Error;
     }
   }
 
@@ -141,9 +145,10 @@ export async function each<T>(
   arr: T[],
   fn: (item: T, index: number, array: T[]) => Promise<void>
 ): Promise<void> {
-  for (let i = 0; i < arr.length; i++) {
-    const item = arr[i] as T;
-    await fn(item, i, arr);
+  for (let index = 0; index < arr.length; index++) {
+    const item = arr[index] as T;
+    // eslint-disable-next-line no-await-in-loop
+    await fn(item, index, arr);
   }
 }
 

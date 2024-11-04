@@ -82,7 +82,7 @@ async function PersonalInformationForm() {
   );
 }
 
-function ChangePasswordForm() {
+function _ChangePasswordForm() {
   return (
     <div className="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 py-16 pt-8 md:grid-cols-3">
       <div>
@@ -144,7 +144,7 @@ function ChangePasswordForm() {
   );
 }
 
-function LogoutOtherSessionsForm() {
+function _LogoutOtherSessionsForm() {
   return (
     <div className="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 py-16 pt-8 md:grid-cols-3">
       <div>
@@ -226,21 +226,13 @@ async function CurrentSubscriptionInformation() {
 }
 
 export default function SettingsAccountPage() {
-  const showPersonalInformation = true;
-  const allowChangePassword = false;
-  const showCurrentSubscription = true;
-  const allowLogoutOtherSessions = false;
-  const allowDeleteAccount = true;
-
   return (
     <ContainerAnimated size="no-padding" className="flex grow flex-col">
       <h1 className="sr-only">Account Settings</h1>
       <div className="divide-y divide-white/5">
-        {showPersonalInformation && <PersonalInformationForm />}
-        {allowChangePassword && <ChangePasswordForm />}
-        {allowLogoutOtherSessions && <LogoutOtherSessionsForm />}
-        {showCurrentSubscription && <CurrentSubscriptionInformation />}
-        {allowDeleteAccount && <DeleteAccountForm />}
+        {<PersonalInformationForm />}
+        {<CurrentSubscriptionInformation />}
+        {<DeleteAccountForm />}
       </div>
     </ContainerAnimated>
   );

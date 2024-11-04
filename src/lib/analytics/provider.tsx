@@ -1,5 +1,6 @@
 'use client';
 
+import { G } from '@mobily/ts-belt';
 import { usePathname } from 'next/navigation';
 import React, { createContext, type ReactNode, useContext, useEffect, useState } from 'react';
 
@@ -19,9 +20,9 @@ export const AnalyticsContext = createContext<AnalyticsManager | null>(null);
 // Create a custom provider component
 export function AnalyticsProvider({
   children
-}: {
+}: Readonly<{
   children: ReactNode;
-}) {
+}>) {
   const { user, subscription } = useAuth();
   const [identified, setIdentified] = useState(false);
   const [initialized, setInitialized] = useState(false);
@@ -34,7 +35,7 @@ export function AnalyticsProvider({
   }, [initialized]);
 
   useEffect(() => {
-    if (!initialized || identified || !user?.id) return;
+    if (!initialized || identified || G.isNullable(user?.id)) return;
     setIdentified(true);
 
     analyticsManager.identify(user.id, {

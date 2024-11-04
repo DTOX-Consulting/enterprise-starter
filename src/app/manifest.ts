@@ -1,6 +1,5 @@
 import { resolve } from 'node:path';
 
-// import sharp from 'sharp';
 import { $ } from 'zx';
 
 import { name, shortName, shortDescription, themeColor, backgroundColor } from '@/app/metadata';
@@ -73,25 +72,25 @@ export default function manifest(): Manifest {
 }
 
 const generateManifestImages = () => {
-  const icons = sizes.map((size) => {
-    const sizes = `${size}x${size}`;
+  const icons = sizes.map((sizeParam) => {
+    const sizeMapped = `${sizeParam}x${sizeParam}`;
 
     const result: IconType = {
-      sizes,
+      sizes: sizeMapped,
       type: 'image/png',
       // purpose: 'maskable',
-      src: `/${logoRoot}/icon-${size}.png`,
+      src: `/${logoRoot}/icon-${sizeParam}.png`,
       targets: ['manifest', 'apple', 'android']
     };
 
-    if ([16, 32].includes(size)) result.targets = ['favicon'];
-    if (![16, 32].includes(size)) result.src = `/${logoRoot}/logo-${size}.png`;
+    if ([16, 32].includes(sizeParam)) result.targets = ['favicon'];
+    if (![16, 32].includes(sizeParam)) result.src = `/${logoRoot}/logo-${sizeParam}.png`;
 
-    if ([192, 384, 512].includes(size)) result.purpose = 'maskable';
+    if ([192, 384, 512].includes(sizeParam)) result.purpose = 'maskable';
 
-    if ([150, 310].includes(size)) {
+    if ([150, 310].includes(sizeParam)) {
       result.targets = ['ms'];
-      result.element = `square${sizes}logo`;
+      result.element = `square${sizeParam}logo`;
     }
 
     return result;
@@ -102,13 +101,13 @@ const generateManifestImages = () => {
     const sizes1 = `${isN ? '540' : '720'}x${isN ? '720' : '540'}`;
     const sizes2 = `${isN ? '1080' : '1440'}x${isN ? '1440' : '1080'}`;
 
-    const sizes = index % 2 === 0 ? sizes1 : sizes2;
+    const screenshotSizes = index % 2 === 0 ? sizes1 : sizes2;
 
     return {
-      sizes,
+      screenshotSizes,
       type: 'image/png',
       form_factor: formFactor,
-      src: `/${screenshotRoot}/screenshot-${sizes}.png`
+      src: `/${screenshotRoot}/screenshot-${screenshotSizes}.png`
     };
   });
 
@@ -151,7 +150,8 @@ const generateLogos = async () => {
   await ensureDir(logoRoot);
   await ensureDir(iconRoot);
 
-  sizes.forEach((size) => {
+  const sizesForLogos = sizes;
+  sizesForLogos.forEach((size) => {
     const input = resolve(ROOT_DIR, `${inputRoot}/logo.svg`);
     const output = resolve(ROOT_DIR, `${logoRoot}/logo-${size}.png`);
 
@@ -166,7 +166,8 @@ const generateLogos = async () => {
       .toFile(output, logError);
   });
 
-  sizes.forEach((size) => {
+  const sizesForIcons = sizes;
+  sizesForIcons.forEach((size) => {
     const input = resolve(ROOT_DIR, `${inputRoot}/icon.svg`);
     const output = resolve(ROOT_DIR, `${iconRoot}/icon-${size}.png`);
 
@@ -190,15 +191,22 @@ const generateScreenshots = async () => {
     const sizes1 = `${isN ? '540' : '720'}x${isN ? '720' : '540'}`;
     const sizes2 = `${isN ? '1080' : '1440'}x${isN ? '1440' : '1080'}`;
 
-    const sizes = index % 2 === 0 ? sizes1 : sizes2;
+    const screenshotSizes2 = index % 2 === 0 ? sizes1 : sizes2;
 
     const input = resolve(ROOT_DIR, `${inputRoot}/screenshot.png`);
-    const output = resolve(ROOT_DIR, `${screenshotRoot}/screenshot-${sizes}.png`);
+    const output = resolve(ROOT_DIR, `${screenshotRoot}/screenshot-${screenshotSizes2}.png`);
 
     sharp(input)
-      .resize(...(sizes.split('x').map(Number) as [number, number]))
+      .resize(...(screenshotSizes2.split('x').map(Number) as [number, number]))
       .png()
       .toFile(output, logError);
+
+    return {
+      formFactor,
+      screenshotSizes2,
+      input,
+      output
+    };
   });
 };
 const logError = (err?: Error) => {

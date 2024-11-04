@@ -18,7 +18,7 @@ export function getGtag() {
 }
 
 export class GoogleAnalytics implements AnalyticsService {
-  private isOptedOut = isLocalOrExternal() ?? false;
+  private isOptedOut = isLocalOrExternal();
   private gtag = getGtag();
 
   constructor(private readonly config: AnalyticsConfig) {

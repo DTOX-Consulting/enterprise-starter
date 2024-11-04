@@ -27,16 +27,19 @@ function getElements() {
 
 function showChatPopup() {
   const { iframe, iframeWrapper } = getElements();
+  // eslint-disable-next-line sonarjs/post-message
   iframe?.contentWindow?.postMessage('expand', '*');
   iframeWrapper?.classList.remove('hidden');
 }
 
 function hideChatPopup(remove = false) {
   const { iframe, script, iframeWrapper } = getElements();
+  // eslint-disable-next-line sonarjs/post-message
   iframe?.contentWindow?.postMessage('collapse', '*');
   iframeWrapper?.classList.add('hidden');
 
   if (!remove) return;
+  // eslint-disable-next-line sonarjs/post-message
   iframe?.contentWindow?.postMessage('close', '*');
   iframeWrapper?.remove();
   script?.remove();

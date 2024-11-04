@@ -10,6 +10,7 @@ import path from 'node:path';
 import zlib from 'node:zlib';
 
 import { sync as mkdirpSync } from 'mkdirp';
+import { stringify } from 'safe-stable-stringify';
 
 // Define types for build manifests
 type BuildManifest = {
@@ -87,9 +88,6 @@ const _allPageSizes = Object.keys(buildMeta.pages).reduce(
 
 // Get the size of the global app directory bundle
 const globalAppDirBundle = buildMeta.rootMainFiles ?? [];
-// if (!globalAppDirBundle) {
-//   throw new Error("Global app dir bundle not found in buildMeta.");
-// }
 const globalAppDirBundleSizes = getScriptSizes(globalAppDirBundle);
 
 // Calculate the size of each app directory page's scripts
@@ -110,7 +108,7 @@ const allAppDirSizes = Object.keys(appDirMeta.pages).reduce(
 );
 
 // Format and write the output
-const rawData = JSON.stringify({
+const rawData = stringify({
   ...allAppDirSizes,
   __global: globalAppDirBundleSizes
 });
@@ -120,7 +118,7 @@ console.log(rawData);
 
 // Ensure the output directory exists and write the bundle analysis data
 mkdirpSync(path.join(nextMetaRoot, 'analyze/'));
-fs.writeFileSync(path.join(nextMetaRoot, 'analyze/__bundle_analysis.json'), rawData);
+fs.writeFileSync(path.join(nextMetaRoot, 'analyze/__bundle_analysis.json'), rawData as string);
 
 // --------------
 // Util Functions
@@ -143,17 +141,17 @@ function getScriptSizes(scriptPaths: string[]): { raw: number; gzip: number } {
 // Given an individual path to a script, return its file size
 function getScriptSize(scriptPath: string): [number, number] {
   const encoding = 'utf8';
-  const p = path.join(nextMetaRoot, scriptPath);
+  const filePath = path.join(nextMetaRoot, scriptPath);
 
-  if (memoryCache[p]) {
-    return memoryCache[p];
+  if (memoryCache[filePath]) {
+    return memoryCache[filePath];
   }
 
-  const textContent = fs.readFileSync(p, encoding);
+  const textContent = fs.readFileSync(filePath, encoding);
   const rawSize = Buffer.byteLength(textContent, encoding);
   const gzipSize = zlib.gzipSync(textContent).length;
 
-  memoryCache[p] = [rawSize, gzipSize];
+  memoryCache[filePath] = [rawSize, gzipSize];
   return [rawSize, gzipSize];
 }
 
@@ -172,6 +170,6 @@ function getOptions(pathPrefix = process.cwd()): { buildOutputDirectory?: string
 }
 
 // Gets the output build directory, defaults to `.next`
-function getBuildOutputDirectory(options: { buildOutputDirectory?: string }): string {
-  return options.buildOutputDirectory ?? '.next';
+function getBuildOutputDirectory(opts: { buildOutputDirectory?: string }): string {
+  return opts.buildOutputDirectory ?? '.next';
 }

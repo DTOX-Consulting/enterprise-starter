@@ -32,6 +32,6 @@ export const identify = (user: SessionUser) =>
   });
 
 const shouldRun = (user?: SessionUser): user is SessionUser => {
-  const hasUser = !!user?.email;
+  const hasUser = !!user && !!user.email;
   return hasUser && !isLocalHost();
 };

@@ -1,5 +1,6 @@
 'use client';
 
+import { G } from '@mobily/ts-belt';
 import { useCompletion } from 'ai/react';
 import { ArrowUp } from 'lucide-react';
 import { useEditor } from 'novel';
@@ -24,7 +25,7 @@ type AISelectorProps = {
   onOpenChange: (open: boolean) => void;
 };
 
-export function AISelector({ onOpenChange, completionApi }: AISelectorProps) {
+export function AISelector({ onOpenChange, completionApi }: Readonly<AISelectorProps>) {
   const { editor } = useEditor() as { editor: Editor | null };
   const [inputValue, setInputValue] = useState('');
 
@@ -35,8 +36,8 @@ export function AISelector({ onOpenChange, completionApi }: AISelectorProps) {
         toast.error('You have reached your request limit for the day.');
       }
     },
-    onError: (e) => {
-      toast.error(e.message);
+    onError: (err) => {
+      toast.error(err.message);
     }
   });
 
@@ -80,17 +81,20 @@ export function AISelector({ onOpenChange, completionApi }: AISelectorProps) {
             <Button
               size="icon"
               className="absolute right-4 top-1/2 size-6 -translate-y-1/2 rounded-full bg-purple-500 hover:bg-purple-900"
-              onClick={async () => {
-                const afterCompletion = async (text: string) => {
+              onClick={() => {
+                const afterCompletion = (text: string) => {
                   const body = { option: 'zap', command: inputValue };
-                  await complete(text, { body });
+                  void complete(text, { body });
                   setInputValue('');
                 };
 
-                if (completion) return afterCompletion(completion);
+                if (G.isNotNullable(completion)) {
+                  afterCompletion(completion);
+                  return;
+                }
                 const slice = editor.state.selection.content();
                 const text = editor.storage.markdown.serializer.serialize(slice.content);
-                return afterCompletion(text);
+                afterCompletion(text);
               }}
             >
               <ArrowUp className="size-4" />
@@ -106,7 +110,7 @@ export function AISelector({ onOpenChange, completionApi }: AISelectorProps) {
             />
           ) : (
             <AISelectorCommands
-              onSelect={async (value, option) => complete(value, { body: { option } })}
+              onSelect={(value, option) => void complete(value, { body: { option } })}
             />
           )}
         </>

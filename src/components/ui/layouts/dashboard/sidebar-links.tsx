@@ -1,5 +1,6 @@
 'use client';
 
+import { G } from '@mobily/ts-belt';
 import { ChevronDownIcon, ChevronRightIcon } from 'lucide-react';
 import Link from 'next/link';
 
@@ -32,10 +33,9 @@ export function SidebarLinks({
   const activeParent = navigationProps.getActiveParent()?.name;
 
   return navigationProps.items.map((item) => {
-    if (item.authenticated && !user) return null;
-    if (item.unauthenticated && user) return null;
-
-    if (item.bottom) bottomValue = bottomValue === 0 ? 4 : bottomValue + 10;
+    if (G.isNotNullable(item.authenticated) && !user) return null;
+    if (G.isNotNullable(item.unauthenticated) && G.isNotNullable(user)) return null;
+    if (G.isNotNullable(item.bottom)) bottomValue = bottomValue === 0 ? 4 : bottomValue + 10;
     const bottomClass = `bottom-${bottomValue}`;
 
     if (item.tier && item.tier !== tier) return null;
@@ -57,7 +57,7 @@ function SidebarLink({
   activeParent,
   navigationProps,
   contentClassName
-}: {
+}: Readonly<{
   user?: SessionUser;
   className?: string;
   bottomClass: string;
@@ -65,54 +65,38 @@ function SidebarLink({
   contentClassName?: string;
   navigationProps: NavigationProps;
   item: NavigationProps['items'][0];
-}) {
+}>) {
   const [isMinimized] = useAtom('sidebarMinimizedAtom');
   const [isOpen, setIsOpen] = useForceState(item.name === activeParent);
+
+  const handleClick = (event: React.MouseEvent) => {
+    navigationProps.setActive(item.name);
+    if (Boolean(item.disabled) || Boolean(item.isAccordion)) {
+      event.preventDefault();
+    }
+    if (item.items) {
+      setIsOpen(!isOpen, true);
+    } else {
+      danglingPromise(triggerElementAction('click', 'button', '.absolute.right-4.top-4'));
+    }
+  };
 
   return (
     <li
       key={item.name}
-      className={cn(item.bottom ? `${bottomClass} absolute w-full pr-12 md:pr-8` : '')}
+      className={cn(
+        G.isNotNullable(item.bottom) && item.bottom
+          ? `${bottomClass} absolute w-full pr-12 md:pr-8`
+          : ''
+      )}
     >
       <Tip content={isMinimized ? item.name : ''} className="w-full">
         <Link
           href={item.href}
-          onClick={(e) => {
-            navigationProps.setActive(item.name);
-            if (item.disabled ?? item.isAccordion) {
-              e.preventDefault();
-            }
-            if (item.items) {
-              setIsOpen(!isOpen, true);
-            } else {
-              danglingPromise(triggerElementAction('click', 'button', '.absolute.right-4.top-4'));
-            }
-          }}
-          className={cn(
-            'flex	h-16 flex-row items-center whitespace-nowrap rounded-r-md border-l-2 border-transparent px-3 text-gray-500 hover:border-pulse hover:bg-gray-100 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-700',
-            className,
-            {
-              'h-10': item.bottom,
-              'rounded-full border-2': isMinimized,
-              'mx-0 h-10': navigationProps.isSubLink,
-              'bg-gray-100 text-gray-700 dark:text-gray-700 border-pulse':
-                navigationProps.isActive(item),
-              'px-0': isMinimized && navigationProps.isSubLink
-            }
-          )}
+          onClick={handleClick}
+          className={getLinkClassNames(item, isMinimized, navigationProps, className)}
         >
-          {item.icon ? <item.icon className="size-5" /> : null}
-
-          {!isMinimized && (
-            <>
-              <span className="ml-4">{item.name}</span>
-              {!item.items ? null : isOpen ? (
-                <ChevronDownIcon className="ml-auto size-5" />
-              ) : (
-                <ChevronRightIcon className="ml-auto size-5" />
-              )}
-            </>
-          )}
+          <LinkContent item={item} isMinimized={isMinimized} isOpen={isOpen} />
         </Link>
       </Tip>
 
@@ -130,5 +114,51 @@ function SidebarLink({
         />
       )}
     </li>
+  );
+}
+
+function getLinkClassNames(
+  item: NavigationProps['items'][0],
+  isMinimized: boolean,
+  navigationProps: NavigationProps,
+  className?: string
+) {
+  return cn(
+    'flex h-16 flex-row items-center whitespace-nowrap rounded-r-md border-l-2 border-transparent px-3 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-700',
+    className,
+    {
+      'h-10': item.bottom,
+      'rounded-full border-2': isMinimized,
+      'mx-0 h-10': navigationProps.isSubLink,
+      'bg-gray-100 text-gray-700 dark:text-gray-700': navigationProps.isActive(item),
+      'px-0': isMinimized && navigationProps.isSubLink
+    }
+  );
+}
+
+function LinkContent({
+  item,
+  isMinimized,
+  isOpen
+}: Readonly<{
+  item: NavigationProps['items'][0];
+  isMinimized: boolean;
+  isOpen: boolean;
+}>) {
+  return (
+    <>
+      {item.icon ? <item.icon className="size-5" /> : null}
+      {!isMinimized && (
+        <>
+          <span className="ml-4">{item.name}</span>
+          {item.items &&
+            (isOpen ? (
+              <ChevronDownIcon className="ml-auto size-5" />
+            ) : (
+              <ChevronRightIcon className="ml-auto size-5" />
+            ))}
+        </>
+      )}
+    </>
   );
 }

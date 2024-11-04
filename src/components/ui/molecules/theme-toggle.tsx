@@ -82,7 +82,7 @@ export function ThemeToggleMenuHeader() {
   );
 }
 
-export function ThemeToggleTrigger({ isSubmenu = false }: { isSubmenu?: boolean }) {
+export function ThemeToggleTrigger({ isSubmenu = false }: Readonly<{ isSubmenu?: boolean }>) {
   const Comp = isSubmenu ? DropdownMenuSubTrigger : DropdownMenuTrigger;
 
   return (
@@ -105,7 +105,7 @@ export const ThemeToggle = () => (
   </>
 );
 
-export function ThemeToggleContent({ isSubmenu = false }: { isSubmenu?: boolean }) {
+export function ThemeToggleContent({ isSubmenu = false }: Readonly<{ isSubmenu?: boolean }>) {
   const { theme, setTheme } = useTheme();
   useSetIframeTheme(theme ?? 'system');
 
@@ -141,7 +141,7 @@ export function ThemeToggleRadio() {
 export function ThemeToggleIcon({
   className,
   size = 'sm'
-}: { className?: string; size?: 'sm' | 'md' | 'lg' }) {
+}: Readonly<{ className?: string; size?: 'sm' | 'md' | 'lg' }>) {
   const sizeClass = {
     sm: 'size-4',
     md: 'size-6',

@@ -15,7 +15,7 @@ import { routes } from '@/config/navigation/routes';
 
 import type { PropsWithChildren } from 'react';
 
-export function UpgradeModal({ children }: PropsWithChildren) {
+export function UpgradeModal({ children }: Readonly<PropsWithChildren>) {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -48,9 +48,7 @@ export function UpgradeModal({ children }: PropsWithChildren) {
         <DialogFooter>
           <DialogClose asChild>
             <Link className="w-full" href={routes.pricing}>
-              <Button variant="pulse" className="w-full">
-                Go To Pricing
-              </Button>
+              <Button className="w-full">Go To Pricing</Button>
             </Link>
           </DialogClose>
         </DialogFooter>
@@ -60,6 +58,6 @@ export function UpgradeModal({ children }: PropsWithChildren) {
 }
 
 export function Upgrade({ children, hasAccess }: PropsWithChildren<{ hasAccess: boolean }>) {
-  if (hasAccess) return <>{children}</>;
+  if (hasAccess) return <>{children}&nbsp;</>;
   return <UpgradeModal>{children}</UpgradeModal>;
 }

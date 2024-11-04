@@ -1,5 +1,6 @@
 'use client';
 
+import { G } from '@mobily/ts-belt';
 import { X, Bell, type LucideIcon, icons } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -67,8 +68,8 @@ export const NotificationContent = ({
           className="group relative -mx-2 flex cursor-pointer flex-col border-b px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-500"
         >
           <X
-            onClick={(e) => {
-              e.stopPropagation();
+            onClick={(event) => {
+              event.stopPropagation();
               onClick(notification, true);
             }}
             className={cn(
@@ -85,7 +86,7 @@ export const NotificationContent = ({
                 className="mx-1 size-6 text-gray-500"
               />
             )}
-            {(notification.image ?? notification.content.actorImage) && (
+            {(Boolean(notification.image) || Boolean(notification.content.actorImage)) && (
               <Image
                 src={notification.image ?? notification.content.actorImage ?? ''}
                 className="mx-1 size-8 rounded-full object-cover"
@@ -97,7 +98,7 @@ export const NotificationContent = ({
             )}
             <div className="flex flex-col">
               <p className="mx-2 w-[90%] text-sm">
-                {notification.content.actor && (
+                {Boolean(notification.content.actor) && (
                   <span className="font-bold">{notification.content.actor}&nbsp;</span>
                 )}
                 <span className="text-sm">{notification.content.action}</span>
@@ -135,7 +136,7 @@ export const NotificationDrawer = ({
   onNotificationClick?: (notification: DCS<Notification>, isRemoved?: boolean) => void;
 }) => {
   const unreadNotifications = notifications
-    .filter(({ removedAt, readAt }) => !removedAt && !readAt)
+    .filter(({ removedAt, readAt }) => G.isNullable(removedAt) && G.isNullable(readAt))
     .reverse();
 
   const count = unreadNotifications.length;

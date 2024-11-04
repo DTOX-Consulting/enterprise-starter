@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client';
 import { isProd } from '@/lib/env/env.mjs';
 
 declare global {
-  var prisma: PrismaClient | undefined;
+  const prisma: PrismaClient | undefined;
 }
 
 const globalForPrisma = globalThis as unknown as {

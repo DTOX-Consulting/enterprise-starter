@@ -1,122 +1,48 @@
-import { businessNavigationItems } from '@/config/navigation/items/business';
-import { organizationNavigationItems } from '@/config/navigation/items/organization';
 import { rootNavigationItems } from '@/config/navigation/items/root';
 
 import type { NavigationItem } from '@/config/navigation/types';
 
 const config = {
   none: () => [] as NavigationItem[],
-  root: rootNavigationItems,
-  business: businessNavigationItems,
-  organization: organizationNavigationItems
+  root: rootNavigationItems
 } as const;
 
-type Base = (typeof bases)[number];
-
-type SlugBase = (typeof slugBases)[number];
+type Base = 'dashboard' | 'settings' | 'profile' | 'pricing' | 'feature-previews';
 
 type Path = {
   base: Base;
   slug?: string;
   page?: string;
-  orgId?: string;
-  businessId?: string;
 };
 
-const slugBases = ['p'] as const;
-const businessBases = ['businesses', 'p'] as const;
-const nonBusinessBases = [
-  '',
-  'chat',
-  'guide',
-  'pricing',
-  'settings',
-  'profile',
-  'external',
-  'dashboard',
-  'document',
-  'notifications',
-  'feature-previews'
-] as const;
-
-const bases = [...businessBases, ...nonBusinessBases] as const;
+const bases = ['dashboard', 'settings', 'profile', 'pricing', 'feature-previews'] as const;
 const pages = ['new', 'edit', 'view', 'profile', 'settings'] as const;
 
-function isPage(value?: string) {
-  return !value || pages.includes(value);
+function isPage(value: string | undefined): boolean {
+  return value === undefined || pages.includes(value as (typeof pages)[number]);
 }
 
-export function isNonBusinessBase(base: string): base is Base {
-  return nonBusinessBases.includes(base as Base);
-}
-
-export function isBusinessBase(base: string): base is Base {
-  return businessBases.includes(base as Base);
-}
-
-export function isSlugBase(base: string): base is SlugBase {
-  return slugBases.includes(base as SlugBase);
+export function isRootBase(base: string): base is Base {
+  return bases.includes(base as Base);
 }
 
 export function initialize(path: string) {
-  const { base, slug, orgId, businessId } = parsePath(path);
+  const { base, page } = parsePath(path);
 
-  if (isBusinessBase(base) && orgId && businessId) {
-    return config.business(`/${base}/${orgId}/${businessId}`);
-  }
-
-  if (isBusinessBase(base) && orgId) {
-    return config.organization(`/${base}/${orgId}`);
-  }
-
-  if (isBusinessBase(base) && slug) {
-    return config.business(`/${base}/${slug}`);
-  }
-
-  if (isNonBusinessBase(base)) {
-    return config.root('/businesses');
+  if (isRootBase(base) && isPage(page)) {
+    return config.root('/');
   }
 
   return config.none();
 }
 
-export function createPath({ page, slug, base, orgId, businessId }: Path) {
-  if (slug) {
-    base = slugBases[0];
-    orgId = undefined;
-    businessId = undefined;
-  }
-
-  const path = [base, slug, orgId, businessId, page].filter(Boolean).join('/');
+export function createPath({ base, page }: Path) {
+  const path = [base, page].filter(Boolean).join('/');
   return `/${path}`;
 }
 
 export function parsePath(path: string): Path {
-  let [, base = '', orgId, businessId, page] = path.split('/');
-  let slug: string | undefined;
+  const [, base, page] = path.split('/');
 
-  if (isSlugBase(base)) {
-    slug = orgId;
-    page = businessId;
-    orgId = undefined;
-    businessId = undefined;
-  }
-
-  if (!isSlugBase(base) && isPage(businessId)) {
-    page = businessId;
-    businessId = undefined;
-  }
-
-  if (!isSlugBase(base) && isPage(orgId)) {
-    page = orgId;
-    orgId = undefined;
-  }
-
-  if (isNonBusinessBase(base)) {
-    orgId = undefined;
-    businessId = undefined;
-    page = undefined;
-  }
-
-  return { base, slug, orgId, businessId, page } as Path;
+  return { base, page } as Path;
 }

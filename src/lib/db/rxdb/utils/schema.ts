@@ -101,7 +101,7 @@ export const addCommonProperties = <
 }: {
   data: U;
   ownerId?: string;
-  id?: string | undefined;
+  id?: string;
 }): R => {
   const now = new Date().toISOString();
   const isNew = G.isNullable(id);

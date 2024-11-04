@@ -11,7 +11,7 @@ import type { UserSession } from '@/lib/sdks/kinde/api/session';
 export async function create(name = 'app') {
   await setupPlugins();
 
-  return await createRxDatabase({
+  return createRxDatabase({
     storage: await setupStorage(),
     ignoreDuplicate: true,
     multiInstance: true,
@@ -29,7 +29,6 @@ export const initialize = async (userSession: UserSession, clearFirst = true) =>
     await clearDbs();
   }
   const db = await create(DB_NAME);
-  // await db.waitForLeadership();
 
   try {
     const collections = await addCollections(db);
@@ -37,8 +36,8 @@ export const initialize = async (userSession: UserSession, clearFirst = true) =>
 
     const replication = await replicate(userSession, collections);
     return { db, collections, replication };
-  } catch (e) {
-    console.error(e);
+  } catch (err) {
+    console.error(err);
   }
 
   return { db };

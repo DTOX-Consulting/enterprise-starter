@@ -1,12 +1,12 @@
 import { Select } from '@/components/ui/organisms/select/plain';
 
-export type SelectConfigItem<Params, K extends keyof Params = keyof Params> = {
-  param: K;
-  value: Params[K];
-  options: Params[K][];
+export type SelectConfigItem<Params, T extends keyof Params = keyof Params> = {
+  param: T;
+  value: Params[T];
+  options: Params[T][];
   condition?: boolean;
   placeholder: string;
-  onItemChange?: <K extends keyof Params>(param: K, value: Params[K]) => void;
+  onItemChange?: <U extends keyof Params>(param: U, value: Params[U]) => void;
 };
 
 export type SelectGeneratorProps<Params> = {
@@ -25,10 +25,10 @@ export const SelectGenerator = <Params extends Record<keyof Params, unknown>>({
         <Select
           value={`${value as string}`}
           key={`${index}-${String(param)}`}
-          placeholder={placeholder ?? 'Select...'}
-          options={options.map((i) => `${i as string}`)}
-          onChange={(e) =>
-            (onItemChange ?? onChange)(param, e.target.value as Params[keyof Params])
+          placeholder={placeholder ? placeholder : 'Select...'}
+          options={options.map((indexOf) => `${indexOf as string}`)}
+          onChange={(err) =>
+            (onItemChange ?? onChange)(param, err.target.value as Params[keyof Params])
           }
         />
       ))}

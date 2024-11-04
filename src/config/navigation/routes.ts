@@ -16,13 +16,10 @@ export const routes = {
   // settings: '/settings',
   comingSoon: '/coming-soon',
   authCallback: '/auth-callback',
+  dashboard: '/dashboard',
+  featurePreviews: '/feature-previews'
 
   // Your routes here
-  team: '/team',
-  learn: '/learn',
-  dashboard: '/dashboard',
-  businesses: '/businesses',
-  featurePreviews: '/feature-previews'
 } as const;
 
 export const apiRoutes = {

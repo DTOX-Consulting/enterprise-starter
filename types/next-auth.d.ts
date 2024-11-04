@@ -1,7 +1,5 @@
 import type { User } from 'next-auth';
 
-type UserId = string;
-
 declare module 'next-auth/jwt' {
   type JWT = {
     id: UserId;

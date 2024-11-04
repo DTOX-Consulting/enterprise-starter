@@ -12,7 +12,7 @@ import {
 import { footerNavigation, home, navigation } from '@/config/navigation/routes';
 import { useForceState } from '@/lib/hooks/use-force-rerender';
 
-function HomeLink({ width, height }: { width: number; height: number }) {
+function HomeLink({ width, height }: Readonly<{ width: number; height: number }>) {
   return (
     <Link href={home.href} className="items-center p-4 align-middle hover:text-emerald-700">
       <Image src={home.src} alt="logo" width={width} height={height} className="inline-block" />

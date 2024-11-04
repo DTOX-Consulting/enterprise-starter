@@ -16,7 +16,7 @@ export function useRouter() {
 
   const updateRoute = useCallback(
     (method: 'push' | 'replace', path?: string, options: Options = {}) => {
-      if (options.safe && isNavigatingRef.current) return; // Do nothing if a navigation is already in progress
+      if (Boolean(options.safe) && isNavigatingRef.current) return;
       isNavigatingRef.current = true;
 
       const { removeSearchParams, ...navigateOptions } = options;

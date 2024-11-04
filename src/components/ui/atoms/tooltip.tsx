@@ -1,22 +1,28 @@
 'use client';
 
-import * as TooltipPrimitive from '@radix-ui/react-tooltip';
+import { Provider, Root, Trigger, Content } from '@radix-ui/react-tooltip';
 import { Info } from 'lucide-react';
-import * as React from 'react';
+import {
+  forwardRef,
+  type ElementRef,
+  type ComponentPropsWithoutRef,
+  type ReactNode,
+  type PropsWithChildren
+} from 'react';
 
 import { cn } from '@/lib/utils';
 
-const TooltipProvider = TooltipPrimitive.Provider;
+const TooltipProvider = Provider;
 
-const Tooltip = TooltipPrimitive.Root;
+const Tooltip = Root;
 
-const TooltipTrigger = TooltipPrimitive.Trigger;
+const TooltipTrigger = Trigger;
 
-const TooltipContent = React.forwardRef<
-  React.ElementRef<typeof TooltipPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Content>
+const TooltipContent = forwardRef<
+  ElementRef<typeof Content>,
+  ComponentPropsWithoutRef<typeof Content>
 >(({ className, sideOffset = 4, ...props }, ref) => (
-  <TooltipPrimitive.Content
+  <Content
     ref={ref}
     sideOffset={sideOffset}
     className={cn(
@@ -26,13 +32,13 @@ const TooltipContent = React.forwardRef<
     {...props}
   />
 ));
-TooltipContent.displayName = TooltipPrimitive.Content.displayName;
+TooltipContent.displayName = Content.displayName;
 
 const Tip = ({
   content,
   children,
   className
-}: React.PropsWithChildren<{ content: string | React.ReactNode; className?: string }>) => (
+}: PropsWithChildren<{ content: string | ReactNode; className?: string }>) => (
   <TooltipProvider>
     <Tooltip>
       <TooltipTrigger className={className} asChild>
@@ -45,14 +51,11 @@ const Tip = ({
   </TooltipProvider>
 );
 
-const InverseTip = ({
-  children,
-  content
-}: React.PropsWithChildren<{ content: string | React.ReactNode }>) => (
+const InverseTip = ({ children, content }: PropsWithChildren<{ content: string | ReactNode }>) => (
   <Tip content={children}>{content}</Tip>
 );
 
-const InfoTip = ({ children, className }: React.PropsWithChildren<{ className?: string }>) => (
+const InfoTip = ({ children, className }: PropsWithChildren<{ className?: string }>) => (
   <Tip content={children}>
     <Info className={cn('ml-2 size-4 text-neutral-400 hover:text-neutral-200', className)} />
   </Tip>

@@ -8,11 +8,13 @@ import type { UseChatHelpers } from 'ai/react';
 const exampleMessages = [
   {
     heading: 'Explain "Seed Funding"',
-    message: `Define the term "Seed Funding" in the context of startups. Explain how it typically works and why it's crucial for early-stage companies.`
+    message:
+      'Define the term "Seed Funding" in the context of startups. Explain how it typically works and why it\'s crucial for early-stage companies.'
   },
   {
     heading: 'Explain "Runway" in Startups',
-    message: `Please provide a clear explanation of the term "Runway" as it pertains to startups. Describe what it represents and why it's a crucial metric for startup sustainability.`
+    message:
+      'Please provide a clear explanation of the term "Runway" as it pertains to startups. Describe what it represents and why it\'s a crucial metric for startup sustainability.'
   },
   {
     heading: 'Market analysis',
@@ -32,7 +34,7 @@ const exampleMessages = [
 
 type EmptyScreenProps = Pick<UseChatHelpers, 'setInput'>;
 
-export function EmptyScreen({ setInput }: EmptyScreenProps) {
+export function EmptyScreen({ setInput }: Readonly<EmptyScreenProps>) {
   return (
     <div className="mx-auto max-w-5xl px-4">
       <div className="rounded-lg border bg-background p-8">

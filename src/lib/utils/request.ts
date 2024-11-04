@@ -1,4 +1,5 @@
 import { G } from '@mobily/ts-belt';
+import { stringify } from 'safe-stable-stringify';
 import { unbox } from 'unbox-js';
 
 import { createUrl } from '@/lib/utils/promise';
@@ -36,7 +37,7 @@ export async function proxy(req: ProxyRequest) {
   }
 
   const _headers = (req.headers ?? {}) as GenericObject<string, unknown>;
-  const body = G.isNotNullable(req.body) ? JSON.stringify(req.body) : undefined;
+  const body = G.isNotNullable(req.body) ? stringify(req.body) : undefined;
 
   const headers = allowedHeaders.reduce((acc, key) => {
     if (G.isNotNullable(_headers[key])) {

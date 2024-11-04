@@ -12,7 +12,19 @@ import { useForceState } from '@/lib/hooks/use-force-rerender';
 
 import type { NavigationItem } from '@/config/navigation/types';
 
-export const standardizePath = (path: string) => path.replace(/^\/+|\/+$/g, '');
+export const standardizePath = (path: string) => {
+  let start = 0;
+  let end = path.length;
+
+  while (start < end && path[start] === '/') {
+    start++;
+  }
+  while (end > start && path[end - 1] === '/') {
+    end--;
+  }
+
+  return path.slice(start, end);
+};
 
 export const isInPages = (path: string, navigationItems: NavigationItem[]) => {
   const pages = getPages(navigationItems);
@@ -21,13 +33,13 @@ export const isInPages = (path: string, navigationItems: NavigationItem[]) => {
 
 export const getPages = (navigationItems: NavigationItem[]) =>
   navigationItems.reduce((acc, item) => {
-    if (!item.disabled) {
+    if (item.disabled === false) {
       acc.push(item);
     }
 
-    if (item.isAccordion && item.items) {
+    if (item.isAccordion === true && item.items && Array.isArray(item.items)) {
       item.items.forEach((subItem) => {
-        if (!subItem.disabled) {
+        if (subItem.disabled === false) {
           acc.push(subItem);
         }
       });
@@ -70,7 +82,7 @@ export function getParent(navigationItems: NavigationItem[], path: string) {
   let currentParent: NavigationItem | undefined;
 
   navigationItems.forEach((item) => {
-    if (item.isAccordion && item.items) {
+    if (item.isAccordion === true && item.items && Array.isArray(item.items)) {
       item.items.forEach((subItem) => {
         if (standardizePath(subItem.href) === standardizePath(path)) {
           currentParent = item;
@@ -109,7 +121,7 @@ export function NavigationPagination() {
       <div className="!mt-6 flex w-full flex-row justify-between pb-8">
         {previousRoute && (
           <div className="flex grow items-start justify-start">
-            <Button asChild variant="pulse">
+            <Button asChild>
               <Link href={previousRoute.href}>
                 <ChevronLeft className="-ml-2 mr-2" />
                 <span>{previousRoute.name}</span>
@@ -119,7 +131,7 @@ export function NavigationPagination() {
         )}
         {nextRoute && (
           <div className="flex grow items-end justify-end">
-            <Button asChild variant="pulse">
+            <Button asChild>
               <Link href={nextRoute.href}>
                 <span>{nextRoute.name}</span>
                 <ChevronRight className="-mr-2 ml-2" />

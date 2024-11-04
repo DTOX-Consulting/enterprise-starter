@@ -7,7 +7,7 @@ import { SocialMedia } from '@/components/ui/organisms/social/social-media';
 
 import type { PropsWithChildren } from 'react';
 
-export function ContactDetails({ children }: PropsWithChildren) {
+export function ContactDetails({ children }: Readonly<PropsWithChildren>) {
   return (
     <FadeIn>
       <h2 className="font-display text-base font-semibold text-neutral-950 dark:text-neutral-200">

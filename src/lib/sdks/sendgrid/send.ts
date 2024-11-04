@@ -1,3 +1,5 @@
+import { G } from '@mobily/ts-belt';
+
 import { devEmail } from '@/app/metadata';
 import { getEnv } from '@/lib/env/env.mjs';
 import { logger } from '@/lib/logger/console';
@@ -25,7 +27,7 @@ export const send = async ({
 
   logger.info('Sending Email', { to, subject });
 
-  if (!to || (!body && !templateKey)) {
+  if (!G.isNotNullable(to) || (!G.isNotNullable(body) && !G.isNotNullable(templateKey))) {
     throw new Error('Missing email or body');
   }
 

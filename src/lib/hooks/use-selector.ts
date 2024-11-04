@@ -72,10 +72,10 @@ export function useSelector<
   options.enabled ??= true;
   const [state, setState] = useState<R>(() => {
     const state$ = options.deps ? input$(options.deps as [...RTInputs]) : input$();
-    const v = state$.getValue();
+    const val = state$.getValue();
 
     return (
-      options.selector?.(v, options.deps as [...RTInputs], options.enabled) ??
+      options.selector?.(val, options.deps as [...RTInputs], options.enabled) ??
       (options.defaultValue as R)
     );
   });
@@ -87,7 +87,7 @@ export function useSelector<
         debounce(() => (G.isNotNullable(options.debounce) ? timer(options.debounce) : of({}))),
         switchMap(([enabled, ...values]) =>
           input$(values).pipe(
-            map((v) => options.selector?.(v, values, enabled) ?? (options.defaultValue as R))
+            map((val) => options.selector?.(val, values, enabled) ?? (options.defaultValue as R))
           )
         ),
         distinctUntilChanged(isEqual)
@@ -95,16 +95,16 @@ export function useSelector<
     [options.enabled, ...(options.deps ?? EmptyDeps)] as unknown as [boolean, ...RTInputs]
   );
 
-  useSubscription($obs, (v) => {
+  useSubscription($obs, (val) => {
     // value is inside state gathered synchronously so we need to check if next state from async emit is different
     if (emitAsyncValue.current) {
-      setState(v);
+      setState(val);
     } else {
       // checking if is equal to prevent unnecessary rerenders
       // if its not then we're updating state and flag
       emitAsyncValue.current = isEqual(v, state);
       if (!emitAsyncValue.current) {
-        setTimeout(() => setState(v));
+        setTimeout(() => setState(val));
       }
     }
   });

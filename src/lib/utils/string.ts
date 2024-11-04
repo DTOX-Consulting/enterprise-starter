@@ -35,13 +35,13 @@ export const truncate = (str: string, length: number): string => {
 export function hash(str: string): string {
   if (!str || typeof str !== 'string') return str;
 
-  let hash = 0;
+  let hashParam = 0;
 
-  for (let i = 0; i < str.length; i++) {
-    hash = (hash << 5) - hash + str.charCodeAt(i);
-    hash |= 0; // Convert to 32bit integer
+  for (let indexParam = 0; indexParam < str.length; indexParam++) {
+    hashParam = (hashParam << 5) - hashParam + str.charCodeAt(indexParam);
+    hashParam |= 0; // Convert to 32bit integer
   }
 
   // Convert to 32bit unsigned integer in base 36 and pad with "0" to ensure length is 7.
-  return (hash >>> 0).toString(36).padStart(7, '0');
+  return (hashParam >>> 0).toString(36).padStart(7, '0');
 }

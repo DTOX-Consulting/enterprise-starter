@@ -4,11 +4,11 @@ import { ChatMessage } from '@/components/ui/organisms/chat/chat-message';
 import type { Message } from 'ai';
 import type { PropsWithChildren } from 'react';
 
-export type ChatList = {
+export type ChatListType = {
   messages: Message[];
 };
 
-export function ChatList({ messages, children }: PropsWithChildren<ChatList>) {
+export function ChatList({ messages, children }: PropsWithChildren<ChatListType>) {
   if (!messages.length) {
     return null;
   }

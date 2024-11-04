@@ -1,13 +1,5 @@
 // Event categories
-type EventCategory =
-  | 'organization'
-  | 'business'
-  | 'feature'
-  | 'user_meta'
-  | 'notification'
-  | 'history'
-  | 'upgrade'
-  | 'page_view';
+type EventCategory = 'feature' | 'user_meta' | 'notification' | 'upgrade' | 'page_view';
 
 // Event actions
 type EventAction =
@@ -29,24 +21,14 @@ type EventAction =
 
 // Event objects
 type EventObject =
-  | 'organization'
-  | 'business'
   | 'feature'
   | 'notification'
   | 'user_meta'
-  | 'history'
   | 'settings'
   | 'selector'
-  | 'module'
   | 'slug'
   | 'tab'
   | 'page'
-  | 'pulse_score'
-  | 'ai_suggestion'
-  | 'image_style'
-  | 'image_color'
-  | 'pricing_page'
-  | 'pricing_option'
   | 'notification_icon'
   | 'notification_item'
   | 'all_notifications';

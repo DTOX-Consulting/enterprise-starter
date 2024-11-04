@@ -9,10 +9,19 @@ export function numberFormatter(num: number, digits?: number) {
     { value: 1e15, symbol: 'P' },
     { value: 1e18, symbol: 'E' }
   ];
-  const rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
-  const item = lookup
-    .slice()
-    .reverse()
-    .find((item) => num >= item.value);
+  const rx = /\.0+$|(\.\d*[1-9])0+$/;
+
+  const item = findLookupItem(num, lookup);
+
   return item ? (num / item.value).toFixed(digits ?? 1).replace(rx, '$1') + item.symbol : '0';
+}
+
+function findLookupItem(num: number, lookup: { value: number; symbol: string }[]) {
+  for (let i = lookup.length - 1; i >= 0; i--) {
+    const item = lookup[i];
+    if (item && num >= item.value) {
+      return item;
+    }
+  }
+  return lookup[0];
 }

@@ -12,7 +12,7 @@ type SettingsLayoutProps = {
   children: React.ReactNode;
 };
 
-export default function SettingsLayout({ children }: SettingsLayoutProps) {
+export default function SettingsLayout({ children }: Readonly<SettingsLayoutProps>) {
   return (
     <div className="space-y-6 p-8 pb-16 md:p-12">
       <SettingsHeader />

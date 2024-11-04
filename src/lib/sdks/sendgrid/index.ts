@@ -1,3 +1,4 @@
+import { G } from '@mobily/ts-belt';
 import { unbox } from 'unbox-js';
 
 import { sgMail } from '@/lib/sdks/sendgrid/auth';
@@ -24,7 +25,7 @@ export const sendMail = async ({
   dynamicTemplateData,
   from = config.emails.noreply
 }: SendArgs) => {
-  if (!body && !templateId) {
+  if (G.isNullable(body) || G.isNullable(templateId)) {
     throw new Error('Missing body or templateId');
   }
 
@@ -47,11 +48,11 @@ export const sendMail = async ({
     }
   } as MailDataRequired;
 
-  if (!body) {
+  if (!G.isNotNullable(body)) {
     Reflect.deleteProperty(msg, 'html');
   }
 
-  if (!templateId) {
+  if (!G.isNotNullable(templateId)) {
     Reflect.deleteProperty(msg, 'templateId');
     Reflect.deleteProperty(msg, 'dynamicTemplateData');
   }

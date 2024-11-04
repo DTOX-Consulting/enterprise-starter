@@ -3,10 +3,10 @@ import { R, type Result } from '@mobily/ts-belt';
 import type { APIError } from '@/lib/route/types';
 
 export const defaultErrorMapper = <E extends APIError>(_error: unknown): E => {
-  const error = (_error as { error?: unknown }).error || _error;
+  const error = (_error as { error?: unknown }).error ?? _error;
 
   const { status } = error as { status?: unknown };
-  const errors = (error as { errors?: unknown }).errors || [{ error }];
+  const errors = (error as { errors?: unknown }).errors ?? [{ error }];
   const code =
     typeof (error as { code?: unknown }).code === 'number' ? (error as { code: number }).code : 500;
   const message = (error as Error).message || 'Internal Server Error';
@@ -25,10 +25,11 @@ export const fromPromise = async <T, E extends APIError>(
 ): Promise<Result<T, E>> => {
   try {
     const data = (await promise) as NonNullable<T>;
+    // eslint-disable-next-line sonarjs/new-cap
     return R.Ok(data);
-  } catch (e) {
-    const error = mapError(e);
-    return R.Error(error);
+  } catch (error) {
+    const mappedError = mapError(error);
+    return R.Error(mappedError);
   }
 };
 

@@ -50,7 +50,8 @@
     "vitest.config.mts",
     ".storybook/**/*.ts",
     ".next/types/**/*.ts",
-    ".contentlayer/generated"
+    ".contentlayer/generated",
+    ".ncurc.js"
   ],
   "exclude": ["node_modules", "dist"]
 }

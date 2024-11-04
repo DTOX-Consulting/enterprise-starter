@@ -1,4 +1,5 @@
 /* eslint-disable promise/prefer-await-to-then, @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-unsafe-assignment -- SDK */
+import { stringify } from 'safe-stable-stringify';
 
 export type QueryParamsType = Record<string | number, unknown>;
 export type ResponseFormat = keyof Omit<Body, 'body' | 'bodyUsed'>;
@@ -38,7 +39,7 @@ export type HttpResponse<D, E = unknown> = {
   error: E;
 } & Response;
 
-type CancelToken = symbol | string | number;
+export type CancelToken = symbol | string | number;
 
 export enum ContentType {
   Json = 'application/json',
@@ -48,7 +49,7 @@ export enum ContentType {
 }
 
 export class HttpClient<SecurityDataType = unknown> {
-  public baseUrl = 'http://{{baseurl}}';
+  public baseUrl = 'https://{{baseurl}}';
   private securityData: SecurityDataType | null = null;
   private securityWorker?: ApiConfig<SecurityDataType>['securityWorker'];
   private abortControllers = new Map<CancelToken, AbortController>();
@@ -71,7 +72,7 @@ export class HttpClient<SecurityDataType = unknown> {
 
   protected encodeQueryParam(key: string, value: string | number | boolean) {
     const encodedKey = encodeURIComponent(key);
-    return `${encodedKey}=${encodeURIComponent(typeof value === 'number' ? value : `${value}`)}`;
+    return `${encodedKey}=${encodeURIComponent(typeof value === 'number' ? value : String(value))}`;
   }
 
   protected addQueryParam(query: QueryParamsType, key: string) {
@@ -79,8 +80,8 @@ export class HttpClient<SecurityDataType = unknown> {
   }
 
   protected addArrayQueryParam(query: QueryParamsType, key: string) {
-    const value: string[] = (query[key] as string[]) ?? [];
-    return value.map((v: string | number | boolean) => this.encodeQueryParam(key, v)).join('&');
+    const value = query[key] as string[] | undefined;
+    return value ? value.map((val) => this.encodeQueryParam(key, val)).join('&') : '';
   }
 
   protected toQueryString(rawQuery?: QueryParamsType): string {
@@ -102,25 +103,34 @@ export class HttpClient<SecurityDataType = unknown> {
 
   private contentFormatters: Record<ContentType, (input: QueryParamsType | undefined) => unknown> =
     {
-      [ContentType.Json]: (input: unknown) =>
-        input !== null && (typeof input === 'object' || typeof input === 'string')
-          ? JSON.stringify(input)
-          : input,
-      [ContentType.Text]: (input: unknown) =>
-        input !== null && typeof input !== 'string' ? JSON.stringify(input) : input,
-      [ContentType.FormData]: (input: unknown) =>
-        Object.keys((input as object) || {}).reduce((formData, key) => {
-          const property = (input as Record<string, unknown>)[key];
-          formData.append(
-            key,
-            property instanceof Blob
-              ? property
-              : typeof property === 'object' && property !== null
-                ? JSON.stringify(property)
-                : `${property as string}`
-          );
-          return formData;
-        }, new FormData()),
+      [ContentType.Json]: (input: unknown) => {
+        if (input !== null && (typeof input === 'object' || typeof input === 'string')) {
+          return stringify(input);
+        }
+        return input;
+      },
+      [ContentType.Text]: (input: unknown) => {
+        if (input !== null && typeof input !== 'string') {
+          return stringify(input);
+        }
+        return input as string;
+      },
+      [ContentType.FormData]: (input: unknown) => {
+        if (input === null || typeof input !== 'object') {
+          return new FormData();
+        }
+        const formData = new FormData();
+        Object.entries(input as Record<string, unknown>).forEach(([key, property]) => {
+          if (property instanceof Blob) {
+            formData.append(key, property);
+          } else if (typeof property === 'object' && property !== null) {
+            formData.append(key, stringify(property));
+          } else {
+            formData.append(key, String(property));
+          }
+        });
+        return formData;
+      },
       [ContentType.UrlEncoded]: (input: QueryParamsType | undefined) => this.toQueryString(input)
     };
 
@@ -160,6 +170,51 @@ export class HttpClient<SecurityDataType = unknown> {
     }
   };
 
+  private getSecureParams = async (secure: boolean): Promise<RequestParams> => {
+    const secureParams =
+      secure && this.securityWorker ? await this.securityWorker(this.securityData) : {};
+    return secureParams ?? {};
+  };
+
+  private buildRequestUrl = (
+    baseUrl: string | undefined,
+    path: string,
+    query?: QueryParamsType
+  ): string => {
+    const queryString = query ? this.toQueryString(query) : '';
+    const queryPrefix = queryString ? '?' : '';
+    return `${baseUrl ?? this.baseUrl}${path}${queryPrefix}${queryString}`;
+  };
+
+  private getRequestHeaders = (type?: ContentType, headers: HeadersInit = {}): HeadersInit => ({
+    ...headers,
+    ...(type && type !== ContentType.FormData ? { 'Content-Type': type } : {})
+  });
+
+  private async fetchAndProcessResponse<T, E>(
+    url: string,
+    options: RequestInit,
+    format: string
+  ): Promise<HttpResponse<T, E>> {
+    const response = await this.customFetch(url, options);
+    const res = response.clone() as HttpResponse<T, E>;
+    res.data = null as unknown as T;
+    res.error = null as unknown as E;
+
+    try {
+      const data = await (response[format as keyof Response] as () => Promise<unknown>)();
+      if (response.ok) {
+        res.data = data as T;
+      } else {
+        res.error = data as E;
+      }
+    } catch (err) {
+      res.error = err as E;
+    }
+
+    return res;
+  }
+
   public request = async <T = unknown, E = Error>({
     body,
     secure,
@@ -171,59 +226,34 @@ export class HttpClient<SecurityDataType = unknown> {
     cancelToken,
     ...params
   }: FullRequestParams): Promise<T> => {
-    const secureParams =
-      ((typeof secure === 'boolean' ? secure : this.baseApiParams.secure) &&
-        this.securityWorker &&
-        (await this.securityWorker(this.securityData))) ??
-      {};
-    const requestParams = this.mergeRequestParams(params, secureParams as RequestParams);
-    const queryString = query && this.toQueryString(query);
-    const payloadFormatter =
-      this.contentFormatters[type != null ? ContentType.Json : ContentType.Text];
-    const responseFormat = format ?? requestParams.format;
+    const secureParams = await this.getSecureParams(secure as boolean);
+    const requestParams = this.mergeRequestParams(params, secureParams);
+    const requestUrl = this.buildRequestUrl(baseUrl, path, query);
 
-    return this.customFetch(
-      `${baseUrl ?? (this.baseUrl || '')}${path}${queryString ? `?${queryString}` : ''}`,
+    const headers = this.getRequestHeaders(type, requestParams.headers);
+    const payloadFormatter = this.contentFormatters[type ?? ContentType.Json];
+    const requestBody = body ? (payloadFormatter(body as QueryParamsType) as BodyInit) : null;
+
+    const response = await this.fetchAndProcessResponse<T, E>(
+      requestUrl,
       {
         ...requestParams,
-        headers: {
-          ...requestParams.headers,
-          ...(type != null && type !== ContentType.FormData ? { 'Content-Type': type } : {})
-        },
-        signal: (cancelToken ? this.createAbortSignal(cancelToken) : requestParams.signal) ?? null,
-        body:
-          typeof body === 'undefined' || body === null
-            ? null
-            : (payloadFormatter(body as QueryParamsType) as BodyInit | null | undefined)
-      }
-    ).then(async (response) => {
-      const r = response.clone() as HttpResponse<T, E>;
-      r.data = null as unknown as T;
-      r.error = null as unknown as E;
+        headers,
+        signal: cancelToken ? this.createAbortSignal(cancelToken) : requestParams.signal,
+        body: requestBody
+      },
+      format ?? requestParams.format ?? 'json'
+    );
 
-      const data = !responseFormat
-        ? r
-        : await response[responseFormat]()
-            .then((data) => {
-              if (r.ok) {
-                r.data = data;
-              } else {
-                r.error = data;
-              }
-              return r;
-            })
-            .catch((e) => {
-              r.error = e as E;
-              return r;
-            });
+    if (cancelToken) {
+      this.abortControllers.delete(cancelToken);
+    }
 
-      if (cancelToken) {
-        this.abortControllers.delete(cancelToken);
-      }
+    if (!response.data && response.error) {
+      throw new Error(`Request failed with status ${String(response.error)}`); // Ensure error is a string
+    }
 
-      if (!response.ok) throw new Error(`Request failed with status ${response.status}`);
-      return data.data;
-    });
+    return response.data;
   };
 }
 /* eslint-enable promise/prefer-await-to-then, @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-unsafe-assignment -- SDK */

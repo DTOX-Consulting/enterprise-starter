@@ -1,11 +1,10 @@
+import { randomInt } from 'node:crypto';
+
 import { G } from '@mobily/ts-belt';
 
 import { throwError } from '@/lib/utils/error';
 
 import type { GenericFunction } from '@/lib/utils/function';
-// import type { DeepReadonlyArray, DeepReadonlyObject } from 'rxdb';
-
-// export type { DeepReadonly, DeepReadonlyArray, DeepReadonlyObject } from 'rxdb';
 
 export type DeepReadonlyArray<T> = readonly DeepReadonly<T>[];
 
@@ -58,9 +57,9 @@ export function keysExist<T, K extends (keyof T)[]>(
 }
 
 export function shuffle<T>(arr: T[]) {
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]] as [T, T];
+  for (let index = arr.length - 1; index > 0; index--) {
+    const secondIndex = randomInt(0, index + 1);
+    [arr[index], arr[secondIndex]] = [arr[secondIndex], arr[index]] as [T, T];
   }
 
   return arr;
@@ -73,9 +72,9 @@ export function replaceWholeArray<T>(arr: T[], replacement: T[]) {
 export function chunk<T>(arr: T[], totalLength: number): T[][] {
   const chunkSize = Math.ceil(arr.length / totalLength);
 
-  return Array.from({ length: totalLength }, (_, i) => {
-    const start = i * chunkSize;
-    const end = Math.min((i + 1) * chunkSize, arr.length);
+  return Array.from({ length: totalLength }, (_, index) => {
+    const start = index * chunkSize;
+    const end = Math.min((index + 1) * chunkSize, arr.length);
     return arr.slice(start, end);
   }).filter((subarray) => subarray.length > 0);
 }
@@ -180,7 +179,7 @@ export function assertCondition(
   message?: string,
   context?: Readonly<Record<string, unknown>>
 ): asserts condition {
-  if (!condition) {
+  if (!G.isNotNullable(condition)) {
     throwError(message ?? 'The condition evaluated to false', context);
   }
 }
@@ -218,6 +217,6 @@ export function isEmptyObject(obj: Readonly<Record<string, unknown>>): boolean {
   return Object.keys(obj).length === 0 && obj.constructor === Object;
 }
 
-export function tuple<T, U extends T[]>(...u: U): U {
-  return u;
+export function tuple<T, U extends T[]>(...uParams: U): U {
+  return uParams;
 }
