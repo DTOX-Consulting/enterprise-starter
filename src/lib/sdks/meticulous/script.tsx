@@ -1,3 +1,4 @@
+/* oxlint-disable @next/next/no-sync-scripts */
 import { config } from '@/lib/sdks/meticulous/config';
 
 export const MeticulousScript = () => (

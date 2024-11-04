@@ -1,17 +1,15 @@
 'use client';
 
 import { Provider as JotaiProvider } from 'jotai';
-import { ThemeProvider as NextThemesProvider } from 'next-themes';
 
+import { ThemeProvider, type ThemeProviderProps } from '@/components/providers/theme-provider';
 import { RXDBProvider } from '@/lib/db/rxdb/provider';
-
-import type { ThemeProviderProps } from 'next-themes/dist/types';
 
 export function ClientProviders({ children, ...props }: Readonly<ThemeProviderProps>) {
   return (
     <JotaiProvider>
       <RXDBProvider>
-        <NextThemesProvider {...props}>{children}</NextThemesProvider>
+        <ThemeProvider {...props}>{children}</ThemeProvider>
       </RXDBProvider>
     </JotaiProvider>
   );

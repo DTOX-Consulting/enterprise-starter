@@ -142,7 +142,7 @@ function removePickedOption(groupOption: GroupOption, picked: Option[]) {
  **/
 const CommandEmpty = forwardRef<HTMLDivElement, ComponentProps<typeof CommandPrimitive.Empty>>(
   ({ className, ...props }, forwardedRef) => {
-    const render = useCommandState((state) => state.filtered.count === 0);
+    const render = useCommandState<boolean>((state) => state.filtered.count === 0) as boolean;
 
     if (!render) return null;
 

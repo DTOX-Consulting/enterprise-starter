@@ -8,7 +8,9 @@ const hasLocale = (locale: string): locale is Locale => locales.includes(locale 
 const createLocalePath = (locale: Locale): LocalePath => `../messages/${locale}.json`;
 
 export type RequestConfig = Awaited<ReturnType<ReturnType<typeof getRequestConfig>>>;
-export default getRequestConfig(async ({ locale }) => {
+export default getRequestConfig(async ({ requestLocale }) => {
+  const locale = (await requestLocale) ?? 'en';
+
   if (!hasLocale(locale)) {
     return notFound();
   }

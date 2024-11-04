@@ -1,15 +1,21 @@
 import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister';
-import { useQueryClient } from '@tanstack/react-query';
+import { QueryClient } from '@tanstack/react-query';
 import {
-  removeOldestQuery,
   persistQueryClient,
+  removeOldestQuery,
   type PersistedClient
 } from '@tanstack/react-query-persist-client';
 import { useEffect } from 'react';
 import { stringify } from 'safe-stable-stringify';
 
 export const usePersistQueryClient = () => {
-  const queryClient = useQueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        cacheTime: 1000 * 60 * 60 * 24 // 24 hours
+      }
+    }
+  });
 
   useEffect(() => {
     const localStoragePersister = createSyncStoragePersister({
@@ -21,23 +27,22 @@ export const usePersistQueryClient = () => {
       deserialize: (data) => JSON.parse(data) as PersistedClient
     });
 
-    const initPersistence = async () => {
+    const initPersistence = () => {
       try {
-        await Promise.all([
-          persistQueryClient({
-            queryClient: queryClient as unknown as Parameters<
-              typeof persistQueryClient
-            >[0]['queryClient'],
-            maxAge: 60 * 60 * 24,
-            persister: localStoragePersister
-          })
-        ]);
+        // eslint-disable-next-line sonarjs/void-use
+        void persistQueryClient({
+          queryClient: queryClient as unknown as Parameters<
+            typeof persistQueryClient
+          >[0]['queryClient'],
+          persister: localStoragePersister,
+          maxAge: 1000 * 60 * 60 * 24
+        });
       } catch (error) {
         console.error('Failed to persist query client:', error);
       }
     };
 
-    void initPersistence();
+    initPersistence();
   }, [queryClient]);
 };
 
