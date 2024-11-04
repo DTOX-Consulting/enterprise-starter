@@ -34,14 +34,14 @@ function handleTransactionComplete(dbName: string, resolveFn: () => void) {
   resolveFn();
 }
 
-function handleTransactionError(rejectFn: (reason?: any) => void, error: DOMException | null) {
+function handleTransactionError(rejectFn: (reason?: Error) => void, error: DOMException | null) {
   rejectFn(error as Error);
 }
 
 function clearObjectStores(
   database: IDBDatabase,
   resolveFn: () => void,
-  rejectFn: (reason?: any) => void
+  rejectFn: (reason?: Error) => void
 ) {
   if (database.objectStoreNames.length > 0) {
     const transaction = database.transaction(database.objectStoreNames, 'readwrite');
@@ -61,7 +61,7 @@ function clearObjectStores(
 function openDatabase(
   db: IDBDatabaseInfo,
   resolveFn: () => void,
-  rejectFn: (reason?: any) => void
+  rejectFn: (reason?: Error) => void
 ) {
   if (!G.isNotNullable(db.name)) {
     resolveFn();

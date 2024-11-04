@@ -55,6 +55,148 @@ export function useLocalData<T extends MinimalData>(storageKeyPrefix?: string) {
   return { getLocalItems, setLocalItems, storageKey };
 }
 
+function useDataState<T extends MinimalData>(
+  dataAtom: ReturnType<typeof atom<T[]>>,
+  currentDataAtom: ReturnType<typeof atom<T | null>>
+) {
+  const [data, setData] = useAtom<T[]>(dataAtom);
+  const [currentData, setCurrentData] = useAtom(currentDataAtom);
+
+  const setCurrentDataByName = useCallback(
+    (dataName: string) => {
+      const foundData = data.find((item) => item.name === dataName);
+      if (foundData) setCurrentData(foundData);
+    },
+    [data, setCurrentData]
+  );
+
+  return { data, setData, currentData, setCurrentData, setCurrentDataByName };
+}
+
+function useDataBasicOperations<T extends MinimalData>(
+  data: T[],
+  setData: (data: T[]) => void,
+  setCurrentData: (data: T | null) => void,
+  setItems: (items: T[]) => Promise<void>
+) {
+  const runCBData = useCallback(
+    async (updatedData: T[], cbdata?: (data: T[]) => Promise<void>, checkIsEqual = false) => {
+      const clonedData = deepClone(updatedData);
+      await cbdata?.(updatedData);
+      if (checkIsEqual && isEqual(updatedData, clonedData)) return;
+      await setItems(updatedData);
+    },
+    [setItems]
+  );
+
+  const createData = useCallback(
+    (
+      newData: PartialWithoutKeys<T, 'id' | 'createdAt' | 'lastUpdated'>,
+      cbdata?: (data: T[]) => Promise<void>
+    ) => {
+      const nameExists = 'name' in newData && data.some((item) => item.name === newData.name);
+      if (nameExists) {
+        toast({
+          title: 'Error',
+          description: `${newData.name} already exists. Please choose a different name.`
+        });
+        return;
+      }
+
+      const standardData = {
+        id: nanoid(),
+        createdAt: new Date().toISOString(),
+        lastUpdated: new Date().toISOString()
+      };
+      const mergedData = merge.withOptions({ mergeArrays: false }, newData, standardData) as T;
+
+      setCurrentData(mergedData);
+      setData((prevData: T[]) => {
+        const updatedData = [...prevData, mergedData];
+        danglingPromise(runCBData(updatedData, cbdata));
+        return updatedData;
+      });
+
+      return mergedData;
+    },
+    [data, setData, setCurrentData, runCBData]
+  );
+
+  return { runCBData, createData };
+}
+
+function useDataModificationOperations<T extends MinimalData>(
+  data: T[],
+  setData: (data: T[]) => void,
+  setCurrentData: (data: T | null) => void,
+  runCBData: (updatedData: T[], cbdata?: (data: T[]) => Promise<void>) => Promise<void>
+) {
+  const updateData = useCallback(
+    async (
+      id: string,
+      newData: Partial<T>,
+      cbdata?: (data: T[]) => Promise<void>,
+      currData?: T
+    ) => {
+      const currentItem = currData ?? data.find((item) => item.id === id);
+      if (!currentItem) {
+        toast({ title: 'Error', description: 'Data not found' });
+        return;
+      }
+
+      const mergedData = merge.withOptions({ mergeArrays: false }, currentItem, newData, {
+        id,
+        createdAt: currentItem.createdAt,
+        lastUpdated: new Date().toISOString()
+      }) as T;
+
+      Object.assign(currentItem, mergedData);
+      debounce(id, () => {
+        const updatedData = data.map((item) => (item.id === id ? mergedData : item));
+        setCurrentData(mergedData);
+        setData(updatedData);
+        danglingPromise(runCBData(updatedData, cbdata));
+      });
+
+      return Promise.resolve();
+    },
+    [data, setData, setCurrentData, runCBData]
+  );
+
+  const handleDeleteData = useCallback(
+    (dataToDeleteId: string, cbdata?: (data: T[]) => Promise<void>) => {
+      const updatedData = data.filter((item) => item.id !== dataToDeleteId);
+      setData(updatedData);
+      void runCBData(updatedData, cbdata);
+    },
+    [data, setData, runCBData]
+  );
+
+  const deleteData = useCallback(
+    (dataToDelete: T, cbdata?: (data: T[]) => Promise<void>): MouseEventHandler<SVGSVGElement> =>
+      (event) => {
+        event.stopPropagation();
+        event.preventDefault();
+        toast({
+          variant: 'destructive',
+          title: `Deleting ${dataToDelete.name}`,
+          description: 'Are you sure you want to delete?',
+          action: (
+            <ToastAction altText="Delete" onClick={() => handleDeleteData(dataToDelete.id, cbdata)}>
+              Delete
+            </ToastAction>
+          )
+        });
+      },
+    [handleDeleteData]
+  );
+
+  return { updateData, deleteData };
+}
+
+const getDefaultData = <T extends MinimalData>(defaultData?: T): T[] =>
+  defaultData ? [defaultData] : [];
+
 export function useData<T extends MinimalData>({
   dataAtom,
   itemGetter,
@@ -63,38 +205,27 @@ export function useData<T extends MinimalData>({
   retrieveOnMount,
   storageKeyPrefix
 }: DataProps<T>) {
-  const [data, setData] = useAtom(dataAtom);
-  const [currentData, setCurrentData] = useAtom(currentDataAtom);
+  const { data, setData, currentData, setCurrentData, setCurrentDataByName } = useDataState<T>(
+    dataAtom,
+    currentDataAtom
+  );
   const { getLocalItems, setLocalItems } = useLocalData<T>(storageKeyPrefix);
 
   const getItems = itemGetter ?? getLocalItems;
   const setItems = itemSetter ?? setLocalItems;
 
-  const setCurrentDataByName = useCallback(
-    (dataName: string) => {
-      const foundData = data.find((item) => item.name === dataName);
-      if (foundData) {
-        setCurrentData(foundData);
-      }
-    },
-    [data, setCurrentData]
+  const { runCBData, createData } = useDataBasicOperations<T>(
+    data,
+    setData,
+    setCurrentData,
+    setItems
   );
 
-  const getDefaultData = useCallback(
-    (defaultData?: T) =>
-      [data.find((item) => item.name === 'Default') ?? defaultData].filter(Boolean),
-    [data]
-  );
-
-  const runCBData = useCallback(
-    async (updatedData: T[], cbdata?: (data: T[]) => Promise<void>, checkIsEqual = false) => {
-      const clonedData = deepClone(updatedData);
-      await cbdata?.(updatedData);
-
-      if (checkIsEqual && isEqual(updatedData, clonedData)) return;
-      await setItems(updatedData);
-    },
-    [setItems]
+  const { updateData, deleteData } = useDataModificationOperations<T>(
+    data,
+    setData,
+    setCurrentData,
+    runCBData
   );
 
   const retrieveData = useCallback(
@@ -108,116 +239,7 @@ export function useData<T extends MinimalData>({
         setData(updatedData);
       });
     },
-    [data, setData, getItems, getDefaultData, runCBData, storageKeyPrefix]
-  );
-
-  const createData = useCallback(
-    (
-      newData: PartialWithoutKeys<T, 'id' | 'createdAt' | 'lastUpdated'>,
-      cbdata?: (data: T[]) => Promise<void>
-    ) => {
-      const nameExists = 'name' in newData && data.some((item) => item.name === newData.name);
-
-      if (nameExists) {
-        toast({
-          title: 'Error',
-          description: `${newData.name} already exists. Please choose a different name.`
-        });
-
-        return;
-      }
-
-      const id = nanoid();
-      const createdAt = new Date().toISOString();
-      const lastUpdated = new Date().toISOString();
-      const standardData = { id, createdAt, lastUpdated };
-      const mergedData = merge.withOptions({ mergeArrays: false }, newData, standardData) as T;
-
-      setCurrentData(mergedData);
-      setData((prevData) => {
-        const updatedData = [...prevData, mergedData];
-        danglingPromise(runCBData(updatedData, cbdata));
-        return updatedData;
-      });
-
-      return mergedData;
-    },
-    [data, setData, setCurrentData, runCBData]
-  );
-
-  const updateData = useCallback(
-    async (
-      id: string,
-      newData: Partial<T>,
-      cbdata?: (data: T[]) => Promise<void>,
-      currData?: T
-    ) => {
-      const currentItem = currData ?? data.find((item) => item.id === id);
-
-      if (!currentItem) {
-        toast({
-          title: 'Error',
-          description: 'Data not found'
-        });
-
-        return;
-      }
-
-      const { createdAt } = currentItem;
-      const lastUpdated = new Date().toISOString();
-      const standardData = { id, createdAt, lastUpdated };
-
-      const mergedData = merge.withOptions(
-        { mergeArrays: false },
-        currentItem,
-        newData,
-        standardData
-      ) as T;
-
-      Object.assign(currentItem, mergedData);
-
-      const updateDataState = (merged: T) => {
-        const updatedData = data.map((item) => (item.id === id ? merged : item));
-        setCurrentData(merged);
-        setData(updatedData);
-        danglingPromise(runCBData(updatedData, cbdata));
-      };
-
-      const debouncedUpdate = () => updateDataState(mergedData);
-
-      debounce(id, debouncedUpdate);
-
-      return Promise.resolve();
-    },
-    [data, setData, setCurrentData, runCBData]
-  );
-
-  function handleDeleteData(dataToDeleteId: string, cbdata?: (data: T[]) => Promise<void>) {
-    setData((prevData) => {
-      const updatedData = prevData.filter((item) => item.id !== dataToDeleteId);
-      void runCBData(updatedData, cbdata);
-      return updatedData;
-    });
-  }
-
-  const deleteData = useCallback(
-    (dataToDelete: T, cbdata?: (data: T[]) => Promise<void>): MouseEventHandler<SVGSVGElement> =>
-      (event) => {
-        event.stopPropagation();
-        event.preventDefault();
-
-        toast({
-          variant: 'destructive',
-          title: `Deleting ${dataToDelete.name}`,
-          description: 'Are you sure you want to delete?',
-          action: (
-            <ToastAction altText="Delete" onClick={() => handleDeleteData(dataToDelete.id, cbdata)}>
-              Delete
-            </ToastAction>
-          )
-        });
-      },
-    [setData, runCBData]
+    [data, setData, getItems, runCBData, storageKeyPrefix]
   );
 
   useDebounceEffect(

@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useEffect, useId, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState, useCallback } from 'react';
 
 function Block({
   x,
@@ -46,9 +46,12 @@ function useGridPattern(
   const counter = useRef(0);
   const [hoveredBlocks, setHoveredBlocks] = useState<[x: number, y: number, key: number][]>([]);
 
-  function filterBlocks(prevBlocks: [number, number, number][], x: number, y: number, key: number) {
-    return prevBlocks.filter((block) => !(block[0] === x && block[1] === y && block[2] !== key));
-  }
+  const filterBlocks = useCallback(
+    (prevBlocks: [number, number, number][], x: number, y: number, key: number) => {
+      return prevBlocks.filter((block) => !(block[0] === x && block[1] === y && block[2] !== key));
+    },
+    []
+  );
 
   useEffect(() => {
     if (!interactive) return;
@@ -80,7 +83,7 @@ function useGridPattern(
 
     window.addEventListener('mousemove', onMouseMove);
     return () => window.removeEventListener('mousemove', onMouseMove);
-  }, [yOffset, interactive, ref]);
+  }, [yOffset, interactive, ref, filterBlocks]);
 
   return { hoveredBlocks, setHoveredBlocks };
 }
