@@ -7,7 +7,8 @@ import {
   fontOrigins,
   frameOrigins,
   imageOrigins,
-  extraOrigins
+  scriptOrigins,
+  styleOrigins
 } from './origins.config.mjs';
 
 // because of type bug.
@@ -38,12 +39,12 @@ const nextSafeConfig = {
     'child-src': [special.self],
     'default-src': [special.self],
     'worker-src': [special.self, special.blob],
-    'style-src': [special.self, special.unsafeInline],
     'font-src': [special.self, special.data, ...fontOrigins],
     'frame-src': [special.self, ...origins, ...frameOrigins],
-    'form-action': [special.self, ...origins, ...extraOrigins],
+    'form-action': [special.self, ...origins, ...scriptOrigins],
     'connect-src': [special.self, special.data, ...allOrigins],
     'frame-ancestors': [special.self, ...origins, ...frameOrigins],
+    'style-src': [special.self, special.unsafeInline, ...styleOrigins],
     'img-src': [special.self, special.data, special.blob, ...imageOrigins],
     'script-src': [
       special.self,
@@ -51,7 +52,7 @@ const nextSafeConfig = {
       special.unsafeEval,
       special.unsafeInline,
       ...origins,
-      ...extraOrigins
+      ...scriptOrigins
     ],
     'script-src-elem': [
       special.self,
@@ -59,7 +60,7 @@ const nextSafeConfig = {
       special.unsafeEval,
       special.unsafeInline,
       ...origins,
-      ...extraOrigins
+      ...scriptOrigins
     ]
   }
 };

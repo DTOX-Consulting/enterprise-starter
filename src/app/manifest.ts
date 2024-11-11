@@ -1,3 +1,4 @@
+/* eslint-disable promise/prefer-await-to-then, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return */
 import { resolve } from 'node:path';
 
 import { $ } from 'zx';
@@ -30,7 +31,7 @@ const iconRoot = 'public/images/icons';
 const logoRoot = 'public/images/logos';
 const screenshotRoot = 'public/images/screenshots';
 
-const sizes = [/* 16, 32, */ 36, 48, 64, 70, 72, 96, 128, 144, 150, 152, 192, 310, 384, 512];
+const allSizes = [/* 16, 32, */ 36, 48, 64, 70, 72, 96, 128, 144, 150, 152, 192, 310, 384, 512];
 
 const ROOT_DIR = resolve(__dirname, '../..');
 
@@ -72,25 +73,25 @@ export default function manifest(): Manifest {
 }
 
 const generateManifestImages = () => {
-  const icons = sizes.map((sizeParam) => {
-    const sizeMapped = `${sizeParam}x${sizeParam}`;
+  const icons = allSizes.map((size) => {
+    const sizes = `${size}x${size}`;
 
     const result: IconType = {
-      sizes: sizeMapped,
+      sizes,
       type: 'image/png',
       // purpose: 'maskable',
-      src: `/${logoRoot}/icon-${sizeParam}.png`,
+      src: `/${logoRoot}/icon-${size}.png`,
       targets: ['manifest', 'apple', 'android']
     };
 
-    if ([16, 32].includes(sizeParam)) result.targets = ['favicon'];
-    if (![16, 32].includes(sizeParam)) result.src = `/${logoRoot}/logo-${sizeParam}.png`;
+    if ([16, 32].includes(size)) result.targets = ['favicon'];
+    if (![16, 32].includes(size)) result.src = `/${logoRoot}/logo-${size}.png`;
 
-    if ([192, 384, 512].includes(sizeParam)) result.purpose = 'maskable';
+    if ([192, 384, 512].includes(size)) result.purpose = 'maskable';
 
-    if ([150, 310].includes(sizeParam)) {
+    if ([150, 310].includes(size)) {
       result.targets = ['ms'];
-      result.element = `square${sizeParam}logo`;
+      result.element = `square${sizes}logo`;
     }
 
     return result;
@@ -101,13 +102,13 @@ const generateManifestImages = () => {
     const sizes1 = `${isN ? '540' : '720'}x${isN ? '720' : '540'}`;
     const sizes2 = `${isN ? '1080' : '1440'}x${isN ? '1440' : '1080'}`;
 
-    const screenshotSizes = index % 2 === 0 ? sizes1 : sizes2;
+    const sizes = index % 2 === 0 ? sizes1 : sizes2;
 
     return {
-      screenshotSizes,
+      sizes,
       type: 'image/png',
       form_factor: formFactor,
-      src: `/${screenshotRoot}/screenshot-${screenshotSizes}.png`
+      src: `/${screenshotRoot}/screenshot-${sizes}.png`
     };
   });
 
@@ -121,38 +122,27 @@ const generateManifestImages = () => {
   };
 };
 
-const sharp = (input?: string) => {
-  const png = () => sharp(input);
-
-  const resize = (
-    _options:
-      | number
-      | {
-          width: number;
-          height: number;
-          fit: 'contain';
-          background: string;
-        },
-    _other?: number
-  ) => sharp(input);
-
-  const toFile = (_output: string, _callback: (err?: Error) => void) => sharp(input);
-
-  return {
-    png,
-    resize,
-    toFile,
-    input
-  };
+const getSharp = async () => {
+  try {
+    return (await import('sharp')).default;
+  } catch (error) {
+    console.warn('Sharp not available - skipping image generation', error);
+    return null;
+  }
 };
 
 const generateLogos = async () => {
+  const sharp = await getSharp();
+  if (sharp === null) return;
+
   await ensureDir(logoRoot);
   await ensureDir(iconRoot);
 
-  const sizesForLogos = sizes;
-  sizesForLogos.forEach((size) => {
-    const input = resolve(ROOT_DIR, `${inputRoot}/logo.svg`);
+  allSizes.forEach(async (size) => {
+    const svgPath = resolve(ROOT_DIR, `${inputRoot}/logo.svg`);
+    const pngPath = resolve(ROOT_DIR, `${inputRoot}/logo.png`);
+
+    const input = (await $`test -f ${svgPath}`.exitCode) === 0 ? svgPath : pngPath;
     const output = resolve(ROOT_DIR, `${logoRoot}/logo-${size}.png`);
 
     sharp(input)
@@ -166,9 +156,11 @@ const generateLogos = async () => {
       .toFile(output, logError);
   });
 
-  const sizesForIcons = sizes;
-  sizesForIcons.forEach((size) => {
-    const input = resolve(ROOT_DIR, `${inputRoot}/icon.svg`);
+  allSizes.forEach(async (size) => {
+    const svgPath = resolve(ROOT_DIR, `${inputRoot}/icon.svg`);
+    const pngPath = resolve(ROOT_DIR, `${inputRoot}/icon.png`);
+
+    const input = (await $`test -f ${svgPath}`.exitCode) === 0 ? svgPath : pngPath;
     const output = resolve(ROOT_DIR, `${iconRoot}/icon-${size}.png`);
 
     sharp(input)
@@ -184,6 +176,9 @@ const generateLogos = async () => {
 };
 
 const generateScreenshots = async () => {
+  const sharp = await getSharp();
+  if (sharp === null) return;
+
   await ensureDir(screenshotRoot);
 
   return ['narrow', 'narrow', 'wide', 'wide'].map((formFactor, index) => {
@@ -191,24 +186,18 @@ const generateScreenshots = async () => {
     const sizes1 = `${isN ? '540' : '720'}x${isN ? '720' : '540'}`;
     const sizes2 = `${isN ? '1080' : '1440'}x${isN ? '1440' : '1080'}`;
 
-    const screenshotSizes2 = index % 2 === 0 ? sizes1 : sizes2;
+    const sizes = index % 2 === 0 ? sizes1 : sizes2;
 
     const input = resolve(ROOT_DIR, `${inputRoot}/screenshot.png`);
-    const output = resolve(ROOT_DIR, `${screenshotRoot}/screenshot-${screenshotSizes2}.png`);
+    const output = resolve(ROOT_DIR, `${screenshotRoot}/screenshot-${sizes}.png`);
 
     sharp(input)
-      .resize(...(screenshotSizes2.split('x').map(Number) as [number, number]))
+      .resize(...(sizes.split('x').map(Number) as [number, number]))
       .png()
       .toFile(output, logError);
-
-    return {
-      formFactor,
-      screenshotSizes2,
-      input,
-      output
-    };
   });
 };
+
 const logError = (err?: Error) => {
   if (err) console.error(err);
 };
@@ -221,6 +210,9 @@ const generateImages = async () => {
 export { generateManifestImages, generateImages };
 
 if (require.main === module) {
-  await generateImages();
-  console.log('Manifest and images generated');
+  generateImages()
+    .then(() => console.log('Manifest and images generated'))
+    .catch(console.error);
 }
+
+/* eslint-enable */

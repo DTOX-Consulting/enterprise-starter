@@ -2,20 +2,38 @@
 const exactOrigins = []; // update this with your domain
 
 const defaultOrigins = [
-  // eslint-disable-next-line sonarjs/no-clear-text-protocols
   'http://localhost:*',
   'https://*.pages.dev',
   'https://*.vercel.app',
+  'https://vercel.live',
   'https://*.cloudflareaccess.com'
 ];
 
 export const origins = [...defaultOrigins, ...exactOrigins];
 
-export const fontOrigins = ['*.googleapis.com', '*.gstatic.com', '*.hotjar.com'];
+export const fontOrigins = [
+  '*.googleapis.com',
+  '*.gstatic.com',
+  '*.hotjar.com',
+  'vercel.live',
+  '*.vercel.com'
+];
 
-export const frameOrigins = ['*.google.com', '*.youtube.com', '*.stripe.com', 'rxdb.info'];
+export const frameOrigins = [
+  '*.google.com',
+  '*.youtube.com',
+  '*.stripe.com',
+  'rxdb.info',
+  'vercel.live',
+  '*.vercel.com'
+];
 
-export const connectOrigins = ['wss://*.hotjar.com', 'wss://*.supabase.co'];
+export const connectOrigins = [
+  'wss://*.hotjar.com',
+  'wss://*.supabase.co',
+  'wss://*.crisp.chat',
+  'wss://ws-us3.pusher.com'
+];
 
 export const imageOrigins = [
   '*.hotjar.io',
@@ -24,6 +42,8 @@ export const imageOrigins = [
   '*.licdn.com',
   '*.imgur.com',
   '*.hsforms.com',
+  'vercel.live',
+  '*.vercel.com',
   '*.hubspot.com',
   '*.unsplash.com',
   '*.gravatar.com',
@@ -33,12 +53,14 @@ export const imageOrigins = [
   '*.placeholder.com',
   '*.pollinations.ai',
   '*.googletagmanager.com',
-  '*.googleusercontent.com'
+  '*.googleusercontent.com',
+  '*.rightmove.co.uk'
 ];
 
-export const extraOrigins = [
+export const scriptOrigins = [
   '*.sentry.io',
   '*.kinde.com',
+  '*.termly.io',
   'corsproxy.io',
   '*.stripe.com',
   '*.hotjar.io',
@@ -64,13 +86,16 @@ export const extraOrigins = [
   '*.cloudflareinsights.com'
 ];
 
+export const styleOrigins = ['vercel.live', '*.vercel.com'];
+
 export const allOrigins = [
   ...new Set([
     ...origins,
     ...fontOrigins,
     ...frameOrigins,
     ...imageOrigins,
-    ...extraOrigins,
+    ...scriptOrigins,
+    ...styleOrigins,
     ...connectOrigins
   ])
 ];

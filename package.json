@@ -166,6 +166,7 @@
     "googleapis": "134.0.0",
     "hermetrics": "1.2.15",
     "highlight.js": "11.10.0",
+    "isomorphic-dompurify": "2.16.0",
     "jose": "5.9.6",
     "jotai": "2.10.1",
     "jotai-immer": "0.4.1",
@@ -332,6 +333,9 @@
     "webpack": "5.96.1",
     "wrangler": "3.84.1",
     "zx": "7.2.3"
+  },
+  "optionalDependencies": {
+    "sharp": "0.33.5"
   },
   "packageManager": "pnpm@9.12.2",
   "engines": {
