@@ -19,8 +19,8 @@ env:
   KINDE_CLIENT_SECRET: '1234567890'
   KINDE_ISSUER_URL: 'https://dev-1234567890.okta.com'
   KINDE_SITE_URL: 'https://dev-1234567890.okta.com'
-  KINDE_POST_LOGOUT_REDIRECT_URL: 'https://localhost:3000'
-  KINDE_POST_LOGIN_REDIRECT_URL: 'https://localhost:3000'
+  KINDE_POST_LOGOUT_REDIRECT_URL: 'https://localhost:3030'
+  KINDE_POST_LOGIN_REDIRECT_URL: 'https://localhost:3030'
 
 defaults:
   run:

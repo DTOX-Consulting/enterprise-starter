@@ -23,8 +23,8 @@ COPY tsconfig.json .
 
 # Note: Don't expose ports here, Compose will handle that for us
 
-EXPOSE 3000
-ENV PORT 3000
+EXPOSE 3030
+ENV PORT 3030
 ENV HOSTNAME localhost
 
 # Start Next.js in development mode based on the preferred package manager

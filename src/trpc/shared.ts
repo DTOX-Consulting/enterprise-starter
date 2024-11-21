@@ -32,6 +32,6 @@ function getBaseUrl() {
   const vercelUrl = getEnv('VERCEL_URL', '');
   if (G.isNotNullable(vercelUrl)) return `https://${vercelUrl}`;
 
-  const port = getEnv('PORT') ?? 3000;
+  const port = getEnv('PORT', 3030);
   return `http://localhost:${port}`;
 }

@@ -16,8 +16,8 @@ env:
   KINDE_CLIENT_SECRET: '1234567890'
   KINDE_ISSUER_URL: 'https://dev-1234567890.okta.com'
   KINDE_SITE_URL: 'https://dev-1234567890.okta.com'
-  KINDE_POST_LOGOUT_REDIRECT_URL: 'https://localhost:3000'
-  KINDE_POST_LOGIN_REDIRECT_URL: 'https://localhost:3000'
+  KINDE_POST_LOGOUT_REDIRECT_URL: 'https://localhost:3030'
+  KINDE_POST_LOGIN_REDIRECT_URL: 'https://localhost:3030'
 
 jobs:
   test:
@@ -40,7 +40,7 @@ jobs:
             - args: [--frozen-lockfile, --strict-peer-dependencies]
       - name: Install Playwright Browsers
         run: pnpm playwright install --with-deps
-      - name: Run Playwright tests
+      - name: E2E tests
         run: pnpm playwright test
       - uses: actions/upload-artifact@v3
         if: always()
@@ -48,3 +48,9 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
+      - name: Smoke & Acceptance tests
+        run: |
+          pnpm build:storybook --quiet
+          pnpm concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
+            "pnpx http-server storybook-static --port 6006 --silent" \
+            "pnpx wait-on tcp:127.0.0.1:6006 && pnpm test:storybook"

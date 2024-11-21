@@ -4,48 +4,48 @@
 
 # Learn more from ready-to-use templates: https://www.gitpod.io/docs/introduction/getting-started/quickstart
 tasks:
-  - name: Volta
-    before: |
-      curl https://get.volta.sh | bash
-      gp sync-done volta && exit 0
+- name: Volta
+  before: |
+    curl https://get.volta.sh | bash
+    gp sync-done volta && exit 0
 
-  - name: Setup
-    before: gp sync-await volta && . ~/.bashrc
-    command: |
-      volta install node
-      gp sync-done node-setup
-      volta install vercel netlify
-      volta install pnpm yarn bun
-      volta install npm-check-updates
-      gp sync-done setup && exit 0
+- name: Setup
+  before: gp sync-await volta && . ~/.bashrc
+  command: |
+    volta install node
+    gp sync-done node-setup
+    volta install vercel netlify
+    volta install pnpm yarn bun
+    volta install npm-check-updates
+    gp sync-done setup && exit 0
 
-  - name: Install
-    openMode: split-right
-    before: gp sync-await setup && . ~/.bashrc
-    init: pnpm install
-    command: |
-      cp .env.example .env || true
-      gp sync-done install && exit 0
+- name: Install
+  openMode: split-right
+  before: gp sync-await setup && . ~/.bashrc
+  init: pnpm install
+  command: |
+    cp .env.example .env || true
+    gp sync-done install && exit 0
 
-  - name: Setup Git Config
-    command: ./scripts/gitpod/git.sh && exit 0
+- name: Setup Git Config
+  command: ./scripts/gitpod/git.sh && exit 0
 
-  - name: Website
-    before: gp sync-await install && . ~/.bashrc
-    command: SKIP_ENV_VALIDATION=true pnpm dev
+- name: Website
+  before: gp sync-await install && . ~/.bashrc
+  command: SKIP_ENV_VALIDATION=true pnpm dev
 
-  - name: Development
-    openMode: split-right
-    before: gp sync-await volta && . ~/.bashrc
-    init: |
-      ./scripts/gitpod/welcome.sh
-      gp sync-await node-setup
-      node -v && reset
-      gp sync-await install
-    command: reset && source ~/.profile
+- name: Development
+  openMode: split-right
+  before: gp sync-await volta && . ~/.bashrc
+  init: |
+    ./scripts/gitpod/welcome.sh
+    gp sync-await node-setup
+    node -v && reset
+    gp sync-await install
+  command: reset && source ~/.profile
 
 # List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
 ports:
-  - port: 3000
-    onOpen: open-preview
-    description: Website preview
+- port: 3030
+  onOpen: open-preview
+  description: Website preview

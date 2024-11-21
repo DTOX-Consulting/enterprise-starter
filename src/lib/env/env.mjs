@@ -204,7 +204,7 @@ export const env = createEnv({
 export const getEnv = (key, defaultValue = '') => env[key] ?? defaultValue;
 
 const domain = getEnv('DOMAIN');
-const port = getEnv('PORT', 3000);
+const port = getEnv('PORT', 3030);
 const currentEnv = getEnv('NEXT_PUBLIC_ENVIRONMENT');
 
 /** @type {Record<typeof currentEnv, string>} */

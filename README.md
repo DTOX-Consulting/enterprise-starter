@@ -100,7 +100,7 @@ To get started with this starter, follow these steps:
     pnpm dev
     ```
 
-4. Open [http://localhost:3000](http://localhost:3030) with your browser to see the result.
+4. Open [http://localhost:3030](http://localhost:3030) with your browser to see the result.
 
 ## 🚀 Deployment
 

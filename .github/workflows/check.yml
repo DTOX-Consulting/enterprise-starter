@@ -17,8 +17,8 @@ env:
   KINDE_CLIENT_SECRET: '1234567890'
   KINDE_ISSUER_URL: 'https://dev-1234567890.okta.com'
   KINDE_SITE_URL: 'https://dev-1234567890.okta.com'
-  KINDE_POST_LOGOUT_REDIRECT_URL: 'https://localhost:3000'
-  KINDE_POST_LOGIN_REDIRECT_URL: 'https://localhost:3000'
+  KINDE_POST_LOGOUT_REDIRECT_URL: 'https://localhost:3030'
+  KINDE_POST_LOGIN_REDIRECT_URL: 'https://localhost:3030'
 
 jobs:
   check:
@@ -42,12 +42,5 @@ jobs:
         run: pnpm typecheck
       - name: Lint
         run: pnpm lint
-      - name: Unit & Integration tests
-        run: pnpm test
-      - name: Smoke & Acceptance tests
-        run: |
-          pnpm playwright install
-          pnpm storybook:build --quiet
-          pnpm concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
-            "pnpx http-server storybook-static --port 6006 --silent" \
-            "pnpx wait-on tcp:127.0.0.1:6006 && pnpm storybook:test"
+      - name: Unit tests
+        run: pnpm test:unit
