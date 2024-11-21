@@ -1,6 +1,6 @@
 import { client } from '@/lib/sdks/trigger/client';
 
-export const kinde = client.defineHttpEndpoint({
+export const kinde: ReturnType<typeof client.defineHttpEndpoint> = client.defineHttpEndpoint({
   // this should be unique inside your project
   id: 'kinde',
   // usually you'd use the domain name of the service

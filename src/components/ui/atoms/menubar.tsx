@@ -28,7 +28,7 @@ import {
 
 import { cn } from '@/lib/utils';
 
-const MenubarMenu = Menu;
+const MenubarMenu: typeof Menu = Menu;
 
 const MenubarGroup = Group;
 

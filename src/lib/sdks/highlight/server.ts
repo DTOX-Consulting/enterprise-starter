@@ -11,7 +11,7 @@ H.init({
   environment: getEnv('VERCEL_ENV')
 });
 
-export const highlight = H;
+export const highlight: typeof H = H;
 
 export const highlightHandler = (request: NextRequest, error?: Error) => {
   try {

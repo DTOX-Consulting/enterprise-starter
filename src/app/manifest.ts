@@ -1,4 +1,4 @@
-/* eslint-disable promise/prefer-await-to-then, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return */
+/* eslint-disable promise/prefer-await-to-then */
 import { resolve } from 'node:path';
 
 import { $ } from 'zx';
@@ -124,7 +124,8 @@ const generateManifestImages = () => {
 
 const getSharp = async () => {
   try {
-    return (await import('sharp')).default;
+    const { default: sharp } = await import('sharp');
+    return sharp;
   } catch (error) {
     console.warn('Sharp not available - skipping image generation', error);
     return null;

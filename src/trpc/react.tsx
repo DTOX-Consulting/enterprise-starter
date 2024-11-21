@@ -16,11 +16,9 @@ import { getUrl, transformer } from '@/trpc/shared';
 
 import type { AppRouter } from '@/trpc/routers';
 
-export const api = createTRPCReact<AppRouter>();
+export const api: ReturnType<typeof createTRPCReact<AppRouter>> = createTRPCReact<AppRouter>();
 
-export function TRPCReactProvider(
-  props: Readonly<{ children: React.ReactNode; headers: Headers }>
-) {
+export function TRPCReactProvider(props: { children: React.ReactNode; headers: Headers }) {
   const linkCondition = (op: Operation) => op.context.skipBatch === true;
 
   const linkSetup = {
@@ -33,7 +31,23 @@ export function TRPCReactProvider(
     }
   };
 
-  const [queryClient] = useState(() => new QueryClient());
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            retry: false,
+            suspense: false,
+            staleTime: 60000,
+            cacheTime: 600000,
+            refetchOnMount: false,
+            keepPreviousData: true,
+            refetchOnReconnect: false,
+            refetchOnWindowFocus: false
+          }
+        }
+      })
+  );
 
   const [trpcClient] = useState(() =>
     api.createClient({

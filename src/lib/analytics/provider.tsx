@@ -41,9 +41,9 @@ export function AnalyticsProvider({
     analyticsManager.identify(user.id, {
       name: user.name,
       email: user.email,
-      avatar: user.image,
       lastName: user.lastName,
       firstName: user.firstName,
+      avatar: user.image ?? null,
       subscription: subscription?.tier ?? 'none'
     });
   }, [user, subscription, initialized, identified]);

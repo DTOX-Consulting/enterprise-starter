@@ -5,6 +5,8 @@ import { send } from '@/lib/sdks/sendgrid/send';
 import { client } from '@/lib/sdks/trigger/client';
 import { kinde } from '@/trigger/jobs/endpoints/kinde';
 
+import type { Job, EventSpecification, Trigger } from '@trigger.dev/sdk';
+
 const slack = new Slack({
   id: 'slack'
 });
@@ -23,7 +25,10 @@ type KindeJWT = {
   };
 };
 
-export const kindeUserCreated = client.defineJob({
+export const kindeUserCreated: Job<
+  Trigger<EventSpecification<Request, Request>>,
+  { slack: Slack }
+> = client.defineJob({
   version: '0.1.0',
   id: 'kinde-user-created',
   name: 'Kinde User Created',

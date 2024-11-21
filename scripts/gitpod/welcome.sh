@@ -27,4 +27,4 @@ echo "git config pull.rebase false" >> /home/gitpod/.profile
 echo "echo 'Node:' \$(node -v)" >> /home/gitpod/.profile
 echo "echo 'PNPM:' \$(pnpm -v)" >> /home/gitpod/.profile
 echo "echo 'Yarn:' \$(yarn -v)" >> /home/gitpod/.profile
-echo "echo 'Bun:'  \$(bun -v)" >> /home/gitpod/.profile
+echo "echo 'Bun:'  \$(pnpm -v)" >> /home/gitpod/.profile

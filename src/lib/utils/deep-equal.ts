@@ -14,8 +14,11 @@ export const isDeepEqual = (a: unknown, b: unknown): boolean => {
     return false;
   }
 
-  const stringsAreEqual = stringify(a) === stringify(b);
-  return stringsAreEqual || isEqual(a, b);
+  if (stringify(a) === stringify(b)) {
+    return true;
+  }
+
+  return isEqual(a, b);
 };
 
 export const deepDiff = <T extends Record<string, unknown>>(a: T, b: T): Diff<T> =>

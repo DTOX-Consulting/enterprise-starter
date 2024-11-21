@@ -1,24 +1,12 @@
 import { G } from '@mobily/ts-belt';
-import superjson from 'superjson';
+import superJson from 'superjson';
 
 import { getEnv } from '@/lib/env/env.mjs';
 
 import type { AppRouter } from '@/trpc/routers';
 import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
 
-export const transformer = superjson;
-
-function getBaseUrl() {
-  if (typeof window !== 'undefined') return '';
-  const vercelUrl = getEnv('VERCEL_URL', '');
-  if (G.isNotNullable(vercelUrl)) return `https://${vercelUrl}`;
-  const port = getEnv('PORT') ?? 3000;
-  return `http://localhost:${port}`;
-}
-
-export function getUrl() {
-  return `${getBaseUrl()}/api/trpc`;
-}
+export const transformer = superJson;
 
 /**
  * Inference helper for inputs.
@@ -33,3 +21,17 @@ export type RouterInputs = inferRouterInputs<AppRouter>;
  * @example type HelloOutput = RouterOutputs['example']['hello']
  */
 export type RouterOutputs = inferRouterOutputs<AppRouter>;
+
+export function getUrl() {
+  return `${getBaseUrl()}/api/trpc`;
+}
+
+function getBaseUrl() {
+  if (typeof window !== 'undefined') return '';
+
+  const vercelUrl = getEnv('VERCEL_URL', '');
+  if (G.isNotNullable(vercelUrl)) return `https://${vercelUrl}`;
+
+  const port = getEnv('PORT') ?? 3000;
+  return `http://localhost:${port}`;
+}

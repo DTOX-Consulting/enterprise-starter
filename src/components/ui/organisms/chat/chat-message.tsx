@@ -118,4 +118,3 @@ export function ChatMessage({ message, mdExtraClasses, ...props }: ChatMessagePr
     </div>
   );
 }
-Z;

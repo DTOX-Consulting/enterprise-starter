@@ -162,5 +162,23 @@
   "typescriptreact.autoClosingTags": false,
   "tabnine.experimentalAutoImports": true,
   "typescript.tsdk": "node_modules/typescript/lib",
-  "workbench.panel.defaultLocation": "right"
+  "workbench.panel.defaultLocation": "right",
+
+  "[yaml][markdown]": {
+    "editor.defaultFormatter": "kennylong.kubernetes-yaml-formatter",
+    "editor.formatOnSave": true
+  },
+
+  "[sql]": {
+    "editor.defaultFormatter": "inferrinizzard.prettier-sql-vscode",
+    "editor.formatOnSave": true
+  },
+
+  "[javascript][javascriptreact]": {
+    "javascript.preferences.importModuleSpecifier": "shortest"
+  },
+
+  "[typescript][typescriptreact]": {
+    "typescript.preferences.importModuleSpecifier": "non-relative"
+  }
 }

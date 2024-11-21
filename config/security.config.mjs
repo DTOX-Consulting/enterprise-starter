@@ -12,7 +12,8 @@ import {
 } from './origins.config.mjs';
 
 // because of type bug.
-const { nextSafe } = _nextSafe;
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition, @typescript-eslint/strict-boolean-expressions
+const nextSafe = _nextSafe.nextSafe || _nextSafe;
 
 const special = {
   data: 'data:',

@@ -6,6 +6,7 @@ import { redirect } from 'next/navigation';
 
 import { routes } from '@/config/navigation/routes';
 import {
+  type TierName,
   getTierNameFromPermissionsKey,
   getSubscriptionPermissionsKeyFromPermissions
 } from '@/config/permissions/features';
@@ -13,7 +14,10 @@ import { logger } from '@/lib/logger';
 import { isAdminUser } from '@/lib/sdks/kinde/admin';
 import { props } from '@/lib/utils/promise';
 
-export const getUserSession = async (throwError?: boolean) => {
+import type { KindeAccessToken, KindeOrganization } from '@kinde-oss/kinde-auth-nextjs/types';
+
+type GetUserSession = (throwError?: boolean) => Promise<UserSession>;
+export const getUserSession: GetUserSession = async (throwError) => {
   const {
     getUser,
     getIdTokenRaw,
@@ -65,8 +69,8 @@ export const getUserSession = async (throwError?: boolean) => {
     },
     auth: {
       token,
-      refreshToken,
       authenticated,
+      refreshToken: refreshToken as unknown as string,
       idToken: idToken as typeof idToken | undefined
     }
   };
@@ -77,5 +81,27 @@ export const isUserAuthenticated = async () => {
   return isAuthenticated();
 };
 
-export type UserSession = Awaited<ReturnType<typeof getUserSession>>;
+export type UserSession = {
+  isAdmin: boolean;
+  organization: KindeOrganization | null;
+  user: {
+    id: string;
+    email: string;
+    image?: string | null;
+    firstName: string;
+    lastName: string;
+    name: string;
+  };
+  subscription: {
+    tier: TierName;
+    key: string;
+  };
+  auth: {
+    token: KindeAccessToken | undefined;
+    refreshToken: string;
+    authenticated: boolean;
+    idToken?: string;
+  };
+};
+
 export type SessionUser = UserSession['user'];
