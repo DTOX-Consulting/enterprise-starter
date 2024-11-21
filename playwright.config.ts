@@ -1,25 +1,24 @@
-/* eslint-disable n/no-process-env */
-import { G } from '@mobily/ts-belt';
 import { defineConfig, devices } from '@playwright/test';
 
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
+// require('dotenv').config();
 
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  testDir: './e2e',
+  testDir: './tests/e2e',
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
-  forbidOnly: !!(G.isNotNullable(process.env.CI) && process.env.CI !== ''),
+  forbidOnly: !!process.env.CI,
   /* Retry on CI only */
-  retries: G.isNotNullable(process.env.CI) && process.env.CI !== '' ? 2 : 0,
+  retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
-  workers: G.isNotNullable(process.env.CI) && process.env.CI !== '' ? 1 : undefined,
+  workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
@@ -73,7 +72,6 @@ export default defineConfig({
   webServer: {
     command: 'pnpm dev:app',
     url: 'http://127.0.0.1:3030',
-    reuseExistingServer: !!(G.isNullable(process.env.CI) || process.env.CI === '')
+    reuseExistingServer: !process.env.CI
   }
 });
-/* eslint-enable n/no-process-env */
