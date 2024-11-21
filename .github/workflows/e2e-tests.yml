@@ -1,0 +1,62 @@
+name: E2E Tests
+on:
+  push:
+    branches:
+      - main
+      - master
+      - develop
+  pull_request: null
+  workflow_dispatch: null
+
+env:
+  HUSKY: 0
+  NEXT_PUBLIC_ENVIRONMENT: development
+  NEXT_PUBLIC_TRIGGER_PUBLIC_API_KEY: trg_1234567890
+  KINDE_CLIENT_ID: '1234567890'
+  KINDE_CLIENT_SECRET: '1234567890'
+  KINDE_ISSUER_URL: 'https://dev-1234567890.okta.com'
+  KINDE_SITE_URL: 'https://dev-1234567890.okta.com'
+  KINDE_POST_LOGOUT_REDIRECT_URL: 'https://localhost:3030'
+  KINDE_POST_LOGIN_REDIRECT_URL: 'https://localhost:3030'
+
+defaults:
+  run:
+    # change this if your nextjs app does not live at the root of the repo
+    working-directory: ./
+
+jobs:
+  test:
+    name: E2E Tests
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "node_version=$(cat .github/nodejs.version)" >> $GITHUB_ENV
+      - name: 'use node ${{ env.node_version }}'
+        uses: actions/setup-node@v3
+        with:
+          node-version: '${{ env.node_version }}'
+
+      - name: Setup Volta
+        uses: volta-cli/action@v4
+      - name: Install Dependencies
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: |
+            - args: [--frozen-lockfile, --strict-peer-dependencies]
+      - name: Install Playwright Browsers
+        run: pnpx playwright install --with-deps
+      - name: E2E tests
+        run: pnpm test:e2e
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
+      - name: Smoke & Acceptance tests
+        run: |
+          pnpm build:storybook --quiet
+          pnpm concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
+            "pnpx http-server storybook-static --port 6006 --silent" \
+            "pnpx wait-on tcp:127.0.0.1:6006 && pnpm test:storybook"
