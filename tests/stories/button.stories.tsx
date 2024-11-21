@@ -2,6 +2,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { Button, buttonVariantsConfig } from '@/components/ui/atoms/button';
 
+import { userEvent, within, expect } from '@storybook/test';
+
 const meta: Meta<typeof Button> = {
   title: 'Button',
   component: Button,
@@ -22,10 +24,18 @@ const meta: Meta<typeof Button> = {
   }
 };
 
+export default meta;
+
 type Story = StoryObj<typeof Button>;
 
 export const Default: Story = {
   render: (args) => <Button {...args} />
 };
 
-export default meta;
+export const WithClick: Story = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByText('Button'));
+    await expect(canvas.getByText('Button')).toBeInTheDocument();
+  }
+};

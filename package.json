@@ -35,7 +35,7 @@
     "lint:oxlint": "oxlint -c oxlintrc.json --fix --import-plugin --jest-plugin --jsx-a11y-plugin --nextjs-plugin --react-perf-plugin --ignore-path .oxlintignore -A label-has-associated-control",
     "check": "pnpm typecheck; pnpm lint:package; pnpm lint:oxlint; pnpm lint:biome; pnpm lint:eslint",
     "storybook": "cross-env FORCE_COLOR=1 storybook dev -p 6006",
-    "test:storybook": "cross-env FORCE_COLOR=1 storybook test",
+    "test:storybook": "cross-env FORCE_COLOR=1 test-storybook",
     "build:storybook": "cross-env FORCE_COLOR=1 storybook build",
     "lint:circular": "pnpm madge --circular --extensions ts,tsx,mjs,js ./",
     "build:manifest": "pnpm tsx src/app/manifest.ts",
