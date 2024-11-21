@@ -1,28 +1,47 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["github>renovatebot/.github"],
-  "assignees": [],
   "enabled": true,
+  "automerge": true,
   "prHourlyLimit": 2,
-  "automerge": false,
   "automergeType": "pr",
   "prCreation": "immediate",
+  "rangeStrategy": "pin",
+  "configMigration": true,
+  "schedule": "at any time",
   "rebaseWhen": "conflicted",
-  "timezone": "Europe/Paris",
-  "dependencyDashboard": true,
-  "semanticCommits": "disabled",
-  "minimumReleaseAge": "14 days",
+  "timezone": "Europe/London",
+  "forkProcessing": "enabled",
+  "semanticCommits": "enabled",
+  "minimumReleaseAge": "7 days",
   "additionalBranchPrefix": "{{parentDir}}-",
-  "includePaths": ["*"],
-  "baseBranches": ["main"],
-  "addLabels": ["dependencies"],
-  "enabledManagers": ["npm", "dockerfile", "github-actions"],
-  "constraints": {
-    "pnpm": "9.12.2",
-    "yarn": "1.22.19",
-    "node": "20.18.0"
+  "dependencyDashboard": true,
+  "dependencyDashboardApproval": true,
+  "dependencyDashboardAutoclose": true,
+  "extends": [
+    "config:recommended",
+    "group:linters",
+    "group:monorepos",
+    "group:allNonMajor",
+    "group:testNonMajor",
+    "group:definitelyTyped"
+  ],
+  "osvVulnerabilityAlerts": true,
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "labels": ["security"]
   },
-  "dockerfile": {
-    "semanticCommitType": "build"
-  }
+  "lockFileMaintenance": {
+    "enabled": true,
+    "minimumReleaseAge": "14",
+    "schedule": "at any time",
+    "dependencyDashboardApproval": true
+  },
+  "labels": ["renovate", "dependencies"],
+  "ignorePaths": [],
+  "packageRules": [
+    {
+      "enabled": false,
+      "matchPackageNames": ["*"]
+    }
+  ]
 }
