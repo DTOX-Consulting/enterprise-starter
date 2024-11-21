@@ -339,7 +339,7 @@
   "optionalDependencies": {
     "sharp": "0.33.5"
   },
-  "packageManager": "pnpm@9.12.2",
+  "packageManager": "pnpm@9.13.1",
   "engines": {
     "node": "20.x"
   },
