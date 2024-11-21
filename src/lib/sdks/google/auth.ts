@@ -1,6 +1,7 @@
 import { google } from 'googleapis';
 
 import { config } from '@/lib/sdks/google/config';
+import type { GlobalOptions } from 'googleapis/build/src/apis/abusiveexperiencereport';
 
 export const docs = google.docs({ version: 'v1' });
 export const drive = google.drive({ version: 'v3' });
@@ -13,7 +14,10 @@ type AuthConfig = {
   scopes: string[];
 };
 
-export const createAuth = () => {
+export const createAuth = (): {
+  jwtAuth: GlobalOptions['auth'];
+  googleAuth: GlobalOptions['auth'];
+} => {
   const jwtAuth = new google.auth.JWT(config.auth as AuthConfig);
   const googleAuth = new google.auth.GoogleAuth(config.auth);
   return { jwtAuth, googleAuth };

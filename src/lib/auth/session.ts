@@ -1,11 +1,11 @@
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
-import { getServerSession as getNextAuthServerSession } from 'next-auth/next';
+// import { getServerSession as getNextAuthServerSession } from 'next-auth/next';
 
-import { authOptions } from '@/lib/auth';
+// import { authOptions } from '@/lib/auth';
 
-export async function getServerSession() {
-  return getNextAuthServerSession(authOptions);
-}
+// export async function getServerSession() {
+//   return getNextAuthServerSession(authOptions);
+// }
 
 export async function getSession() {
   const { getUser } = getKindeServerSession();

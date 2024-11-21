@@ -34,7 +34,7 @@ const nextConfig = {
     serverMinification: !isDev,
     instrumentationHook: !isDev,
     // esmExternals: isDev ? true : 'loose',
-    serverComponentsExternalPackages: ['@highlight-run/node']
+    serverComponentsExternalPackages: ['@highlight-run/node', 'require-in-the-middle']
   },
   typescript: {
     // Warning: This allows production builds to successfully complete even if

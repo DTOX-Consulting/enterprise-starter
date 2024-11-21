@@ -1,46 +1,32 @@
-function F(L) {
-  const M = `
-    .iframe__wrapper {
-      right: 0;
-      bottom: 0;
-      height: 0;
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      position: absolute;
-      z-index: 2147483000;
-      background-color: transparent;
-    }
-    .iframe__wrapper .iframe__container {
-      bottom: 20px;
-      position: fixed;
-      background-color: transparent;
-      ${L.position === 'right' ? 'right: 20px;' : 'left: 20px;'}
-    }
-    .iframe__wrapper .iframe__container .iframe__app {
-      width: 48px;
-      height: 48px;
-      border: none;
-      border-radius: 24px;
-      background-color: transparent;
-    }
-    .iframe__wrapper .iframe__container.expanded,
-    .iframe__wrapper .iframe__container.expanded .iframe__app.expanded {
-      width: 100%;
-      height: 100%;
-      bottom: 23px;
-      max-height: 808px;
-      background-color: transparent;
-      max-width: min(${Q[L.size].width}, 100% - 40px);
-    }
-
-    .iframe__wrapper .iframe__container.expanded .iframe__app.expanded {
-      max-width: 100%;
-    }
-  `;
-  return L.style === 'popup'
-    ? M
-    : `
+// src/iframe/utils.css.js
+var sizes = {
+  sm: {
+    width: "400px",
+    height: "600px"
+  },
+  md: {
+    width: "600px",
+    height: "800px"
+  },
+  lg: {
+    width: "800px",
+    height: "1000px"
+  },
+  xl: {
+    width: "1000px",
+    height: "1200px"
+  },
+  "2xl": {
+    width: "1200px",
+    height: "1400px"
+  },
+  full: {
+    width: "100%",
+    height: "100%"
+  }
+};
+function getWidgetStyle(params) {
+  const inline = `
     .iframe__wrapper {
       margin: 0;
       padding: 0;
@@ -56,166 +42,234 @@ function F(L) {
       background-color: transparent;
     }
   `;
+  const popup = `
+    .iframe__wrapper {
+      right: 0;
+      bottom: 0;
+      height: 0;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      position: absolute;
+      z-index: 2147483000;
+      background-color: transparent;
+    }
+    .iframe__wrapper .iframe__container {
+      bottom: 20px;
+      position: fixed;
+      background-color: transparent;
+      ${params.position === "right" ? "right: 20px;" : "left: 20px;"}
+    }
+    .iframe__wrapper .iframe__container .iframe__app {
+      width: 48px;
+      height: 48px;
+      border: none;
+      border-radius: 24px;
+      background-color: transparent;
+    }
+    .iframe__wrapper .iframe__container.expanded,
+    .iframe__wrapper .iframe__container.expanded .iframe__app.expanded {
+      width: 100%;
+      height: 100%;
+      bottom: 23px;
+      max-height: 808px;
+      background-color: transparent;
+      max-width: min(${sizes[params.size].width}, 100% - 40px);
+    }
+
+    .iframe__wrapper .iframe__container.expanded .iframe__app.expanded {
+      max-width: 100%;
+    }
+  `;
+  return params.style === "popup" ? popup : inline;
 }
-const Q = {
-  sm: { width: '400px', height: '600px' },
-  md: { width: '600px', height: '800px' },
-  lg: { width: '800px', height: '1000px' },
-  xl: { width: '1000px', height: '1200px' },
-  '2xl': { width: '1200px', height: '1400px' },
-  full: { width: '100%', height: '100%' }
+
+// src/iframe/utils.js
+var domains = [];
+var available = {
+  inlineParentId: [""],
+  style: ["popup", "inline"],
+  position: ["right", "left"],
+  state: ["collapse", "expand"],
+  prompt: ["none", "social", "business"],
+  size: ["sm", "md", "lg", "xl", "2xl", "full"],
+  app: ["chat", "bot", "write", "document", "image"]
 };
-function B() {
-  if (typeof window === 'undefined') return { width: 0, height: 0 };
-  const L = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-  const D =
-    window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-  return { width: L, height: D };
+var noValidation = ["inlineParentId"];
+function getScreenSize() {
+  if (typeof window === "undefined") {
+    return { width: 0, height: 0 };
+  }
+  const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+  const height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+  return { width, height };
 }
-function d() {
-  const L = window.location.href;
-  return ['localhost', ...I].some((D) => L.includes(D)) ? '' : I[0];
+function getIframePrefix() {
+  const currentUrl = window.location.href;
+  return ["localhost", ...domains].some((str) => currentUrl.includes(str)) ? "" : domains[0];
 }
-function x(L, D) {
-  const M = L.split('?')[1];
-  if (!M) return null;
-  const T = M.split('&').reduce((j, A) => {
-    const K = A.split('=');
-    return (j[decodeURIComponent(K[0])] = decodeURIComponent(K[1])), j;
+function getQueryVariable(url, variable) {
+  const query = url.split("?")[1];
+  if (!query) {
+    return null;
+  }
+  const vars = query.split("&").reduce((acc, item) => {
+    const pair = item.split("=");
+    acc[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
+    return acc;
   }, {});
-  return D ? T[D] : T;
+  return variable ? vars[variable] : vars;
 }
-function R(L, D) {
-  const M = O[L];
-  const T = !W.includes(L);
-  const j = D ? document.querySelector(`script[src*="${D}"]`).src : window.location.href;
-  const A = x(j, L) ?? M[0];
-  return T ? (M.includes(A) ? A : M[0]) : A;
+function getStarting(variable, scriptName) {
+  const allowed = available[variable];
+  const validate = !noValidation.includes(variable);
+  const currentScriptUrl = scriptName ? document.querySelector(`script[src*="${scriptName}"]`).src : window.location.href;
+  const start = getQueryVariable(currentScriptUrl, variable) ?? allowed[0];
+  return validate ? allowed.includes(start) ? start : allowed[0] : start;
 }
-function H(L) {
-  return Object.keys(O).reduce((D, M) => {
-    const T = R(M, L);
-    return T ? { ...D, [M]: T } : D;
+function getQueryParams(scriptName) {
+  return Object.keys(available).reduce((acc, variable) => {
+    const value = getStarting(variable, scriptName);
+    if (value) {
+      acc[variable] = value;
+    }
+    return acc;
   }, {});
 }
-function C(L) {
-  const D = B();
-  const M = H(L);
-  return D.width < 768 && (M.state = 'collapse'), new URLSearchParams(M).toString();
+function getUrlSearchParams(scriptName) {
+  const screenSize = getScreenSize();
+  const params = getQueryParams(scriptName);
+  if (screenSize.width < 768) {
+    params.state = "collapse";
+  }
+  return new URLSearchParams(params).toString();
 }
-function h(L, D, M) {
-  const T = R('state', M);
-  !y(T) && E(L, D);
+function setupStartingState(expand, collapse, scriptName) {
+  const startingState = getStarting("state", scriptName);
+  !isState(startingState) && toggleState(expand, collapse);
 }
-async function _(L) {
-  return new Promise((D) => setTimeout(D, L));
+async function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
-function y(L) {
-  return $ === L;
+var currentState = "collapse";
+function isState(state) {
+  return currentState === state;
 }
-function w(L) {
-  return ($ = L), L;
+function setState(state) {
+  currentState = state;
+  return state;
 }
-function E(L, D) {
-  $ === 'expand' ? D() : L();
+function toggleState(expand, collapse) {
+  currentState === "expand" ? collapse() : expand();
 }
-function Y(L) {
-  window.parent !== window && window.parent.postMessage(w(L), '*');
+function postMessage(state) {
+  window.parent !== window && window.parent.postMessage(setState(state), "*");
 }
-function v(L, D) {
-  L?.contentWindow?.postMessage(w(D), '*');
+function postIframeMessage(iframe, state) {
+  iframe?.contentWindow?.postMessage(setState(state), "*");
 }
-function V(L, D, M) {
-  L.addEventListener('click', () => E(D, M));
+function setupToggleButton(toggleButton, expand, collapse) {
+  toggleButton.addEventListener("click", () => toggleState(expand, collapse));
 }
-function q(L, D, M) {
-  window.addEventListener('message', (T) => {
-    T.data === 'collapse' && D(), T.data === 'expand' && L(), T.data === 'close' && M();
+function setupWindow(expand, collapse, close) {
+  window.addEventListener("message", (event) => {
+    event.data === "collapse" && collapse();
+    event.data === "expand" && expand();
+    event.data === "close" && close();
   });
 }
-function z(L) {
-  document.addEventListener('click', L);
+function setupDocument(collapseOnBlur) {
+  document.addEventListener("click", collapseOnBlur);
 }
-async function f(L) {
-  const D = H(L);
-  const M = document.createElement('style');
-  (M.textContent = F(D)), document.head.appendChild(M), await _(100);
-  const T = document.createElement('div');
-  T.classList.add('iframe__wrapper'), (T.id = 'iframeWrapper'), document.body.appendChild(T);
-  const j = document.createElement('div');
-  j.classList.add('iframe__container'), (j.id = 'iframeContainer'), T.appendChild(j);
-  const A = d();
-  const K = C(L);
-  const G = document.createElement('iframe');
-  return (
-    G.classList.add('iframe__app'),
-    (G.id = 'iframeApp'),
-    (G.allowFullscreen = !0),
-    (G.src = `${A}/iframe-app?${K}`),
-    j.appendChild(G),
-    { iframe: G, iframeContainer: j, iframeWrapper: T }
-  );
+async function createWidget(scriptName) {
+  const params = getQueryParams(scriptName);
+  const styleElement = document.createElement("style");
+  styleElement.textContent = getWidgetStyle(params);
+  document.head.appendChild(styleElement);
+  await delay(100);
+  const iframeWrapper = document.createElement("div");
+  iframeWrapper.classList.add("iframe__wrapper");
+  iframeWrapper.id = "iframeWrapper";
+  document.body.appendChild(iframeWrapper);
+  const iframeContainer = document.createElement("div");
+  iframeContainer.classList.add("iframe__container");
+  iframeContainer.id = "iframeContainer";
+  iframeWrapper.appendChild(iframeContainer);
+  const iframePrefix = getIframePrefix();
+  const query = getUrlSearchParams(scriptName);
+  const iframe = document.createElement("iframe");
+  iframe.classList.add("iframe__app");
+  iframe.id = "iframeApp";
+  iframe.allowFullscreen = true;
+  iframe.src = `${iframePrefix}/iframe-app?${query}`;
+  iframeContainer.appendChild(iframe);
+  return { iframe, iframeContainer, iframeWrapper };
 }
-function P() {
-  const D = { systemPrompt: H().prompt };
-  return new URLSearchParams(D).toString();
+function getParamsForApp() {
+  const params = getQueryParams();
+  const neededParams = {
+    systemPrompt: params.prompt
+  };
+  return new URLSearchParams(neededParams).toString();
 }
-function U() {
-  const L = H();
-  const D = P();
-  const M = L.style === 'popup';
-  const T = document.createElement('div');
-  if (
-    ((T.id = M ? 'popupContainer' : 'inlineContainer'),
-    (T.className = M ? 'popup-container' : 'inline-container'),
-    M)
-  )
-    document.body.appendChild(T);
-  else (document.getElementById(L.inlineParentId) ?? document.body).appendChild(T);
-  const j = document.createElement('iframe');
-  (j.allowFullscreen = !0),
-    (j.id = M ? 'popupIframe' : 'inlineIframe'),
-    (j.className = M ? 'popup-iframe' : 'inline-iframe'),
-    (j.src = `/external/${L.app}?${D}`),
-    T.appendChild(j);
-  let A = null;
-  if (M)
-    (A = document.createElement('button')),
-      (A.id = 'toggleButton'),
-      (A.className = 'toggle-button'),
-      document.body.appendChild(A);
-  return { iframe: j, iframeContainer: T, toggleButton: A };
+function createApp() {
+  const params = getQueryParams();
+  const appParams = getParamsForApp();
+  const isPopup = params.style === "popup";
+  const iframeContainer = document.createElement("div");
+  iframeContainer.id = isPopup ? "popupContainer" : "inlineContainer";
+  iframeContainer.className = isPopup ? "popup-container" : "inline-container";
+  if (isPopup) {
+    document.body.appendChild(iframeContainer);
+  } else {
+    const parent = document.getElementById(params.inlineParentId) ?? document.body;
+    parent.appendChild(iframeContainer);
+  }
+  const iframe = document.createElement("iframe");
+  iframe.allowFullscreen = true;
+  iframe.id = isPopup ? "popupIframe" : "inlineIframe";
+  iframe.className = isPopup ? "popup-iframe" : "inline-iframe";
+  iframe.src = `/external/${params.app}?${appParams}`;
+  iframeContainer.appendChild(iframe);
+  let toggleButton = null;
+  if (isPopup) {
+    toggleButton = document.createElement("button");
+    toggleButton.id = "toggleButton";
+    toggleButton.className = "toggle-button";
+    document.body.appendChild(toggleButton);
+  }
+  return { iframe, iframeContainer, toggleButton };
 }
-const I = [];
-const O = {
-  inlineParentId: [''],
-  style: ['popup', 'inline'],
-  position: ['right', 'left'],
-  state: ['collapse', 'expand'],
-  prompt: ['none', 'social', 'business'],
-  size: ['sm', 'md', 'lg', 'xl', '2xl', 'full'],
-  app: ['chat', 'bot', 'write', 'document', 'image']
-};
-const W = ['inlineParentId'];
-let $ = 'collapse';
-const k = () => {
-  Y('expand'),
-    X.classList.add('open-popup'),
-    J.classList.add('visible-popup'),
-    J.classList.remove('hidden-popup');
-};
-const Z = () => {
-  Y('collapse'),
-    X.classList.remove('open-popup'),
-    J.classList.add('hidden-popup'),
-    J.classList.remove('visible-popup');
-};
-const u = () => {
-  Y('close'), X.remove(), J.remove();
-};
-const S = (L) => {
-  if (!J.contains(L.target) && !X.contains(L.target)) Z();
-};
-const N = H().style === 'popup';
-const { toggleButton: X, iframeContainer: J } = U();
-if (N) z(S), q(k, Z, u), V(X, k, Z), await _(1000), h(k, Z);
+
+// src/iframe/app.js
+var isPopup = getQueryParams().style === "popup";
+var { toggleButton, iframeContainer } = createApp();
+function expand() {
+  postMessage("expand");
+  toggleButton.classList.add("open-popup");
+  iframeContainer.classList.add("visible-popup");
+  iframeContainer.classList.remove("hidden-popup");
+}
+function collapse() {
+  postMessage("collapse");
+  toggleButton.classList.remove("open-popup");
+  iframeContainer.classList.add("hidden-popup");
+  iframeContainer.classList.remove("visible-popup");
+}
+function close() {
+  postMessage("close");
+  toggleButton.remove();
+  iframeContainer.remove();
+}
+function collapseOnBlur(event) {
+  if (!iframeContainer.contains(event.target) && !toggleButton.contains(event.target)) {
+    collapse();
+  }
+}
+if (isPopup) {
+  setupDocument(collapseOnBlur);
+  setupWindow(expand, collapse, close);
+  setupToggleButton(toggleButton, expand, collapse);
+  await delay(1000);
+  setupStartingState(expand, collapse);
+}

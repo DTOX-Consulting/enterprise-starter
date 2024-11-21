@@ -3,8 +3,6 @@
 
 'use client';
 
-import { randomInt } from 'node:crypto';
-
 import { G } from '@mobily/ts-belt';
 import { type FC, memo } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -53,7 +51,7 @@ export const generateRandomString = (length: number, lowercase = false) => {
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXY3456789'; // excluding similar looking characters like Z, 2, I, 1, O, 0
   let result = '';
   for (let index = 0; index < length; index++) {
-    result += chars.charAt(randomInt(0, chars.length));
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
   }
   return lowercase ? result.toLowerCase() : result;
 };

@@ -1,10 +1,10 @@
-import { highlightMiddleware } from '@highlight-run/next/server';
+// import { highlightMiddleware } from '@highlight-run/next/server';
 import { NextResponse } from 'next/server';
 
 import type { NextRequest } from 'next/server';
 
 const setPathHeaders = (request: NextRequest) => {
-  highlightMiddleware(request);
+  // highlightMiddleware(request);
 
   const headers = new Headers(request.headers);
   const queryParams = request.nextUrl.searchParams.toString();

@@ -102,7 +102,7 @@ export function useSelector<
     } else {
       // checking if is equal to prevent unnecessary rerenders
       // if its not then we're updating state and flag
-      emitAsyncValue.current = isEqual(v, state);
+      emitAsyncValue.current = isEqual(val, state);
       if (!emitAsyncValue.current) {
         setTimeout(() => setState(val));
       }
