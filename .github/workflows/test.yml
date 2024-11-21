@@ -21,6 +21,7 @@ env:
 
 jobs:
   test:
+    name: E2E Tests
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
