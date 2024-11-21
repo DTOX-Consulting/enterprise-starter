@@ -10,7 +10,9 @@ on:
       - synchronize
 
 jobs:
-  test:
+  cr:
+    name: Code Review
+    timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:
       - uses: anc95/ChatGPT-CodeReview@main
