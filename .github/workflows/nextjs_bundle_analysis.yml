@@ -15,6 +15,12 @@ env:
   HUSKY: 0
   NEXT_PUBLIC_ENVIRONMENT: development
   NEXT_PUBLIC_TRIGGER_PUBLIC_API_KEY: trg_1234567890
+  KINDE_CLIENT_ID: '1234567890'
+  KINDE_CLIENT_SECRET: '1234567890'
+  KINDE_ISSUER_URL: 'https://dev-1234567890.okta.com'
+  KINDE_SITE_URL: 'https://dev-1234567890.okta.com'
+  KINDE_POST_LOGOUT_REDIRECT_URL: 'https://localhost:3000'
+  KINDE_POST_LOGIN_REDIRECT_URL: 'https://localhost:3000'
 
 defaults:
   run:
@@ -60,7 +66,7 @@ jobs:
       # Here's the first place where next-bundle-analysis' own script is used
       # This step pulls the raw bundle stats for the current bundle
       - name: Analyze bundle
-        run: node report-bundle-size.js
+        run: pnpm tsx report-bundle-size.ts
 
       - name: Upload bundle
         uses: actions/upload-artifact@v3
