@@ -40,9 +40,9 @@ jobs:
           run_install: |
             - args: [--frozen-lockfile, --strict-peer-dependencies]
       - name: Install Playwright Browsers
-        run: pnpm playwright install --with-deps
+        run: pnpx playwright install --with-deps
       - name: E2E tests
-        run: pnpm playwright test
+        run: pnpm test:e2e
       - uses: actions/upload-artifact@v3
         if: always()
         with:
