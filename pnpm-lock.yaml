@@ -209,9 +209,6 @@ importers:
       '@sparticuz/chromium-min':
         specifier: 123.0.1
         version: 123.0.1
-      '@storybook/test':
-        specifier: 8.4.5
-        version: 8.4.5(storybook@8.4.5(bufferutil@4.0.8)(prettier@3.3.3))
       '@stripe/react-stripe-js':
         specifier: 2.9.0
         version: 2.9.0(@stripe/stripe-js@4.10.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -643,6 +640,9 @@ importers:
       '@storybook/react':
         specifier: 8.4.5
         version: 8.4.5(@storybook/test@8.4.5(storybook@8.4.5(bufferutil@4.0.8)(prettier@3.3.3)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.5(bufferutil@4.0.8)(prettier@3.3.3))(typescript@5.6.3)
+      '@storybook/test':
+        specifier: 8.4.5
+        version: 8.4.5(storybook@8.4.5(bufferutil@4.0.8)(prettier@3.3.3))
       '@storybook/test-runner':
         specifier: 0.19.1
         version: 0.19.1(@swc/helpers@0.5.12)(@types/node@20.17.6)(babel-plugin-macros@3.1.0)(storybook@8.4.5(bufferutil@4.0.8)(prettier@3.3.3))(ts-node@10.9.1(@swc/core@1.7.2(@swc/helpers@0.5.12))(@types/node@20.17.6)(typescript@5.6.3))
@@ -19405,7 +19405,7 @@ snapshots:
 
   '@babel/highlight@7.24.7':
     dependencies:
-      '@babel/helper-validator-identifier': 7.24.7
+      '@babel/helper-validator-identifier': 7.25.9
       chalk: 2.4.2
       js-tokens: 4.0.0
       picocolors: 1.1.0
