@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import { userEvent, within, expect } from '@storybook/test';
 
 import { Button, buttonVariantsConfig } from '@/components/ui/atoms/button';
 
-import { userEvent, within, expect } from '@storybook/test';
+import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof Button> = {
   title: 'Button',
