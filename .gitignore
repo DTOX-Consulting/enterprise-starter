@@ -16,7 +16,6 @@
 /.next/
 /out/
 /docs/
-next-env.d.ts
 
 # production
 /build
