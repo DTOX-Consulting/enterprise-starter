@@ -68,6 +68,7 @@ export const scriptOrigins = [
   '*.hubspot.com',
   '*.hsforms.com',
   '*.supabase.co',
+  '*.mixpanel.com',
   '*.formspree.io',
   '*.highlight.io',
   '*.meticulous.ai',

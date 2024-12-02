@@ -4,7 +4,6 @@ import { next as nextMillionLint } from '@million/lint';
 import nextBundleAnalyzer from '@next/bundle-analyzer';
 import nextMDX from '@next/mdx';
 import { next as nextMillionCompiler } from 'million/compiler';
-import { $ } from 'zx';
 
 import { isDev, isVercel, isCloudflare, isDocker } from './config/env.config.mjs';
 import { rewrites } from './config/rewrites.config.mjs';
@@ -168,12 +167,12 @@ const _nextMillion = () => {
 const config = async () => {
   await import('./src/lib/env/env.mjs');
 
-  if (isVercel && !isCloudflare) {
-    await $`echo "\n\n*" >> .eslintignore`;
-    await $`bash ./scripts/comment_runtime.sh src/app page.tsx layout.tsx not-found.tsx sitemap.ts`;
-  } else if (isCloudflare) {
-    await $`bash ./scripts/change_runtime.sh edge src/app route.ts page.tsx layout.tsx not-found.tsx sitemap.ts`;
-  }
+  // if (isVercel && !isCloudflare) {
+  //   await $`echo "\n\n*" >> .eslintignore`;
+  //   await $`bash ./scripts/comment_runtime.sh src/app page.tsx layout.tsx not-found.tsx sitemap.ts`;
+  // } else if (isCloudflare) {
+  //   await $`bash ./scripts/change_runtime.sh edge src/app route.ts page.tsx layout.tsx not-found.tsx sitemap.ts`;
+  // }
 
   return pluginsConfig;
 };
