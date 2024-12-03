@@ -2,7 +2,7 @@
 
 import { Root } from '@radix-ui/react-toggle';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { forwardRef, type ElementRef, type ComponentPropsWithoutRef } from 'react';
+import { forwardRef, type ComponentPropsWithoutRef } from 'react';
 
 import { cn } from '@/lib/utils';
 
@@ -28,7 +28,7 @@ const toggleVariants = cva(
 );
 
 const Toggle = forwardRef<
-  ElementRef<typeof Root>,
+  HTMLButtonElement,
   ComponentPropsWithoutRef<typeof Root> & VariantProps<typeof toggleVariants>
 >(({ className, variant, size, ...props }, ref) => (
   <Root ref={ref} className={cn(toggleVariants({ variant, size, className }))} {...props} />

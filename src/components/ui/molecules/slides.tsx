@@ -1,7 +1,7 @@
 'use client';
 
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useState } from 'react';
+import { useState, type JSX } from 'react';
 
 import { Button } from '@/components/ui/atoms/button';
 import { cn } from '@/lib/utils';

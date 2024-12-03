@@ -107,7 +107,7 @@ const generateManifestImages = () => {
     return {
       sizes,
       type: 'image/png',
-      form_factor: formFactor,
+      form_factor: formFactor as 'narrow' | 'wide',
       src: `/${screenshotRoot}/screenshot-${sizes}.png`
     };
   });

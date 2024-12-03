@@ -96,6 +96,10 @@ export const useRxDB = () => {
         return;
       }
 
+      if (!session.user.id) {
+        return;
+      }
+
       const { db: dbInitialized, replication } = await initialize(session);
 
       setDb(dbInitialized);

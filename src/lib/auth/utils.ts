@@ -8,7 +8,7 @@ export function generateRoutes(
   path: string | null = null,
   paramsToAdd: Record<string, string> = {}
 ) {
-  const headerList = headers();
+  const headerList = headers() as unknown as Headers;
   const currentPath = headerList.get('x-current-path');
   const redirectPath = headerList.get('x-redirect-path');
 

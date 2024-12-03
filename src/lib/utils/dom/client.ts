@@ -3,7 +3,7 @@ import { getDocument } from '@/lib/utils/dom';
 
 import type { RefObject } from 'react';
 
-export function closeOnDocumentClick<T extends RefObject<HTMLElement>[]>(
+export function closeOnDocumentClick<T extends RefObject<HTMLElement | null>[]>(
   refs: T,
   closeFn: () => void,
   id = ''

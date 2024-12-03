@@ -92,7 +92,7 @@ export const FooterNavigation = () => (
       <div key={item.name} className="pb-6">
         <Link
           href={item.href}
-          className="text-sm leading-6 text-gray-500 hover:text-gray-900 dark:text-neutral-400"
+          className="text-sm leading-6 text-gray-500 hover:text-gray-900 dark:text-gray-4"
         >
           {item.name}
         </Link>

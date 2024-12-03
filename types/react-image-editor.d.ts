@@ -1,5 +1,5 @@
 declare module '@toast-ui/react-image-editor' {
-  import type { MutableRefObject } from 'react';
+  import type { MutableRefObject, JSX } from 'react';
   import type ImageEditor from 'tui-image-editor';
 
   export type ImageEditorInstance = ImageEditor & {

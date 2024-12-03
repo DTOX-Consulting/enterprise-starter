@@ -8,16 +8,15 @@ import { cn } from '@/lib/utils';
 
 const Accordion = Root;
 
-const AccordionItem = forwardRef<
-  React.ElementRef<typeof Item>,
-  React.ComponentPropsWithoutRef<typeof Item>
->(({ className, ...props }, ref) => (
-  <Item ref={ref} className={cn('border-b', className)} {...props} />
-));
+const AccordionItem = forwardRef<HTMLDivElement, React.ComponentPropsWithoutRef<typeof Item>>(
+  ({ className, ...props }, ref) => (
+    <Item ref={ref} className={cn('border-b', className)} {...props} />
+  )
+);
 AccordionItem.displayName = 'AccordionItem';
 
 const AccordionTrigger = forwardRef<
-  React.ElementRef<typeof Trigger>,
+  HTMLButtonElement,
   React.ComponentPropsWithoutRef<typeof Trigger>
 >(({ className, children, ...props }, ref) => (
   <Header className="flex">
@@ -36,21 +35,20 @@ const AccordionTrigger = forwardRef<
 ));
 AccordionTrigger.displayName = Trigger.displayName;
 
-const AccordionContent = forwardRef<
-  React.ElementRef<typeof Content>,
-  React.ComponentPropsWithoutRef<typeof Content>
->(({ className, children, ...props }, ref) => (
-  <Content
-    ref={ref}
-    className={cn(
-      'overflow-hidden text-sm transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down',
-      className
-    )}
-    {...props}
-  >
-    <div className="pb-4 pt-0">{children}</div>
-  </Content>
-));
+const AccordionContent = forwardRef<HTMLDivElement, React.ComponentPropsWithoutRef<typeof Content>>(
+  ({ className, children, ...props }, ref) => (
+    <Content
+      ref={ref}
+      className={cn(
+        'overflow-hidden text-sm transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down',
+        className
+      )}
+      {...props}
+    >
+      <div className="pb-4 pt-0">{children}</div>
+    </Content>
+  )
+);
 AccordionContent.displayName = Content.displayName;
 
 export { Accordion, AccordionItem, AccordionTrigger, AccordionContent };

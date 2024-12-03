@@ -6,7 +6,7 @@ import {
   Content as PopoverContentPrimitive,
   Portal as PopoverPortalPrimitive
 } from '@radix-ui/react-popover';
-import { forwardRef, type ElementRef, type ComponentPropsWithoutRef } from 'react';
+import { forwardRef, type ComponentPropsWithoutRef } from 'react';
 
 import { cn } from '@/lib/utils';
 
@@ -15,7 +15,7 @@ const Popover = PopoverRoot;
 const PopoverTrigger = PopoverTriggerPrimitive;
 
 const PopoverContent = forwardRef<
-  ElementRef<typeof PopoverContentPrimitive>,
+  HTMLDivElement,
   ComponentPropsWithoutRef<typeof PopoverContentPrimitive>
 >(({ className, align = 'center', sideOffset = 4, ...props }, ref) => (
   <PopoverPortalPrimitive>

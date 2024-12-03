@@ -1,13 +1,13 @@
 'use client';
 
 import { Root as ProgressRoot, Indicator as ProgressIndicator } from '@radix-ui/react-progress';
-import { forwardRef, type ElementRef, type ComponentPropsWithoutRef } from 'react';
+import { forwardRef, type ComponentPropsWithoutRef } from 'react';
 
 import { cn } from '@/lib/utils';
 
 const Progress = forwardRef<
-  ElementRef<typeof ProgressRoot>,
-  ComponentPropsWithoutRef<typeof ProgressRoot>
+  HTMLDivElement,
+  ComponentPropsWithoutRef<typeof ProgressRoot> & { className?: string }
 >(({ className, value, ...props }, ref) => (
   <ProgressRoot
     ref={ref}

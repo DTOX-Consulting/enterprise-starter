@@ -11,17 +11,12 @@ import {
 } from '@radix-ui/react-toast';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { X } from 'lucide-react';
-import {
-  forwardRef,
-  type ElementRef,
-  type ComponentPropsWithoutRef,
-  type ReactElement
-} from 'react';
+import { forwardRef, type ComponentPropsWithoutRef, type ReactElement } from 'react';
 
 import { cn } from '@/lib/utils';
 
 const ToastViewport = forwardRef<
-  ElementRef<typeof RadixToastViewport>,
+  HTMLOListElement,
   ComponentPropsWithoutRef<typeof RadixToastViewport>
 >(({ className, ...props }, ref) => (
   <RadixToastViewport
@@ -53,7 +48,7 @@ const toastVariants = cva(
 );
 
 const Toast = forwardRef<
-  ElementRef<typeof RadixToastRoot>,
+  HTMLLIElement,
   ComponentPropsWithoutRef<typeof RadixToastRoot> & VariantProps<typeof toastVariants>
 >(({ className, variant, ...props }, ref) => (
   <RadixToastRoot ref={ref} className={cn(toastVariants({ variant }), className)} {...props} />
@@ -61,7 +56,7 @@ const Toast = forwardRef<
 Toast.displayName = RadixToastRoot.displayName;
 
 const ToastAction = forwardRef<
-  ElementRef<typeof RadixToastAction>,
+  HTMLButtonElement,
   ComponentPropsWithoutRef<typeof RadixToastAction>
 >(({ className, ...props }, ref) => (
   <RadixToastAction
@@ -75,34 +70,32 @@ const ToastAction = forwardRef<
 ));
 ToastAction.displayName = RadixToastAction.displayName;
 
-const ToastClose = forwardRef<
-  ElementRef<typeof RadixToastClose>,
-  ComponentPropsWithoutRef<typeof RadixToastClose>
->(({ className, ...props }, ref) => (
-  <RadixToastClose
-    ref={ref}
-    className={cn(
-      'absolute right-2 top-2 rounded-md p-1 text-foreground/50 opacity-0 transition-opacity hover:text-foreground focus:opacity-100 focus:outline-none focus:ring-2 group-hover:opacity-100 group-[.destructive]:text-red-300 group-[.destructive]:hover:text-red-50 group-[.destructive]:focus:ring-red-400 group-[.destructive]:focus:ring-offset-red-600',
-      className
-    )}
-    toast-close=""
-    {...props}
-  >
-    <X className="size-4" />
-  </RadixToastClose>
-));
+const ToastClose = forwardRef<HTMLButtonElement, ComponentPropsWithoutRef<typeof RadixToastClose>>(
+  ({ className, ...props }, ref) => (
+    <RadixToastClose
+      ref={ref}
+      className={cn(
+        'absolute right-2 top-2 rounded-md p-1 text-foreground/50 opacity-0 transition-opacity hover:text-foreground focus:opacity-100 focus:outline-none focus:ring-2 group-hover:opacity-100 group-[.destructive]:text-red-300 group-[.destructive]:hover:text-red-50 group-[.destructive]:focus:ring-red-400 group-[.destructive]:focus:ring-offset-red-600',
+        className
+      )}
+      toast-close=""
+      {...props}
+    >
+      <X className="size-4" />
+    </RadixToastClose>
+  )
+);
 ToastClose.displayName = RadixToastClose.displayName;
 
-const ToastTitle = forwardRef<
-  ElementRef<typeof RadixToastTitle>,
-  ComponentPropsWithoutRef<typeof RadixToastTitle>
->(({ className, ...props }, ref) => (
-  <RadixToastTitle ref={ref} className={cn('text-sm font-semibold', className)} {...props} />
-));
+const ToastTitle = forwardRef<HTMLDivElement, ComponentPropsWithoutRef<typeof RadixToastTitle>>(
+  ({ className, ...props }, ref) => (
+    <RadixToastTitle ref={ref} className={cn('text-sm font-semibold', className)} {...props} />
+  )
+);
 ToastTitle.displayName = RadixToastTitle.displayName;
 
 const ToastDescription = forwardRef<
-  ElementRef<typeof RadixToastDescription>,
+  HTMLDivElement,
   ComponentPropsWithoutRef<typeof RadixToastDescription>
 >(({ className, ...props }, ref) => (
   <RadixToastDescription ref={ref} className={cn('text-sm opacity-90', className)} {...props} />

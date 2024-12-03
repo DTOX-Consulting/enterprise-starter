@@ -1,3 +1,4 @@
+import { ipAddress, geolocation } from '@vercel/functions';
 import { type NextRequest, userAgent } from 'next/server';
 import { serializeError } from 'serialize-error';
 
@@ -10,7 +11,8 @@ const LOG_API_REQUESTS = getEnv('LOG_API_REQUESTS');
 export const startLogger = async (request: NextRequest) => {
   const startTime = new Date().getTime(); // Start time in milliseconds
 
-  const { ip, geo } = request;
+  const ip = ipAddress(request);
+  const geo = geolocation(request);
   const { device, engine, ua, os, browser, isBot, cpu } = userAgent(request);
 
   const log = {

@@ -18,17 +18,12 @@ import {
   ItemIndicator as RadixDropdownMenuItemIndicator
 } from '@radix-ui/react-dropdown-menu';
 import { Check, ChevronRight, Circle } from 'lucide-react';
-import {
-  forwardRef,
-  type ElementRef,
-  type ComponentPropsWithoutRef,
-  type HTMLAttributes
-} from 'react';
+import { forwardRef, type ComponentPropsWithoutRef, type HTMLAttributes } from 'react';
 
 import { cn } from '@/lib/utils';
 
 const DropdownMenuSubTrigger = forwardRef<
-  ElementRef<typeof RadixDropdownMenuSubTrigger>,
+  HTMLDivElement,
   ComponentPropsWithoutRef<typeof RadixDropdownMenuSubTrigger> & {
     inset?: boolean;
   }
@@ -49,7 +44,7 @@ const DropdownMenuSubTrigger = forwardRef<
 DropdownMenuSubTrigger.displayName = 'DropdownMenuSubTrigger';
 
 const DropdownMenuSubContent = forwardRef<
-  ElementRef<typeof RadixDropdownMenuSubContent>,
+  HTMLDivElement,
   ComponentPropsWithoutRef<typeof RadixDropdownMenuSubContent>
 >(({ className, ...props }, ref) => (
   <RadixDropdownMenuSubContent
@@ -64,7 +59,7 @@ const DropdownMenuSubContent = forwardRef<
 DropdownMenuSubContent.displayName = 'DropdownMenuSubContent';
 
 const DropdownMenuContent = forwardRef<
-  ElementRef<typeof RadixDropdownMenuContent>,
+  HTMLDivElement,
   ComponentPropsWithoutRef<typeof RadixDropdownMenuContent>
 >(({ className, sideOffset = 4, ...props }, ref) => (
   <DropdownMenuPortal>
@@ -82,7 +77,7 @@ const DropdownMenuContent = forwardRef<
 DropdownMenuContent.displayName = 'DropdownMenuContent';
 
 const DropdownMenuItem = forwardRef<
-  ElementRef<typeof RadixDropdownMenuItem>,
+  HTMLDivElement,
   ComponentPropsWithoutRef<typeof RadixDropdownMenuItem> & {
     inset?: boolean;
   }
@@ -100,7 +95,7 @@ const DropdownMenuItem = forwardRef<
 DropdownMenuItem.displayName = 'DropdownMenuItem';
 
 const DropdownMenuCheckboxItem = forwardRef<
-  ElementRef<typeof RadixDropdownMenuCheckboxItem>,
+  HTMLDivElement,
   ComponentPropsWithoutRef<typeof RadixDropdownMenuCheckboxItem>
 >(({ className, children, checked, ...props }, ref) => (
   <RadixDropdownMenuCheckboxItem
@@ -123,7 +118,7 @@ const DropdownMenuCheckboxItem = forwardRef<
 DropdownMenuCheckboxItem.displayName = 'DropdownMenuCheckboxItem';
 
 const DropdownMenuRadioItem = forwardRef<
-  ElementRef<typeof RadixDropdownMenuRadioItem>,
+  HTMLDivElement,
   ComponentPropsWithoutRef<typeof RadixDropdownMenuRadioItem>
 >(({ className, children, ...props }, ref) => (
   <RadixDropdownMenuRadioItem
@@ -145,7 +140,7 @@ const DropdownMenuRadioItem = forwardRef<
 DropdownMenuRadioItem.displayName = 'DropdownMenuRadioItem';
 
 const DropdownMenuLabel = forwardRef<
-  ElementRef<typeof RadixDropdownMenuLabel>,
+  HTMLDivElement,
   ComponentPropsWithoutRef<typeof RadixDropdownMenuLabel> & {
     inset?: boolean;
   }
@@ -159,7 +154,7 @@ const DropdownMenuLabel = forwardRef<
 DropdownMenuLabel.displayName = 'DropdownMenuLabel';
 
 const DropdownMenuSeparator = forwardRef<
-  ElementRef<typeof RadixDropdownMenuSeparator>,
+  HTMLHRElement,
   ComponentPropsWithoutRef<typeof RadixDropdownMenuSeparator>
 >(({ className, ...props }, ref) => (
   <RadixDropdownMenuSeparator

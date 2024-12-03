@@ -12,12 +12,7 @@ import {
 } from '@radix-ui/react-dialog';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { X } from 'lucide-react';
-import {
-  forwardRef,
-  type ElementRef,
-  type ComponentPropsWithoutRef,
-  type HTMLAttributes
-} from 'react';
+import { forwardRef, type ComponentPropsWithoutRef, type HTMLAttributes } from 'react';
 
 import { cn } from '@/lib/utils';
 
@@ -29,19 +24,18 @@ const SheetClose = Close;
 
 const SheetPortal = Portal;
 
-const SheetOverlay = forwardRef<
-  ElementRef<typeof Overlay>,
-  ComponentPropsWithoutRef<typeof Overlay>
->(({ className, ...props }, ref) => (
-  <Overlay
-    className={cn(
-      'fixed inset-0 z-50 bg-black/80  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
-      className
-    )}
-    {...props}
-    ref={ref}
-  />
-));
+const SheetOverlay = forwardRef<HTMLDivElement, ComponentPropsWithoutRef<typeof Overlay>>(
+  ({ className, ...props }, ref) => (
+    <Overlay
+      className={cn(
+        'fixed inset-0 z-50 bg-black/80  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
+        className
+      )}
+      {...props}
+      ref={ref}
+    />
+  )
+);
 SheetOverlay.displayName = Overlay.displayName;
 
 const sheetVariants = cva(
@@ -66,7 +60,7 @@ const sheetVariants = cva(
 type SheetContentProps = ComponentPropsWithoutRef<typeof Content> &
   VariantProps<typeof sheetVariants>;
 
-const SheetContent = forwardRef<ElementRef<typeof Content>, SheetContentProps>(
+const SheetContent = forwardRef<HTMLDivElement, SheetContentProps>(
   ({ side = 'left', className, children, ...props }, ref) => (
     <SheetPortal>
       <SheetOverlay />
@@ -95,7 +89,7 @@ const SheetFooter = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) =>
 );
 SheetFooter.displayName = 'SheetFooter';
 
-const SheetTitle = forwardRef<ElementRef<typeof Title>, ComponentPropsWithoutRef<typeof Title>>(
+const SheetTitle = forwardRef<HTMLDivElement, ComponentPropsWithoutRef<typeof Title>>(
   ({ className, ...props }, ref) => (
     <Title
       ref={ref}
@@ -106,12 +100,11 @@ const SheetTitle = forwardRef<ElementRef<typeof Title>, ComponentPropsWithoutRef
 );
 SheetTitle.displayName = Title.displayName;
 
-const SheetDescription = forwardRef<
-  ElementRef<typeof Description>,
-  ComponentPropsWithoutRef<typeof Description>
->(({ className, ...props }, ref) => (
-  <Description ref={ref} className={cn('text-sm text-muted-foreground', className)} {...props} />
-));
+const SheetDescription = forwardRef<HTMLDivElement, ComponentPropsWithoutRef<typeof Description>>(
+  ({ className, ...props }, ref) => (
+    <Description ref={ref} className={cn('text-sm text-muted-foreground', className)} {...props} />
+  )
+);
 SheetDescription.displayName = Description.displayName;
 
 export {

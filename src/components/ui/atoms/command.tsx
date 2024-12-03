@@ -2,32 +2,18 @@
 
 import { Command as CommandPrimitive } from 'cmdk';
 import { Search } from 'lucide-react';
-import {
-  forwardRef,
-  type ElementRef,
-  type ComponentPropsWithoutRef,
-  type HTMLAttributes
-} from 'react';
+import { forwardRef, type ComponentPropsWithoutRef, type HTMLAttributes } from 'react';
 
 import { Dialog, DialogContent } from '@/components/ui/atoms/dialog';
 import { cn } from '@/lib/utils';
 
 import type { DialogProps } from '@radix-ui/react-dialog';
 
-const Command = forwardRef<
-  ElementRef<typeof CommandPrimitive>,
-  ComponentPropsWithoutRef<typeof CommandPrimitive>
->(({ className, ...props }, ref) => (
-  <CommandPrimitive
-    ref={ref}
-    className={cn(
-      'flex size-full flex-col overflow-hidden rounded-md bg-popover text-popover-foreground',
-      className
-    )}
-    {...props}
-  />
-));
-Command.displayName = CommandPrimitive.displayName;
+const Command = forwardRef<HTMLDivElement, ComponentPropsWithoutRef<typeof CommandPrimitive>>(
+  ({ className, ...props }, ref) => (
+    <CommandPrimitive ref={ref} className={cn('', className)} {...props} />
+  )
+);
 
 type CommandDialogProps = DialogProps;
 
@@ -42,7 +28,7 @@ const CommandDialog = ({ children, ...props }: CommandDialogProps) => (
 );
 
 const CommandInput = forwardRef<
-  ElementRef<typeof CommandPrimitive.Input>,
+  HTMLInputElement,
   ComponentPropsWithoutRef<typeof CommandPrimitive.Input>
 >(({ className, ...props }, ref) => (
   <div className="flex items-center border-b px-3">
@@ -61,7 +47,7 @@ const CommandInput = forwardRef<
 CommandInput.displayName = CommandPrimitive.Input.displayName;
 
 const CommandList = forwardRef<
-  ElementRef<typeof CommandPrimitive.List>,
+  HTMLDivElement,
   ComponentPropsWithoutRef<typeof CommandPrimitive.List>
 >(({ className, ...props }, ref) => (
   <CommandPrimitive.List
@@ -74,7 +60,7 @@ const CommandList = forwardRef<
 CommandList.displayName = CommandPrimitive.List.displayName;
 
 const CommandEmpty = forwardRef<
-  ElementRef<typeof CommandPrimitive.Empty>,
+  HTMLDivElement,
   ComponentPropsWithoutRef<typeof CommandPrimitive.Empty>
 >((props, ref) => (
   <CommandPrimitive.Empty ref={ref} className="py-6 text-center text-sm" {...props} />
@@ -83,7 +69,7 @@ const CommandEmpty = forwardRef<
 CommandEmpty.displayName = CommandPrimitive.Empty.displayName;
 
 const CommandGroup = forwardRef<
-  ElementRef<typeof CommandPrimitive.Group>,
+  HTMLDivElement,
   ComponentPropsWithoutRef<typeof CommandPrimitive.Group>
 >(({ className, ...props }, ref) => (
   <CommandPrimitive.Group
@@ -99,7 +85,7 @@ const CommandGroup = forwardRef<
 CommandGroup.displayName = CommandPrimitive.Group.displayName;
 
 const CommandSeparator = forwardRef<
-  ElementRef<typeof CommandPrimitive.Separator>,
+  HTMLHRElement,
   ComponentPropsWithoutRef<typeof CommandPrimitive.Separator>
 >(({ className, ...props }, ref) => (
   <CommandPrimitive.Separator
@@ -111,7 +97,7 @@ const CommandSeparator = forwardRef<
 CommandSeparator.displayName = CommandPrimitive.Separator.displayName;
 
 const CommandItem = forwardRef<
-  ElementRef<typeof CommandPrimitive.Item>,
+  HTMLDivElement,
   ComponentPropsWithoutRef<typeof CommandPrimitive.Item>
 >(({ className, ...props }, ref) => (
   <CommandPrimitive.Item

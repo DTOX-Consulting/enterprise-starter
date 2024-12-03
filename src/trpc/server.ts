@@ -26,7 +26,7 @@ const client = createTRPCProxyClient<AppRouter>({
 });
 
 export const createApi = () => {
-  const heads = new Map(headers());
+  const heads = new Map(headers() as unknown as Headers);
   heads.set('x-trpc-source', 'rsc');
   trpcHeader = Object.fromEntries(heads);
 

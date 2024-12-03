@@ -19,7 +19,7 @@ export function ScrollToTop() {
 
   return (
     <ReactScrollToTop
-      className="vertical center dark:bg-inherit dark:text-neutral-400"
+      className="vertical center dark:bg-inherit dark:text-gray-4"
       component={<ArrowUp size={40} />}
       smooth
     />

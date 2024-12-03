@@ -67,7 +67,7 @@ type Options = {
 };
 
 export const ImageEditor = ({ options }: { options: Options }) => {
-  const editorRef = useRef<ImageEditorInstance>();
+  const editorRef = useRef<ImageEditorInstance>(undefined);
 
   const saveImage = useCallback(async () => {
     const editorInstance = editorRef.current?.getInstance();

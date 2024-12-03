@@ -9,7 +9,7 @@ import {
   unstable_httpBatchStreamLink
 } from '@trpc/client';
 import { createTRPCReact } from '@trpc/react-query';
-import { useState } from 'react';
+import { type ReactNode, useState } from 'react';
 
 import { getEnv } from '@/lib/env/env.mjs';
 import { getUrl, transformer } from '@/trpc/shared';
@@ -18,7 +18,7 @@ import type { AppRouter } from '@/trpc/routers';
 
 export const api: ReturnType<typeof createTRPCReact<AppRouter>> = createTRPCReact<AppRouter>();
 
-export function TRPCReactProvider(props: { children: React.ReactNode; headers: Headers }) {
+export function TRPCReactProvider(props: { children: ReactNode; headers: Headers }) {
   const linkCondition = (op: Operation) => op.context['skipBatch'] === true;
 
   const linkSetup = {

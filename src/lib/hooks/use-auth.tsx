@@ -8,6 +8,8 @@ export function useAuth() {
   const utils = api.useUtils();
   const { isOnline, isReconnected } = useNavigatorOnline();
 
+  const enabled = false; // isOnline;
+
   useEffect(() => {
     if (isReconnected) {
       void utils.auth.user.invalidate();
@@ -17,8 +19,8 @@ export function useAuth() {
   let { data } = api.auth.user.useQuery(undefined, {
     placeholderData: defaultUserSession(),
     staleTime: 1000 * 60 * 60,
-    enabled: false, // isOnline,
-    suspense: true
+    suspense: true,
+    enabled
   });
 
   if (!isOnline) {
@@ -37,6 +39,7 @@ export function useAuth() {
     orgId,
     userId,
     ...data,
+    enabled,
     session: data,
     getStorageKey
   };

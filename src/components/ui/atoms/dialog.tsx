@@ -11,17 +11,12 @@ import {
   Description as RadixDialogDescription
 } from '@radix-ui/react-dialog';
 import { X } from 'lucide-react';
-import {
-  forwardRef,
-  type ElementRef,
-  type ComponentPropsWithoutRef,
-  type HTMLAttributes
-} from 'react';
+import { forwardRef, type ComponentPropsWithoutRef, type HTMLAttributes } from 'react';
 
 import { cn } from '@/lib/utils';
 
 const DialogOverlay = forwardRef<
-  ElementRef<typeof RadixDialogOverlay>,
+  HTMLDivElement,
   ComponentPropsWithoutRef<typeof RadixDialogOverlay>
 >(({ className, ...props }, ref) => (
   <RadixDialogOverlay
@@ -36,7 +31,7 @@ const DialogOverlay = forwardRef<
 DialogOverlay.displayName = 'DialogOverlay';
 
 const DialogContent = forwardRef<
-  ElementRef<typeof RadixDialogContent>,
+  HTMLDivElement,
   ComponentPropsWithoutRef<typeof RadixDialogContent>
 >(({ className, children, ...props }, ref) => (
   <DialogPortal>
@@ -74,7 +69,7 @@ const DialogFooter = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) =
 DialogFooter.displayName = 'DialogFooter';
 
 const DialogTitle = forwardRef<
-  ElementRef<typeof RadixDialogTitle>,
+  HTMLHeadingElement,
   ComponentPropsWithoutRef<typeof RadixDialogTitle>
 >(({ className, ...props }, ref) => (
   <RadixDialogTitle
@@ -86,7 +81,7 @@ const DialogTitle = forwardRef<
 DialogTitle.displayName = 'DialogTitle';
 
 const DialogDescription = forwardRef<
-  ElementRef<typeof RadixDialogDescription>,
+  HTMLParagraphElement,
   ComponentPropsWithoutRef<typeof RadixDialogDescription>
 >(({ className, ...props }, ref) => (
   <RadixDialogDescription

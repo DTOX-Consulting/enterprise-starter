@@ -6,20 +6,19 @@ import {
   Indicator as RadioGroupIndicator
 } from '@radix-ui/react-radio-group';
 import { Circle } from 'lucide-react';
-import { forwardRef, type ElementRef, type ComponentPropsWithoutRef } from 'react';
+import { forwardRef, type ComponentPropsWithoutRef } from 'react';
 
 import { cn } from '@/lib/utils';
 
-const RadioGroup = forwardRef<
-  ElementRef<typeof RadioGroupRoot>,
-  ComponentPropsWithoutRef<typeof RadioGroupRoot>
->(({ className, ...props }, ref) => (
-  <RadioGroupRoot className={cn('grid gap-2', className)} {...props} ref={ref} />
-));
+const RadioGroup = forwardRef<HTMLDivElement, ComponentPropsWithoutRef<typeof RadioGroupRoot>>(
+  ({ className, ...props }, ref) => (
+    <RadioGroupRoot className={cn('grid gap-2', className)} {...props} ref={ref} />
+  )
+);
 RadioGroup.displayName = RadioGroupRoot.displayName;
 
 const RadioGroupItemComponent = forwardRef<
-  ElementRef<typeof RadioGroupItem>,
+  HTMLButtonElement,
   ComponentPropsWithoutRef<typeof RadioGroupItem>
 >(({ className, ...props }, ref) => (
   <RadioGroupItem

@@ -9,10 +9,10 @@ const MotionImage = motion(Image);
 export function GrayscaleTransitionImage(
   props: Pick<ImageProps, 'src' | 'quality' | 'className' | 'sizes' | 'priority'> & { alt?: string }
 ) {
-  const ref = useRef<React.ElementRef<'div'>>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     offset: ['start 65%', 'end 35%'],
-    target: ref
+    target: ref as React.RefObject<HTMLElement>
   });
 
   const grayscale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0, 1]);

@@ -5,6 +5,9 @@ import typography from '@tailwindcss/typography';
 import { fontFamily, height, width } from 'tailwindcss/defaultTheme';
 import plugin from 'tailwindcss/plugin';
 import animate from 'tailwindcss-animate';
+import tailwindcssRadixColors from 'tailwindcss-radix-colors';
+
+import type { Config } from 'tailwindcss';
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -35,15 +38,15 @@ module.exports = {
     },
     extend: {
       brightness: {
-        25: '.25',
-        50: '.50',
-        55: '.55',
-        60: '.60',
-        65: '.65',
-        70: '.70',
-        75: '.75',
-        80: '.80',
-        85: '.85'
+        '25': '.25',
+        '50': '.50',
+        '55': '.55',
+        '60': '.60',
+        '65': '.65',
+        '70': '.70',
+        '75': '.75',
+        '80': '.80',
+        '85': '.85'
       },
       colors: {
         ring: 'hsl(var(--ring))',
@@ -78,6 +81,16 @@ module.exports = {
         card: {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))'
+        },
+        sidebar: {
+          DEFAULT: 'hsl(var(--sidebar-background))',
+          foreground: 'hsl(var(--sidebar-foreground))',
+          primary: 'hsl(var(--sidebar-primary))',
+          'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
+          accent: 'hsl(var(--sidebar-accent))',
+          'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
+          border: 'hsl(var(--sidebar-border))',
+          ring: 'hsl(var(--sidebar-ring))'
         }
       },
       fontFamily: {
@@ -114,13 +127,13 @@ module.exports = {
         sm: 'calc(var(--radius) - 4px)'
       },
       borderWidth: {
-        DEFAULT: '1px',
-        0: '0',
-        2: '2px',
-        3: '3px',
-        4: '4px',
-        6: '6px',
-        8: '8px'
+        '0': '0',
+        '2': '2px',
+        '3': '3px',
+        '4': '4px',
+        '6': '6px',
+        '8': '8px',
+        DEFAULT: '1px'
       },
       minHeight: {
         ...height
@@ -134,10 +147,8 @@ module.exports = {
       spin: 'spin 1s linear infinite',
       ping: 'ping 1s cubic-bezier(0, 0, 0.2, 1) infinite',
       pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-      // Fade up and down
       'fade-up': 'fade-up 0.5s',
       'fade-down': 'fade-down 0.5s',
-      // Tooltip
       'slide-up-fade': 'slide-up-fade 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
       'slide-down-fade': 'slide-down-fade 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
       'accordion-down': 'accordion-down 0.2s ease-out',
@@ -145,8 +156,12 @@ module.exports = {
     },
     keyframes: {
       spin: {
-        from: { transform: 'rotate(0deg)' },
-        to: { transform: 'rotate(360deg)' }
+        from: {
+          transform: 'rotate(0deg)'
+        },
+        to: {
+          transform: 'rotate(360deg)'
+        }
       },
       bounce: {
         '0%, 100%': {
@@ -159,55 +174,80 @@ module.exports = {
         }
       },
       ping: {
-        '75%, 100%': { transform: 'scale(2)', opacity: 0 }
+        '75%, 100%': {
+          transform: 'scale(2)',
+          opacity: '0'
+        }
       },
       pulse: {
-        '0%, 100%': { opacity: 1 },
-        '50%': { opacity: 0.5 }
+        '0%, 100%': {
+          opacity: '1'
+        },
+        '50%': {
+          opacity: '0.5'
+        }
       },
-      // Fade up and down
       'fade-up': {
         '0%': {
-          opacity: 0,
+          opacity: '0',
           transform: 'translateY(10px)'
         },
         '80%': {
-          opacity: 0.6
+          opacity: '0.6'
         },
         '100%': {
-          opacity: 1,
+          opacity: '1',
           transform: 'translateY(0px)'
         }
       },
       'fade-down': {
         '0%': {
-          opacity: 0,
+          opacity: '0',
           transform: 'translateY(-10px)'
         },
         '80%': {
-          opacity: 0.6
+          opacity: '0.6'
         },
         '100%': {
-          opacity: 1,
+          opacity: '1',
           transform: 'translateY(0px)'
         }
       },
-      // Tooltip
       'slide-up-fade': {
-        '0%': { opacity: 0, transform: 'translateY(6px)' },
-        '100%': { opacity: 1, transform: 'translateY(0)' }
+        '0%': {
+          opacity: '0',
+          transform: 'translateY(6px)'
+        },
+        '100%': {
+          opacity: '1',
+          transform: 'translateY(0)'
+        }
       },
       'slide-down-fade': {
-        '0%': { opacity: 0, transform: 'translateY(-6px)' },
-        '100%': { opacity: 1, transform: 'translateY(0)' }
+        '0%': {
+          opacity: '0',
+          transform: 'translateY(-6px)'
+        },
+        '100%': {
+          opacity: '1',
+          transform: 'translateY(0)'
+        }
       },
       'accordion-down': {
-        from: { height: 0 },
-        to: { height: 'var(--radix-accordion-content-height)' }
+        from: {
+          height: '0'
+        },
+        to: {
+          height: 'var(--radix-accordion-content-height)'
+        }
       },
       'accordion-up': {
-        from: { height: 'var(--radix-accordion-content-height)' },
-        to: { height: 0 }
+        from: {
+          height: 'var(--radix-accordion-content-height)'
+        },
+        to: {
+          height: '0'
+        }
       }
     }
   },
@@ -217,9 +257,10 @@ module.exports = {
     typography,
     aspectRatio,
     containerQueries,
+    tailwindcssRadixColors,
     plugin((pluginParam) => {
       pluginParam.addVariant('radix-side-top', '&[data-side="top"]');
       pluginParam.addVariant('radix-side-bottom', '&[data-side="bottom"]');
     })
   ]
-};
+} satisfies Config;

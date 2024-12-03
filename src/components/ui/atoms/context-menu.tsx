@@ -18,17 +18,12 @@ import {
   ItemIndicator
 } from '@radix-ui/react-context-menu';
 import { Check, ChevronRight, Circle } from 'lucide-react';
-import {
-  forwardRef,
-  type ElementRef,
-  type ComponentPropsWithoutRef,
-  type HTMLAttributes
-} from 'react';
+import { forwardRef, type ComponentPropsWithoutRef, type HTMLAttributes } from 'react';
 
 import { cn } from '@/lib/utils';
 
 const ContextMenuSubTrigger = forwardRef<
-  ElementRef<typeof RadixContextMenuSubTrigger>,
+  HTMLDivElement,
   ComponentPropsWithoutRef<typeof RadixContextMenuSubTrigger> & {
     inset?: boolean;
   }
@@ -49,7 +44,7 @@ const ContextMenuSubTrigger = forwardRef<
 ContextMenuSubTrigger.displayName = 'ContextMenuSubTrigger';
 
 const ContextMenuSubContent = forwardRef<
-  ElementRef<typeof RadixContextMenuSubContent>,
+  HTMLDivElement,
   ComponentPropsWithoutRef<typeof RadixContextMenuSubContent>
 >(({ className, ...props }, ref) => (
   <RadixContextMenuSubContent
@@ -64,7 +59,7 @@ const ContextMenuSubContent = forwardRef<
 ContextMenuSubContent.displayName = 'ContextMenuSubContent';
 
 const ContextMenuContent = forwardRef<
-  ElementRef<typeof RadixContextMenuContent>,
+  HTMLDivElement,
   ComponentPropsWithoutRef<typeof RadixContextMenuContent>
 >(({ className, ...props }, ref) => (
   <ContextMenuPortal>
@@ -81,7 +76,7 @@ const ContextMenuContent = forwardRef<
 ContextMenuContent.displayName = 'ContextMenuContent';
 
 const ContextMenuItem = forwardRef<
-  ElementRef<typeof RadixContextMenuItem>,
+  HTMLDivElement,
   ComponentPropsWithoutRef<typeof RadixContextMenuItem> & {
     inset?: boolean;
   }
@@ -99,7 +94,7 @@ const ContextMenuItem = forwardRef<
 ContextMenuItem.displayName = 'ContextMenuItem';
 
 const ContextMenuCheckboxItem = forwardRef<
-  ElementRef<typeof RadixContextMenuCheckboxItem>,
+  HTMLDivElement,
   ComponentPropsWithoutRef<typeof RadixContextMenuCheckboxItem>
 >(({ className, children, checked, ...props }, ref) => (
   <RadixContextMenuCheckboxItem
@@ -122,7 +117,7 @@ const ContextMenuCheckboxItem = forwardRef<
 ContextMenuCheckboxItem.displayName = 'ContextMenuCheckboxItem';
 
 const ContextMenuRadioItem = forwardRef<
-  ElementRef<typeof RadixContextMenuRadioItem>,
+  HTMLDivElement,
   ComponentPropsWithoutRef<typeof RadixContextMenuRadioItem>
 >(({ className, children, ...props }, ref) => (
   <RadixContextMenuRadioItem
@@ -144,7 +139,7 @@ const ContextMenuRadioItem = forwardRef<
 ContextMenuRadioItem.displayName = 'ContextMenuRadioItem';
 
 const ContextMenuLabel = forwardRef<
-  ElementRef<typeof RadixContextMenuLabel>,
+  HTMLDivElement,
   ComponentPropsWithoutRef<typeof RadixContextMenuLabel> & {
     inset?: boolean;
   }
@@ -162,7 +157,7 @@ const ContextMenuLabel = forwardRef<
 ContextMenuLabel.displayName = 'ContextMenuLabel';
 
 const ContextMenuSeparator = forwardRef<
-  ElementRef<typeof RadixContextMenuSeparator>,
+  HTMLDivElement,
   ComponentPropsWithoutRef<typeof RadixContextMenuSeparator>
 >(({ className, ...props }, ref) => (
   <RadixContextMenuSeparator

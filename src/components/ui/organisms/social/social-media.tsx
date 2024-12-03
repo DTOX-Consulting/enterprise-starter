@@ -164,7 +164,7 @@ export function SocialMedia({
               'transition',
               invert
                 ? 'hover:text-neutral-200 dark:hover:text-neutral-700'
-                : 'hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-gray-500'
+                : 'hover:text-neutral-700 dark:text-gray-4 dark:hover:text-gray-500'
             )}
           >
             <socialMediaProfile.icon className="size-6 fill-current" />

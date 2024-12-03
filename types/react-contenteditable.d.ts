@@ -11,7 +11,7 @@ declare module 'react-contenteditable' {
     onKeyDown?: GenericFunction;
     // Was originally typed as Object.
     style?: React.CSSProperties;
-    innerRef?: React.RefObject<HTMLElement> | GenericFunction;
+    innerRef?: React.RefObject<HTMLElement | null> | GenericFunction;
     // I am currently only using onChange. I didn't update the other event handler definitions,
     // but if you want strict typing, they all follow a similar pattern.
     onChange?: (event: React.ChangeEvent<ContentEditableElement>) => T;

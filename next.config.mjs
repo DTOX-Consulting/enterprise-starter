@@ -17,12 +17,13 @@ const nextConfig = {
   images,
   headers,
   rewrites,
-  swcMinify: true,
   trailingSlash: false,
   reactStrictMode: true,
   productionBrowserSourceMaps: true,
+  bundlePagesRouterDependencies: true,
   output: isDocker ? 'standalone' : undefined,
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'mdx'],
+  serverExternalPackages: ['@highlight-run/node', 'require-in-the-middle'],
   experimental: {
     ppr: false,
     mdxRs: true,
@@ -31,9 +32,11 @@ const nextConfig = {
     nextScriptWorkers: true,
     serverSourceMaps: isDev,
     serverMinification: !isDev,
-    instrumentationHook: !isDev,
     // esmExternals: isDev ? true : 'loose',
-    serverComponentsExternalPackages: ['@highlight-run/node', 'require-in-the-middle']
+    staleTimes: {
+      dynamic: 30, // Manually set dynamic route staleTime to 30 seconds
+      static: 180
+    }
   },
   typescript: {
     // Warning: This allows production builds to successfully complete even if
@@ -144,19 +147,21 @@ const _nextMillion = () => {
     rsc: true
   });
 
-  /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-return */
   /** @type {import("next").NextConfig} */
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const config = lint(pluginsConfig);
 
   /** @type {import("next").NextConfig} */
-  return nextMillionCompiler(config, {
+  // eslint-disable-next-line sonarjs/prefer-immediate-return, @typescript-eslint/no-unsafe-assignment
+  const final = nextMillionCompiler(config, {
     rsc: true,
     auto: true,
     filter: {
       exclude: ['**/node_modules/**/*', '**/src/components/ui/organisms/chat/icons.tsx']
     }
   });
-  /* eslint-enable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-return */
+
+  return final;
 };
 
 /**
@@ -174,6 +179,7 @@ const config = async () => {
   //   await $`bash ./scripts/change_runtime.sh edge src/app route.ts page.tsx layout.tsx not-found.tsx sitemap.ts`;
   // }
 
+  // return _nextMillion();
   return pluginsConfig;
 };
 

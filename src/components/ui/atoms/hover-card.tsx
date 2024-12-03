@@ -6,12 +6,12 @@ import {
   Portal as HoverCardPortal,
   Content as RadixHoverCardContent
 } from '@radix-ui/react-hover-card';
-import { forwardRef, type ElementRef, type ComponentPropsWithoutRef } from 'react';
+import { forwardRef, type ComponentPropsWithoutRef } from 'react';
 
 import { cn } from '@/lib/utils';
 
 const HoverCardContent = forwardRef<
-  ElementRef<typeof RadixHoverCardContent>,
+  HTMLDivElement,
   ComponentPropsWithoutRef<typeof RadixHoverCardContent>
 >(({ className, align = 'center', sideOffset = 4, ...props }, ref) => (
   <HoverCardPortal>

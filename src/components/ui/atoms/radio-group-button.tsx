@@ -4,12 +4,12 @@ import {
   Indicator as RadioGroupIndicator
 } from '@radix-ui/react-radio-group';
 import { Check } from 'lucide-react';
-import { forwardRef, type ElementRef, type ComponentPropsWithoutRef } from 'react';
+import { forwardRef, type ComponentPropsWithoutRef } from 'react';
 
 import { cn } from '@/lib/utils';
 
 const RadioGroupButton = forwardRef<
-  ElementRef<typeof RadioGroupRoot>,
+  HTMLDivElement,
   ComponentPropsWithoutRef<typeof RadioGroupRoot>
 >(({ className, ...props }, ref) => (
   <RadioGroupRoot
@@ -21,7 +21,7 @@ const RadioGroupButton = forwardRef<
 RadioGroupButton.displayName = RadioGroupRoot.displayName;
 
 const RadioGroupButtonItem = forwardRef<
-  ElementRef<typeof RadioGroupItem>,
+  HTMLButtonElement,
   ComponentPropsWithoutRef<typeof RadioGroupItem>
 >(({ className, children, ...props }, ref) => (
   <RadioGroupItem

@@ -16,14 +16,14 @@ import {
   Icon as SelectPrimitiveIcon
 } from '@radix-ui/react-select';
 import { Check, ChevronDown } from 'lucide-react';
-import { forwardRef, type ElementRef, type ComponentPropsWithoutRef } from 'react';
+import { forwardRef, type ComponentPropsWithoutRef } from 'react';
 
 import { cn } from '@/lib/utils';
 
 import type { Option } from '@/data/option';
 
 const SelectTrigger = forwardRef<
-  ElementRef<typeof SelectPrimitiveTrigger>,
+  HTMLButtonElement,
   ComponentPropsWithoutRef<typeof SelectPrimitiveTrigger>
 >(({ className, children, ...props }, ref) => (
   <SelectPrimitiveTrigger
@@ -43,7 +43,7 @@ const SelectTrigger = forwardRef<
 SelectTrigger.displayName = SelectPrimitiveTrigger.displayName;
 
 const SelectContent = forwardRef<
-  ElementRef<typeof SelectPrimitiveContent>,
+  HTMLDivElement,
   ComponentPropsWithoutRef<typeof SelectPrimitiveContent>
 >(({ className, children, position = 'popper', ...props }, ref) => (
   <Portal>
@@ -72,7 +72,7 @@ const SelectContent = forwardRef<
 SelectContent.displayName = SelectPrimitiveContent.displayName;
 
 const SelectLabel = forwardRef<
-  ElementRef<typeof SelectPrimitiveLabel>,
+  HTMLDivElement,
   ComponentPropsWithoutRef<typeof SelectPrimitiveLabel>
 >(({ className, ...props }, ref) => (
   <SelectPrimitiveLabel
@@ -83,31 +83,30 @@ const SelectLabel = forwardRef<
 ));
 SelectLabel.displayName = SelectPrimitiveLabel.displayName;
 
-const SelectItem = forwardRef<
-  ElementRef<typeof SelectPrimitiveItem>,
-  ComponentPropsWithoutRef<typeof SelectPrimitiveItem>
->(({ className, children, ...props }, ref) => (
-  <SelectPrimitiveItem
-    ref={ref}
-    className={cn(
-      'relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
-      className
-    )}
-    {...props}
-  >
-    <span className="absolute left-2 flex size-3.5 items-center justify-center">
-      <ItemIndicator>
-        <Check className="size-4" />
-      </ItemIndicator>
-    </span>
+const SelectItem = forwardRef<HTMLDivElement, ComponentPropsWithoutRef<typeof SelectPrimitiveItem>>(
+  ({ className, children, ...props }, ref) => (
+    <SelectPrimitiveItem
+      ref={ref}
+      className={cn(
+        'relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+        className
+      )}
+      {...props}
+    >
+      <span className="absolute left-2 flex size-3.5 items-center justify-center">
+        <ItemIndicator>
+          <Check className="size-4" />
+        </ItemIndicator>
+      </span>
 
-    <ItemText>{children}</ItemText>
-  </SelectPrimitiveItem>
-));
+      <ItemText>{children}</ItemText>
+    </SelectPrimitiveItem>
+  )
+);
 SelectItem.displayName = SelectPrimitiveItem.displayName;
 
 const SelectSeparator = forwardRef<
-  ElementRef<typeof SelectPrimitiveSeparator>,
+  HTMLDivElement,
   ComponentPropsWithoutRef<typeof SelectPrimitiveSeparator>
 >(({ className, ...props }, ref) => (
   <SelectPrimitiveSeparator

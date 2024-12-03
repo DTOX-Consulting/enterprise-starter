@@ -3,7 +3,6 @@
 import {
   type ComponentProps,
   type ComponentPropsWithoutRef,
-  type ElementRef,
   forwardRef,
   type HTMLAttributes
 } from 'react';
@@ -26,7 +25,7 @@ const DrawerPortal = DrawerPrimitive.Portal;
 const DrawerClose = DrawerPrimitive.Close;
 
 const DrawerOverlay = forwardRef<
-  ElementRef<typeof DrawerPrimitive.Overlay>,
+  HTMLDivElement,
   ComponentPropsWithoutRef<typeof DrawerPrimitive.Overlay>
 >(({ className, ...props }, ref) => (
   <DrawerPrimitive.Overlay
@@ -38,7 +37,7 @@ const DrawerOverlay = forwardRef<
 DrawerOverlay.displayName = DrawerPrimitive.Overlay.displayName;
 
 const DrawerContent = forwardRef<
-  ElementRef<typeof DrawerPrimitive.Content>,
+  HTMLDivElement,
   ComponentPropsWithoutRef<typeof DrawerPrimitive.Content>
 >(({ className, children, ...props }, ref) => (
   <DrawerPortal>
@@ -69,7 +68,7 @@ const DrawerFooter = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) =
 DrawerFooter.displayName = 'DrawerFooter';
 
 const DrawerTitle = forwardRef<
-  ElementRef<typeof DrawerPrimitive.Title>,
+  HTMLDivElement,
   ComponentPropsWithoutRef<typeof DrawerPrimitive.Title>
 >(({ className, ...props }, ref) => (
   <DrawerPrimitive.Title
@@ -81,7 +80,7 @@ const DrawerTitle = forwardRef<
 DrawerTitle.displayName = DrawerPrimitive.Title.displayName;
 
 const DrawerDescription = forwardRef<
-  ElementRef<typeof DrawerPrimitive.Description>,
+  HTMLDivElement,
   ComponentPropsWithoutRef<typeof DrawerPrimitive.Description>
 >(({ className, ...props }, ref) => (
   <DrawerPrimitive.Description

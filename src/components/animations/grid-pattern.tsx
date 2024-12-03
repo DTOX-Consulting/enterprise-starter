@@ -38,11 +38,11 @@ function GridPatternDefs({ id, yOffset }: Readonly<{ id: string; yOffset: number
 }
 
 function useGridPattern(
-  ref: React.RefObject<SVGSVGElement>,
+  ref: React.RefObject<SVGSVGElement | null>,
   yOffset: number,
   interactive: boolean
 ) {
-  const currentBlock = useRef<[x: number, y: number]>();
+  const currentBlock = useRef<[x: number, y: number]>(undefined);
   const counter = useRef(0);
   const [hoveredBlocks, setHoveredBlocks] = useState<[x: number, y: number, key: number][]>([]);
 
@@ -96,7 +96,7 @@ export function GridPattern({
   interactive?: boolean;
 }) {
   const id = useId();
-  const ref = useRef<React.ElementRef<'svg'>>(null);
+  const ref = useRef<SVGSVGElement>(null);
   const { hoveredBlocks, setHoveredBlocks } = useGridPattern(ref, yOffset, interactive);
 
   const staticBlocks = [

@@ -6,7 +6,6 @@ import {
   useContext,
   forwardRef,
   createContext,
-  type ElementRef,
   type HTMLAttributes,
   type ComponentPropsWithoutRef
 } from 'react';
@@ -95,24 +94,23 @@ const FormItem = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
 );
 FormItem.displayName = 'FormItem';
 
-const FormLabel = forwardRef<
-  ElementRef<typeof LabelPrimitiveRoot>,
-  ComponentPropsWithoutRef<typeof LabelPrimitiveRoot>
->(({ className, ...props }, ref) => {
-  const { error, formItemId } = useFormField();
+const FormLabel = forwardRef<HTMLLabelElement, ComponentPropsWithoutRef<typeof LabelPrimitiveRoot>>(
+  ({ className, ...props }, ref) => {
+    const { error, formItemId } = useFormField();
 
-  return (
-    <Label
-      ref={ref}
-      className={cn(error && 'text-destructive', className)}
-      htmlFor={formItemId}
-      {...props}
-    />
-  );
-});
+    return (
+      <Label
+        ref={ref}
+        className={cn(error && 'text-destructive', className)}
+        htmlFor={formItemId}
+        {...props}
+      />
+    );
+  }
+);
 FormLabel.displayName = 'FormLabel';
 
-const FormControl = forwardRef<ElementRef<typeof Slot>, ComponentPropsWithoutRef<typeof Slot>>(
+const FormControl = forwardRef<HTMLElement, ComponentPropsWithoutRef<typeof Slot>>(
   ({ ...props }, ref) => {
     const { error, formItemId, formDescriptionId, formMessageId } = useFormField();
 
@@ -179,5 +177,4 @@ export {
   useForm,
   useFormField
 };
-
 export type { UseFormReturn, FieldValues };

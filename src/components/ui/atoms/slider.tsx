@@ -1,11 +1,11 @@
 'use client';
 
 import { Root, Track, Range, Thumb } from '@radix-ui/react-slider';
-import { forwardRef, type ElementRef, type ComponentPropsWithoutRef } from 'react';
+import { forwardRef, type ComponentPropsWithoutRef } from 'react';
 
 import { cn } from '@/lib/utils';
 
-const Slider = forwardRef<ElementRef<typeof Root>, ComponentPropsWithoutRef<typeof Root>>(
+const Slider = forwardRef<HTMLDivElement, ComponentPropsWithoutRef<typeof Root>>(
   ({ className, ...props }, ref) => (
     <Root
       ref={ref}

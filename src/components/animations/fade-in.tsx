@@ -2,7 +2,7 @@
 
 import { G } from '@mobily/ts-belt';
 import { motion, useReducedMotion } from 'framer-motion';
-import { createContext, useContext } from 'react';
+import { type ComponentPropsWithoutRef, createContext, useContext } from 'react';
 
 const FadeInStaggerContext = createContext(false);
 
@@ -11,7 +11,7 @@ const viewport = { once: true, margin: '0px 0px -200px' };
 export function FadeIn({
   key = 'default',
   ...props
-}: React.ComponentPropsWithoutRef<typeof motion.div> & { key?: string }) {
+}: ComponentPropsWithoutRef<typeof motion.div> & { key?: string; className?: string }) {
   const shouldReduceMotion = useReducedMotion();
   const isInStaggerGroup = useContext(FadeInStaggerContext);
 
@@ -42,7 +42,7 @@ export function FadeInStagger({
   faster = false,
   key = 'default',
   ...props
-}: React.ComponentPropsWithoutRef<typeof motion.div> & {
+}: ComponentPropsWithoutRef<typeof motion.div> & {
   faster?: boolean;
   type?: string;
   key?: string;

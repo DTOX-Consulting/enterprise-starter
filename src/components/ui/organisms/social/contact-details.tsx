@@ -13,7 +13,7 @@ export function ContactDetails({ children }: Readonly<PropsWithChildren>) {
       <h2 className="font-display text-base font-semibold text-neutral-950 dark:text-neutral-200">
         Our Info
       </h2>
-      <p className="mt-6 text-base text-gray-500 dark:text-neutral-400">{children}</p>
+      <p className="mt-6 text-base text-gray-500 dark:text-gray-4">{children}</p>
 
       <Border className="mt-10 pt-10">
         <h2 className="font-display text-base font-semibold text-neutral-950 dark:text-neutral-200">
