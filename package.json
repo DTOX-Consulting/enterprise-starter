@@ -30,7 +30,7 @@
     "lint:next": "next lint --fix --quiet",
     "format": "pnpm lint:oxlint; pnpm lint:biome",
     "lint:biome": "biome check --unsafe --write .",
-    "lint:eslint": "eslint --quiet --cache --fix",
+    "lint:eslint": "NODE_OPTIONS='--max-old-space-size=8192' eslint --quiet --cache --fix",
     "lint": "pnpm lint:oxlint; pnpm lint:biome; pnpm lint:eslint",
     "lint:oxlint": "oxlint -c oxlintrc.json --fix --import-plugin --jest-plugin --jsx-a11y-plugin --nextjs-plugin --react-perf-plugin --ignore-path .oxlintignore -A label-has-associated-control",
     "check": "pnpm typecheck; pnpm lint:package; pnpm lint:oxlint; pnpm lint:biome; pnpm lint:eslint",
