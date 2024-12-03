@@ -14,7 +14,7 @@ export default function About() {
             <h1 className="mb-4 max-w-2xl text-4xl font-extrabold leading-none tracking-tight dark:text-white md:text-5xl xl:text-6xl">
               Next.js Enterprise Starter
             </h1>
-            <p className="mb-6 max-w-2xl font-light text-gray-5 dark:text-neutral-4 md:text-lg lg:mb-8 lg:text-xl">
+            <p className="mb-6 max-w-2xl font-light text-gray-5 dark:text-gray-4 md:text-lg lg:mb-8 lg:text-xl">
               Jumpstart your enterprise project with our feature-packed, high-performance Next.js
               starter! Experience rapid UI development, AI-powered code reviews, and an extensive
               suite of tools for a smooth and enjoyable development process.
@@ -41,7 +41,7 @@ export default function About() {
                 key={singleItem.title}
                 className="flex flex-col items-center justify-center text-center"
               >
-                <div className="mb-4 flex size-10 items-center justify-center rounded-full p-1.5 text-blue-700 lg:size-12">
+                <div className="mb-4 flex size-10 items-center justify-center rounded-full p-1.5 text-blue-7 lg:size-12">
                   {singleItem.icon}
                 </div>
                 <h3 className="mb-2 text-xl font-bold dark:text-white">{singleItem.title}</h3>

@@ -14,7 +14,7 @@ import { useForceState } from '@/lib/hooks/use-force-rerender';
 
 function HomeLink({ width, height }: Readonly<{ width: number; height: number }>) {
   return (
-    <Link href={home.href} className="items-center p-4 align-middle hover:text-emerald-700">
+    <Link href={home.href} className="items-center p-4 align-middle hover:text-emerald-7">
       <Image src={home.src} alt="logo" width={width} height={height} className="inline-block" />
     </Link>
   );
@@ -25,7 +25,7 @@ function Links({ WrapperComponent }: { WrapperComponent: React.ElementType }) {
     <WrapperComponent key={item.name}>
       <Link
         href={item.href}
-        className="inline-block items-center p-4 align-middle hover:text-emerald-700"
+        className="inline-block items-center p-4 align-middle hover:text-emerald-7"
       >
         {item.icon && <item.icon />}
         &nbsp;
@@ -50,7 +50,7 @@ export function Navigation() {
           <DropdownMenuTrigger asChild>
             <button
               type="button"
-              className="-m-2.5 inline-flex items-center justify-center rounded-lg p-2.5 text-gray-700"
+              className="-m-2.5 inline-flex items-center justify-center rounded-lg p-2.5 text-gray-7"
               onClick={() => setMobileMenuOpen(true)}
             >
               <span className="sr-only">Open main menu</span>
@@ -66,7 +66,7 @@ export function Navigation() {
         >
           <button
             type="button"
-            className="ml-4 mt-4 inline-flex items-center justify-center rounded-lg text-gray-700"
+            className="ml-4 mt-4 inline-flex items-center justify-center rounded-lg text-gray-7"
             onClick={() => setMobileMenuOpen(false)}
           >
             <span className="sr-only">Close main menu</span>
@@ -92,7 +92,7 @@ export const FooterNavigation = () => (
       <div key={item.name} className="pb-6">
         <Link
           href={item.href}
-          className="text-sm leading-6 text-gray-500 hover:text-gray-900 dark:text-gray-4"
+          className="text-sm leading-6 text-gray-5 hover:text-gray-9 dark:text-gray-4"
         >
           {item.name}
         </Link>

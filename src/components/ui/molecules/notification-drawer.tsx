@@ -26,7 +26,7 @@ const NotificationBadge = ({ count }: { count: number }) => (
 );
 
 const NotificationIcon = ({ Icon }: { Icon: LucideIcon }) => (
-  <Icon className="size-7 text-gray-400 hover:text-gray-500" />
+  <Icon className="size-7 text-gray-4 hover:text-gray-5" />
 );
 
 export const NotificationTrigger = ({
@@ -65,7 +65,7 @@ export const NotificationContent = ({
             /* do nothing */
           }}
           onClick={() => onClick(notification)}
-          className="group relative -mx-2 flex cursor-pointer flex-col border-b px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-500"
+          className="group relative -mx-2 flex cursor-pointer flex-col border-b px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-5"
         >
           <X
             onClick={(event) => {
@@ -73,7 +73,7 @@ export const NotificationContent = ({
               onClick(notification, true);
             }}
             className={cn(
-              'invisible absolute right-3 top-2 size-4 cursor-pointer text-red-500 hover:text-red-300 group-hover:visible',
+              'invisible absolute right-3 top-2 size-4 cursor-pointer text-red-5 hover:text-red-3 group-hover:visible',
               {
                 visible: isMobile
               }
@@ -81,10 +81,7 @@ export const NotificationContent = ({
           />
           <div className="flex items-center">
             {notification.icon && (
-              <NotificationItemIcon
-                icon={notification.icon}
-                className="mx-1 size-6 text-gray-500"
-              />
+              <NotificationItemIcon icon={notification.icon} className="mx-1 size-6 text-gray-5" />
             )}
             {(Boolean(notification.image) || Boolean(notification.content.actorImage)) && (
               <Image
@@ -110,13 +107,13 @@ export const NotificationContent = ({
       ))}
 
       {notifications.length === 0 && (
-        <p className="text-center font-mont text-gray-600 dark:text-gray-400">No notifications</p>
+        <p className="text-center font-mont text-gray-6 dark:text-gray-4">No notifications</p>
       )}
     </div>
     {notifications.length !== 0 && (
       <Link
         href={seeAllRoute}
-        className="block bg-gray-800 py-2 text-center font-bold text-white shadow-lg"
+        className="block bg-gray-8 py-2 text-center font-bold text-white shadow-lg"
       >
         See all notifications
       </Link>

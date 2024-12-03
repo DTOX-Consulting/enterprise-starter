@@ -2,7 +2,7 @@ export default function LoadingCircle({ dimensions }: Readonly<{ dimensions?: st
   return (
     <svg
       aria-hidden="true"
-      className={`${dimensions ?? 'size-4'} animate-spin fill-stone-600 text-stone-200`}
+      className={`${dimensions ?? 'size-4'} animate-spin fill-stone-6 text-stone-2`}
       viewBox="0 0 100 101"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

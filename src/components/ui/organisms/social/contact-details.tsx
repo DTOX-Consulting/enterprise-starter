@@ -10,13 +10,13 @@ import type { PropsWithChildren } from 'react';
 export function ContactDetails({ children }: Readonly<PropsWithChildren>) {
   return (
     <FadeIn>
-      <h2 className="font-display text-base font-semibold text-neutral-950 dark:text-neutral-200">
+      <h2 className="font-display text-base font-semibold text-gray-10 dark:text-gray-2">
         Our Info
       </h2>
-      <p className="mt-6 text-base text-gray-500 dark:text-gray-4">{children}</p>
+      <p className="mt-6 text-base text-gray-5 dark:text-gray-4">{children}</p>
 
       <Border className="mt-10 pt-10">
-        <h2 className="font-display text-base font-semibold text-neutral-950 dark:text-neutral-200">
+        <h2 className="font-display text-base font-semibold text-gray-10 dark:text-gray-2">
           Contact us
         </h2>
         <dl className="mt-6 grid grid-cols-1 gap-8 text-sm sm:grid-cols-2">
@@ -25,11 +25,11 @@ export function ContactDetails({ children }: Readonly<PropsWithChildren>) {
             ['Phone', 'tel', phone]
           ].map(([label, type, contact]) => (
             <div key={contact} className="col-span-1">
-              <dt className="font-semibold text-neutral-950">{label}</dt>
+              <dt className="font-semibold text-gray-10">{label}</dt>
               <dd>
                 <Link
                   href={`${type}:${contact}`}
-                  className="text-gray-500 hover:text-neutral-950 dark:text-neutral-200 dark:hover:text-neutral-800"
+                  className="text-gray-5 hover:text-gray-10 dark:text-gray-2 dark:hover:text-gray-8"
                 >
                   {contact}
                 </Link>
@@ -40,7 +40,7 @@ export function ContactDetails({ children }: Readonly<PropsWithChildren>) {
       </Border>
 
       <Border className="mt-10 pt-10">
-        <h2 className="font-display text-base font-semibold text-neutral-950 dark:text-neutral-200">
+        <h2 className="font-display text-base font-semibold text-gray-10 dark:text-gray-2">
           Follow us
         </h2>
         <SocialMedia className="mt-6" />

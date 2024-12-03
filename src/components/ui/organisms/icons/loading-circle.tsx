@@ -7,7 +7,7 @@ type LoadingCircleProps = Readonly<{
 export const LoadingCircle: React.FC<LoadingCircleProps> = ({ className = '' }) => (
   <svg
     aria-hidden="true"
-    className={`size-4 animate-spin fill-gray-600 text-gray-200 ${className}`}
+    className={`size-4 animate-spin fill-gray-6 text-gray-2 ${className}`}
     viewBox="0 0 100 101"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"

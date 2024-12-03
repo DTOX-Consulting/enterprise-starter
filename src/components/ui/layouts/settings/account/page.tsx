@@ -15,7 +15,7 @@ async function PersonalInformationForm() {
     <div className="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 py-16 pt-8 md:grid-cols-3 lg:pt-0">
       <div>
         <h2 className="text-base font-semibold leading-7">Personal Information</h2>
-        <p className="mt-1 text-sm leading-6 text-gray-400">
+        <p className="mt-1 text-sm leading-6 text-gray-4">
           Use a permanent address where you can receive mail.
         </p>
       </div>
@@ -25,7 +25,7 @@ async function PersonalInformationForm() {
             <UserImage user={user} width={64} height={64} className="size-16 sm:flex" />
             <div>
               <Button disabled>Change avatar</Button>
-              <p className="mt-2 text-xs leading-5 text-gray-400">JPG, GIF or PNG. 1MB max.</p>
+              <p className="mt-2 text-xs leading-5 text-gray-4">JPG, GIF or PNG. 1MB max.</p>
             </div>
           </div>
           <div className="sm:col-span-3">
@@ -87,7 +87,7 @@ export function _ChangePasswordForm() {
     <div className="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 py-16 pt-8 md:grid-cols-3">
       <div>
         <h2 className="text-base font-semibold leading-7">Change password</h2>
-        <p className="mt-1 text-sm leading-6 text-gray-400">
+        <p className="mt-1 text-sm leading-6 text-gray-4">
           Update your password associated with your account.
         </p>
       </div>
@@ -103,7 +103,7 @@ export function _ChangePasswordForm() {
                 name="current_password"
                 type="password"
                 autoComplete="current-password"
-                className="block w-full rounded-md border-0 bg-white/5 py-1.5 shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 bg-white/5 py-1.5 shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-5 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
@@ -117,7 +117,7 @@ export function _ChangePasswordForm() {
                 name="new_password"
                 type="password"
                 autoComplete="new-password"
-                className="block w-full rounded-md border-0 bg-white/5 py-1.5 shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 bg-white/5 py-1.5 shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-5 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
@@ -131,7 +131,7 @@ export function _ChangePasswordForm() {
                 name="confirm_password"
                 type="password"
                 autoComplete="new-password"
-                className="block w-full rounded-md border-0 bg-white/5 py-1.5 shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 bg-white/5 py-1.5 shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-5 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
@@ -149,7 +149,7 @@ export function _LogoutOtherSessionsForm() {
     <div className="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 py-16 pt-8 md:grid-cols-3">
       <div>
         <h2 className="text-base font-semibold leading-7">Log out other sessions</h2>
-        <p className="mt-1 text-sm leading-6 text-gray-400">
+        <p className="mt-1 text-sm leading-6 text-gray-4">
           Please enter your password to confirm you would like to log out of your other sessions
           across all of your devices.
         </p>
@@ -166,7 +166,7 @@ export function _LogoutOtherSessionsForm() {
                 name="password"
                 type="password"
                 autoComplete="current-password"
-                className="block w-full rounded-md border-0 bg-white/5 py-1.5 shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 bg-white/5 py-1.5 shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-5 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
@@ -184,7 +184,7 @@ function DeleteAccountForm() {
     <div className="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 py-16 pt-8 md:grid-cols-3">
       <div>
         <h2 className="text-base font-semibold leading-7">Delete account</h2>
-        <p className="mt-1 text-sm leading-6 text-gray-400">
+        <p className="mt-1 text-sm leading-6 text-gray-4">
           No longer want to use our service? You can delete your account here. This action is not
           reversible. All information related to this account will be deleted permanently.
         </p>
@@ -205,7 +205,7 @@ async function CurrentSubscriptionInformation() {
     <div className="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 py-16 pt-8 md:grid-cols-3">
       <div>
         <h2 className="text-base font-semibold leading-7">Subscription Tier</h2>
-        <p className="mt-1 text-sm leading-6 text-gray-400">
+        <p className="mt-1 text-sm leading-6 text-gray-4">
           View your current subscription tier and upgrade or downgrade anytime.
         </p>
       </div>
@@ -214,7 +214,7 @@ async function CurrentSubscriptionInformation() {
           <div>
             <h3 className="mb-2 text-lg font-bold">
               <span>{ucFirst(subscription.tier)} </span>
-              <span className="text-sm leading-6 text-gray-400">(billed monthly)</span>
+              <span className="text-sm leading-6 text-gray-4">(billed monthly)</span>
             </h3>
 
             <ManageSubscriptionButton tier={subscription.tier} />

@@ -71,7 +71,7 @@ export const AISelectorCommands = ({ onSelect }: AISelectorCommandsProps) => {
               key={option.value}
               value={option.value}
             >
-              <option.icon className="size-4 text-purple-500" />
+              <option.icon className="size-4 text-purple-5" />
               {option.label}
             </CommandItem>
           ))}
@@ -91,7 +91,7 @@ export const AISelectorCommands = ({ onSelect }: AISelectorCommandsProps) => {
               key={option.value}
               value={option.value}
             >
-              <option.icon className="size-4 text-purple-500" />
+              <option.icon className="size-4 text-purple-5" />
               {option.label}
             </CommandItem>
           ))}

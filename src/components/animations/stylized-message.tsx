@@ -40,13 +40,13 @@ export function StylizedImage({
             <foreignObject width={width} height={height}>
               <Image
                 alt="Stylized"
-                className="w-full bg-neutral-100 object-cover"
+                className="w-full bg-gray-100 object-cover"
                 style={{ aspectRatio: `${width} / ${height}` }}
                 {...props}
               />
             </foreignObject>
           </g>
-          <use href={`#${id}-shape`} strokeWidth="2" className="stroke-neutral-950/10" />
+          <use href={`#${id}-shape`} strokeWidth="2" className="stroke-gray-10/10" />
         </g>
         <defs>
           <clipPath id={`${id}-clip`}>

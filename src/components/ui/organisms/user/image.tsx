@@ -29,12 +29,12 @@ export const UserImage = ({ user, width = 40, height = 40, className = '' }: Use
     width={width}
     height={height}
     src={user?.image ?? defaultUser}
-    className={cn('size-10 rounded-full border bg-gray-200', className)}
+    className={cn('size-10 rounded-full border bg-gray-2', className)}
   />
 );
 
 export const UserDetails = ({ user, className }: UserImageProps) => (
-  <span className="flex flex-col text-gray-500 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-400">
+  <span className="flex flex-col text-gray-5 hover:text-gray-7 dark:text-gray-2 dark:hover:text-gray-4">
     <span className={cn('w-full truncate font-semibold leading-none ', className)}>
       {user?.name}
     </span>

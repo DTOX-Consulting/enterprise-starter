@@ -124,13 +124,13 @@ function getLinkClassNames(
   className?: string
 ) {
   return cn(
-    'flex h-16 flex-row items-center whitespace-nowrap rounded-r-md border-l-2 border-transparent px-3 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-700',
+    'flex h-16 flex-row items-center whitespace-nowrap rounded-r-md border-l-2 border-transparent px-3 text-gray-5 hover:bg-gray-100 hover:text-gray-7 dark:text-gray-2 dark:hover:text-gray-7',
     className,
     {
       'h-10': item.bottom,
       'rounded-full border-2': isMinimized,
       'mx-0 h-10': navigationProps.isSubLink,
-      'bg-gray-100 text-gray-700 dark:text-gray-700': navigationProps.isActive(item),
+      'bg-gray-100 text-gray-7 dark:text-gray-7': navigationProps.isActive(item),
       'px-0': isMinimized && navigationProps.isSubLink
     }
   );

@@ -51,7 +51,7 @@ export const UserMenu = ({ user, noMinimize }: { user?: SessionUser; noMinimize?
       <DropdownMenuContent className="w-56">
         <DropdownMenuLabel className="space-y-1">
           <p>{user?.name}</p>
-          <p className="text-xs text-gray-500">{user?.email}</p>
+          <p className="text-xs text-gray-5">{user?.email}</p>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
 

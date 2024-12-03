@@ -6,9 +6,9 @@ export function Radio({ label, ...props }: ComponentPropsWithoutRef<'input'> & {
       <input
         type="radio"
         {...props}
-        className="size-6 flex-none appearance-none rounded-full border border-neutral-950/20 outline-none checked:border-[0.5rem] checked:border-neutral-950 focus-visible:ring-1 focus-visible:ring-neutral-950 focus-visible:ring-offset-2"
+        className="size-6 flex-none appearance-none rounded-full border border-gray-10/20 outline-none checked:border-[0.5rem] checked:border-gray-10 focus-visible:ring-1 focus-visible:ring-gray-10 focus-visible:ring-offset-2"
       />
-      <span className="text-base/6 text-neutral-950">{label}</span>
+      <span className="text-base/6 text-gray-10">{label}</span>
     </label>
   );
 }

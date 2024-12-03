@@ -44,7 +44,7 @@ export const GenerativeMenuSwitch = ({
             size="sm"
             variant="ghost"
             onClick={() => onOpenChange(true)}
-            className="w-24 gap-1 rounded-none text-purple-500"
+            className="w-24 gap-1 rounded-none text-purple-5"
           >
             <Magic className="size-5" />
             <span>Ask AI</span>

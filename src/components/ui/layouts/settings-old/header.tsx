@@ -19,10 +19,10 @@ export function Header() {
   return (
     <header className="border-b border-white/5">
       <nav className="flex overflow-x-auto py-4">
-        <ul className="flex min-w-full flex-none gap-x-6 px-4 text-sm font-semibold leading-6 text-gray-400 sm:px-6 lg:px-8">
+        <ul className="flex min-w-full flex-none gap-x-6 px-4 text-sm font-semibold leading-6 text-gray-4 sm:px-6 lg:px-8">
           {settingsRoutes.map((item) => (
             <li key={item.name}>
-              <Link href={item.href} className={item === current ? 'text-gray-500' : ''}>
+              <Link href={item.href} className={item === current ? 'text-gray-5' : ''}>
                 {item.name}
               </Link>
             </li>

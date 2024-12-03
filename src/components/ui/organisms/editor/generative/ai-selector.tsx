@@ -58,7 +58,7 @@ export function AISelector({ onOpenChange, completionApi }: Readonly<AISelectorP
       )}
 
       {isLoading && (
-        <div className="flex h-12 w-full items-center px-4 text-sm font-medium text-purple-500">
+        <div className="flex h-12 w-full items-center px-4 text-sm font-medium text-purple-5">
           <Magic className="mr-2 size-4 shrink-0  " />
           AI is thinking
           <div className="ml-2 mt-1">
@@ -80,7 +80,7 @@ export function AISelector({ onOpenChange, completionApi }: Readonly<AISelectorP
             />
             <Button
               size="icon"
-              className="absolute right-4 top-1/2 size-6 -translate-y-1/2 rounded-full bg-purple-500 hover:bg-purple-900"
+              className="absolute right-4 top-1/2 size-6 -translate-y-1/2 rounded-full bg-purple-5 hover:bg-purple-9"
               onClick={() => {
                 const afterCompletion = (text: string) => {
                   const body = { option: 'zap', command: inputValue };

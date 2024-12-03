@@ -16,7 +16,7 @@ export function SidebarDesktopWrapper({
   return (
     <aside
       className={cn(
-        'w-96 -translate-x-full overflow-visible transition-all duration-150 ease-in dark:border-r dark:border-gray-200 md:translate-x-0 md:shadow',
+        'w-96 -translate-x-full overflow-visible transition-all duration-150 ease-in dark:border-r dark:border-gray-2 md:translate-x-0 md:shadow',
         G.isNotNullable(sidebarWidth) && `-ml-${sidebarWidth}`,
         className,
         {

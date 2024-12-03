@@ -6,7 +6,7 @@ import { type ComponentPropsWithoutRef, createContext, useContext } from 'react'
 
 const FadeInStaggerContext = createContext(false);
 
-const viewport = { once: true, margin: '0px 0px -200px' };
+const viewport = { once: true, margin: '0px 0px -2px' };
 
 export function FadeIn({
   key = 'default',

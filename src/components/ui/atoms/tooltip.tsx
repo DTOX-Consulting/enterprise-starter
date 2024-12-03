@@ -55,7 +55,7 @@ const InverseTip = ({ children, content }: PropsWithChildren<{ content: string |
 
 const InfoTip = ({ children, className }: PropsWithChildren<{ className?: string }>) => (
   <Tip content={children}>
-    <Info className={cn('ml-2 size-4 text-neutral-400 hover:text-neutral-200', className)} />
+    <Info className={cn('ml-2 size-4 text-gray-4 hover:text-gray-2', className)} />
   </Tip>
 );
 

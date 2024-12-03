@@ -27,7 +27,7 @@ function SidebarMinimizer() {
       <div className="flex grow" />
       <PanelRightOpen
         onClick={() => setMinimized(!isMinimized)}
-        className={cn('mr-4 size-5 cursor-pointer hover:text-gray-500', { hidden: isMinimized })}
+        className={cn('mr-4 size-5 cursor-pointer hover:text-gray-5', { hidden: isMinimized })}
       />
     </>
   );
