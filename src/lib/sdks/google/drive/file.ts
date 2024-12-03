@@ -142,5 +142,6 @@ export const deleteAllFiles = async () => {
     if (G.isNotNullable(file.id) && file.id !== '') {
       return deleteFile(file.id);
     }
+    return null;
   });
 };

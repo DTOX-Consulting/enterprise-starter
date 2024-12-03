@@ -67,10 +67,10 @@ const globalBundle = buildMeta.pages['/_app'];
 if (!globalBundle) {
   throw new Error('Global bundle not found in buildMeta.');
 }
-const _globalBundleSizes = getScriptSizes(globalBundle);
+const globalBundleSizes = getScriptSizes(globalBundle);
 
 // Calculate the size of each page's scripts, after subtracting out the global scripts
-const _allPageSizes = Object.keys(buildMeta.pages).reduce(
+const allPageSizes = Object.keys(buildMeta.pages).reduce(
   (acc, pagePath) => {
     const scriptPaths = buildMeta.pages[pagePath];
     if (!scriptPaths) {
@@ -115,6 +115,8 @@ const rawData = stringify({
 
 // Log outputs to the GH actions panel
 console.log(rawData);
+console.log('Page sizes:', allPageSizes);
+console.log('Bundle sizes:', globalBundleSizes);
 
 // Ensure the output directory exists and write the bundle analysis data
 mkdirpSync(path.join(nextMetaRoot, 'analyze/'));

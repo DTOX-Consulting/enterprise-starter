@@ -44,7 +44,11 @@ const extractContactDetails = (email: string, contact: Contact): ClientData => (
   subscriptionPlan: getSubscriptionPlan(contact)
 });
 
-const returnContact = (email: string, input?: ClientData, contact?: Contact): ClientData | null => {
+const returnContact = (
+  email: string,
+  _input?: ClientData,
+  contact?: Contact
+): ClientData | null => {
   if (G.isNullable(contact)) {
     return createDefaultContact(email);
   }

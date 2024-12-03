@@ -16,12 +16,13 @@ export function isValidUrl(url: string) {
     return false;
   }
 }
-export function getUrlFromString(str: string) {
+export function getUrlFromString(str: string): string | null {
   if (isValidUrl(str)) return str;
   try {
     if (str.includes('.') && !str.includes(' ')) {
       return new URL(`https://${str}`).toString();
     }
+    return null;
   } catch {
     return null;
   }
@@ -74,9 +75,9 @@ export const LinkSelector = ({ open, onOpenChange }: LinkSelectorProps) => {
             type="text"
             placeholder="Paste a link"
             className="flex-1 bg-background p-1 text-sm outline-none"
-            defaultValue={(editor.getAttributes('link').href as string) || ''}
+            defaultValue={(editor.getAttributes('link')['href'] as string) || ''}
           />
-          {G.isNotNullable(editor.getAttributes('link').href) ? (
+          {G.isNotNullable(editor.getAttributes('link')['href']) ? (
             <Button
               size="icon"
               variant="outline"

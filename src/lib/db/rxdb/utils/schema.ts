@@ -120,8 +120,7 @@ export const addCommonProperties = <
     id,
     ownerId,
     updatedAt: now,
-    createdAt: isNew ? now : ((data.createdAt ?? now) as string)
-    // ...(isNew ? { createdAt: now } : {})
+    createdAt: isNew ? now : ((data['createdAt'] ?? now) as string)
   } as R;
 };
 

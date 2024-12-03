@@ -57,6 +57,7 @@ export const createPermissionsIfNotExists = async (
   if (!(await hasPermissions(fileId, emailAddress))) {
     return createPermissions(fileId, emailAddress, role);
   }
+  return null;
 };
 
 export const shareFiles = async (emailAddress: string, role = 'reader') => {

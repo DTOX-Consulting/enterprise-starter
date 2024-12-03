@@ -63,7 +63,7 @@ export const handleCheckout =
 
     if (details.hasSubscription || !details.session) {
       finish();
-      return toast({
+      toast({
         variant: 'warning',
         title: 'Subscription Exists',
         description: 'You already have a subscription! Manage it from settings.',
@@ -73,6 +73,7 @@ export const handleCheckout =
           </ToastAction>
         )
       });
+      return;
     }
 
     finish();
@@ -97,7 +98,7 @@ export const handleManageSubscription =
 
     if (!details.hasSubscription) {
       finish();
-      return toast({
+      toast({
         title: 'No Subscription Found',
         description: `You don't have a ${ucFirst(tier)} subscription! Subscribe to manage it.`,
         action: (
@@ -106,6 +107,7 @@ export const handleManageSubscription =
           </ToastAction>
         )
       });
+      return;
     }
 
     finish();

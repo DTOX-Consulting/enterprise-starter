@@ -14,7 +14,8 @@ export function CustomHighlightStart() {
       H.start();
       return () => H.stop();
     }
-  });
+    return () => undefined;
+  }, []);
 
   return null;
 }

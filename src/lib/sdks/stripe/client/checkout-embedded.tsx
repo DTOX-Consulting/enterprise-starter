@@ -110,4 +110,6 @@ export const confirmPayment = async ({ tier, stripe, elements }: Required<Checko
       description: err.message
     });
   }
+
+  return null;
 };

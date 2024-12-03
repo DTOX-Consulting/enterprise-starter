@@ -115,5 +115,6 @@ export const deleteAllFolders = async () => {
     if (G.isNotNullable(file.id) && file.id !== '') {
       return deleteFolder(file.id);
     }
+    return null;
   });
 };

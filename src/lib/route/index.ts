@@ -29,7 +29,7 @@ type Status = {
 };
 
 export const getStatus = ({ data, error, code }: Status) => {
-  let successStatus = code ?? data?.code ?? 200;
+  let successStatus = code ?? data?.['code'] ?? 200;
   let errorStatus = code ?? (error as ErrorWithCode).code ?? 500;
 
   if (!G.isNumber(errorStatus)) errorStatus = 500;

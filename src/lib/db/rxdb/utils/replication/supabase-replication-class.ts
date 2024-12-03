@@ -324,10 +324,10 @@ export class SupabaseReplication<RxDocType> extends RxReplicationState<
     const state = (row.assumedMasterState ?? row.newDocumentState) as GenericObject;
 
     const toTest = {
-      id: state.id,
-      ownerId: state.ownerId ?? state.ownerid,
-      createdAt: state.createdAt ?? state.createdat,
-      updatedAt: state.updatedAt ?? state.updatedat
+      id: state['id'],
+      ownerId: state['ownerId'] ?? state['ownerid'],
+      createdAt: state['createdAt'] ?? state['createdat'],
+      updatedAt: state['updatedAt'] ?? state['updatedat']
     };
 
     console.log('[SUPABASE REPLICATION] Updating row:', { state, toTest });
