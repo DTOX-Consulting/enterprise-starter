@@ -17,6 +17,8 @@ import {
 } from 'novel/extensions';
 import { UploadImagesPlugin } from 'novel/plugins';
 
+import type { Extension, Mark, Node } from '@tiptap/core';
+
 const aiHighlight = AIHighlight;
 // You can overwrite the placeholder with your own configuration
 const placeholder = Placeholder;
@@ -123,7 +125,7 @@ const youtube = Youtube.configure({
 
 const characterCount = CharacterCount.configure();
 
-export const defaultExtensions = [
+export const defaultExtensions: (Extension | Node | Mark)[] = [
   starterKit,
   placeholder,
   tiptapLink,
