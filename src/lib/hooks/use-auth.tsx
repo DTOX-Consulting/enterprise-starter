@@ -17,7 +17,7 @@ export function useAuth() {
   let { data } = api.auth.user.useQuery(undefined, {
     placeholderData: defaultUserSession(),
     staleTime: 1000 * 60 * 60,
-    enabled: isOnline,
+    enabled: false, // isOnline,
     suspense: true
   });
 

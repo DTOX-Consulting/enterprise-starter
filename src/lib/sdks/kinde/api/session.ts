@@ -28,7 +28,7 @@ export const getUserSession: GetUserSession = async (throwError) => {
   } = getKindeServerSession();
   const user = await getUser();
 
-  if (G.isNullable(user.id) || G.isNullable(user.email)) {
+  if (G.isNullable(user) || G.isNullable(user.id) || G.isNullable(user.email)) {
     logger.error('User not found', { user, throwError });
 
     if (throwError === true) {

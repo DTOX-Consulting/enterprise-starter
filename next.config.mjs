@@ -89,7 +89,7 @@ const nextConfig = {
     }
 
     if (isServer) {
-      config.devtool = 'source-map';
+      // config.devtool = 'source-map';
       config.ignoreWarnings = config.ignoreWarnings ?? [];
       config.ignoreWarnings.push({ module: /highlight-(run\/)?node/ });
     }
@@ -117,7 +117,7 @@ const nextHighlight = (highlightConfig) => async (config) =>
 
 /** @type {((config: import('next').NextConfig) => import('next').NextConfig)[]} */
 const plugins = [
-  nextBundleAnalyzer({ enabled: env.ANALYZE }),
+  nextBundleAnalyzer({ enabled: env.ANALYZE === 'true' }),
   nextPWA({
     dest: 'public',
     disable: isDev

@@ -94,6 +94,7 @@ async function handleDB(user: SessionUser): Promise<void> {
 }
 
 export const authRouter = {
+  user: publicProcedure.query(async () => getUserSession(true)),
   ping: publicProcedure.query(() => ({ success: true })),
   pingError: publicProcedure.query(() => {
     throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR', message: 'This is a test error' });
@@ -111,6 +112,5 @@ export const authRouter = {
     await handleDB(user);
 
     return { success: true };
-  }),
-  user: publicProcedure.query(async () => getUserSession(true))
+  })
 };

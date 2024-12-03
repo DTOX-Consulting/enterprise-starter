@@ -36,7 +36,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
 
         <body
           className={cn(
-            'flex min-h-dvh flex-col overflow-hidden bg-background',
+            'flex min-h-dvh flex-col bg-background',
             'font-sans antialiased',
             fontMontAlt.variable,
             fontSFPro.variable,
