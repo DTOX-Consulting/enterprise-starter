@@ -9,11 +9,11 @@
     "postbuild": "bash ./scripts/postbuild.sh",
     "dev:iframe": "pnpm build:iframe --watch",
     "dev:app": "next dev --turbo --port 3030",
-    "dev:trigger": "pnpx trigger.dev@beta dev",
-    "dev:stripe": "stripe listen --forward-to localhost:3030/api/trigger --skip-verify",
-    "dev": "concurrently --kill-others npm:dev:*",
+    "dev:trigger": "pnpx trigger.dev@beta dev || true",
+    "dev:stripe": "which stripe >/dev/null 2>&1 && stripe listen --forward-to localhost:3000/api/trigger --skip-verify || echo 'Stripe not available'",
+    "dev": "concurrently --kill-others-on-fail npm:dev:*",
     "build": "NODE_OPTIONS=--max-old-space-size=6144 pnpm build:app && pnpm build:iframe && pnpm build:doc",
-    "build:iframe": "bun scripts/build-public-iframe.ts",
+    "build:iframe": "pnpm bun scripts/build-public-iframe.ts",
     "build:app": "next build",
     "build:doc": "typedoc",
     "knip": "knip",
@@ -342,7 +342,7 @@
   "optionalDependencies": {
     "sharp": "0.33.5"
   },
-  "packageManager": "pnpm@9.14.2",
+  "packageManager": "pnpm@9.14.4",
   "engines": {
     "node": "20.x"
   },

@@ -71,9 +71,17 @@ const watch = async () => {
   }
 };
 
-const args = process.argv.slice(2);
-if (args.includes('--watch')) {
-  await watch();
-} else {
-  await build();
+async function main() {
+  const args = process.argv.slice(2);
+  if (args.includes('--watch')) {
+    await watch();
+  } else {
+    await build();
+  }
 }
+
+// eslint-disable-next-line promise/prefer-await-to-callbacks
+main().catch((error) => {
+  console.error('Error:', error);
+  process.exit(1);
+});
