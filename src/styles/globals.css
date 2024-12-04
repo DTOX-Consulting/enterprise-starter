@@ -25,8 +25,11 @@
     --accent: 0 0% 96.1%;
     --accent-foreground: 0 0% 9%;
 
-    --warning: 54 100% 62%; /* Yellowish color */
-    --warning-foreground: 0 0% 3.9%; /* Adjusted foreground color for better contrast */
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 98%;
+
+    --warning: 54 100% 62%;
+    --warning-foreground: 0 0% 3.9%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
@@ -46,6 +49,7 @@
     --novel-highlight-orange: #faebdd;
     --novel-highlight-pink: #faf1f5;
     --novel-highlight-gray: #f1f1ef;
+
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
@@ -78,7 +82,10 @@
     --accent: 0 0% 14.9%;
     --accent-foreground: 0 0% 98%;
 
-    --warning: 55 100% 20%; /* Darker yellowish color */
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 98%;
+
+    --warning: 55 100% 20%;
     --warning-foreground: 0 0% 98%;
 
     --destructive: 0 62.8% 30.6%;
@@ -97,6 +104,7 @@
     --novel-highlight-orange: #5c3a1a;
     --novel-highlight-pink: #5c1a3a;
     --novel-highlight-gray: #3a3a3a;
+
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -173,6 +181,7 @@
   }
 }
 
+/* Tailwind CSS overrides */
 input,
 [type],
 textarea {
@@ -181,7 +190,7 @@ textarea {
 
 [aria-placeholder]:empty:before {
   content: attr(aria-placeholder);
-  cursor: text;
+  color: var(--muted-foreground);
   display: block;
-  color: #aaa;
+  cursor: text;
 }
