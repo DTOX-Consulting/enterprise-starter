@@ -26,7 +26,7 @@ const NotificationBadge = ({ count }: { count: number }) => (
 );
 
 const NotificationIcon = ({ Icon }: { Icon: LucideIcon }) => (
-  <Icon className="size-7 text-gray-4 hover:text-gray-5" />
+  <Icon className="size-7 text-gray-4 hover:text-gray-11" />
 );
 
 export const NotificationTrigger = ({
@@ -81,7 +81,7 @@ export const NotificationContent = ({
           />
           <div className="flex items-center">
             {notification.icon && (
-              <NotificationItemIcon icon={notification.icon} className="mx-1 size-6 text-gray-5" />
+              <NotificationItemIcon icon={notification.icon} className="mx-1 size-6 text-gray-11" />
             )}
             {(Boolean(notification.image) || Boolean(notification.content.actorImage)) && (
               <Image

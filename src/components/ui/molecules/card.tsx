@@ -8,7 +8,7 @@ const LinkComponent = ({ children, ...props }: React.AnchorHTMLAttributes<HTMLAn
     target="_blank"
     rel="noopener noreferrer"
     {...props}
-    className="font-medium text-gray-8 underline transition-colors"
+    className="font-medium text-gray-11 underline transition-colors"
   >
     {children}
   </a>
@@ -17,7 +17,7 @@ const LinkComponent = ({ children, ...props }: React.AnchorHTMLAttributes<HTMLAn
 const CodeComponent = (props: React.HTMLAttributes<HTMLElement>) => (
   <code
     {...props}
-    className="rounded-sm bg-gray-100 px-1 py-0.5 font-mono font-medium text-gray-8"
+    className="rounded-sm bg-gray-100 px-1 py-0.5 font-mono font-medium text-gray-11"
   />
 );
 
@@ -43,7 +43,7 @@ export default function Card({
         <h2 className="bg-gradient-to-br from-black to-stone-5 bg-clip-text font-display text-xl font-bold text-transparent [text-wrap:balance] md:text-3xl md:font-normal">
           {title}
         </h2>
-        <div className="prose-sm mt-3 leading-normal text-gray-5 [text-wrap:balance] md:prose">
+        <div className="prose-sm mt-3 leading-normal text-gray-11 [text-wrap:balance] md:prose">
           <ReactMarkdown
             components={{
               a: LinkComponent,

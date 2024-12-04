@@ -50,7 +50,7 @@ export function Navigation() {
           <DropdownMenuTrigger asChild>
             <button
               type="button"
-              className="-m-2.5 inline-flex items-center justify-center rounded-lg p-2.5 text-gray-7"
+              className="-m-2.5 inline-flex items-center justify-center rounded-lg p-2.5 text-gray-11"
               onClick={() => setMobileMenuOpen(true)}
             >
               <span className="sr-only">Open main menu</span>
@@ -66,7 +66,7 @@ export function Navigation() {
         >
           <button
             type="button"
-            className="ml-4 mt-4 inline-flex items-center justify-center rounded-lg text-gray-7"
+            className="ml-4 mt-4 inline-flex items-center justify-center rounded-lg text-gray-11"
             onClick={() => setMobileMenuOpen(false)}
           >
             <span className="sr-only">Close main menu</span>
@@ -92,7 +92,7 @@ export const FooterNavigation = () => (
       <div key={item.name} className="pb-6">
         <Link
           href={item.href}
-          className="text-sm leading-6 text-gray-5 hover:text-gray-9 dark:text-gray-4"
+          className="text-sm leading-6 text-gray-11 hover:text-gray-12 dark:text-graydark-11 dark:hover:text-graydark-12"
         >
           {item.name}
         </Link>

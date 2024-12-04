@@ -28,7 +28,7 @@ export function Button({
     className,
     'inline-flex rounded-full px-4 py-1.5 text-sm font-semibold transition',
     invert
-      ? 'bg-white text-gray-10 hover:bg-gray-2 dark:bg-gray-8 dark:text-gray-4 dark:hover:bg-gray-5'
+      ? 'bg-white text-gray-11 hover:bg-gray-2 dark:bg-gray-8 dark:text-gray-4 dark:hover:bg-gray-5'
       : 'bg-gray-10 text-white hover:bg-gray-8 dark:bg-gray-5 dark:text-gray-4 dark:hover:bg-gray-8'
   );
 

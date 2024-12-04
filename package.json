@@ -339,7 +339,6 @@
     "zx": "7.2.3"
   },
   "resolutions": {
-    "ajv": "8.17.1",
     "whatwg-url": "14.1.0",
     "@tiptap/core": "2.5.7",
     "react-is": "19.0.0-rc-fb9a90fa48-20240614",

@@ -80,7 +80,7 @@ export function Switcher<T extends BasicChoice>({
             disabled={disabled}
           >
             <span>{selected?.name ?? namePlaceholder ?? '---'}</span>
-            <ChevronsUpDown className="ml-1 size-4 text-gray-7 dark:text-gray-2" />
+            <ChevronsUpDown className="ml-1 size-4 text-gray-11 dark:text-graydark-11" />
           </Button>
         </PopoverTrigger>
         <PopoverContent className="-ml-3 mt-4 w-full">
@@ -157,8 +157,8 @@ function SwitcherNewButton({
 function SwitcherWrapper({ children, icon }: PropsWithChildren<{ icon?: LucideIcon }>) {
   const Icon = icon;
   return (
-    <div className="flex h-10 flex-row items-center truncate rounded-lg px-3 text-gray-7 dark:text-gray-2">
-      <span className="text-md flex items-center justify-center text-gray-4 dark:text-gray-2">
+    <div className="flex h-10 flex-row items-center truncate rounded-lg px-3 text-gray-11 dark:text-graydark-11">
+      <span className="text-md flex items-center justify-center text-gray-4 dark:text-graydark-11">
         {Icon ? <Icon className="size-6" /> : null}
       </span>
       {children}

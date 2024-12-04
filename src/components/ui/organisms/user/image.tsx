@@ -34,7 +34,7 @@ export const UserImage = ({ user, width = 40, height = 40, className = '' }: Use
 );
 
 export const UserDetails = ({ user, className }: UserImageProps) => (
-  <span className="flex flex-col text-gray-5 hover:text-gray-7 dark:text-gray-2 dark:hover:text-gray-4">
+  <span className="flex flex-col text-gray-11 hover:text-gray-11 dark:text-graydark-11 dark:hover:text-gray-4">
     <span className={cn('w-full truncate font-semibold leading-none ', className)}>
       {user?.name}
     </span>

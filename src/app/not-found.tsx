@@ -13,13 +13,13 @@ export default function NotFound() {
         <SimpleGridPattern x="50%" y="50%" patternTransform="translate(0 60)" />
       </div>
       <ContainerAnimated className="flex flex-col items-center py-16 text-center sm:py-20 lg:py-32">
-        <p className="rounded-full px-4 py-1 text-base font-medium tracking-tight text-slate-9 ring-1 ring-inset ring-slate-9 dark:text-gray-100">
+        <p className="rounded-full px-4 py-1 text-base font-medium tracking-tight text-slate-9 ring-1 ring-inset ring-slate-9 dark:text-gray-11">
           404
         </p>
-        <h1 className="mt-6 font-display text-5xl font-extrabold text-slate-9 dark:text-gray-100 sm:text-6xl">
+        <h1 className="mt-6 font-display text-5xl font-extrabold text-slate-9 dark:text-gray-11 sm:text-6xl">
           Page not found
         </h1>
-        <p className="mt-4 text-lg tracking-tight text-slate-7 dark:text-gray-100">
+        <p className="mt-4 text-lg tracking-tight text-slate-7 dark:text-gray-11">
           {"Sorry, we couldn't find the page you're looking for."}
         </p>
         <Link

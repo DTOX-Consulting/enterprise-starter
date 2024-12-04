@@ -37,7 +37,7 @@ const VerticalTimeline1: FC<VerticalTimelineProps> = ({ items }) => (
               <div>{item.icon}</div>
             </div>
           </div>
-          <div className="text-xs text-gray-5 dark:text-gray-2">{item.content}</div>
+          <div className="text-xs text-gray-11 dark:text-graydark-11">{item.content}</div>
         </div>
       ))}
     </div>
@@ -55,7 +55,7 @@ const VerticalTimeline2: FC<VerticalTimelineProps> = ({ items }) => (
             </time>
             <div className="text-sm font-bold">{item.title}</div>
           </div>
-          <div className="text-xs text-gray-5 dark:text-gray-2">{item.content}</div>
+          <div className="text-xs text-gray-11 dark:text-graydark-11">{item.content}</div>
         </div>
       ))}
     </div>
@@ -81,7 +81,7 @@ const VerticalTimeline3: FC<VerticalTimelineProps> = ({ items }) => (
             </time>
             <div className="text-sm font-bold">{item.title}</div>
           </div>
-          <div className="text-xs text-gray-5 dark:text-gray-2">{item.content}</div>
+          <div className="text-xs text-gray-11 dark:text-graydark-11">{item.content}</div>
         </div>
       ))}
     </div>

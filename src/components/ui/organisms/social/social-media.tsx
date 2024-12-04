@@ -150,7 +150,7 @@ export function SocialMedia({
     <ul
       className={cn(
         'flex gap-x-10',
-        invert ? 'text-white dark:text-gray-10' : 'text-gray-10 dark:text-gray-2',
+        invert ? 'text-white dark:text-gray-11' : 'text-gray-11 dark:text-graydark-11',
         className
       )}
     >
@@ -163,8 +163,8 @@ export function SocialMedia({
             className={cn(
               'transition',
               invert
-                ? 'hover:text-gray-2 dark:hover:text-gray-7'
-                : 'hover:text-gray-7 dark:text-gray-4 dark:hover:text-gray-5'
+                ? 'hover:text-gray-2 dark:hover:text-gray-11'
+                : 'hover:text-gray-11 dark:text-gray-4 dark:hover:text-gray-11'
             )}
           >
             <socialMediaProfile.icon className="size-6 fill-current" />
@@ -177,7 +177,7 @@ export function SocialMedia({
 
 export function Copyright() {
   return (
-    <p className="text-center text-xs leading-5 text-gray-5">
+    <p className="text-center text-xs leading-5 text-gray-11">
       &copy; {new Date().getFullYear()} {name}. All rights reserved.
     </p>
   );
