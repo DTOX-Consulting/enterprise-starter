@@ -90,6 +90,7 @@ To get started with this starter, follow these steps:
     curl https://get.volta.sh | bash
     volta install node
     volta install pnpm
+    volta install bun
 
     pnpm prereqs:install # optional
     pnpm install --frozen-lockfile
