@@ -9,6 +9,7 @@ With this template, you get all the awesomeness you need:
 - 🏎️ **[Next.js](https://nextjs.org/)** - Fast by default, with config optimized for performance (with **App Directory**)
 - 💾 **[Prisma](https://www.prisma.io/)** - Next-generation ORM for Node.js and TypeScript
 - 💅 **[Tailwind CSS](https://tailwindcss.com/)** - A utility-first CSS framework for rapid UI development
+- 🎨 **[Radix Colors](https://www.radix-ui.com/colors)** - A gorgeous, accessible color system for user interfaces
 - ✨ **[Extremely Strict ESlint](https://eslint.org/)** and **[Biome](https://biomejs.dev/)** - For clean, consistent, and error-free code
 - 🛠️ **[Extremely strict TypeScript](https://www.typescriptlang.org/)** - With [`ts-reset`](https://github.com/total-typescript/ts-reset) library for ultimate type safety
 - 🚀 **[GitHub Actions](https://github.com/features/actions)** - Pre-configured actions for smooth workflows, including Bundle Size and performance stats
@@ -213,7 +214,7 @@ In this starter, we use Storybook's out-of-the-box support for smoke testing to 
 
 ## 🎨 Styling and Design System
 
-This starter uses Tailwind CSS for styling and CVA for creating a powerful, easy-to-use design system. If you want to learn more about the setup, check out this fantastic video by Vercel:
+This starter uses Tailwind CSS for styling, Radix Colors for accessibility, and CVA for creating a powerful, easy-to-use design system. If you want to learn more about the setup, check out this fantastic video by Vercel:
 
 [![Styling and Design System](https://img.youtube.com/vi/T-Zv73yZ_QI/0.jpg)](https://www.youtube.com/watch?v=T-Zv73yZ_QI&ab_channel=Vercel)
 
@@ -225,15 +226,15 @@ Creating variants using traditional CSS can be a tedious task, requiring you to 
 
 ## 💾 State Management
 
-While this starter doesn't include a specific state management library, we believe it's essential for you to choose the one that best suits your project's needs. Here are some libraries we recommend for state management:
-
-### Zustand
-
-[Zustand](https://github.com/pmndrs/zustand) is a small, fast, and scalable state management library. It's designed to be simple and intuitive, making it a great choice for small to medium-sized projects. It's also optimized for bundle size, ensuring minimal impact on your app's performance.
+While this starter doesn't include a specific state management library, we believe it's essential for you to choose the one that best suits your project's needs (Jotai is the default installed). Here are some libraries we recommend for state management:
 
 ### Jotai
 
 [Jotai](https://github.com/pmndrs/jotai) is an atom-based state management library for React that focuses on providing a minimal and straightforward API. Its atom-based approach allows you to manage your state in a granular way while still being highly optimized for bundle size.
+
+### Zustand
+
+[Zustand](https://github.com/pmndrs/zustand) is a small, fast, and scalable state management library. It's designed to be simple and intuitive, making it a great choice for small to medium-sized projects. It's also optimized for bundle size, ensuring minimal impact on your app's performance.
 
 ### Recoil
 
