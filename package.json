@@ -46,7 +46,7 @@
     "cf:preview": "pnpm run cf:pages:build && wrangler pages dev .vercel/output/static",
     "cf:deploy": "pnpm run cf:pages:build && wrangler pages deploy .vercel/output/static",
     "setup:stripe": "brew install stripe/stripe-cli/stripe; stripe login",
-    "sharp:install:prereqs": "brew install vips pkg-config gcc"
+    "prereqs:install": "brew install vips pkg-config gcc gnu-sed coreutils gnupg"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "0.0.56",

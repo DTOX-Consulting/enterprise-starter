@@ -87,13 +87,13 @@ To get started with this starter, follow these steps:
 2. Install the dependencies:
 
     ```bash
-    brew install gcc
-    brew install vips
-    brew install gnupg
-    brew install gnu-sed # (add to bash profile - export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH")
-    brew install coreutils
-    brew install stripe/stripe-cli/stripe
+    curl https://get.volta.sh | bash
+    volta install node
+    volta install pnpm
+
+    pnpm prereqs:install # optional
     pnpm install --frozen-lockfile
+    pnpm setup:stripe # optional
     ```
 
 3. Run the development server:
