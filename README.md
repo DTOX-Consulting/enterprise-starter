@@ -90,8 +90,9 @@ To get started with this starter, follow these steps:
     brew install gcc
     brew install vips
     brew install gnupg
+    brew install gnu-sed # (add to bash profile - export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH")
+    brew install coreutils
     brew install stripe/stripe-cli/stripe
-    brew install dopplerhq/cli/doppler
     pnpm install --frozen-lockfile
     ```
 
