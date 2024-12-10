@@ -28,7 +28,7 @@ export const metadata: Metadata = staticMetaData;
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <HighlightProvider>
-      <html lang="en" className="h-full" suppressHydrationWarning>
+      <html lang="en" className="h-full scroll-smooth overflow-x-hidden" suppressHydrationWarning>
         <head>
           <MeticulousScript />
           <TermlyConsentBanner />
