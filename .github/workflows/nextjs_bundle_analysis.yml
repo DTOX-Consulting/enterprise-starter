@@ -13,6 +13,7 @@ on:
 
 env:
   HUSKY: 0
+  NODE_VERSION: "20"
   NODE_OPTIONS: '--max-old-space-size=8192'
   NEXT_PUBLIC_ENVIRONMENT: development
   NEXT_PUBLIC_TRIGGER_PUBLIC_API_KEY: trg_1234567890
@@ -35,21 +36,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Set up node
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18.x'
-      - name: Setup Volta
-        uses: volta-cli/action@v4
-      - name: Install Dependencies
+      - name: Set Environment Variables
+        run: |
+          chmod +x ./scripts/*.sh
+          ./scripts/set-environment.sh >> $GITHUB_ENV
+      - name: Install pnpm
         uses: pnpm/action-setup@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
         with:
-          run_install: |
-            - args: [--frozen-lockfile, --strict-peer-dependencies]
+          node-version: '${{ env.NODE_VERSION }}'
+          cache: 'pnpm'
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile --strict-peer-dependencies
 
       - name: Restore next build
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: restore-build-cache
         env:
           cache-name: cache-next-build

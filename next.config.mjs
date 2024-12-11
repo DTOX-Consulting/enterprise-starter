@@ -41,12 +41,12 @@ const nextConfig = {
   typescript: {
     // Warning: This allows production builds to successfully complete even if
     // your project has TypeScript errors.
-    ignoreBuildErrors: true
+    ignoreBuildErrors: false
   },
   eslint: {
     // Warning: This allows production builds to successfully complete even if
     // your project has ESLint errors.
-    ignoreDuringBuilds: true
+    ignoreDuringBuilds: false
   },
 
   /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
