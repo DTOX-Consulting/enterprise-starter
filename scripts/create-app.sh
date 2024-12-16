@@ -23,7 +23,7 @@ capitalize_dashed() {
 }
 
 SERVICE_NAME=${1:-}
-SERVICE_DIR="${CURRENT_DIR}/..";
+SERVICE_DIR=$(realpath "${CURRENT_DIR}/..")
 
 if [[ -f "${SERVICE_DIR}/.env" ]]; then
   echo "Environment file ${SERVICE_DIR}/.env already exists"
@@ -37,11 +37,18 @@ else
   cp -f "${SERVICE_DIR}/.env.example" "${SERVICE_DIR}/.env"
 fi
 
-find "${SERVICE_DIR}" -type f -exec sed -i "s/enterprise-starter/${SERVICE_NAME}/g" {} +
-find "${SERVICE_DIR}" -type f -exec sed -i "s/Enterprise Starter/$(capitalize_dashed "${SERVICE_NAME}")/g" {} +
+# Define directories to exclude with absolute paths and more specific patterns
+EXCLUDE_DIRS='-not -path "*/\.*/*" -not -path "*/node_modules/*" -not -path "*/dist/*" -not -path "*/build/*" -not -path "*/.git/*" -not -path "*/.next/*" -not -path "*/.trigger/*" -not -path "*/storybook-static/*" -not -path "*/README.md" -not -path "*/scripts/*"'
 
-# Replace __template__ with SERVICE in all files
-find "${SERVICE_DIR}" -type f -exec sed -i "s/__template__/${SERVICE_NAME}/g" {} +
-find "${SERVICE_DIR}" -type f -exec sed -i "s/__Template__/$(capitalize_dashed "${SERVICE_NAME}")/g" {} +
+echo "Starting file replacements..."
+eval "find \"${SERVICE_DIR}\" -type f ${EXCLUDE_DIRS} -exec sh -c '
+    if sed -i \
+        -e \"s/enterprise-starter/${SERVICE_NAME}/g\" \
+        -e \"s/Enterprise Starter/$(capitalize_dashed "${SERVICE_NAME}")/g\" \
+        \"\$1\" && [ -n \"\$(grep -l \"${SERVICE_NAME}\" \"\$1\")\" ]; then
+        echo \"Modified: \$1\"
+    fi
+' sh {} \;"
+echo "Finished replacements"
 
 pnpm install

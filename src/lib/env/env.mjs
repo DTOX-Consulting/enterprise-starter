@@ -11,7 +11,7 @@ export const env = createEnv({
     VERCEL_ENV: z.enum(['development', 'preview', 'production']).optional(),
 
     // Email
-    RESEND_API_KEY: z.string().min(1),
+    RESEND_API_KEY: z.string().min(1).optional(),
     SENDGRID_API_KEY: z.string().min(1).optional(),
 
     // Security
@@ -39,17 +39,20 @@ export const env = createEnv({
     KINDE_CLIENT_ID: z.string().min(1),
     KINDE_ISSUER_URL: z.string().min(1),
     KINDE_CLIENT_SECRET: z.string().min(1),
-    KINDE_POST_LOGOUT_REDIRECT_URL: z.string().min(1),
     KINDE_POST_LOGIN_REDIRECT_URL: z.string().min(1),
+    KINDE_POST_LOGOUT_REDIRECT_URL: z.string().min(1),
 
     // Storage
-    R2_ACCOUNT_ID: z.string().min(1),
-    R2_TOKEN: z.string().min(1),
-    R2_ACCESS_KEY_ID: z.string().min(1),
-    R2_SECRET_ACCESS_KEY: z.string().min(1),
+    R2_TOKEN: z.string().min(1).optional(),
+    R2_ACCOUNT_ID: z.string().min(1).optional(),
+    R2_ACCESS_KEY_ID: z.string().min(1).optional(),
+    R2_SECRET_ACCESS_KEY: z.string().min(1).optional(),
 
     // Payment
     STRIPE_SECRET_KEY: z.string().min(1),
+
+    // RapidAPI
+    RAPIDAPI_KEY: z.string().min(1).optional(),
 
     // AI/ML
     OPENAI_ORG_ID: z.string().min(1).optional(),
@@ -155,6 +158,9 @@ export const env = createEnv({
 
     // Payment
     STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
+
+    // RapidAPI
+    RAPIDAPI_KEY: process.env.RAPIDAPI_KEY,
 
     // AI/ML
     OPENAI_ORG_ID: process.env.OPENAI_ORG_ID,

@@ -10,7 +10,8 @@ on:
 
 env:
   HUSKY: 0
-  NODE_VERSION: "20"
+  NODE_VERSION: 20
+  SKIP_ENV_VALIDATION: true
   NODE_OPTIONS: '--max-old-space-size=8192'
   NEXT_PUBLIC_ENVIRONMENT: development
   NEXT_PUBLIC_TRIGGER_PUBLIC_API_KEY: trg_1234567890
@@ -31,7 +32,7 @@ jobs:
       - name: Set Environment Variables
         run: |
           chmod +x ./scripts/*.sh
-          ./scripts/set-environment.sh >> $GITHUB_ENV
+          ./scripts/set-environment.sh >> $GITHUB_ENV 2>&1
       - name: Install pnpm
         uses: pnpm/action-setup@v4
       - name: Use Node.js

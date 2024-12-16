@@ -2,11 +2,8 @@ name: Validate Renovate Config
 
 on:
   push:
-    tags:
-      - '*'
     branches:
-      - '*'
-  pull_request:
+      - main
 
 jobs:
   validate:
@@ -15,6 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Validate Config
         uses: suzuki-shunsuke/github-action-renovate-config-validator@v0.1.3

@@ -1,5 +1,7 @@
 name: Remove old artifacts
 
+permissions: write-all
+
 on:
   schedule:
     # Every day at 1am

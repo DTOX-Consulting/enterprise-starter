@@ -63,6 +63,8 @@ type SelectMultiProps = {
   /** Hide the placeholder when there are options selected. */
   hidePlaceholderWhenSelected?: boolean;
   disabled?: boolean;
+  readonly?: boolean;
+  noBorder?: boolean;
   /** Group the options base on provided key. */
   groupBy?: string;
   className?: string;
@@ -177,6 +179,8 @@ const SelectMulti = forwardRef<SelectMultiRef, SelectMultiProps>(
       onMaxSelected,
       hidePlaceholderWhenSelected,
       disabled,
+      readonly,
+      noBorder,
       groupBy,
       className,
       badgeClassName,
@@ -364,7 +368,10 @@ const SelectMulti = forwardRef<SelectMultiRef, SelectMultiProps>(
         <div
           className={cn(
             'group rounded-md border border-input px-3 py-2 text-sm ring-offset-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2',
-            className
+            className,
+            {
+              'border-none p-0': noBorder ?? readonly
+            }
           )}
         >
           <div className="flex flex-wrap gap-1">
@@ -427,7 +434,12 @@ const SelectMulti = forwardRef<SelectMultiRef, SelectMultiProps>(
               }
               className={cn(
                 'flex-1 border-0 bg-transparent placeholder:text-muted-foreground focus:border-0 focus:outline-none focus:ring-0',
-                inputProps?.className
+                inputProps?.className,
+                {
+                  '-z-10': readonly,
+                  'cursor-not-allowed': disabled === true,
+                  'cursor-pointer': disabled === false && readonly === false
+                }
               )}
             />
           </div>
@@ -465,6 +477,7 @@ const SelectMulti = forwardRef<SelectMultiRef, SelectMultiProps>(
                           }}
                           className={cn(
                             'cursor-pointer',
+                            commandProps?.className,
                             option.disable === true && 'cursor-default text-muted-foreground'
                           )}
                         >
@@ -484,4 +497,4 @@ const SelectMulti = forwardRef<SelectMultiRef, SelectMultiProps>(
 );
 
 SelectMulti.displayName = 'SelectMulti';
-export default SelectMulti;
+export { SelectMulti };

@@ -1,0 +1,98 @@
+# Workflow for serving app locally & running Meticulous tests against it
+name: Meticulous
+
+# Important: The workflow needs to run both on pushes to your main branch and on
+# pull requests. It needs to run on your main branch because it'll use the results
+# from the base commit of the PR on the main branch to compare against.
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  # Important: We need the workflow to be triggered on workflow_dispatch events,
+  # so that Meticulous can run the workflow on the base commit to compare
+  # against if an existing workflow hasn't run
+  workflow_dispatch: {}
+
+# Important: The workflow needs all the permissions below.
+# These permissions are mainly need to post and update the status check and
+# feedback comment on your PR. Meticulous won’t work without them.
+permissions:
+  actions: write
+  contents: read
+  issues: write
+  pull-requests: write
+  statuses: read
+
+env:
+  HUSKY: 0
+  NODE_VERSION: 20
+  SKIP_ENV_VALIDATION: true
+  NODE_OPTIONS: '--max-old-space-size=8192'
+  NEXT_PUBLIC_ENVIRONMENT: development
+  NEXT_PUBLIC_TRIGGER_PUBLIC_API_KEY: trg_1234567890
+  KINDE_CLIENT_ID: '1234567890'
+  KINDE_CLIENT_SECRET: '1234567890'
+  KINDE_ISSUER_URL: 'https://dev-1234567890.okta.com'
+  KINDE_SITE_URL: 'https://dev-1234567890.okta.com'
+  KINDE_POST_LOGOUT_REDIRECT_URL: 'https://localhost:3030'
+  KINDE_POST_LOGIN_REDIRECT_URL: 'https://localhost:3030'
+  APP_PATH: .
+
+defaults:
+  run:
+    # change this if your nextjs app does not live at the root of the repo
+    working-directory: ./
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set Environment Variables
+        run: |
+          chmod +x ./scripts/*.sh
+          ./scripts/set-environment.sh >> $GITHUB_ENV 2>&1
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '${{ env.NODE_VERSION }}'
+          cache: 'pnpm'
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile --strict-peer-dependencies
+
+      - name: Restore next build
+        uses: actions/cache@v4
+        id: restore-build-cache
+        env:
+          cache-name: cache-next-build
+        with:
+          path: ${{ env.APP_PATH }}/.next/cache
+          # change this if you prefer a more strict cache
+          key: ${{ runner.os }}-build-${{ env.cache-name }}
+
+      - name: Build next.js app
+        # change this if your site requires a custom build command
+        run: pnpm build:app
+        env:
+          SKIP_BUILD_PRODUCT_REDIRECTS: 1
+
+      - name: Serve project
+        # TODO: Update these commands to serve your app's frontend locally, and
+        # then update the app-url to match.
+        # The sleep is often required to ensure your app is readily being served
+        # by the time the Meticulous tests start
+        run: |
+          pnpm dev:app &
+          sleep 10
+
+      - name: Run Meticulous tests
+        uses: alwaysmeticulous/report-diffs-action/cloud-compute@v1
+        with:
+          api-token: ${{ secrets.METICULOUS_API_TOKEN }}
+          # TODO: Update the port and protocol below to match your app's frontend
+          app-url: "http://localhost:3030/"
