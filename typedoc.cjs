@@ -1,4 +1,4 @@
-/** @type import('typedoc').TypeDocOptions */
+/** @type import('@Root/typedoc.cjs').TypeDocOptions */
 module.exports = {
   out: 'docs',
   name: 'Enterprise Starter',

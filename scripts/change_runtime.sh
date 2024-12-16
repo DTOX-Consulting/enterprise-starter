@@ -37,4 +37,12 @@ find_command+=" -name \"$1\" \)"
 eval "$find_command" | xargs sed -i "s/^export const runtime = 'edge';/export const runtime = '$RUNTIME';/"
 eval "$find_command" | xargs sed -i "s/^export const runtime = 'nodejs';/export const runtime = '$RUNTIME';/"
 
+# Then, add the runtime declaration if it doesn't exist
+for file in $(eval "$find_command"); do
+    if ! grep -q "export const runtime" "$file"; then
+        # Add a newline and the runtime export at the bottom of the file
+        echo -e "\nexport const runtime = '$RUNTIME';" >> "$file"
+    fi
+done
+
 echo "Changed the runtime assignment in all specified files to $RUNTIME."
