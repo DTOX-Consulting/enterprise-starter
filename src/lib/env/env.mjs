@@ -105,6 +105,13 @@ export const env = createEnv({
     // Payment
     NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().min(1),
 
+    // Termly
+    NEXT_PUBLIC_TERMLY_PROJECT_ID: z.string().min(1).optional(),
+    NEXT_PUBLIC_TERMLY_AUTO_BLOCK: z
+      .enum(['true', 'false'])
+      .optional()
+      .transform((value) => value === 'true'),
+
     // Analytics
     NEXT_PUBLIC_GOOGLE_ANALYTICS_ID: z.string().min(1).optional(),
     NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID: z.string().min(1).optional(),
@@ -183,6 +190,10 @@ export const env = createEnv({
     // Database
     NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
     NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+
+    // Termly
+    NEXT_PUBLIC_TERMLY_PROJECT_ID: process.env.NEXT_PUBLIC_TERMLY_PROJECT_ID,
+    NEXT_PUBLIC_TERMLY_AUTO_BLOCK: process.env.NEXT_PUBLIC_TERMLY_AUTO_BLOCK,
 
     // Monitoring
     NEXT_PUBLIC_HIGHLIGHT_PROJECT_ID: process.env.NEXT_PUBLIC_HIGHLIGHT_PROJECT_ID,

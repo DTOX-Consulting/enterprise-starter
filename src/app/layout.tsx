@@ -14,9 +14,9 @@ import { Providers } from '@/components/providers';
 import { Analytics } from '@/components/tools/analytics';
 import { TailwindIndicator } from '@/components/tools/tailwind-indicator';
 import { ScrollToTop } from '@/components/ui/molecules/scroll-to-top';
-import { TermlyConsentBanner } from '@/components/ui/organisms/chat/termly-consent-banner';
 import { HighlightProvider } from '@/lib/sdks/highlight/provider';
 import { MeticulousScript } from '@/lib/sdks/meticulous/script';
+import { TermlyConsentBanner } from '@/lib/sdks/termly/consent-banner';
 import { cn } from '@/lib/utils';
 
 import type { Metadata, Viewport } from 'next';
