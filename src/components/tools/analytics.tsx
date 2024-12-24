@@ -1,5 +1,6 @@
 'use client';
 
+import { G } from '@mobily/ts-belt';
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 import { Analytics as VercelAnalytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
@@ -16,8 +17,8 @@ export function Analytics() {
       <WebVitals />
       <SpeedInsights />
       <VercelAnalytics />
-      {googleTagManagerId !== undefined && <GoogleTagManager gtmId={googleTagManagerId} />}
-      {googleAnalyticsId !== undefined && googleTagManagerId === undefined && (
+      {G.isNotNullable(googleTagManagerId) && <GoogleTagManager gtmId={googleTagManagerId} />}
+      {G.isNotNullable(googleAnalyticsId) && !G.isNotNullable(googleTagManagerId) && (
         <GoogleAnalytics gaId={googleAnalyticsId} />
       )}
     </>
