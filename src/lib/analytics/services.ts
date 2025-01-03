@@ -3,7 +3,7 @@ import { config as googleConfig } from '@/lib/analytics/google/config';
 import { MixpanelAnalytics } from '@/lib/analytics/mixpanel';
 import { config as mixpanelConfig } from '@/lib/analytics/mixpanel/config';
 
-const mixpanel = new MixpanelAnalytics({
+export const mixpanel = new MixpanelAnalytics({
   token: mixpanelConfig.token,
   ...mixpanelConfig.options
 });
@@ -14,6 +14,6 @@ const google = new GoogleAnalytics({
 });
 
 export const services = {
-  google,
-  mixpanel
+  google
+  // mixpanel
 };
