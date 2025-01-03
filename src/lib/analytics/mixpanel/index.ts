@@ -56,13 +56,13 @@ export class MixpanelAnalytics implements AnalyticsService {
     if (this.isOptedOut) return;
     const processedProperties: Record<string, unknown> = {};
 
-    Object.entries(properties).forEach(([key, value]) => {
+    for (const [key, value] of Object.entries(properties)) {
       if (knownSpecialProperties.has(key)) {
         processedProperties[`$${key}`] = value;
       } else {
         processedProperties[key] = value;
       }
-    });
+    }
 
     people.set(processedProperties);
   }
