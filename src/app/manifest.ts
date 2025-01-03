@@ -315,41 +315,45 @@ const generateLogos = async () => {
   await ensureDir(logoRoot);
   await ensureDir(iconRoot);
 
-  allSizes.forEach(async (size) => {
-    const svgPath = resolve(ROOT_DIR, `${inputRoot}/logo.svg`);
-    const pngPath = resolve(ROOT_DIR, `${inputRoot}/logo.png`);
+  await Promise.all(
+    allSizes.map(async (size) => {
+      const svgPath = resolve(ROOT_DIR, `${inputRoot}/logo.svg`);
+      const pngPath = resolve(ROOT_DIR, `${inputRoot}/logo.png`);
 
-    const input = (await $`test -f ${svgPath}`.exitCode) === 0 ? svgPath : pngPath;
-    const output = resolve(ROOT_DIR, `${logoRoot}/logo-${size}.png`);
+      const input = (await $`test -f ${svgPath}`.exitCode) === 0 ? svgPath : pngPath;
+      const output = resolve(ROOT_DIR, `${logoRoot}/logo-${size}.png`);
 
-    sharp(input)
-      .png()
-      .resize({
-        width: size,
-        height: size,
-        fit: 'contain',
-        background: 'transparent'
-      })
-      .toFile(output, logError);
-  });
+      sharp(input)
+        .png()
+        .resize({
+          width: size,
+          height: size,
+          fit: 'contain',
+          background: 'transparent'
+        })
+        .toFile(output, logError);
+    })
+  );
 
-  allSizes.forEach(async (size) => {
-    const svgPath = resolve(ROOT_DIR, `${inputRoot}/icon.svg`);
-    const pngPath = resolve(ROOT_DIR, `${inputRoot}/icon.png`);
+  await Promise.all(
+    allSizes.map(async (size) => {
+      const svgPath = resolve(ROOT_DIR, `${inputRoot}/icon.svg`);
+      const pngPath = resolve(ROOT_DIR, `${inputRoot}/icon.png`);
 
-    const input = (await $`test -f ${svgPath}`.exitCode) === 0 ? svgPath : pngPath;
-    const output = resolve(ROOT_DIR, `${iconRoot}/icon-${size}.png`);
+      const input = (await $`test -f ${svgPath}`.exitCode) === 0 ? svgPath : pngPath;
+      const output = resolve(ROOT_DIR, `${iconRoot}/icon-${size}.png`);
 
-    sharp(input)
-      .png()
-      .resize({
-        width: size,
-        height: size,
-        fit: 'contain',
-        background: 'transparent'
-      })
-      .toFile(output, logError);
-  });
+      sharp(input)
+        .png()
+        .resize({
+          width: size,
+          height: size,
+          fit: 'contain',
+          background: 'transparent'
+        })
+        .toFile(output, logError);
+    })
+  );
 };
 
 const generateScreenshots = async () => {
