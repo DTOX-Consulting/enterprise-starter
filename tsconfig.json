@@ -68,6 +68,7 @@
     "**/*.cjs",
     "**/*.tsx",
     "**/*.mjs",
+    "**/*.json",
     "next-env.d.ts",
     "types/**/*.d.ts",
     "trigger.config.ts",
