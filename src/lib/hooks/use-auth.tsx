@@ -1,3 +1,5 @@
+'use client';
+
 import { useCallback, useEffect } from 'react';
 
 import { useNavigatorOnline } from '@/lib/hooks/use-navigator-online';
@@ -8,27 +10,32 @@ export function useAuth() {
   const utils = api.useUtils();
   const { isOnline, isReconnected } = useNavigatorOnline();
 
-  const enabled = false; // isOnline;
-
   useEffect(() => {
     if (isReconnected) {
       void utils.auth.user.invalidate();
     }
   }, [isReconnected, utils.auth.user]);
 
-  let { data } = api.auth.user.useQuery(undefined, {
-    placeholderData: defaultUserSession(),
-    staleTime: 1000 * 60 * 60,
-    suspense: true,
-    enabled
-  });
+  let { data, error, isFetching } = api.auth.user.useQuery(
+    { swallowError: true },
+    {
+      placeholderData: defaultUserSession(),
+      staleTime: 1000 * 60 * 60,
+      enabled: isOnline,
+      suspense: false,
+      retry: 0,
+      onError: (err) => {
+        console.error('Auth query failed:', err);
+      }
+    }
+  );
 
-  if (!isOnline) {
-    data = utils.auth.user.getData();
+  if (!isOnline || !data || !!error) {
+    data = utils.auth.user.getData() ?? defaultUserSession();
   }
 
-  const userId = data?.user.id ?? 'default';
-  const orgId = data?.organization?.orgCode ?? 'default';
+  const userId = data.user.id || 'default';
+  const orgId = data.organization?.orgCode ?? 'default';
 
   const getStorageKey = useCallback(
     (prefix: string) => `${prefix}-${orgId}-${userId}`,
@@ -39,8 +46,8 @@ export function useAuth() {
     orgId,
     userId,
     ...data,
-    enabled,
     session: data,
-    getStorageKey
+    getStorageKey,
+    isLoading: isFetching
   };
 }

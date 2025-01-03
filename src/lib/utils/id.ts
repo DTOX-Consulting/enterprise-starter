@@ -28,3 +28,11 @@ export const slugify = (name: string) => {
   const id = nanoid(4);
   return `${text}-${id}`.toLowerCase().trim();
 };
+
+// Simple UUID generator
+export const generateUUID = () =>
+  'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (i) => {
+    const random = (Math.random() * 16) | 0;
+    const value = i === 'x' ? random : (random & 0x3) | 0x8;
+    return value.toString(16);
+  });

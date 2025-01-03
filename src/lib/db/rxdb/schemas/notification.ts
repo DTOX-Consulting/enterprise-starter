@@ -16,6 +16,7 @@ export type Notification = {
 };
 
 export const notificationSchema = createSchema<Notification>({
+  version: 0,
   title: 'notification schema',
   description: 'describes a notification',
   required: ['content'],

@@ -6,6 +6,7 @@ export const defaultUserSession = () =>
   ({
     isAdmin: false,
     organization: null,
+    isAuthenticated: false,
     user: {
       id: '',
       name: '',

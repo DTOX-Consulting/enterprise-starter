@@ -1,5 +1,6 @@
 'use client';
 
+import { G } from '@mobily/ts-belt';
 import { delay } from 'already';
 import { useCallback, useEffect, useState } from 'react';
 import {
@@ -11,6 +12,7 @@ import {
 } from 'rxdb-hooks';
 
 import { clearDbs } from '@/lib/db/indexeddb/utils';
+import { DB_ENABLED } from '@/lib/db/rxdb/constants';
 import { initialize, type InitializedDB } from '@/lib/db/rxdb/setup';
 import {
   type NCS,
@@ -86,7 +88,8 @@ export const useRxDB = () => {
   const initializeDb = useDebounceCallback<boolean>(
     'initialize-db',
     async (forceResync = false) => {
-      if (session?.user.id === undefined) return;
+      if (G.isNullable(DB_ENABLED) || G.isNullable(session.user.id)) return;
+
       if (getDb() && getReplicates()) {
         resyncDb(forceResync);
         return;
@@ -118,7 +121,7 @@ export const useRxDB = () => {
   );
 
   const reinitializeDb = useCallback(async () => {
-    if (session?.user.id === undefined) return;
+    if (G.isNullable(session.user.id)) return;
     await clearDbs();
     await destroyDb();
     initializeDb(true);
@@ -134,7 +137,7 @@ export const useRxDBCollection = <T extends SchemaName, U extends SchemaType<T> 
 ) => {
   const { user } = useAuth();
   const collectionHook = useRxCollection<U>(collectionName);
-  const ownerId = user?.id;
+  const ownerId = user.id;
 
   const getCollection = useCallback(() => collectionHook, [collectionHook]);
 

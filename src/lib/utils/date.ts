@@ -1,4 +1,5 @@
 import { G } from '@mobily/ts-belt';
+import { sub, add } from 'date-fns';
 import ms from 'ms';
 
 const formats = {
@@ -100,4 +101,35 @@ export function formatDateLocal(input: string | number | Date): string {
     day: 'numeric',
     year: 'numeric'
   });
+}
+
+type RelativeTimeUnit = 'years' | 'months' | 'weeks' | 'days' | 'hours' | 'minutes' | 'seconds';
+
+type RelativeDirection = 'past' | 'future';
+
+/**
+ * Get a date relative to a base date (defaults to today)
+ *
+ * @param amount The number of units to add/subtract
+ * @param unit The unit of time to add/subtract (years, months, weeks, days, hours, minutes, seconds)
+ * @param direction 'past' to get a date in the past, 'future' to get a date in the future
+ * @param baseDate The date to calculate from (defaults to current date)
+ * @returns A Date object representing the relative date
+ * @example
+ * // Get a date 3 months ago from today
+ * getRelativeDate(3, 'months', 'past')
+ * // Get a date 6 years in the future from today
+ * getRelativeDate(6, 'years', 'future')
+ * // Get a date 2 weeks ago from a specific date
+ * getRelativeDate(2, 'weeks', 'past', new Date('2024-01-01'))
+ */
+export function getRelativeDate(
+  amount: number,
+  unit: RelativeTimeUnit,
+  direction: RelativeDirection = 'past',
+  baseDate: Date = new Date()
+): Date {
+  return direction === 'past'
+    ? sub(baseDate, { [unit]: amount })
+    : add(baseDate, { [unit]: amount });
 }

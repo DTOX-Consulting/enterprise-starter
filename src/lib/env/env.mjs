@@ -27,7 +27,7 @@ export const env = createEnv({
 
     // Upstash
     UPSTASH_REDIS_API_URL: z.string().min(1).optional(),
-    UPSTASH_REDIS_REST_TOKEN: z.string().min(1).optional(),
+    UPSTASH_REDIS_API_TOKEN: z.string().min(1).optional(),
 
     // Trigger
     TRIGGER_API_ID: z.string().min(1),
@@ -143,6 +143,10 @@ export const env = createEnv({
     // Supabase
     SUPABASE_JWT_SECRET: process.env.SUPABASE_JWT_SECRET,
     SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY,
+
+    // Upstash
+    UPSTASH_REDIS_API_URL: process.env.UPSTASH_REDIS_API_URL,
+    UPSTASH_REDIS_API_TOKEN: process.env.UPSTASH_REDIS_API_TOKEN,
 
     // Trigger
     TRIGGER_API_ID: process.env.TRIGGER_API_ID,

@@ -1,5 +1,6 @@
 import { TRPCError } from '@trpc/server';
 import { unbox } from 'unbox-js';
+import { z } from 'zod';
 
 import { db } from '@/lib/db/prisma';
 import { logger } from '@/lib/logger/console';
@@ -94,7 +95,6 @@ async function handleDB(user: SessionUser): Promise<void> {
 }
 
 export const authRouter = {
-  user: publicProcedure.query(async () => getUserSession(true)),
   ping: publicProcedure.query(() => ({ success: true })),
   pingError: publicProcedure.query(() => {
     throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR', message: 'This is a test error' });
@@ -112,5 +112,20 @@ export const authRouter = {
     await handleDB(user);
 
     return { success: true };
-  })
+  }),
+  user: publicProcedure
+    .input(z.object({ swallowError: z.boolean().optional() }))
+    .query(async ({ input }) => {
+      const { data, error } = await unbox(getUserSession(true));
+
+      if (error && input.swallowError === true) {
+        return null;
+      }
+
+      if (error) {
+        throw error;
+      }
+
+      return data;
+    })
 };

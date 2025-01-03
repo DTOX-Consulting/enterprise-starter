@@ -115,3 +115,21 @@ export const socialMedia = {
 export const personalSocialMedia = {
   YourName: ['https://www.linkedin.com/in/your-linkedin-profile']
 } as const;
+
+export const relatedApplications = {
+  play: {
+    platform: 'play',
+    id: `co.uk.${domain.replace('.', '.')}`,
+    url: `https://play.google.com/store/apps/details?id=co.uk.${domain.replace('.', '.')}`
+  },
+  itunes: {
+    platform: 'itunes',
+    id: 'id1234567890',
+    url: `https://apps.apple.com/gb/app/${shortName.toLowerCase()}-app/id1234567890`
+  },
+  webapp: {
+    url,
+    platform: 'webapp',
+    id: `${shortName.toLowerCase()}-web-app`
+  }
+} as const;

@@ -55,6 +55,7 @@ export const getUserSession: GetUserSession = async (throwError) => {
   return {
     isAdmin,
     organization,
+    isAuthenticated: authenticated,
     user: {
       id: user.id,
       email: user.email,
@@ -83,6 +84,7 @@ export const isUserAuthenticated = async () => {
 
 export type UserSession = {
   isAdmin: boolean;
+  isAuthenticated: boolean;
   organization: KindeOrganization | null;
   user: {
     id: string;
