@@ -1,6 +1,7 @@
 'use client';
 
 import { H } from '@highlight-run/next/client';
+import { G } from '@mobily/ts-belt';
 import { useEffect } from 'react';
 
 import { useAuth } from '@/lib/hooks/use-auth';
@@ -10,12 +11,11 @@ import type { SessionUser } from '@/lib/sdks/kinde/api/session';
 
 export function CustomHighlightStart() {
   useEffect(() => {
-    if (!isLocalHost()) {
-      H.start();
-      return () => H.stop();
-    }
-    return () => undefined;
-  }, []);
+    if (isLocalHost()) return;
+
+    H.start();
+    return () => H.stop();
+  });
 
   return null;
 }
@@ -33,6 +33,6 @@ export const identify = (user: SessionUser) =>
   });
 
 const shouldRun = (user?: SessionUser): user is SessionUser => {
-  const hasUser = !!user && !!user.email;
+  const hasUser = G.isNullable(user?.email);
   return hasUser && !isLocalHost();
 };

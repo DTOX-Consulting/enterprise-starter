@@ -88,7 +88,7 @@ export const useRxDB = () => {
   const initializeDb = useDebounceCallback<boolean>(
     'initialize-db',
     async (forceResync = false) => {
-      if (G.isNullable(DB_ENABLED) || G.isNullable(session.user.id)) return;
+      if (!DB_ENABLED || G.isNullable(session.user.id)) return;
 
       if (getDb() && getReplicates()) {
         resyncDb(forceResync);
