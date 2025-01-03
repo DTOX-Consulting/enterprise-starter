@@ -3,7 +3,7 @@
 import { G } from '@mobily/ts-belt';
 
 import { type AbilityUser, defineAbilitiesFor } from '@/config/permissions/abilities';
-import { defaultTier, getTier, type TierName } from '@/config/permissions/features';
+import { getTier, type TierName } from '@/config/permissions/features';
 import { useAuth } from '@/lib/hooks/use-auth';
 
 export function useAbilities() {
@@ -13,7 +13,7 @@ export function useAbilities() {
     auth
   });
 
-  const currentTier = auth.subscription?.tier ?? defaultTier;
+  const currentTier = auth.subscription.tier;
   const { price, features } = getTier(currentTier);
 
   return {
@@ -21,7 +21,7 @@ export function useAbilities() {
     features,
     abilities,
     tier: currentTier,
-    abilitiesReady: G.isNotNullable(auth.user?.id),
+    abilitiesReady: G.isNotNullable(auth.user.id),
     isTier: (tier: TierName) => currentTier === tier,
     getFeature: (feature: keyof typeof features) => features[feature]
   };
@@ -33,8 +33,8 @@ const defineAbilities = ({
   auth: ReturnType<typeof useAuth>;
 }) => {
   const abilityUser: AbilityUser = {
-    id: auth.user?.id ?? '',
-    tier: auth.subscription?.tier ?? defaultTier,
+    id: auth.user.id,
+    tier: auth.subscription.tier,
     meta: {}
   };
 

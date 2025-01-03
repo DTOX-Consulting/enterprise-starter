@@ -35,7 +35,7 @@ export function AnalyticsProvider({
   }, [initialized]);
 
   useEffect(() => {
-    if (!initialized || identified || G.isNullable(user?.id)) return;
+    if (!initialized || identified || G.isNullable(user.id)) return;
     setIdentified(true);
 
     analyticsManager.identify(user.id, {
@@ -44,7 +44,7 @@ export function AnalyticsProvider({
       lastName: user.lastName,
       firstName: user.firstName,
       avatar: user.image ?? null,
-      subscription: subscription?.tier ?? 'none'
+      subscription: subscription.tier
     });
   }, [user, subscription, initialized, identified]);
 
