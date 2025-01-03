@@ -1,17 +1,12 @@
-import {
-  init,
-  track,
-  reset,
-  people,
-  identify,
-  opt_in_tracking,
-  opt_out_tracking
-} from 'mixpanel-browser';
+import mixpanel from 'mixpanel-browser';
 
 import { isLocalOrExternal } from '@/lib/utils/dom';
 
 import type { AnalyticsEvent, EventProperties } from '@/lib/analytics/events';
 import type { AnalyticsService, AnalyticsConfig } from '@/lib/analytics/manager';
+
+// eslint-disable-next-line import-x/no-named-as-default-member
+const { init, track, reset, people, identify, opt_in_tracking, opt_out_tracking } = mixpanel;
 
 const knownSpecialProperties = new Set([
   'email',
