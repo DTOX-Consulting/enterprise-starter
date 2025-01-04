@@ -164,6 +164,7 @@ export const env = createEnv({
 
     // Storage
     R2_TOKEN: process.env.R2_TOKEN,
+    R2_DOMAIN: process.env.R2_DOMAIN,
     R2_ACCOUNT_ID: process.env.R2_ACCOUNT_ID,
     R2_ACCESS_KEY_ID: process.env.R2_ACCESS_KEY_ID,
     R2_SECRET_ACCESS_KEY: process.env.R2_SECRET_ACCESS_KEY,
