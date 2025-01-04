@@ -1,6 +1,7 @@
 import { G } from '@mobily/ts-belt';
 import { useEffect, useState } from 'react';
-import { stringify } from 'safe-stable-stringify';
+
+import { stringify } from '@/lib/utils/stringify';
 
 const useLocalStorage = <T>(key: string, initialValue: T): [T, (value: T) => void] => {
   const [storedValue, setStoredValue] = useState(initialValue);
@@ -8,16 +9,13 @@ const useLocalStorage = <T>(key: string, initialValue: T): [T, (value: T) => voi
   useEffect(() => {
     // eslint-disable-next-line n/no-unsupported-features/node-builtins
     const item = window.localStorage.getItem(key);
-    if (G.isNotNullable(item)) {
-      setStoredValue(JSON.parse(item) as T);
-    }
+    setStoredValue(G.isNotNullable(item) ? (JSON.parse(item) as T) : (undefined as T));
   }, [key]);
 
   const setValue = (value: T) => {
-    // Save state
     setStoredValue(value);
     // eslint-disable-next-line n/no-unsupported-features/node-builtins
-    window.localStorage.setItem(key, stringify(value as string));
+    window.localStorage.setItem(key, stringify(value) as unknown as string);
   };
 
   return [storedValue, setValue];

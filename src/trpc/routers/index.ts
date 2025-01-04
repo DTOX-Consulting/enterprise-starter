@@ -4,6 +4,7 @@ import { authRouter } from '@/trpc/routers/auth';
 import { crmRouter } from '@/trpc/routers/crm';
 import { paymentRouter } from '@/trpc/routers/payment';
 import { proxyRouter } from '@/trpc/routers/proxy';
+import { uploadRouter } from '@/trpc/routers/upload';
 
 /**
  * This is the primary router for your server.
@@ -15,6 +16,7 @@ export const appRouter = createTRPCRouter({
   crm: createTRPCRouter(crmRouter),
   auth: createTRPCRouter(authRouter),
   proxy: createTRPCRouter(proxyRouter),
+  upload: createTRPCRouter(uploadRouter),
   payment: createTRPCRouter(paymentRouter)
 });
 

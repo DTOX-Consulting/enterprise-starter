@@ -55,6 +55,7 @@
     "@ai-sdk/openai": "0.0.72",
     "@alptugidin/react-circular-progress-bar": "1.1.4",
     "@arcjet/next": "1.0.0-alpha.34",
+    "@aws-sdk/client-s3": "3.722.0",
     "@builder.io/partytown": "0.10.2",
     "@casl/ability": "6.7.2",
     "@casl/react": "4.0.0",
@@ -238,7 +239,8 @@
     "use-debounce": "10.0.4",
     "usehooks-ts": "3.1.0",
     "vaul": "0.9.9",
-    "zod": "3.23.8"
+    "zod": "3.23.8",
+    "zod-form-data": "2.0.5"
   },
   "devDependencies": {
     "@babel/core": "7.26.0",
