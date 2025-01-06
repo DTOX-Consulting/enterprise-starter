@@ -6,24 +6,19 @@ export function simpleId() {
   return count.toString();
 }
 
-export function generateId(length = 12): string {
-  const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-  return Array.from({ length }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
-}
-
 export const nanoid = customAlphabet(
   '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
   12
 );
 
 export const isNanoId = (id: string, length = 12) =>
-  new RegExp(`^([0-9A-Za-z]{${length}})$`).test(id);
+  new RegExp(`^[0-9A-Za-z]{${length}}$`).test(id);
 
 export const slugify = (name: string) => {
   const text = name
     .toLowerCase()
-    .replace(/[^a-z0-9]+/gi, '-')
-    .replace(/(^-)|(-$)/g, '');
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
 
   const id = nanoid(4);
   return `${text}-${id}`.toLowerCase().trim();
@@ -31,8 +26,22 @@ export const slugify = (name: string) => {
 
 // Simple UUID generator
 export const generateUUID = () =>
-  'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (i) => {
-    const random = (Math.random() * 16) | 0;
-    const value = i === 'x' ? random : (random & 0x3) | 0x8;
-    return value.toString(16);
+  'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (char) => {
+    const rnd = randomInt(0, 16);
+    const vr = char === 'x' ? rnd : (rnd & 0x3) | 0x8;
+    return vr.toString(16);
   });
+
+let seed = Date.now();
+
+export const randomInt = (min: number, max: number) => {
+  const minCeil = Math.ceil(min);
+  const maxFloor = Math.floor(max);
+
+  if (minCeil >= maxFloor) {
+    throw new Error('Min must be less than max');
+  }
+
+  seed = (seed * 16807) % 2147483647; // Park-Miller PRNG
+  return minCeil + (seed % (maxFloor - minCeil + 1));
+};
