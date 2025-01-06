@@ -4,12 +4,12 @@ import { redis } from '@/lib/sdks/upstash/clients/redis';
 import { stringify } from '@/lib/utils/stringify';
 import { protectedProcedure, publicProcedure } from '@/trpc';
 
-import type { ProcedureBuilder } from '@trpc/server';
+import type { ProcedureBuilderParams } from '@/trpc/types';
 
 type CacheOptions = {
-  keyPrefix?: string;
   ttlSeconds?: number;
   enabled?: boolean | ((input: unknown) => boolean);
+  keyPrefix?: string;
   getKey?: (path: string, input: unknown) => string;
 };
 
@@ -25,8 +25,10 @@ const defaultOptions: CacheOptions = {
  * based on the input parameters and procedure path
  */
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const createCachedProcedure = <T extends ProcedureBuilder<any>>(
+export const createCachedProcedure = <
+  S extends boolean | undefined,
+  T extends ProcedureBuilderParams<S> = ProcedureBuilderParams<S>
+>(
   procedure: T,
   options: CacheOptions = {}
 ) => {
@@ -71,20 +73,52 @@ export const createCachedProcedure = <T extends ProcedureBuilder<any>>(
   });
 };
 
-// Public cached procedures
-export const publicCachedProcedure = createCachedProcedure(publicProcedure);
-export const publicCachedHourProcedure = createCachedProcedure(publicProcedure, {
-  ttlSeconds: 60 * 60
-});
-
-// Protected cached procedures
-export const protectedCachedProcedure = createCachedProcedure(protectedProcedure);
-export const protectedCachedHourProcedure = createCachedProcedure(protectedProcedure, {
-  ttlSeconds: 60 * 60
-});
-
 // Create custom TTL procedures
-export const createCustomCachedProcedure = (ttlSeconds: number, isProtected = false) =>
-  createCachedProcedure(isProtected ? protectedCachedProcedure : publicCachedProcedure, {
+export const createCustomCachedProcedure = (ttlSeconds: number, isProtected = false) => {
+  const procedure = isProtected ? protectedProcedure : publicProcedure;
+  return createCachedProcedure(procedure as ProcedureBuilderParams, {
     ttlSeconds
   });
+};
+
+const config = {
+  '5mins': { ttlSeconds: 60 * 5 },
+  '1hour': { ttlSeconds: 60 * 60 },
+  '1day': { ttlSeconds: 60 * 60 * 24 }
+} as const;
+
+type ConfigKey = keyof typeof config;
+
+type Prefix = 'public' | 'protected';
+
+type ConfigKeys = `${Prefix}${ConfigKey}`;
+
+type ProcedureType = CachedProcedure | ProtectedCachedProcedure;
+
+type CachedProcedure = ReturnType<typeof createCachedProcedure>;
+
+type ProtectedCachedProcedure = ReturnType<typeof createCachedProcedure<true>>;
+
+export const {
+  public5mins: publicCachedProcedure,
+  protected5mins: protectedCachedProcedure,
+  public1hour: publicCachedHourProcedure,
+  protected1hour: protectedCachedHourProcedure,
+  public1day: publicCachedDayProcedure,
+  protected1day: protectedCachedDayProcedure
+} = (function createConfiguredProcedures() {
+  const procedures = {} as Record<ConfigKeys, ProcedureType>;
+
+  for (const [key, { ttlSeconds }] of Object.entries(config)) {
+    const procedureOptions = { ttlSeconds };
+    const publicKey = `public${key}` as ConfigKeys;
+    const protectedKey = `protected${key}` as ConfigKeys;
+    procedures[publicKey] = createCachedProcedure(publicProcedure, procedureOptions);
+    procedures[protectedKey] = createCachedProcedure<true>(
+      protectedProcedure as ProcedureBuilderParams<true>,
+      procedureOptions
+    );
+  }
+
+  return procedures;
+})();

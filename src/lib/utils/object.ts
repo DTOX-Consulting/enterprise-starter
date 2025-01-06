@@ -6,6 +6,9 @@ import { throwError } from '@/lib/utils/error';
 
 import type { GenericFunction } from '@/lib/utils/function';
 
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+export type GenericAny = any;
+
 export type DeepReadonlyArray<T> = readonly DeepReadonly<T>[];
 
 export type DeepReadonlyObject<T> = {
@@ -217,6 +220,21 @@ export function isEmptyObject(obj: Readonly<Record<string, unknown>>): boolean {
   return Object.keys(obj).length === 0 && obj.constructor === Object;
 }
 
-export function tuple<T, U extends T[]>(...uParams: U): U {
-  return uParams;
+/**
+ * Check if value is a non-null object
+ *
+ * @param value
+ * @returns true if value is a non-null object
+ */
+export const isNonNullObject = (value: unknown): value is Record<string, unknown> =>
+  G.isObject(value) && G.isNotNullable(value) && !G.isArray(value);
+
+/**
+ * Create a tuple from the provided arguments
+ *
+ * @param arr
+ * @returns tuple
+ */
+export function tuple<T, U extends T[]>(...arr: U): U {
+  return arr;
 }

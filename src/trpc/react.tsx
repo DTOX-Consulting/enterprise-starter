@@ -6,7 +6,8 @@ import {
   splitLink,
   loggerLink,
   type Operation,
-  unstable_httpBatchStreamLink
+  unstable_httpBatchStreamLink,
+  experimental_formDataLink
 } from '@trpc/client';
 import { createTRPCReact } from '@trpc/react-query';
 import { type ReactNode, useState } from 'react';
@@ -19,7 +20,8 @@ import type { AppRouter } from '@/trpc/routers';
 export const api: ReturnType<typeof createTRPCReact<AppRouter>> = createTRPCReact<AppRouter>();
 
 export function TRPCReactProvider(props: { children: ReactNode; headers: Headers }) {
-  const linkCondition = (op: Operation) => op.context['skipBatch'] === true;
+  const formDataCondition = (op: Operation) => op.input instanceof FormData;
+  const batchCondition = (op: Operation) => op.context['skipBatch'] === true;
 
   const linkSetup = {
     url: getUrl(),
@@ -60,11 +62,15 @@ export function TRPCReactProvider(props: { children: ReactNode; headers: Headers
         }),
 
         splitLink({
-          condition: linkCondition,
-          true: httpLink(linkSetup),
-          false: unstable_httpBatchStreamLink({
-            maxURLLength: 2083,
-            ...linkSetup
+          condition: formDataCondition,
+          true: experimental_formDataLink(linkSetup),
+          false: splitLink({
+            condition: batchCondition,
+            true: httpLink(linkSetup),
+            false: unstable_httpBatchStreamLink({
+              maxURLLength: 2083,
+              ...linkSetup
+            })
           })
         })
       ]

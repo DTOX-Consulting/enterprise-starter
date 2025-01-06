@@ -390,6 +390,9 @@ importers:
       jotai-immer:
         specifier: 0.4.1
         version: 0.4.1(immer@10.1.1)(jotai@2.10.3(react@19.0.0-rc-fb9a90fa48-20240614)(types-react@19.0.0-rc.1))
+      js-base64:
+        specifier: 3.7.7
+        version: 3.7.7
       jszip:
         specifier: 3.10.1
         version: 3.10.1

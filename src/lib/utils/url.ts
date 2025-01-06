@@ -22,7 +22,7 @@ const getBlobURL = async (response: Response | Blob) => {
   return URL.createObjectURL(blob);
 };
 
-const createObjectURLAndDownload = (blobOrBlobUrl: Blob | string, fileName: string) => {
+const createObjectURLAndDownload = (blobOrBlobUrl: Blob | File | string, fileName: string) => {
   const url =
     typeof blobOrBlobUrl === 'string' ? blobOrBlobUrl : URL.createObjectURL(blobOrBlobUrl);
   createAndClickAnchor(url, fileName);
@@ -34,7 +34,7 @@ const downloadUrlProxy = async (url: string, fileName: string, ext = 'png', cors
   return downloadResponse(response, fileName, ext);
 };
 
-const downloadBlob = (blobOrBlobUrl: Blob | string, fileName: string, ext = 'pdf') =>
+const downloadBlob = (blobOrBlobUrl: Blob | File | string, fileName: string, ext = 'pdf') =>
   createObjectURLAndDownload(blobOrBlobUrl, `${fileName}.${ext}`);
 
 export const downloadResponse = async (response: Response, fileName: string, ext = 'pdf') => {

@@ -8,14 +8,14 @@ type UseIndexedDBConfig = {
   storeName: string;
 };
 
-const useIndexedDB = <T>(
+const useIndexedDB = <T extends string | File = string>(
   key: string,
   initialValue: T,
   config: UseIndexedDBConfig
 ): [T, (value: T) => Promise<void>, boolean] => {
-  const [storedValue, setStoredValue] = useState<T>(initialValue);
   const [isLoading, setIsLoading] = useState(true);
   const [store] = useState(() => new IndexedDBStore(config));
+  const [storedValue, setStoredValue] = useState<T>(initialValue);
 
   useEffect(() => {
     const loadValue = async () => {
@@ -38,19 +38,23 @@ const useIndexedDB = <T>(
     async (value: T) => {
       try {
         setIsLoading(true);
+        setStoredValue(value);
+
         const result = await store.setItem(key, value);
-        if (result.success) {
-          setStoredValue(value);
-        } else {
+        if (!result.success) {
           console.error('Failed to save value to IndexedDB:', result.error);
+          // Revert on failure
+          setStoredValue(storedValue);
         }
       } catch (error) {
         console.error('Failed to save value to IndexedDB:', error);
+        // Revert on error
+        setStoredValue(storedValue);
       } finally {
         setIsLoading(false);
       }
     },
-    [key, store]
+    [key, store, storedValue]
   );
 
   return [storedValue, setValue, isLoading];

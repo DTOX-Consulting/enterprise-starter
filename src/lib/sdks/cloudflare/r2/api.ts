@@ -1,6 +1,7 @@
 import {
   CreateBucketCommand,
   DeleteObjectCommand,
+  GetObjectCommand,
   HeadBucketCommand,
   PutObjectCommand
 } from '@aws-sdk/client-s3';
@@ -37,7 +38,9 @@ export async function deleteFile(bucketName: string, fileKey: string) {
 
 async function ensureBucketExists(bucketName: string) {
   const exists = await checkBucketExists(bucketName);
-  !exists && (await createBucket(bucketName));
+  if (!exists) {
+    await createBucket(bucketName);
+  }
 }
 
 export async function uploadFile({
@@ -61,4 +64,25 @@ export async function uploadFile({
   };
 
   await client.send(new PutObjectCommand(params));
+}
+
+export async function retrieveFile({
+  fileKey,
+  bucketName
+}: { fileKey: string; bucketName: string }) {
+  const { data, error } = await unbox(
+    client.send(
+      new GetObjectCommand({
+        Bucket: bucketName,
+        Key: fileKey,
+        ResponseCacheControl: 'no-cache, no-store, must-revalidate'
+      })
+    )
+  );
+  if (error) {
+    console.error(`Error retrieving file ${fileKey} from bucket ${bucketName}:`, error);
+    throw error;
+  }
+
+  return data;
 }

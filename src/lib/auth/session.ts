@@ -8,8 +8,8 @@ import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 // }
 
 export async function getSession() {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+  const { getUser, isAuthenticated } = getKindeServerSession();
+  const user = (await isAuthenticated()) ? await getUser() : null;
   return { user };
 }
 

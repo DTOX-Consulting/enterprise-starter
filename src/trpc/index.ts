@@ -12,8 +12,9 @@ import superjson from 'superjson';
 import { ZodError } from 'zod';
 
 import { getSession } from '@/lib/auth/session';
-import { db } from '@/lib/db/prisma';
+// import { db } from '@/lib/db/prisma';
 
+import type { ContextWithOptionalUser, SessionWithNonNullableUser } from '@/trpc/types';
 import type { NextRequest } from 'next/server';
 
 /**
@@ -39,14 +40,16 @@ type CreateContextOptions = {
  *
  * @see https://create.t3.gg/en/usage/trpc#-serverapitrpcts
  */
-export const createInnerTRPCContext = async (opts: CreateContextOptions) => {
+export const createInnerTRPCContext = async (
+  opts: CreateContextOptions
+): Promise<ContextWithOptionalUser> => {
   const session = await getSession();
 
   return {
     session,
     request: opts.request,
-    headers: opts.headers,
-    db
+    headers: opts.headers
+    // db
   };
 };
 
@@ -113,7 +116,10 @@ const enforceUserIsAuthed = trpcInstance.middleware(async ({ ctx, next }) =>
   next({
     ctx: {
       // infers the `session` as non-nullable
-      session: { ...ctx.session, user: ctx.session.user }
+      session: {
+        ...ctx.session,
+        user: ctx.session.user
+      } as SessionWithNonNullableUser
     }
   })
 );
