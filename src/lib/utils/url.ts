@@ -66,26 +66,3 @@ export const parseDataURL = (dataURL: string) => {
     data: matches[2]
   };
 };
-
-export const fileToBase64 = async (file: File): Promise<string> =>
-  new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = (error) => reject(error as unknown as Error);
-  });
-
-export const base64ToFile = (
-  base64: string,
-  fileName: string,
-  mimeType: string,
-  lastModified: number
-) => {
-  const binaryString = atob(base64);
-  const bytes = new Uint8Array(binaryString.length);
-  for (let i = 0; i < binaryString.length; i++) {
-    bytes[i] = binaryString.charCodeAt(i);
-  }
-  const blob = new Blob([bytes], { type: mimeType });
-  return new File([blob], fileName, { type: mimeType, lastModified });
-};
