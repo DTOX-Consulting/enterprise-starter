@@ -2,14 +2,16 @@ import { G } from '@mobily/ts-belt';
 import { encode } from 'js-base64';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
+import { fileToFormData } from '@/lib/utils/file/client';
 import { api } from '@/trpc/react';
 
-type UseR2DBConfig = {
+export type UseR2DBConfig = {
   bucket: string;
   dirPath: string;
+  saveAsFile: boolean;
 };
 
-type UploadResult = {
+export type UploadResult = {
   success: boolean;
   error: string | null;
   data: {
@@ -19,7 +21,7 @@ type UploadResult = {
   } | null;
 };
 
-const useR2DB = <T extends string | File>(
+const useR2DB = <T extends string = string>(
   key: string,
   initialValue: T,
   config: UseR2DBConfig
@@ -42,14 +44,11 @@ const useR2DB = <T extends string | File>(
   const { mutateAsync: uploadFormData } = api.upload.formData.useMutation();
 
   const createFormData = useCallback(
-    (value: File) => {
-      const formData = new FormData();
-      formData.append('name', key);
-      formData.append('file', value);
-      formData.append('bucket', config.bucket);
-      formData.append('dirPath', config.dirPath);
-      return formData;
-    },
+    (value: T) =>
+      fileToFormData(new Blob([value]), key, {
+        bucket: config.bucket,
+        dirPath: config.dirPath
+      }),
     [key, config.bucket, config.dirPath]
   );
 
@@ -83,7 +82,7 @@ const useR2DB = <T extends string | File>(
 
         let result: UploadResult;
 
-        if (value instanceof File) {
+        if (config.saveAsFile) {
           result = await uploadFormData(createFormData(value));
         } else {
           result = await uploadBase64({
@@ -112,6 +111,7 @@ const useR2DB = <T extends string | File>(
       createBase64,
       uploadFormData,
       createFormData,
+      config.saveAsFile,
       utils.upload.retrieve
     ]
   );

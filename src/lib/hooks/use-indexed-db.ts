@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { IndexedDBStore } from '@/lib/db/indexeddb/storage';
 
-type UseIndexedDBConfig = {
+export type UseIndexedDBConfig = {
   dbName: string;
   version: number;
   storeName: string;

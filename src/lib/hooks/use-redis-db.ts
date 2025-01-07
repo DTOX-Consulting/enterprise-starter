@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { api } from '@/trpc/react';
 
-type UseRedisDBConfig = {
+export type UseRedisDBConfig = {
   prefix?: string;
   ttl?: number; // Time to live in seconds
 };
