@@ -4,6 +4,7 @@ import { authRouter } from '@/trpc/routers/auth';
 import { crmRouter } from '@/trpc/routers/crm';
 import { paymentRouter } from '@/trpc/routers/payment';
 import { proxyRouter } from '@/trpc/routers/proxy';
+import { redisRouter } from '@/trpc/routers/redis';
 import { uploadRouter } from '@/trpc/routers/upload';
 
 /**
@@ -16,6 +17,7 @@ export const appRouter = createTRPCRouter({
   crm: createTRPCRouter(crmRouter),
   auth: createTRPCRouter(authRouter),
   proxy: createTRPCRouter(proxyRouter),
+  redis: createTRPCRouter(redisRouter),
   upload: createTRPCRouter(uploadRouter),
   payment: createTRPCRouter(paymentRouter)
 });

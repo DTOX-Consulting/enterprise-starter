@@ -1,5 +1,12 @@
 /** @type {string[]} */
-const exactOrigins = []; // update this with your domain
+const exactOrigins = [
+  '*.enterprise-starter.com',
+  'https://enterprise-starter.com',
+  'https://app.enterprise-starter.com',
+  '*.enterprise-starter.co.uk',
+  'https://enterprise-starter.co.uk',
+  'https://app.enterprise-starter.co.uk'
+]; // update this with your domain
 
 const defaultOrigins = [
   'http://localhost:*',
