@@ -10,8 +10,8 @@ import type { PropsWithChildren } from 'react';
 export const HighlightProvider = ({ children }: PropsWithChildren) => (
   <>
     <HighlightInit
-      manualStart
-      tracingOrigins
+      manualStart={true}
+      tracingOrigins={true}
       projectId={config.projectId}
       serviceName={config.serviceName}
       networkRecording={{

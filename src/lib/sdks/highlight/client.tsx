@@ -33,6 +33,6 @@ export const identify = (user: SessionUser) =>
   });
 
 const shouldRun = (user?: SessionUser): user is SessionUser => {
-  const hasUser = G.isNullable(user?.email);
+  const hasUser = G.isNotNullable(user?.email);
   return hasUser && !isLocalHost();
 };
