@@ -8,7 +8,7 @@ type UseIndexedDBConfig = {
   storeName: string;
 };
 
-const useIndexedDB = <T extends string | File = string>(
+const useIndexedDB = <T extends string = string>(
   key: string,
   initialValue: T,
   config: UseIndexedDBConfig
