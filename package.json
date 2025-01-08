@@ -356,7 +356,7 @@
   "optionalDependencies": {
     "sharp": "0.33.5"
   },
-  "packageManager": "pnpm@9.14.4",
+  "packageManager": "pnpm@9.15.0",
   "engines": {
     "node": "20.x"
   },
