@@ -4,8 +4,8 @@ import { RxReplicationState } from 'rxdb/plugins/replication';
 import { Subject } from 'rxjs';
 import { stringify } from 'safe-stable-stringify';
 
+import { stringifyDeterministic } from '@/lib/utils/json';
 import { hash } from '@/lib/utils/string';
-import { stringifyDeterministic } from '@/lib/utils/stringify';
 
 import type { GenericObject } from '@/lib/utils/object';
 import type { RealtimeChannel, SupabaseClient } from '@supabase/supabase-js';

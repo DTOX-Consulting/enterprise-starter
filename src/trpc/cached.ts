@@ -1,30 +1,82 @@
 import { G } from '@mobily/ts-belt';
 
 import { redis } from '@/lib/sdks/upstash/clients/redis';
-import { stringify } from '@/lib/utils/stringify';
+import { randomInt } from '@/lib/utils/id';
+import { parse, stringify, stringifyDeterministic } from '@/lib/utils/json';
 import { protectedProcedure, publicProcedure } from '@/trpc';
 
 import type { ProcedureBuilderParams } from '@/trpc/types';
 
 type CacheOptions = {
   ttlSeconds?: number;
-  enabled?: boolean | ((input: unknown) => boolean);
   keyPrefix?: string;
+  invalidatePercentage?: number;
+  enabled?: boolean | ((input: unknown) => boolean);
   getKey?: (path: string, input: unknown) => string;
 };
 
-const defaultOptions: CacheOptions = {
+const defaultOptions: Required<CacheOptions> = {
   enabled: true,
   keyPrefix: 'trpc',
   ttlSeconds: 60 * 5, // 5 minutes
+  invalidatePercentage: 10, // 10% chance of invalidating the cache
   getKey: (path, input) => `${path}:${stringify(input)}`
+};
+
+const validate = async <T extends { ctx: unknown }>(
+  cached: unknown,
+  next: () => Promise<T>,
+  opts: Required<CacheOptions>
+) => {
+  if (G.isNullable(cached)) {
+    return false;
+  }
+
+  // test the cache 10% of the time
+  if (randomInt(0, 100) >= opts.invalidatePercentage) {
+    return true;
+  }
+
+  const { ctx: _, ...nextValue } = await next();
+  return stringifyDeterministic(cached) === stringifyDeterministic(nextValue);
+};
+
+const checkCache = async <R extends { ctx: unknown }>(
+  cacheKey: string,
+  nextFn: () => Promise<R>,
+  opts: Required<CacheOptions>
+) => {
+  // Check cache
+  const cachedStr = await redis.get(cacheKey);
+  const cached = typeof cachedStr === 'string' ? parse<Omit<R, 'ctx'>>(cachedStr) : null;
+
+  const isValid = await validate<R>(cached, nextFn, opts);
+  return { cached, isValid };
+};
+
+const getResult = async <R extends { ctx: unknown }>(
+  cacheKey: string,
+  nextFn: () => Promise<R>,
+  opts: Required<CacheOptions>
+) => {
+  // Get fresh data
+  const result = await nextFn();
+  const { ctx: _, ...dataToCache } = result;
+
+  // Cache only the data without context
+  await redis.set(
+    cacheKey,
+    stringify(dataToCache),
+    G.isNotNullable(opts.ttlSeconds) ? { ex: opts.ttlSeconds } : undefined
+  );
+
+  return result;
 };
 
 /**
  * Creates a cached procedure that will cache the results of the query
  * based on the input parameters and procedure path
  */
-
 export const createCachedProcedure = <
   S extends boolean | undefined,
   T extends ProcedureBuilderParams<S> = ProcedureBuilderParams<S>
@@ -32,11 +84,8 @@ export const createCachedProcedure = <
   procedure: T,
   options: CacheOptions = {}
 ) => {
-  const opts = { ...defaultOptions, ...options } as CacheOptions & {
-    getKey: (path: string, input: unknown) => string;
-  };
-
-  return procedure.use(async ({ path, rawInput, next }) => {
+  const opts = { ...defaultOptions, ...options } as Required<CacheOptions>;
+  return procedure.use(async ({ path, rawInput, next, ctx }) => {
     // Check if caching is enabled
     const isEnabled = typeof opts.enabled === 'function' ? opts.enabled(rawInput) : opts.enabled;
 
@@ -47,24 +96,23 @@ export const createCachedProcedure = <
     // Generate cache key
     const cacheKey = `${opts.keyPrefix}:${opts.getKey(path, rawInput)}`;
 
+    type NextType = Awaited<ReturnType<typeof next>> & { ctx: typeof ctx };
+    const nextFn = next as () => Promise<NextType>;
+
     try {
-      // Check cache
-      const cached = (await redis.get(cacheKey)) as Awaited<ReturnType<typeof next>> | null;
-      if (G.isNotNullable(cached)) {
-        return cached as Awaited<ReturnType<typeof next>>;
+      const { cached, isValid } = await checkCache<NextType>(cacheKey, nextFn, opts);
+
+      if (G.isNotNullable(cached) && isValid) {
+        // Return cached data with current context
+        return Object.assign(cached, { ctx }) as NextType;
       }
 
-      // Get fresh data
-      const result = await next();
+      // Invalidate cache if it's not valid
+      if (G.isNotNullable(cached) && !isValid) {
+        void redis.del(cacheKey);
+      }
 
-      // Cache the result
-      await redis.set(
-        cacheKey,
-        stringify(result),
-        G.isNotNullable(opts.ttlSeconds) ? { ex: opts.ttlSeconds } : undefined
-      );
-
-      return result;
+      return await getResult<NextType>(cacheKey, nextFn, opts);
     } catch (error) {
       // If there's a cache error, fallback to uncached request
       console.error('Cache error:', error);

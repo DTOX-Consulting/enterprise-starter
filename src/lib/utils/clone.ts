@@ -1,6 +1,6 @@
 import rfdc from 'rfdc';
 
-import { stringify } from '@/lib/utils/stringify';
+import { stringify } from '@/lib/utils/json';
 
 const deepCloner = rfdc();
 

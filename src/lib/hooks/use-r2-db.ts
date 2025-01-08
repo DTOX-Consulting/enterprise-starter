@@ -76,6 +76,8 @@ const useR2DB = <T extends string = string>(
 
   const setValue = useCallback(
     async (value: T) => {
+      if (isLoading) return;
+
       try {
         setIsLoading(true);
         setStoredValue(value);
@@ -105,6 +107,7 @@ const useR2DB = <T extends string = string>(
       }
     },
     [
+      isLoading,
       queryData,
       storedValue,
       uploadBase64,

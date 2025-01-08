@@ -40,14 +40,16 @@ const useRedisDB = <T extends string = string>(
 
   const setValue = useCallback(
     async (value: T) => {
+      if (isLoading) return;
+
       try {
         setIsLoading(true);
         setStoredValue(value);
 
         const result = await setRedisValue({
-          key: fullKey,
           value: value as string,
-          ttl: config.ttl
+          ttl: config.ttl,
+          key: fullKey
         });
 
         if (!result.success) {
@@ -66,7 +68,7 @@ const useRedisDB = <T extends string = string>(
         setIsLoading(false);
       }
     },
-    [fullKey, storedValue, setRedisValue, config.ttl, utils.redis.get]
+    [isLoading, fullKey, storedValue, setRedisValue, config.ttl, utils.redis.get]
   );
 
   return [storedValue, setValue, isLoading];

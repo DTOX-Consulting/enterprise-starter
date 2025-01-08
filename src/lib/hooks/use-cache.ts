@@ -1,8 +1,8 @@
 import { G } from '@mobily/ts-belt';
 import { useCallback } from 'react';
 
+import { stringifyDeterministic } from '@/lib/utils/json';
 import { hash } from '@/lib/utils/string';
-import { stringifyDeterministic } from '@/lib/utils/stringify';
 
 export const createCachedHook = <I, O>(processor: (arg: I) => O) => {
   const cachedResults = new Map<string, O>();

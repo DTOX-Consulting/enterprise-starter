@@ -198,6 +198,7 @@
     "openai": "4.75.0",
     "openai-edge": "1.2.2",
     "p-queue": "8.0.1",
+    "parse-json": "8.1.0",
     "prop-types": "15.8.1",
     "puppeteer": "22.15.0",
     "puppeteer-core": "22.15.0",

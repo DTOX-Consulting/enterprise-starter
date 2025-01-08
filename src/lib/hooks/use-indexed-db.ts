@@ -36,6 +36,8 @@ const useIndexedDB = <T extends string = string>(
 
   const setValue = useCallback(
     async (value: T) => {
+      if (isLoading) return;
+
       try {
         setIsLoading(true);
         setStoredValue(value);
@@ -54,7 +56,7 @@ const useIndexedDB = <T extends string = string>(
         setIsLoading(false);
       }
     },
-    [key, store, storedValue]
+    [isLoading, key, store, storedValue]
   );
 
   return [storedValue, setValue, isLoading];

@@ -1,7 +1,7 @@
 import { G } from '@mobily/ts-belt';
 import { useEffect, useState } from 'react';
 
-import { stringify } from '@/lib/utils/stringify';
+import { stringify } from '@/lib/utils/json';
 
 const useLocalStorage = <T>(key: string, initialValue: T): [T, (value: T) => void] => {
   const [storedValue, setStoredValue] = useState(initialValue);
