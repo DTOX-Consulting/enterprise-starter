@@ -80,7 +80,8 @@ export function useStorage<T, K extends DB_TYPE>(
   const { storageConfig, hook } = getStorageConfig(type, config, atomValues, setAtomValues);
   const [rawValues, setValues, isLoading] = hook(storageKey, '[]' as string, storageConfig as SCI);
 
-  const isFinishLoadingAndAuthenticated = !isLoading && isAuthenticated;
+  const isReady = !isLoading && isAuthenticated;
+  const isNotReady = isLoading || !isAuthenticated;
 
   return {
     rawValues,
@@ -88,9 +89,10 @@ export function useStorage<T, K extends DB_TYPE>(
     atomValues,
     setAtomValues,
     /* pass through for the component */
-    storageKey,
+    isReady,
     isLoading,
-    isAuthenticated,
-    isFinishLoadingAndAuthenticated
+    isNotReady,
+    storageKey,
+    isAuthenticated
   };
 }
