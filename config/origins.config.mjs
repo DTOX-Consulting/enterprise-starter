@@ -6,35 +6,28 @@ const exactOrigins = [
   '*.enterprise-starter.co.uk',
   'https://enterprise-starter.co.uk',
   'https://app.enterprise-starter.co.uk'
-]; // update this with your domain
+];
 
+/** @type {string[]} */
 const defaultOrigins = [
   'http://localhost:*',
   'https://*.pages.dev',
   'https://*.vercel.app',
   'https://vercel.live',
+  'https://*.vercel.com',
+  'https://*.vercel-*.com',
   'https://*.cloudflareaccess.com'
 ];
-
+/** @type {string[]} */
 export const origins = [...defaultOrigins, ...exactOrigins];
 
-export const fontOrigins = [
-  '*.googleapis.com',
-  '*.gstatic.com',
-  '*.hotjar.com',
-  'vercel.live',
-  '*.vercel.com'
-];
+/** @type {string[]} */
+export const fontOrigins = ['*.googleapis.com', '*.gstatic.com', '*.hotjar.com'];
 
-export const frameOrigins = [
-  '*.google.com',
-  '*.youtube.com',
-  '*.stripe.com',
-  'rxdb.info',
-  'vercel.live',
-  '*.vercel.com'
-];
+/** @type {string[]} */
+export const frameOrigins = ['*.google.com', '*.youtube.com', '*.stripe.com', 'rxdb.info'];
 
+/** @type {string[]} */
 export const connectOrigins = [
   'wss://*.hotjar.com',
   'wss://*.supabase.co',
@@ -42,68 +35,62 @@ export const connectOrigins = [
   'wss://ws-us3.pusher.com'
 ];
 
+/** @type {string[]} */
 export const imageOrigins = [
-  '*.hotjar.io',
-  '*.hotjar.com',
-  'fakeimg.pl',
+  '*.hotjar.*',
   '*.licdn.com',
   '*.imgur.com',
-  '*.hsforms.com',
-  'vercel.live',
+  '*.hubspot.*',
   '*.vercel.com',
-  '*.hubspot.com',
   '*.unsplash.com',
   '*.gravatar.com',
   '*.highlight.io',
-  'tailwindui.com',
+  '*.googleusercontent.com',
+  '*.rightmove.co.uk',
   '*.brandcrowd.com',
   '*.placeholder.com',
-  '*.pollinations.ai',
-  '*.googletagmanager.com',
-  '*.googleusercontent.com',
-  '*.rightmove.co.uk'
+  '*.pollinations.ai'
 ];
 
+/** @type {string[]} */
 export const scriptOrigins = [
-  '*.sentry.io',
+  '*.sentry.*',
   '*.kinde.com',
-  '*.termly.io',
-  'corsproxy.io',
   '*.stripe.com',
-  '*.hotjar.io',
-  '*.hotjar.com',
-  '*.hubspot.com',
-  '*.hsforms.com',
+  '*.hotjar.*',
+  '*.hubspot.*',
   '*.supabase.co',
   '*.mixpanel.com',
-  '*.formspree.io',
   '*.highlight.io',
-  '*.meticulous.ai',
   '*.amazonaws.com',
-  '*.hs-banner.com',
-  '*.hs-scripts.com',
-  '*.sentry-cdn.com',
-  '*.hs-analytics.net',
-  'google-analytics.com',
-  '*.vercel-scripts.com',
-  '*.vercel-insights.com',
+  '*.google-analytics.*',
+  '*.vercel-*.com',
   '*.googletagmanager.com',
-  '*.hscollectedforms.net',
-  'cloudflareinsights.com',
-  '*.google-analytics.com',
-  '*.cloudflareinsights.com'
+  '*.cloudflareinsights.com',
+  '*.meticulous.ai',
+  '*.formspree.io'
 ];
 
-export const styleOrigins = ['vercel.live', '*.vercel.com'];
+/** @type {string[]} */
+export const styleOrigins = [];
 
-export const allOrigins = [
-  ...new Set([
-    ...origins,
-    ...fontOrigins,
-    ...frameOrigins,
-    ...imageOrigins,
-    ...scriptOrigins,
-    ...styleOrigins,
-    ...connectOrigins
-  ])
-];
+/**
+ * Removes duplicates from an array while preserving order
+ *
+ * @param arr - Array of origins
+ * @returns - Array with duplicates removed
+ */
+export const uniqueOrigins = (/** @type {string[]} */ arr) =>
+  /** @type {string[]} */
+  [...new Set(arr)];
+
+/** @type {string[]} */
+export const allOrigins = uniqueOrigins([
+  ...origins,
+  ...fontOrigins,
+  ...frameOrigins,
+  ...imageOrigins,
+  ...scriptOrigins,
+  ...styleOrigins,
+  ...connectOrigins
+]);

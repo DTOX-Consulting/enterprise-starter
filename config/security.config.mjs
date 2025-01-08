@@ -8,7 +8,8 @@ import {
   frameOrigins,
   imageOrigins,
   scriptOrigins,
-  styleOrigins
+  styleOrigins,
+  uniqueOrigins
 } from './origins.config.mjs';
 
 // because of type bug.
@@ -36,33 +37,33 @@ const nextSafeConfig = {
     mergeDefaultDirectives: true,
     // @ts-expect-error -- Broken type.
     'prefetch-src': false,
-    'base-uri': [special.self],
+    'base-uri': uniqueOrigins([special.self]),
     'child-src': [special.self],
-    'default-src': [special.self],
-    'worker-src': [special.self, special.blob],
-    'font-src': [special.self, special.data, ...fontOrigins],
-    'frame-src': [special.self, ...origins, ...frameOrigins],
-    'form-action': [special.self, ...origins, ...scriptOrigins],
-    'connect-src': [special.self, special.data, ...allOrigins],
-    'frame-ancestors': [special.self, ...origins, ...frameOrigins],
-    'style-src': [special.self, special.unsafeInline, ...styleOrigins],
-    'img-src': [special.self, special.data, special.blob, ...imageOrigins],
-    'script-src': [
+    'default-src': uniqueOrigins([special.self]),
+    'worker-src': uniqueOrigins([special.self, special.blob]),
+    'font-src': uniqueOrigins([special.self, special.data, ...fontOrigins]),
+    'frame-src': uniqueOrigins([special.self, ...origins, ...frameOrigins]),
+    'form-action': uniqueOrigins([special.self, ...origins, ...scriptOrigins]),
+    'connect-src': uniqueOrigins([special.self, special.data, ...allOrigins]),
+    'frame-ancestors': uniqueOrigins([special.self, ...origins, ...frameOrigins]),
+    'style-src': uniqueOrigins([special.self, special.unsafeInline, ...styleOrigins]),
+    'img-src': uniqueOrigins([special.self, special.data, special.blob, ...imageOrigins]),
+    'script-src': uniqueOrigins([
       special.self,
       special.data,
       special.unsafeEval,
       special.unsafeInline,
       ...origins,
       ...scriptOrigins
-    ],
-    'script-src-elem': [
+    ]),
+    'script-src-elem': uniqueOrigins([
       special.self,
       special.data,
       special.unsafeEval,
       special.unsafeInline,
       ...origins,
       ...scriptOrigins
-    ]
+    ])
   }
 };
 
