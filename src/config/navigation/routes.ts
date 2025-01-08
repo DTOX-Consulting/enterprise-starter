@@ -13,11 +13,10 @@ export const routes = {
   pricing: '/pricing',
   profile: '/profile',
   settings: '/profile',
+  dashboard: '/dashboard',
   // settings: '/settings',
   comingSoon: '/coming-soon',
-  authCallback: '/auth-callback',
-  dashboard: '/dashboard',
-  featurePreviews: '/feature-previews'
+  authCallback: '/auth-callback'
 
   // Your routes here
 } as const;

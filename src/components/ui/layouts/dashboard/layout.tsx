@@ -5,14 +5,14 @@ import { Main } from '@/components/ui/layouts/dashboard/main';
 import { Sidebar } from '@/components/ui/layouts/dashboard/sidebar';
 import { cn } from '@/lib/utils';
 
-type LayoutProps = Readonly<{
+type LayoutProps = {
   className?: string;
   sidebarWidth?: number;
   children: React.ReactNode;
   headerChildren?: React.ReactNode;
   sidebarChildren?: React.ReactNode;
   headerProps?: HeaderProps;
-}>;
+};
 
 export default function Layout({
   className,
@@ -21,7 +21,7 @@ export default function Layout({
   headerProps,
   headerChildren,
   sidebarChildren
-}: LayoutProps) {
+}: Readonly<LayoutProps>) {
   return (
     <div className="flex min-h-dvh flex-row">
       <Sidebar sidebarWidth={sidebarWidth}>{sidebarChildren}</Sidebar>
