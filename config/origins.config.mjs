@@ -1,11 +1,11 @@
 /** @type {string[]} */
 const exactOrigins = [
-  '*.enterprise-starter.com',
-  'https://enterprise-starter.com',
-  'https://app.enterprise-starter.com',
-  '*.enterprise-starter.co.uk',
-  'https://enterprise-starter.co.uk',
-  'https://app.enterprise-starter.co.uk'
+  // '*.hello-world.com',
+  // 'https://hello-world.com',
+  // 'https://app.hello-world.com',
+  // '*.hello-world.co.uk',
+  // 'https://hello-world.co.uk',
+  // 'https://app.hello-world.co.uk'
 ];
 
 /** @type {string[]} */
@@ -15,7 +15,6 @@ const defaultOrigins = [
   'https://*.vercel.app',
   'https://vercel.live',
   'https://*.vercel.com',
-  'https://*.vercel-*.com',
   'https://*.cloudflareaccess.com'
 ];
 /** @type {string[]} */
@@ -37,38 +36,43 @@ export const connectOrigins = [
 
 /** @type {string[]} */
 export const imageOrigins = [
-  '*.hotjar.*',
+  '*.hotjar.com',
   '*.licdn.com',
   '*.imgur.com',
-  '*.hubspot.*',
+  '*.hubspot.com',
+  '*.hubspot.net',
   '*.vercel.com',
   '*.unsplash.com',
   '*.gravatar.com',
   '*.highlight.io',
-  '*.googleusercontent.com',
   '*.rightmove.co.uk',
   '*.brandcrowd.com',
   '*.placeholder.com',
-  '*.pollinations.ai'
+  '*.pollinations.ai',
+  '*.googleusercontent.com'
 ];
 
 /** @type {string[]} */
 export const scriptOrigins = [
-  '*.sentry.*',
+  '*.sentry.io',
+  '*.sentry-cdn.com',
   '*.kinde.com',
+  '*.termly.io',
   '*.stripe.com',
-  '*.hotjar.*',
-  '*.hubspot.*',
+  '*.hotjar.com',
+  '*.hubspot.com',
+  '*.hubspot.net',
   '*.supabase.co',
   '*.mixpanel.com',
   '*.highlight.io',
+  '*.formspree.io',
   '*.amazonaws.com',
-  '*.google-analytics.*',
-  '*.vercel-*.com',
-  '*.googletagmanager.com',
-  '*.cloudflareinsights.com',
   '*.meticulous.ai',
-  '*.formspree.io'
+  '*.vercel-scripts.com',
+  '*.vercel-insights.com',
+  '*.google-analytics.com',
+  '*.googletagmanager.com',
+  '*.cloudflareinsights.com'
 ];
 
 /** @type {string[]} */
