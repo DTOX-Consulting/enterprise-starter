@@ -73,6 +73,7 @@ export const createCompletion = async (
     temperature: chatOptions.temperature,
     messages
   });
+
   return completion.choices[0]?.message?.content ?? '';
 };
 
