@@ -1,7 +1,8 @@
 import { openai as aiOpenai } from '@ai-sdk/openai';
-import { type CoreMessage, streamText } from 'ai';
+import { type CoreMessage, type CoreSystemMessage, streamText } from 'ai';
 
 import { openai } from '@/lib/sdks/openai/client';
+import { AI_SYSTEM_CONTEXT } from '@/lib/sdks/openai/constants';
 
 import type { ModelType } from '@/lib/sdks/openai';
 import type { NN } from '@/lib/types';
@@ -49,17 +50,26 @@ export type GenerateParamsResult = {
   topic: string;
 };
 
+export const DEFAULT_AI_MODEL = 'gpt-4o-mini';
+
+export const getSystemPrompt = (): CoreSystemMessage => ({
+  role: 'system',
+  content: AI_SYSTEM_CONTEXT
+});
+
 export const createImageCompletion = async (imageOptions: ImageOptions) => {
   const response = await openai.images.generate(imageOptions);
   return response.data;
 };
 
 export const createCompletion = async (
-  messages: ChatCompletionMessageParam[],
+  _messages: ChatCompletionMessageParam[],
   chatOptions: ChatOptions = {}
 ) => {
+  const messages = [getSystemPrompt(), ..._messages];
+
   const completion = await openai.chat.completions.create({
-    model: chatOptions.model ?? 'gpt-4o',
+    model: chatOptions.model ?? DEFAULT_AI_MODEL,
     temperature: chatOptions.temperature,
     messages
   });
@@ -67,11 +77,13 @@ export const createCompletion = async (
 };
 
 export const streamCompletion = async (
-  messages: CoreMessage[],
+  _messages: CoreMessage[],
   chatOptions: StreamChatOptions = {}
 ) => {
+  const messages = [getSystemPrompt(), ..._messages];
+
   const stream = await streamText({
-    model: aiOpenai(chatOptions.model ?? 'gpt-4o'),
+    model: aiOpenai(chatOptions.model ?? DEFAULT_AI_MODEL),
     temperature: chatOptions.temperature,
     messages
   });

@@ -133,29 +133,3 @@ export const relatedApplications = {
     id: `${shortName.toLowerCase()}-web-app`
   }
 } as const;
-
-export const aiWelcomeTitle = 'Supercharge Your Experience with AI';
-export const aiDescription = 'Your AI-powered assistant for finding answers';
-
-export const exampleMessages = [
-  {
-    heading: 'Ask About Features',
-    message: 'What are the main features and how do they work?'
-  },
-  {
-    heading: 'Get Help',
-    message: 'I need help understanding how to get started.'
-  },
-  {
-    heading: 'Learn More',
-    message: 'Can you explain this in more detail?'
-  },
-  {
-    heading: 'Solve Problems',
-    message: "I'm having trouble with this. Can you help?"
-  },
-  {
-    heading: 'Get Recommendations',
-    message: 'What would you recommend for my needs?'
-  }
-] as const;

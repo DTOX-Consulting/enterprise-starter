@@ -1,7 +1,12 @@
-import { shortName, aiWelcomeTitle, aiDescription, exampleMessages } from '@/app/metadata';
+import { shortName } from '@/app/metadata';
 import { Button } from '@/components/ui/atoms/button';
 import { IconArrowRight } from '@/components/ui/organisms/chat/icons';
-import { AI_NAME } from '@/lib/sdks/openai/constants';
+import {
+  AI_NAME,
+  AI_WELCOME_TITLE,
+  AI_EXAMPLE_MESSAGES,
+  AI_WELCOME_DESCRIPTION
+} from '@/lib/sdks/openai/constants';
 
 import type { UseChatHelpers } from 'ai/react';
 
@@ -14,12 +19,12 @@ export function EmptyScreen({ setInput }: EmptyScreenProps) {
         <h1 className="mb-2 text-lg font-semibold">
           Welcome to {AI_NAME} - {shortName} AI!
         </h1>
-        <p className="mb-6 leading-normal text-muted-foreground">{aiWelcomeTitle}</p>
+        <p className="mb-6 leading-normal text-muted-foreground">{AI_WELCOME_TITLE}</p>
 
         <div>
-          <p className="mt-2 leading-normal text-muted-foreground">{aiDescription}</p>
+          <p className="mt-2 leading-normal text-muted-foreground">{AI_WELCOME_DESCRIPTION}</p>
           <div className="mt-4 flex flex-col items-start space-y-2">
-            {exampleMessages.map((message) => (
+            {AI_EXAMPLE_MESSAGES.map((message) => (
               <Button
                 key={message.heading}
                 variant="link"
