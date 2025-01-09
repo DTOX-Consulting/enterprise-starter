@@ -12,10 +12,10 @@ import { cn } from '@/lib/utils';
 import type { ChatRequestBody } from '@/lib/sdks/openai/api';
 
 export type ChatProps = {
+  id?: string;
+  showBots?: boolean;
   initialMessages?: Message[];
   isUnAuthenticated?: boolean;
-  showBots?: boolean;
-  id?: string;
 } & React.ComponentProps<'div'>;
 
 export function Chat({ id, isUnAuthenticated, initialMessages, className }: ChatProps) {
@@ -37,7 +37,7 @@ export function Chat({ id, isUnAuthenticated, initialMessages, className }: Chat
 
   return (
     <div className="relative flex size-full">
-      <div className={cn('size-full overflow-y-hidden pb-[200px] pt-4 md:pt-10', className)}>
+      <div className={cn('size-full overflow-y-hidden pb-[100px] pt-4 md:pt-10', className)}>
         {nonSystemMessages.length > 0 ? (
           <ChatList messages={messages}>
             <ChatScrollAnchor trackVisibility={isLoading} />

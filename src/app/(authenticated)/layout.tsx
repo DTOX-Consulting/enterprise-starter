@@ -1,3 +1,4 @@
+import { Footer } from '@/components/ui/layouts/default/footer';
 import { Header } from '@/components/ui/layouts/default/header';
 import { Main } from '@/components/ui/layouts/default/main';
 import { authenticationRedirection } from '@/lib/auth/redirect';
@@ -13,6 +14,7 @@ export default async function Layout({ children }: Readonly<LayoutProps>) {
     <>
       <Header />
       <Main>{children}</Main>
+      <Footer />
     </>
   );
 }

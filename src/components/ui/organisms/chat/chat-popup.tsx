@@ -1,19 +1,26 @@
 'use client';
 
 import Script from 'next/script';
-import { useEffect } from 'react';
+import { isMobile } from 'react-device-detect';
 
-export function ChatPopup() {
-  useEffect(() => {
-    showChatPopup();
-    return hideChatPopup;
-  }, []);
+import { useDebounceEffect } from '@/lib/hooks/use-debounce';
+
+export function ChatPopup({ expand }: { expand?: boolean }) {
+  useDebounceEffect(
+    'debounce-chat-popup',
+    () => {
+      showChatPopup(isMobile ? false : expand);
+      return hideChatPopup;
+    },
+    [expand],
+    1500
+  );
 
   return (
     <Script
       type="module"
       strategy="lazyOnload"
-      src="/iframe-widget-js?app=chat&style=popup&state=expand&position=right&size=sm"
+      src="/iframe-widget-js?app=chat&style=popup&state=collapse&position=right&size=sm"
     />
   );
 }
@@ -25,21 +32,18 @@ function getElements() {
   return { iframe, iframeWrapper, script };
 }
 
-function showChatPopup() {
+function showChatPopup(expand = false) {
   const { iframe, iframeWrapper } = getElements();
-  // eslint-disable-next-line sonarjs/post-message
-  iframe?.contentWindow?.postMessage('expand', '*');
+  if (expand) iframe?.contentWindow?.postMessage('expand', '*');
   iframeWrapper?.classList.remove('hidden');
 }
 
 function hideChatPopup(remove = false) {
   const { iframe, script, iframeWrapper } = getElements();
-  // eslint-disable-next-line sonarjs/post-message
   iframe?.contentWindow?.postMessage('collapse', '*');
   iframeWrapper?.classList.add('hidden');
 
   if (!remove) return;
-  // eslint-disable-next-line sonarjs/post-message
   iframe?.contentWindow?.postMessage('close', '*');
   iframeWrapper?.remove();
   script?.remove();

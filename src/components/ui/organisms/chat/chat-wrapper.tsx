@@ -8,7 +8,7 @@ export function DefaultChat({
 }>) {
   const id = nanoid();
   return (
-    <div className="h-full">
+    <div className="h-dvh">
       <Chat id={id} showBots={showBots} />
     </div>
   );
