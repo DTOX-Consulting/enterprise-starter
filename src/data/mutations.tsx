@@ -7,7 +7,7 @@ import { useAuth } from '@/lib/hooks/use-auth';
 export function useDBDataMutation() {
   const { subscription } = useAuth();
   const analyticsManager = useAnalytics();
-  const isPaid = isPaidTier(subscription?.tier);
+  const isPaid = isPaidTier(subscription.tier);
 
   return {
     isPaid,

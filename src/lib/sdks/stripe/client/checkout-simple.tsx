@@ -32,7 +32,7 @@ export const handleCheckout = async (
 
 export const CheckoutButton = ({ tier }: { tier: TierName }) => {
   const { user } = useAuth();
-  const email = user?.email;
+  const { email } = user;
 
   if (G.isNullable(email)) {
     return null;
