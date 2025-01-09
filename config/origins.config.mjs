@@ -17,6 +17,7 @@ const defaultOrigins = [
   'https://*.vercel.com',
   'https://*.cloudflareaccess.com'
 ];
+
 /** @type {string[]} */
 export const origins = [...defaultOrigins, ...exactOrigins];
 
