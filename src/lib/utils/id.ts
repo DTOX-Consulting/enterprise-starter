@@ -35,6 +35,11 @@ export const generateUUID = () =>
 
 let seed = Date.now();
 
+export function generateId(length = 12): string {
+  const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  return Array.from({ length }, () => chars[randomInt(0, chars.length)]).join('');
+}
+
 export const randomInt = (min: number, max: number) => {
   const minCeil = Math.ceil(min);
   const maxFloor = Math.floor(max);
