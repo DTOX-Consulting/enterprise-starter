@@ -10,7 +10,8 @@ import path from 'node:path';
 import zlib from 'node:zlib';
 
 import { sync as mkdirpSync } from 'mkdirp';
-import { stringify } from 'safe-stable-stringify';
+
+import { parse, stringify } from '@/lib/utils/json';
 
 // Define types for build manifests
 type BuildManifest = {
@@ -51,10 +52,10 @@ try {
 }
 
 // Read and parse the build manifest and app build manifest JSON files
-const buildMeta: BuildManifest = JSON.parse(
+const buildMeta: BuildManifest = parse(
   fs.readFileSync(path.join(nextMetaRoot, 'build-manifest.json'), 'utf8')
 ) as BuildManifest;
-const appDirMeta: AppBuildManifest = JSON.parse(
+const appDirMeta: AppBuildManifest = parse(
   fs.readFileSync(path.join(nextMetaRoot, 'app-build-manifest.json'), 'utf8')
 ) as AppBuildManifest;
 
@@ -160,14 +161,7 @@ function getScriptSize(scriptPath: string): [number, number] {
 // Reads options from `package.json`
 function getOptions(pathPrefix = process.cwd()): { buildOutputDirectory?: string; name: string } {
   const pkgContent = fs.readFileSync(path.join(pathPrefix, 'package.json'), 'utf8');
-  let pkg: PackageJSON;
-
-  try {
-    pkg = JSON.parse(pkgContent) as PackageJSON;
-  } catch {
-    throw new Error('Failed to parse package.json.');
-  }
-
+  const pkg = parse(pkgContent) as PackageJSON;
   return { ...pkg.nextBundleAnalysis, name: pkg.name };
 }
 

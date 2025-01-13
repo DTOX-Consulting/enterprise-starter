@@ -17,11 +17,12 @@ import {
   useMemo,
   type KeyboardEvent
 } from 'react';
-import { stringify } from 'safe-stable-stringify';
 
 import { Badge } from '@/components/ui/atoms/badge';
 import { Command, CommandGroup, CommandItem, CommandList } from '@/components/ui/atoms/command';
 import { cn } from '@/lib/utils';
+import { clone } from '@/lib/utils/clone';
+import { stringify } from '@/lib/utils/json';
 import { danglingPromise } from '@/lib/utils/promise';
 
 export type Option = {
@@ -128,7 +129,7 @@ function transToGroupOption(options: Option[], groupBy?: string) {
 }
 
 function removePickedOption(groupOption: GroupOption, picked: Option[]) {
-  const cloneOption = JSON.parse(stringify(groupOption)) as GroupOption;
+  const cloneOption = clone(groupOption);
 
   for (const [key, value] of Object.entries(cloneOption)) {
     cloneOption[key] = value.filter((val) => !picked.find((pick) => pick.value === val.value));
@@ -162,7 +163,7 @@ const CommandEmpty = forwardRef<HTMLDivElement, ComponentProps<typeof CommandPri
 
 CommandEmpty.displayName = 'CommandEmpty';
 
-const SelectMulti = forwardRef<SelectMultiRef, SelectMultiProps>(
+export const SelectMulti = forwardRef<SelectMultiRef, SelectMultiProps>(
   // eslint-disable-next-line max-lines-per-function, complexity
   (
     {
@@ -497,4 +498,3 @@ const SelectMulti = forwardRef<SelectMultiRef, SelectMultiProps>(
 );
 
 SelectMulti.displayName = 'SelectMulti';
-export { SelectMulti };

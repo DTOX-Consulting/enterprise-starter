@@ -8,7 +8,7 @@ import { RXDBProvider } from '@/lib/db/rxdb/provider';
 import { PersistQueryClient } from '@/lib/hooks/use-persist-query-client';
 import { useHighlightIdentify } from '@/lib/sdks/highlight/client';
 
-export function ClientProviders({ children, ...props }: ThemeProviderProps) {
+export function ClientProviders({ children, ...props }: Readonly<ThemeProviderProps>) {
   useHighlightIdentify();
 
   return (

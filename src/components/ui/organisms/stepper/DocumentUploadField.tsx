@@ -13,7 +13,7 @@ export default function DocumentUploadField({
   label,
   onChange,
   className = ''
-}: DocumentUploadFieldProps) {
+}: Readonly<DocumentUploadFieldProps>) {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files?.[0]) {
       onChange(event.target.files[0]);

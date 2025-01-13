@@ -29,7 +29,7 @@ export default function StepperForm({
   onClose,
   onStepChange,
   currentStep = 0
-}: StepperFormProps) {
+}: Readonly<StepperFormProps>) {
   const [activeStep, setActiveStep] = useState(currentStep);
   const [isOpen, setIsOpen] = useState(true);
   const isMobile = useBreakpointBelow('md');

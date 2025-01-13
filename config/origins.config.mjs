@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-clear-text-protocols */
 /** @type {string[]} */
 const exactOrigins = [
   // '*.hello-world.com',
@@ -99,3 +100,5 @@ export const allOrigins = uniqueOrigins([
   ...styleOrigins,
   ...connectOrigins
 ]);
+
+/* eslint-enable sonarjs/no-clear-text-protocols */

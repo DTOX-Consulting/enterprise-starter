@@ -4,7 +4,7 @@ export type ImageConfig = {
   height: number;
   directory: string;
   description: string;
-}
+};
 
 export const SOCIAL_CONFIGS: ImageConfig[] = [
   // Facebook

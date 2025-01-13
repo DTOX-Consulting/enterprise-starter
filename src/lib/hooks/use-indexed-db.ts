@@ -37,6 +37,7 @@ const useIndexedDB = <T extends string = string>(
   const setValue = useCallback(
     async (value: T) => {
       if (isLoading) return;
+      const prevValue = storedValue;
 
       try {
         setIsLoading(true);
@@ -46,12 +47,12 @@ const useIndexedDB = <T extends string = string>(
         if (!result.success) {
           console.error('Failed to save value to IndexedDB:', result.error);
           // Revert on failure
-          setStoredValue(storedValue);
+          setStoredValue(prevValue);
         }
       } catch (error) {
         console.error('Failed to save value to IndexedDB:', error);
         // Revert on error
-        setStoredValue(storedValue);
+        setStoredValue(prevValue);
       } finally {
         setIsLoading(false);
       }

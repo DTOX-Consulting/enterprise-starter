@@ -77,11 +77,11 @@ const useR2DB = <T extends string = string>(
   const setValue = useCallback(
     async (value: T) => {
       if (isLoading) return;
+      const prevValue = storedValue;
 
       try {
         setIsLoading(true);
         setStoredValue(value);
-
         let result: UploadResult;
 
         if (config.saveAsFile) {
@@ -95,13 +95,13 @@ const useR2DB = <T extends string = string>(
 
         if (!result.success) {
           console.error('Failed to save value to R2:', result.error);
-          setStoredValue(storedValue);
+          setStoredValue(prevValue);
         } else {
           await utils.upload.retrieve.invalidate(queryData);
         }
       } catch (error) {
         console.error('Failed to save value to R2:', error);
-        setStoredValue(storedValue);
+        setStoredValue(prevValue);
       } finally {
         setIsLoading(false);
       }

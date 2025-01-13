@@ -6,8 +6,10 @@ import { throwError } from '@/lib/utils/error';
 
 import type { GenericFunction } from '@/lib/utils/function';
 
+/* eslint-disable sonarjs/redundant-type-aliases */
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export type GenericAny = any;
+/* eslint-enable sonarjs/redundant-type-aliases */
 
 export type DeepReadonlyArray<T> = readonly DeepReadonly<T>[];
 

@@ -19,7 +19,7 @@ import type { AppRouter } from '@/trpc/routers';
 
 export const api: ReturnType<typeof createTRPCReact<AppRouter>> = createTRPCReact<AppRouter>();
 
-export function TRPCReactProvider(props: { children: ReactNode; headers: Headers }) {
+export function TRPCReactProvider(props: Readonly<{ children: ReactNode; headers: Headers }>) {
   const formDataCondition = (op: Operation) => op.input instanceof FormData;
   const batchCondition = (op: Operation) => op.context['skipBatch'] === true;
 

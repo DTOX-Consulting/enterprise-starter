@@ -81,6 +81,7 @@ const components: MDXComponents = {
     ...props
   }: PropsWithChildren<React.TableHTMLAttributes<HTMLTableElement>>) => (
     <div className="my-6 w-full overflow-y-auto">
+      {/* eslint-disable-next-line sonarjs/table-header */}
       <table className={cn('w-full', className)} {...props} />
     </div>
   ),

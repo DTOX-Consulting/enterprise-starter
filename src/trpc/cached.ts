@@ -20,7 +20,10 @@ const defaultOptions: Required<CacheOptions> = {
   keyPrefix: 'trpc',
   ttlSeconds: 60 * 5, // 5 minutes
   invalidatePercentage: 10, // 10% chance of invalidating the cache
-  getKey: (path, input) => `${path}:${stringify(input)}`
+  getKey: (path, input) => {
+    const inputStr = stringify(input);
+    return G.isNotNullable(inputStr) ? `${path}:${inputStr}` : path;
+  }
 };
 
 const validate = async <T extends { ctx: unknown }>(

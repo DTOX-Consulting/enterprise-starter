@@ -2,7 +2,6 @@ import { G } from '@mobily/ts-belt';
 import { useState, useCallback, useRef } from 'react';
 
 export function useForceRerender() {
-  // eslint-disable-next-line sonarjs/hook-use-state
   const [, setTick] = useState(0);
 
   return useCallback(() => {

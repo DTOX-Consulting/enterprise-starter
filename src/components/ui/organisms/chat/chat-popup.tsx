@@ -5,7 +5,9 @@ import { isMobile } from 'react-device-detect';
 
 import { useDebounceEffect } from '@/lib/hooks/use-debounce';
 
-export function ChatPopup({ expand }: { expand?: boolean }) {
+const targetOrigin = '*' as string;
+
+export function ChatPopup({ expand }: Readonly<{ expand?: boolean }>) {
   useDebounceEffect(
     'debounce-chat-popup',
     () => {
@@ -34,17 +36,17 @@ function getElements() {
 
 function showChatPopup(expand = false) {
   const { iframe, iframeWrapper } = getElements();
-  if (expand) iframe?.contentWindow?.postMessage('expand', '*');
+  if (expand) iframe?.contentWindow?.postMessage('expand', targetOrigin);
   iframeWrapper?.classList.remove('hidden');
 }
 
 function hideChatPopup(remove = false) {
   const { iframe, script, iframeWrapper } = getElements();
-  iframe?.contentWindow?.postMessage('collapse', '*');
+  iframe?.contentWindow?.postMessage('collapse', targetOrigin);
   iframeWrapper?.classList.add('hidden');
 
   if (!remove) return;
-  iframe?.contentWindow?.postMessage('close', '*');
+  iframe?.contentWindow?.postMessage('close', targetOrigin);
   iframeWrapper?.remove();
   script?.remove();
 }

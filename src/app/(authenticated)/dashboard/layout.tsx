@@ -14,6 +14,6 @@ const headerProps = () => ({
   showSwitcherNavigation: true
 });
 
-export default function Layout({ children }: LayoutProps) {
+export default function Layout({ children }: Readonly<LayoutProps>) {
   return <DashboardLayout headerProps={headerProps()}>{children}</DashboardLayout>;
 }

@@ -32,7 +32,6 @@ export default function CountingNumbers({
     requestAnimationFrame(animateCount);
   }, [value, duration]);
 
-  // eslint-disable-next-line sonarjs/new-cap
   return <p className={className}>{Intl.NumberFormat().format(count)}</p>;
 }
 const easeOutQuad = (timing: number, begin: number, change: number, duration: number) => {

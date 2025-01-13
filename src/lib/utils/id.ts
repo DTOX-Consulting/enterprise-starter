@@ -17,8 +17,9 @@ export const isNanoId = (id: string, length = 12) =>
 export const slugify = (name: string) => {
   const text = name
     .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
+    .replace(/[^a-z0-9]+/gu, '-')
+    // eslint-disable-next-line sonarjs/anchor-precedence
+    .replace(/^-|-$/gu, '');
 
   const id = nanoid(4);
   return `${text}-${id}`.toLowerCase().trim();

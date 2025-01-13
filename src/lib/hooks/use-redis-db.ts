@@ -41,6 +41,7 @@ const useRedisDB = <T extends string = string>(
   const setValue = useCallback(
     async (value: T) => {
       if (isLoading) return;
+      const prevValue = storedValue;
 
       try {
         setIsLoading(true);
@@ -55,7 +56,7 @@ const useRedisDB = <T extends string = string>(
         if (!result.success) {
           console.error('Failed to save value to Redis:', result.error);
           // Revert on failure
-          setStoredValue(storedValue);
+          setStoredValue(prevValue);
         } else {
           // Invalidate the query to trigger a refresh
           await utils.redis.get.invalidate({ key: fullKey });
@@ -63,7 +64,7 @@ const useRedisDB = <T extends string = string>(
       } catch (error) {
         console.error('Failed to save value to Redis:', error);
         // Revert on error
-        setStoredValue(storedValue);
+        setStoredValue(prevValue);
       } finally {
         setIsLoading(false);
       }

@@ -81,7 +81,7 @@ const nextHighlight = (highlightConfig) => async (config) =>
 
 /** @type {((config: import('next').NextConfig) => import('next').NextConfig)[]} */
 const plugins = [
-  nextBundleAnalyzer({ enabled: env.ANALYZE === 'true' }),
+  nextBundleAnalyzer({ enabled: env.ANALYZE }),
   nextPWA({
     dest: 'public',
     disable: isDev
@@ -91,8 +91,7 @@ const plugins = [
   }),
   nextHighlight({
     uploadSourceMaps: !isDev,
-    // eslint-disable-next-line n/no-process-env
-    apiKey: process.env.HIGHLIGHT_SOURCEMAP_API_KEY
+    apiKey: env.HIGHLIGHT_SOURCEMAP_API_KEY
   })
 ];
 

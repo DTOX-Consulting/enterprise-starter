@@ -75,6 +75,9 @@ export const env = createEnv({
     GOOGLE_CLIENT_EMAIL: z.string().min(1).optional(),
     GOOGLE_PROJECT_ID: z.string().min(1).optional(),
 
+    // Highlight
+    HIGHLIGHT_SOURCEMAP_API_KEY: z.string().min(1).optional(),
+
     // Environment
     PORT: z.number().optional(),
     DOMAIN: z.string().min(1).optional(),
@@ -186,6 +189,9 @@ export const env = createEnv({
     WIX_SITE_ID: process.env.WIX_SITE_ID,
     WIX_ACCOUNT_ID: process.env.WIX_ACCOUNT_ID,
     HUBSPOT_API_KEY: process.env.HUBSPOT_API_KEY,
+
+    // Highlight
+    HIGHLIGHT_SOURCEMAP_API_KEY: process.env.HIGHLIGHT_SOURCEMAP_API_KEY,
 
     // ======================================== Client ======================================== //
     // App Config

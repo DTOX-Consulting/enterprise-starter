@@ -323,7 +323,7 @@ const generateLogos = async () => {
       const input = (await $`test -f ${svgPath}`.exitCode) === 0 ? svgPath : pngPath;
       const output = resolve(ROOT_DIR, `${logoRoot}/logo-${size}.png`);
 
-      sharp(input)
+      return sharp(input)
         .png()
         .resize({
           width: size,
@@ -343,7 +343,7 @@ const generateLogos = async () => {
       const input = (await $`test -f ${svgPath}`.exitCode) === 0 ? svgPath : pngPath;
       const output = resolve(ROOT_DIR, `${iconRoot}/icon-${size}.png`);
 
-      sharp(input)
+      return sharp(input)
         .png()
         .resize({
           width: size,
@@ -372,7 +372,7 @@ const generateScreenshots = async () => {
     const input = resolve(ROOT_DIR, `${inputRoot}/screenshot.png`);
     const output = resolve(ROOT_DIR, `${screenshotRoot}/screenshot-${sizes}.png`);
 
-    sharp(input)
+    return sharp(input)
       .resize(...(sizes.split('x').map(Number) as [number, number]))
       .png()
       .toFile(output, logError);

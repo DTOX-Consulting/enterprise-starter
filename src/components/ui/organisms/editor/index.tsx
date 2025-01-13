@@ -27,6 +27,7 @@ import { LinkSelector } from '@/components/ui/organisms/editor/selectors/link-se
 import { NodeSelector } from '@/components/ui/organisms/editor/selectors/node-selector';
 import { TextButtons } from '@/components/ui/organisms/editor/selectors/text-buttons';
 import { slashCommand, suggestionItems } from '@/components/ui/organisms/editor/slash-command';
+import { parse } from '@/lib/utils/json';
 
 import type { Editor as EditorType, UpdateContent } from '@/components/ui/organisms/editor/types';
 
@@ -114,7 +115,8 @@ const StatusBar = ({ saveStatus, charsCount }: { saveStatus: string; charsCount:
 
 export const Editor = ({
   onUpdate,
-  completionApi
+  completionApi,
+  defaultValue = '{}'
 }: {
   defaultValue?: string;
   completionApi?: string;
@@ -131,9 +133,8 @@ export const Editor = ({
   const [openNode, setOpenNode] = useState(false);
   const [openColor, setOpenColor] = useState(false);
 
-  const defaultValue = '{}';
   const [initialContent, setInitialContent] = useState<JSONContent>(
-    JSON.parse(defaultValue) as JSONContent
+    parse<JSONContent>(defaultValue) ?? {}
   );
 
   const debouncedUpdates = useDebounceCallback((editor: EditorType) => {

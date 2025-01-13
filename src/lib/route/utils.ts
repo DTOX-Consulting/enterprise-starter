@@ -25,7 +25,6 @@ export const fromPromise = async <T, E extends APIError>(
 ): Promise<Result<T, E>> => {
   try {
     const data = (await promise) as NonNullable<T>;
-    // eslint-disable-next-line sonarjs/new-cap
     return R.Ok(data);
   } catch (error) {
     const mappedError = mapError(error);

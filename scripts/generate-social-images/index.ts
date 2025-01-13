@@ -20,9 +20,9 @@ type ImageProcessingOptions = {
 };
 
 type RGBAColor = {
-  r: number;
-  g: number;
-  b: number;
+  red: number;
+  green: number;
+  blue: number;
   alpha: number;
 };
 
@@ -68,10 +68,10 @@ function parseHexColor(hex: string): RGBAColor {
     throw new Error('Invalid hex color format. Expected 6 hexadecimal characters with optional #');
   }
 
-  const r = Number.parseInt(normalized.slice(0, 2), 16);
-  const g = Number.parseInt(normalized.slice(2, 4), 16);
-  const b = Number.parseInt(normalized.slice(4, 6), 16);
-  return { r, g, b, alpha: 1 };
+  const red = Number.parseInt(normalized.slice(0, 2), 16);
+  const green = Number.parseInt(normalized.slice(2, 4), 16);
+  const blue = Number.parseInt(normalized.slice(4, 6), 16);
+  return { red, green, blue, alpha: 1 };
 }
 
 async function processImage(
@@ -123,25 +123,26 @@ async function generateSocialImages(
 ): Promise<ProcessedImage[]> {
   const { width, height } = await validateImage(inputPath);
   const inputImage = sharp(inputPath);
-  const results: ProcessedImage[] = [];
   const errors: string[] = [];
 
-  for (const config of SOCIAL_CONFIGS) {
-    try {
-      const result = await processImage(inputImage, width, height, config, options);
-      results.push(result);
-    } catch (error) {
-      const errorMessage = `Failed to generate ${config.name}: ${error instanceof Error ? error.message : 'Unknown error'}`;
-      errors.push(errorMessage);
-      console.error(errorMessage);
-    }
-  }
+  const results = await Promise.all(
+    SOCIAL_CONFIGS.map(async (config) => {
+      try {
+        return await processImage(inputImage, width, height, config, options);
+      } catch (error) {
+        const errorMessage = `Failed to generate ${config.name}: ${formatError(error)}`;
+        errors.push(errorMessage);
+        console.error(errorMessage);
+        return null;
+      }
+    })
+  );
 
-  if (errors.length > 0) {
+  if (G.isNotNullable(errors) && errors.length > 0) {
     console.error(`\n❌ ${errors.length} errors occurred during generation`);
   }
 
-  return results;
+  return results.filter(G.isNotNullable);
 }
 
 async function createZipArchive(images: ProcessedImage[]): Promise<string> {
@@ -149,16 +150,24 @@ async function createZipArchive(images: ProcessedImage[]): Promise<string> {
   const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
   const zipPath = path.join('public', 'images', 'social', `social-images-${timestamp}.zip`);
 
-  for (const image of images) {
-    const fileName = path.basename(image.outputPath);
-    const fileContent = await fs.readFile(image.outputPath);
-    zip.file(fileName, Uint8Array.from(fileContent));
-  }
+  await Promise.all(
+    images.map(async (image) => {
+      const fileName = path.basename(image.outputPath);
+      const fileContent = await fs.readFile(image.outputPath);
+      zip.file(fileName, Uint8Array.from(fileContent));
+    })
+  );
 
   const zipContent = await zip.generateAsync({ type: 'nodebuffer' });
   await fs.writeFile(zipPath, Uint8Array.from(zipContent));
 
   return zipPath;
+}
+
+function formatError(error: unknown): string {
+  if (G.isNullable(error)) return 'Unknown error';
+  if (error instanceof Error) return error.message;
+  return String(error);
 }
 
 async function main() {
@@ -180,7 +189,7 @@ async function main() {
           paddingY: Number.parseInt(cmdOptions.paddingY, 10)
         };
 
-        if (cmdOptions.verbose) {
+        if (G.isNotNullable(cmdOptions.verbose)) {
           console.log('Processing with options:', {
             ...processingOptions,
             inputPath
@@ -189,28 +198,22 @@ async function main() {
 
         const results = await generateSocialImages(inputPath, processingOptions);
 
-        if (cmdOptions.zip) {
+        if (G.isNotNullable(cmdOptions.zip)) {
           const zipPath = await createZipArchive(results);
           console.log(`Created zip archive at: ${zipPath}`);
         }
 
-        if (cmdOptions.verbose) {
+        if (G.isNotNullable(cmdOptions.verbose)) {
           console.log(
             'Generated images:',
-            results.map((r) => r.outputPath)
+            results.map((result) => result.outputPath)
           );
         } else {
           console.log(`Successfully generated ${results.length} images`);
         }
       } catch (error) {
-        console.error(
-          'Error:',
-          G.isNullable(error)
-            ? 'Unknown error'
-            : error instanceof Error
-              ? error.message
-              : String(error)
-        );
+        const errorMessage = formatError(error);
+        console.error('Error:', errorMessage);
         throw error;
       }
     });
@@ -223,8 +226,6 @@ void (async () => {
   try {
     await main();
   } catch (error) {
-    console.error(
-      G.isNullable(error) ? 'Unknown error' : error instanceof Error ? error.message : String(error)
-    );
+    console.error(formatError(error));
   }
 })();
