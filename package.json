@@ -288,8 +288,8 @@
     "@types/mixpanel-browser": "2.51.0",
     "@types/ms": "0.7.34",
     "@types/node": "22.10.5",
-    "@types/react": "npm:types-react@19.0.0-rc.1",
-    "@types/react-dom": "npm:types-react-dom@19.0.0",
+    "@types/react": "19.0.6",
+    "@types/react-dom": "19.0.3",
     "@types/react-syntax-highlighter": "15.5.13",
     "@vitejs/plugin-react": "4.3.4",
     "@vitest/ui": "1.6.0",
@@ -348,11 +348,11 @@
     "zx": "7.2.3"
   },
   "resolutions": {
+    "react-is": "19.0.0",
     "whatwg-url": "14.1.0",
     "@tiptap/core": "2.5.7",
-    "react-is": "19.0.0-rc-fb9a90fa48-20240614",
-    "@types/react": "npm:types-react@19.0.0-rc.1",
-    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
+    "@types/react": "19.0.6",
+    "@types/react-dom": "19.0.3"
   },
   "optionalDependencies": {
     "sharp": "0.33.5"
