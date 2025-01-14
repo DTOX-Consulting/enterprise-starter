@@ -1,11 +1,11 @@
 import { createTRPCRouter } from '@/trpc';
 import { aiRouter } from '@/trpc/routers/ai';
 import { authRouter } from '@/trpc/routers/auth';
+import { cacheRouter } from '@/trpc/routers/cache';
 import { crmRouter } from '@/trpc/routers/crm';
 import { paymentRouter } from '@/trpc/routers/payment';
 import { proxyRouter } from '@/trpc/routers/proxy';
-import { redisRouter } from '@/trpc/routers/redis';
-import { uploadRouter } from '@/trpc/routers/upload';
+import { storageRouter } from '@/trpc/routers/storage';
 
 /**
  * This is the primary router for your server.
@@ -17,8 +17,8 @@ export const appRouter = createTRPCRouter({
   crm: createTRPCRouter(crmRouter),
   auth: createTRPCRouter(authRouter),
   proxy: createTRPCRouter(proxyRouter),
-  redis: createTRPCRouter(redisRouter),
-  upload: createTRPCRouter(uploadRouter),
+  cache: createTRPCRouter(cacheRouter),
+  storage: createTRPCRouter(storageRouter),
   payment: createTRPCRouter(paymentRouter)
 });
 

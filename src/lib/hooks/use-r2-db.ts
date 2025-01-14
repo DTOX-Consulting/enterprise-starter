@@ -39,9 +39,9 @@ const useR2DB = <T extends string = string>(
   );
 
   const utils = api.useUtils();
-  const { data: r2Data } = api.upload.retrieve.useQuery(queryData);
-  const { mutateAsync: uploadBase64 } = api.upload.base64.useMutation();
-  const { mutateAsync: uploadFormData } = api.upload.formData.useMutation();
+  const { data: r2Data } = api.storage.retrieve.useQuery(queryData);
+  const { mutateAsync: uploadBase64 } = api.storage.base64.useMutation();
+  const { mutateAsync: uploadFormData } = api.storage.formData.useMutation();
 
   const createFormData = useCallback(
     (value: T) =>
@@ -97,7 +97,7 @@ const useR2DB = <T extends string = string>(
           console.error('Failed to save value to R2:', result.error);
           setStoredValue(prevValue);
         } else {
-          await utils.upload.retrieve.invalidate(queryData);
+          await utils.storage.retrieve.invalidate(queryData);
         }
       } catch (error) {
         console.error('Failed to save value to R2:', error);
@@ -115,7 +115,7 @@ const useR2DB = <T extends string = string>(
       uploadFormData,
       createFormData,
       config.saveAsFile,
-      utils.upload.retrieve
+      utils.storage.retrieve
     ]
   );
 

@@ -1,3 +1,4 @@
+import type { AvailablePermissions } from '@/lib/auth/permissions';
 import type { GenericAny, GenericObject } from '@/lib/utils/object';
 import type { KindeUser } from '@kinde-oss/kinde-auth-nextjs/types';
 import type { ProcedureBuilder, ProcedureParams, AnyRootConfig } from '@trpc/server';
@@ -7,6 +8,7 @@ export type Context<S extends boolean | undefined> = {
   request: NextRequest;
   headers: Headers;
   session: {
+    permissions: AvailablePermissions[];
     user: S extends true
       ? KindeUser<Record<string, GenericAny>>
       : S extends false

@@ -2,7 +2,8 @@ import { G } from '@mobily/ts-belt';
 import { z } from 'zod';
 import { zfd } from 'zod-form-data';
 
-import { upload, retrieve } from '@/lib/sdks/cloudflare/r2/utils';
+import { authorize } from '@/lib/auth/authorize';
+import { upload, retrieve, getFileKey } from '@/lib/sdks/cloudflare/r2/utils';
 import { isFileLike } from '@/lib/utils/file';
 import { parseDataURL } from '@/lib/utils/url';
 import { protectedProcedure } from '@/trpc';
@@ -13,7 +14,7 @@ import type { ContextWithOptionalUser } from '@/trpc/types';
 // Custom Zod validator for File
 const zFile = z.custom<File>((file) => isFileLike(file), 'Input must be a File');
 
-export const uploadRouter = {
+export const storageRouter = {
   base64: protectedProcedure
     .input(
       z.object({
@@ -24,6 +25,12 @@ export const uploadRouter = {
       })
     )
     .mutation(async ({ input, ctx }) => {
+      authorize({
+        action: 'storage.upload',
+        session: ctx.session,
+        data: { key: getFileKey(ctx, input.name, input.dirPath) }
+      });
+
       const { name, dirPath, dataUrl, bucket } = input;
       const { data, mimeType } = parseDataURL(dataUrl);
 
@@ -48,6 +55,12 @@ export const uploadRouter = {
       })
     )
     .mutation(async ({ input, ctx }) => {
+      authorize({
+        action: 'storage.upload',
+        session: ctx.session,
+        data: { key: getFileKey(ctx, input.name, input.dirPath) }
+      });
+
       const { file, name, dirPath, bucket } = input;
       return handleFile({ ctx, file, name, dirPath, bucket });
     }),
@@ -61,6 +74,12 @@ export const uploadRouter = {
       })
     )
     .mutation(async ({ input, ctx }) => {
+      authorize({
+        action: 'storage.upload',
+        session: ctx.session,
+        data: { key: getFileKey(ctx, input.name, input.dirPath) }
+      });
+
       const { name, dirPath, file, bucket } = input;
       return handleFile({ ctx, file, name, dirPath, bucket });
     }),
@@ -73,6 +92,12 @@ export const uploadRouter = {
       })
     )
     .query(async ({ input, ctx }) => {
+      authorize({
+        action: 'storage.upload',
+        session: ctx.session,
+        data: { key: getFileKey(ctx, input.name, input.dirPath) }
+      });
+
       const { name, bucket, dirPath } = input;
       return retrieveFile({ ctx, name, bucket, dirPath });
     })

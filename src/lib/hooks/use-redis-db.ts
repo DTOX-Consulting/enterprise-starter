@@ -19,8 +19,8 @@ const useRedisDB = <T extends string = string>(
   const fullKey = G.isNotNullable(config.prefix) ? `${config.prefix}:${key}` : key;
 
   const utils = api.useUtils();
-  const { mutateAsync: setRedisValue } = api.redis.set.useMutation();
-  const { data: redisData } = api.redis.get.useQuery({ key: fullKey });
+  const { mutateAsync: setRedisValue } = api.cache.set.useMutation();
+  const { data: redisData } = api.cache.get.useQuery({ key: fullKey });
 
   useEffect(() => {
     const loadValue = () => {
@@ -59,7 +59,7 @@ const useRedisDB = <T extends string = string>(
           setStoredValue(prevValue);
         } else {
           // Invalidate the query to trigger a refresh
-          await utils.redis.get.invalidate({ key: fullKey });
+          await utils.cache.get.invalidate({ key: fullKey });
         }
       } catch (error) {
         console.error('Failed to save value to Redis:', error);
@@ -69,7 +69,7 @@ const useRedisDB = <T extends string = string>(
         setIsLoading(false);
       }
     },
-    [isLoading, fullKey, storedValue, setRedisValue, config.ttl, utils.redis.get]
+    [isLoading, fullKey, storedValue, setRedisValue, config.ttl, utils.cache.get]
   );
 
   return [storedValue, setValue, isLoading];
