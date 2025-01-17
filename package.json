@@ -206,6 +206,7 @@
     "puppeteer-core": "22.15.0",
     "react": "19.1.0-canary-fc8a898d-20241226",
     "react-contenteditable": "3.3.7",
+    "react-currency-input-field": "3.9.0",
     "react-datepicker": "7.6.0",
     "react-day-picker": "8.10.1",
     "react-device-detect": "2.2.3",

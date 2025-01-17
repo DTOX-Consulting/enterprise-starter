@@ -483,6 +483,9 @@ importers:
       react-contenteditable:
         specifier: 3.3.7
         version: 3.3.7(react@19.1.0-canary-fc8a898d-20241226)
+      react-currency-input-field:
+        specifier: 3.9.0
+        version: 3.9.0(react@19.1.0-canary-fc8a898d-20241226)
       react-datepicker:
         specifier: 7.6.0
         version: 7.6.0(react-dom@19.1.0-canary-fc8a898d-20241226(react@19.1.0-canary-fc8a898d-20241226))(react@19.1.0-canary-fc8a898d-20241226)
@@ -15801,6 +15804,11 @@ packages:
 
   react-css-styled@1.1.9:
     resolution: {integrity: sha512-M7fJZ3IWFaIHcZEkoFOnkjdiUFmwd8d+gTh2bpqMOcnxy/0Gsykw4dsL4QBiKsxcGow6tETUa4NAUcmJF+/nfw==}
+
+  react-currency-input-field@3.9.0:
+    resolution: {integrity: sha512-OmkO0rRSGiNGbcO4F1wzC+Szm2A7tLRGtDAKF6t0xNrFr07q99AHo3BAn/68RTEG4iwqc2m2jekKZi33/8SV+Q==}
+    peerDependencies:
+      react: ^16.9.0 || ^17.0.0 || ^18.0.0
 
   react-datepicker@7.6.0:
     resolution: {integrity: sha512-9cQH6Z/qa4LrGhzdc3XoHbhrxNcMi9MKjZmYgF/1MNNaJwvdSjv3Xd+jjvrEEbKEf71ZgCA3n7fQbdwd70qCRw==}
@@ -37168,6 +37176,10 @@ snapshots:
     dependencies:
       css-styled: 1.0.8
       framework-utils: 1.1.0
+
+  react-currency-input-field@3.9.0(react@19.1.0-canary-fc8a898d-20241226):
+    dependencies:
+      react: 19.1.0-canary-fc8a898d-20241226
 
   react-datepicker@7.6.0(react-dom@19.1.0-canary-fc8a898d-20241226(react@19.1.0-canary-fc8a898d-20241226))(react@19.1.0-canary-fc8a898d-20241226):
     dependencies:
