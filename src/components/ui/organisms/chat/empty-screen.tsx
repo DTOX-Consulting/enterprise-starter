@@ -6,7 +6,7 @@ import {
   AI_WELCOME_TITLE,
   AI_EXAMPLE_MESSAGES,
   AI_WELCOME_DESCRIPTION
-} from '@/lib/sdks/openai/constants';
+} from '@/local/ai/constants';
 
 import type { UseChatHelpers } from 'ai/react';
 

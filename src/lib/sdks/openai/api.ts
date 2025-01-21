@@ -2,9 +2,9 @@ import { openai as aiOpenai } from '@ai-sdk/openai';
 import { type CoreMessage, type CoreSystemMessage, streamText } from 'ai';
 
 import { openai } from '@/lib/sdks/openai/client';
-import { AI_SYSTEM_CONTEXT } from '@/lib/sdks/openai/constants';
+import { AI_SYSTEM_CONTEXT } from '@/local/ai/constants';
 
-import type { ModelType } from '@/lib/sdks/openai';
+import type { ModelType } from '@/lib/sdks/openai/model';
 import type { NN } from '@/lib/types';
 import type { ChatCompletionMessageParam } from 'openai/resources/chat/completions.mjs';
 import type { ImageGenerateParams } from 'openai/resources/images.mjs';

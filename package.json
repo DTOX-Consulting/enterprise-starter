@@ -47,7 +47,8 @@
     "cf:preview": "pnpm run cf:pages:build && wrangler pages dev .vercel/output/static",
     "cf:deploy": "pnpm run cf:pages:build && wrangler pages deploy .vercel/output/static",
     "setup:stripe": "brew install stripe/stripe-cli/stripe; stripe login",
-    "prereqs:install": "brew install vips pkg-config gcc gnu-sed coreutils gnupg"
+    "prereqs:install": "brew install vips pkg-config gcc gnu-sed coreutils gnupg",
+    "run:script": "pnpm tsx --env-file .env -r dotenv/config"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "0.0.56",
@@ -55,6 +56,7 @@
     "@ai-sdk/mistral": "0.0.46",
     "@ai-sdk/openai": "0.0.72",
     "@alptugidin/react-circular-progress-bar": "1.1.4",
+    "@anthropic-ai/sdk": "0.33.1",
     "@arcjet/next": "1.0.0-alpha.34",
     "@aws-sdk/client-s3": "3.726.1",
     "@builder.io/partytown": "0.10.3",

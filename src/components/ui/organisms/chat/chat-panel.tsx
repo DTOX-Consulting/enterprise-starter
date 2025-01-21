@@ -5,8 +5,8 @@ import { ButtonScrollToBottom } from '@/components/ui/organisms/chat/button-scro
 import { IconRefresh, IconStop } from '@/components/ui/organisms/chat/icons';
 import { PromptForm } from '@/components/ui/organisms/chat/prompt-form';
 import { routes } from '@/config/navigation/routes';
-import { AI_NAME } from '@/lib/sdks/openai/constants';
 import { cn } from '@/lib/utils';
+import { AI_NAME } from '@/local/ai/constants';
 
 import type { UseChatHelpers } from 'ai/react';
 

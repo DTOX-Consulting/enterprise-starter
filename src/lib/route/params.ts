@@ -1,7 +1,7 @@
 import { G } from '@mobily/ts-belt';
 import { unbox } from 'unbox-js';
 
-import type { ModelType } from '@/lib/sdks/openai';
+import type { ModelType } from '@/lib/sdks/openai/model';
 import type { NN } from '@/lib/types';
 import type { GenericObject } from '@/lib/utils/object';
 import type { NextRequest } from 'next/server';

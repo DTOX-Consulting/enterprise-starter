@@ -59,7 +59,10 @@ export const env = createEnv({
     OPENAI_ORG_ID: z.string().min(1).optional(),
     OPENAI_API_KEY: z.string().min(1).optional(),
     OPENAI_PROJECT_ID: z.string().min(1).optional(),
+    ANTHROPIC_API_KEY: z.string().min(1).optional(),
     REPLICATE_API_TOKEN: z.string().min(1).optional(),
+    MISTRAL_API_KEY: z.string().min(1),
+    GEMINI_API_KEY: z.string().min(1),
 
     // CRM
     WIX_API_KEY: z.string().min(1).optional(),
@@ -182,7 +185,10 @@ export const env = createEnv({
     OPENAI_ORG_ID: process.env.OPENAI_ORG_ID,
     OPENAI_API_KEY: process.env.OPENAI_API_KEY,
     OPENAI_PROJECT_ID: process.env.OPENAI_PROJECT_ID,
+    ANTHROPIC_API_KEY: process.env.ANTHROPIC_API_KEY,
     REPLICATE_API_TOKEN: process.env.REPLICATE_API_TOKEN,
+    MISTRAL_API_KEY: process.env.MISTRAL_API_KEY,
+    GEMINI_API_KEY: process.env.GEMINI_API_KEY,
 
     // CRM
     WIX_API_KEY: process.env.WIX_API_KEY,
